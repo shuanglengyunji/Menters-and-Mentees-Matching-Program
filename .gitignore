@@ -44,3 +44,4 @@ CMakeLists.txt.user*
 
 # Private Files
 *.csv
+*.db
