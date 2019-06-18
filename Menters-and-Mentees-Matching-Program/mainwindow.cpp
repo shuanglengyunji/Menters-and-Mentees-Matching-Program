@@ -41,13 +41,23 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     qDebug() << "Database Init Success";
 
-    model = new QSqlTableModel(this,db);
-    model->setTable("m_Mentors");
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->select();
+    // mentors' table
+    model_mentors = new QSqlTableModel(this,db);
+    model_mentors->setTable("m_Mentors");
+    model_mentors->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model_mentors->select();
 
-    ui->tableView_mentors->setModel(model);
+    ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->resizeColumnsToContents();
+
+    // mentees' table
+    model_mentees = new QSqlTableModel(this,db);
+    model_mentees->setTable("m_Mentees");
+    model_mentees->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model_mentees->select();
+
+    ui->tableView_mentees->setModel(model_mentees);
+    ui->tableView_mentees->resizeColumnsToContents();
 }
 
 MainWindow::~MainWindow()
@@ -63,4 +73,19 @@ void MainWindow::on_actionImport_Mentors_triggered()
 void MainWindow::on_actionImport_Mentees_triggered()
 {
     qDebug() << "Import Mentees data";
+}
+
+void MainWindow::on_actionManage_Mentors_triggered()
+{
+    ui->stack->setCurrentIndex(0);
+}
+
+void MainWindow::on_actionManage_Mentees_triggered()
+{
+    ui->stack->setCurrentIndex(1);
+}
+
+void MainWindow::on_actionManage_Matching_triggered()
+{
+    ui->stack->setCurrentIndex(2);
 }

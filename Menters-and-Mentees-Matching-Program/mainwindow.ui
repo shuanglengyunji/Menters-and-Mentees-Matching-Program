@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>872</width>
-    <height>481</height>
+    <width>1180</width>
+    <height>657</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,18 +20,52 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QTableView" name="tableView_mentors">
+   <widget class="QStackedWidget" name="stack">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>801</width>
-      <height>401</height>
+      <x>20</x>
+      <y>10</y>
+      <width>1141</width>
+      <height>601</height>
      </rect>
     </property>
-    <property name="sortingEnabled">
-     <bool>true</bool>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="page_mentors">
+     <widget class="QTableView" name="tableView_mentors">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>1101</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_mentees">
+     <widget class="QTableView" name="tableView_mentees">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>1101</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_matching"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -39,7 +73,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>872</width>
+     <width>1180</width>
      <height>21</height>
     </rect>
    </property>
@@ -50,7 +84,16 @@
     <addaction name="actionImport_Mentors"/>
     <addaction name="actionImport_Mentees"/>
    </widget>
+   <widget class="QMenu" name="menuFunction">
+    <property name="title">
+     <string>Function</string>
+    </property>
+    <addaction name="actionManage_Mentors"/>
+    <addaction name="actionManage_Mentees"/>
+    <addaction name="actionManage_Matching"/>
+   </widget>
    <addaction name="menuTest"/>
+   <addaction name="menuFunction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionImport_Mentors">
@@ -61,6 +104,21 @@
   <action name="actionImport_Mentees">
    <property name="text">
     <string>Import Mentees</string>
+   </property>
+  </action>
+  <action name="actionManage_Mentors">
+   <property name="text">
+    <string>Manage Mentors</string>
+   </property>
+  </action>
+  <action name="actionManage_Mentees">
+   <property name="text">
+    <string>Manage Mentees</string>
+   </property>
+  </action>
+  <action name="actionManage_Matching">
+   <property name="text">
+    <string>Manage Matching</string>
    </property>
   </action>
  </widget>

@@ -33,13 +33,20 @@ private slots:
 
     void on_actionImport_Mentees_triggered();
 
+    void on_actionManage_Mentors_triggered();
+
+    void on_actionManage_Mentees_triggered();
+
+    void on_actionManage_Matching_triggered();
+
 private:
     Ui::MainWindow *ui;
 
     QSqlDatabase db;
 
-    QSqlTableModel * model;
-    QTableView *view;
+    QSqlTableModel * model_mentors;
+    QSqlTableModel * model_mentees;
+
 };
 
 #endif // MAINWINDOW_H
