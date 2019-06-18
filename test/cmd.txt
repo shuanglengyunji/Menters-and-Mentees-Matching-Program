@@ -1,4 +1,0 @@
-.mode csv
-.import D:\\\\Menters-and-Mentees-Matching-Program\\build-QT_SQLite_Test-Desktop_Qt_5_12_3_MinGW_32_bit-Debug\\debug\\Mentees.csv Mentees
-.save test.db
-.quit

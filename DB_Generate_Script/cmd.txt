@@ -1,0 +1,5 @@
+.mode csv
+.import Mentees_Original.csv m_Mentees
+.import Mentors_Original.csv m_Mentors
+.save db_mm.db
+.quit
