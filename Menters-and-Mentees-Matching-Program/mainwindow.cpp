@@ -68,24 +68,47 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionImport_Mentors_triggered()
 {
     qDebug() << "Import Mentors data";
+
+    QString file_path;
+    file_path = QFileDialog::getOpenFileName(this,tr("Import Mentors Data"),"",tr("Data file (*.csv)"));
+    if(file_path.isEmpty())
+    {
+        qDebug() << "Open failed";
+        return;
+    }
+    qDebug() << "Mentors file Path:" << file_path;
+
 }
 
 void MainWindow::on_actionImport_Mentees_triggered()
 {
     qDebug() << "Import Mentees data";
+
+    QString file_path;
+    file_path = QFileDialog::getOpenFileName(this,tr("Import Mentees Data"),"",tr("Data file (*.csv)"));
+    if(file_path.isEmpty())
+    {
+        qDebug() << "Open failed";
+        return;
+    }
+    qDebug() << "Mentees file Path:" << file_path;
+
 }
 
 void MainWindow::on_actionManage_Mentors_triggered()
 {
     ui->stack->setCurrentIndex(0);
+    qDebug() << "Switch to Mentors Page";
 }
 
 void MainWindow::on_actionManage_Mentees_triggered()
 {
     ui->stack->setCurrentIndex(1);
+    qDebug() << "Switch to Mentees Page";
 }
 
 void MainWindow::on_actionManage_Matching_triggered()
 {
     ui->stack->setCurrentIndex(2);
+    qDebug() << "Switch to Matching Page";
 }

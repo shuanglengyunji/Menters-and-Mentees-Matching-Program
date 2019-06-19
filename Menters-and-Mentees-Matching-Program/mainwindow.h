@@ -12,6 +12,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QFileDialog>
 
 # define MY_DATA_BASE_NAME "db_mm.db"
 # define MY_DATABASE_DEMO_NAME "db_mm_demo.db"

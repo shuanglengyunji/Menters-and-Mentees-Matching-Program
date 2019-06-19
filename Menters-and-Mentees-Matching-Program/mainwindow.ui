@@ -39,23 +39,51 @@
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QTableView" name="tableView_mentors">
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_mentors_search">
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdit_mentors_search"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_mentors_search">
+              <property name="text">
+               <string>Search Mentors</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_mentees">
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QTableView" name="tableView_mentees">
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
            </widget>
+          </item>
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_mentees_search">
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdit_mentees_search"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_mentees_search">
+              <property name="text">
+               <string>Search Mentees</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
