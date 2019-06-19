@@ -60,17 +60,55 @@
             </item>
            </layout>
           </item>
+          <item row="2" column="0">
+           <layout class="QGridLayout" name="gridLayout_mentors_edit">
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_mentors_add">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QPushButton" name="pushButton_mentors_revert">
+              <property name="text">
+               <string>Revert</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QPushButton" name="pushButton_mentors_delete">
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <spacer name="horizontalSpacer_mentors">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="5">
+             <widget class="QPushButton" name="pushButton_mentors_submit">
+              <property name="text">
+               <string>Submit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_mentees">
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="1" column="0">
-           <widget class="QTableView" name="tableView_mentees">
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_search">
             <item row="0" column="0">
@@ -80,6 +118,58 @@
              <widget class="QPushButton" name="pushButton_mentees_search">
               <property name="text">
                <string>Search Mentees</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTableView" name="tableView_mentees">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <layout class="QGridLayout" name="gridLayout_mentees_edit">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="pushButton_mentees_add">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QPushButton" name="pushButton_mentees_revert">
+              <property name="text">
+               <string>Revert</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_mentees_delete">
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <spacer name="horizontalSpacer_mentees">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="4">
+             <widget class="QPushButton" name="pushButton_mentees_submit">
+              <property name="text">
+               <string>Submit</string>
               </property>
              </widget>
             </item>
@@ -121,7 +211,6 @@
    <addaction name="menuTest"/>
    <addaction name="menuFunction"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionImport_Mentors">
    <property name="text">
     <string>Import Mentors</string>
