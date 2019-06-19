@@ -40,6 +40,22 @@ private slots:
 
     void on_actionManage_Matching_triggered();
 
+    void on_pushButton_mentees_add_clicked();
+
+    void on_pushButton_mentees_delete_clicked();
+
+    void on_pushButton_mentees_revert_clicked();
+
+    void on_pushButton_mentees_submit_clicked();
+
+    void on_pushButton_mentors_add_clicked();
+
+    void on_pushButton_mentors_delete_clicked();
+
+    void on_pushButton_mentors_revert_clicked();
+
+    void on_pushButton_mentors_submit_clicked();
+
 private:
     Ui::MainWindow *ui;
 
