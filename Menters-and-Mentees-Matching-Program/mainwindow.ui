@@ -35,7 +35,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -55,6 +55,13 @@
              <widget class="QPushButton" name="pushButton_mentors_search">
               <property name="text">
                <string>Search Mentors</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Please search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
               </property>
              </widget>
             </item>
@@ -121,16 +128,23 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Please search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QTableView" name="tableView_mentees">
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_edit">
             <item row="0" column="0">
              <widget class="QPushButton" name="pushButton_mentees_add">
