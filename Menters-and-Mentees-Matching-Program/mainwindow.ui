@@ -39,14 +39,14 @@
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QTableView" name="tableView_mentors">
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
+          <item row="1" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_search">
             <item row="0" column="0">
              <widget class="QLineEdit" name="lineEdit_mentors_search"/>
@@ -54,12 +54,12 @@
             <item row="0" column="1">
              <widget class="QPushButton" name="pushButton_mentors_search">
               <property name="text">
-               <string>Search Mentors</string>
+               <string>Search</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="label_mentors_searc_note">
               <property name="text">
                <string>Please search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
               </property>
@@ -67,7 +67,7 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_edit">
             <item row="1" column="0">
              <widget class="QPushButton" name="pushButton_mentors_add">
@@ -112,39 +112,18 @@
             </item>
            </layout>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_mentors">
+            <property name="text">
+             <string>Mentors</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_mentees">
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_mentees_search">
-            <item row="0" column="0">
-             <widget class="QLineEdit" name="lineEdit_mentees_search"/>
-            </item>
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_mentees_search">
-              <property name="text">
-               <string>Search Mentees</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Please search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="2" column="0">
-           <widget class="QTableView" name="tableView_mentees">
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_edit">
             <item row="0" column="0">
              <widget class="QPushButton" name="pushButton_mentees_add">
@@ -189,6 +168,41 @@
             </item>
            </layout>
           </item>
+          <item row="1" column="0">
+           <layout class="QGridLayout" name="gridLayout_mentees_search">
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdit_mentees_search"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_mentees_search">
+              <property name="text">
+               <string>Search</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_mentees_search_note">
+              <property name="text">
+               <string>Please Search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="3" column="0">
+           <widget class="QTableView" name="tableView_mentees">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_mentees">
+            <property name="text">
+             <string>Mentees</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_matching"/>
@@ -207,7 +221,7 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuTest">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
@@ -222,7 +236,7 @@
     <addaction name="actionManage_Mentees"/>
     <addaction name="actionManage_Matching"/>
    </widget>
-   <addaction name="menuTest"/>
+   <addaction name="menuFile"/>
    <addaction name="menuFunction"/>
   </widget>
   <action name="actionImport_Mentors">
@@ -236,16 +250,25 @@
    </property>
   </action>
   <action name="actionManage_Mentors">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Manage Mentors</string>
    </property>
   </action>
   <action name="actionManage_Mentees">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Manage Mentees</string>
    </property>
   </action>
   <action name="actionManage_Matching">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Manage Matching</string>
    </property>

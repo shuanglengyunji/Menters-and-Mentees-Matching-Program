@@ -26,7 +26,10 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        mainwindow_import_export.cpp \
+        mainwindow_mentees.cpp \
+        mainwindow_mentors.cpp
 
 HEADERS += \
         mainwindow.h
@@ -42,3 +45,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # App Info
 
 VERSION = 0.1
+
+
