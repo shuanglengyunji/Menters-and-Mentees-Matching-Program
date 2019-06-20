@@ -40,6 +40,10 @@ private slots:
 
     void on_actionManage_Matching_triggered();
 
+    void on_lineEdit_mentors_search_editingFinished();
+
+    void on_lineEdit_mentees_search_editingFinished();
+
 private:
     Ui::MainWindow *ui;
 

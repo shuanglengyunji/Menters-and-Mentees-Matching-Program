@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "Database Init Success";
 
     // mentors' table
-    model_mentors = new QSqlTableModel(this,db);
+    model_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_mentors->setTable("m_Mentors");
     model_mentors->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model_mentors->select();
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView_mentors->resizeColumnsToContents();
 
     // mentees' table
-    model_mentees = new QSqlTableModel(this,db);
+    model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("m_Mentees");
     model_mentees->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model_mentees->select();
@@ -111,4 +111,29 @@ void MainWindow::on_actionManage_Matching_triggered()
 {
     ui->stack->setCurrentIndex(2);
     qDebug() << "Switch to Matching Page";
+}
+
+void MainWindow::on_lineEdit_mentors_search_editingFinished()
+{
+    QString str = ui->lineEdit_mentors_search->text();
+    qDebug() << str;
+    if(str.isEmpty())
+    {
+        model_mentors->setFilter("");
+    }
+    else
+    {
+        //QString argument = "'University ID' LIKE '" + str + "' OR " + "'First Name' LIKE '" + str + "'";
+        QString argument = "'University ID' LIKE '" + str + "'";
+        qDebug() << argument;
+        model_mentors->setFilter(argument);
+    }
+
+    //name='Josephine'
+    // condition1 OR condition2 OR condition3
+}
+
+void MainWindow::on_lineEdit_mentees_search_editingFinished()
+{
+
 }
