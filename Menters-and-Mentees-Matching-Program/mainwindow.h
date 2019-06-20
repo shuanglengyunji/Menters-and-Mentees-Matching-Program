@@ -40,9 +40,27 @@ private slots:
 
     void on_actionManage_Matching_triggered();
 
+<<<<<<< HEAD
     void on_lineEdit_mentors_search_editingFinished();
 
     void on_lineEdit_mentees_search_editingFinished();
+=======
+    void on_pushButton_mentees_add_clicked();
+
+    void on_pushButton_mentees_delete_clicked();
+
+    void on_pushButton_mentees_revert_clicked();
+
+    void on_pushButton_mentees_submit_clicked();
+
+    void on_pushButton_mentors_add_clicked();
+
+    void on_pushButton_mentors_delete_clicked();
+
+    void on_pushButton_mentors_revert_clicked();
+
+    void on_pushButton_mentors_submit_clicked();
+>>>>>>> be0666371d7b33d3aeec8d91f13fe5c917e48238
 
 private:
     Ui::MainWindow *ui;
