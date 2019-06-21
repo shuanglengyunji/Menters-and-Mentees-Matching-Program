@@ -82,7 +82,21 @@ MainWindow::MainWindow(QWidget *parent) :
     model_mentors->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model_mentors->select();
 
+    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
+    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
+    model_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
+    model_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
+    model_mentors->setHeaderData(4, Qt::Horizontal, "Academic Level");
+    model_mentors->setHeaderData(5, Qt::Horizontal, "College");
+    model_mentors->setHeaderData(6, Qt::Horizontal, "Language");
+    model_mentors->setHeaderData(7, Qt::Horizontal, "Training 1");
+    model_mentors->setHeaderData(8, Qt::Horizontal, "Training 2");
+    model_mentors->setHeaderData(9, Qt::Horizontal, "WWVP Card Num");
+    model_mentors->setHeaderData(10, Qt::Horizontal, "Confirm");
+    model_mentors->setHeaderData(11, Qt::Horizontal, "Role");
+
     ui->tableView_mentors->setModel(model_mentors);
+    ui->tableView_mentors->hideColumn(11);
     ui->tableView_mentors->resizeColumnsToContents();
 
     // display mentees' table
@@ -91,7 +105,18 @@ MainWindow::MainWindow(QWidget *parent) :
     model_mentees->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model_mentees->select();
 
+    model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
+    model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");
+    model_mentees->setHeaderData(2, Qt::Horizontal, "Last Name");
+    model_mentees->setHeaderData(3, Qt::Horizontal, "Gender");
+    model_mentees->setHeaderData(4, Qt::Horizontal, "Academic Level");
+    model_mentees->setHeaderData(5, Qt::Horizontal, "College");
+    model_mentees->setHeaderData(6, Qt::Horizontal, "Language");
+    model_mentees->setHeaderData(7, Qt::Horizontal, "Consideration");
+    model_mentees->setHeaderData(8, Qt::Horizontal, "Role");
+
     ui->tableView_mentees->setModel(model_mentees);
+    ui->tableView_mentees->hideColumn(8);
     ui->tableView_mentees->resizeColumnsToContents();
 
     // switch to mentors' page
