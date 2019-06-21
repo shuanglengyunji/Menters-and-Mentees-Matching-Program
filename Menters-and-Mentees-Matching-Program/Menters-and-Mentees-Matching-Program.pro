@@ -28,6 +28,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         mainwindow_import_export.cpp \
+        mainwindow_match.cpp \
         mainwindow_mentees.cpp \
         mainwindow_mentors.cpp
 

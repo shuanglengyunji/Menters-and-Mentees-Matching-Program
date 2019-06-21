@@ -161,8 +161,8 @@ void MainWindow::on_actionManage_Matching_triggered()
     ui->actionManage_Mentors->setChecked(false);
     ui->actionManage_Mentees->setChecked(false);
     ui->actionManage_Matching->setChecked(true);
-}
 
+}
 
 
 

@@ -60,6 +60,12 @@ private slots:
 
     void on_pushButton_mentors_submit_clicked();
 
+    void on_pushButton_Auto_clicked();
+
+    void on_pushButton_Up_clicked();
+
+    void on_pushButton_Down_clicked();
+
 private:
     Ui::MainWindow *ui;
 
