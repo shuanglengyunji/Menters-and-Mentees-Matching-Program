@@ -31,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName(db_path);
-    db.setDatabaseName(db_demo_path);
+    db.setDatabaseName(db_path);
+    //db.setDatabaseName(db_demo_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QSqlQuery query(db);
 
-    /*
+
     // match
     QString str = "CREATE TABLE [match] ( m_id INTEGER PRIMARY KEY UNIQUE NOT NULL, \
             mentor_id VARCHAR (10) REFERENCES [mentor ] (uid) NOT NULL, \
@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 languages      VARCHAR (30) NOT NULL DEFAULT English,   \
                 consideration  TEXT (200), role VARCHAR DEFAULT mentee NOT NULL)";
     query.exec(str);
-    */
+
 
     qDebug() << "Database Init Success";
 

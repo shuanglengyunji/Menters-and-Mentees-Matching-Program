@@ -31,22 +31,30 @@ void MainWindow::on_actionImport_Mentors_triggered()
         }
         while(!ts.atEnd())
         {
+            int uid=1;
             QString linedata="insert into mentor(uid, first_name, last_name, academic_level, college, languages, train_1, train_2, wwvp_card, is_confirm, role, gender) \n values (";
+            QString update="Delete From mentor where uid=";
             QStringList line=ts.readLine().split(',');
             for(int i=0;i<line.length();i++){
                linedata.append("\'");
                QString temps=line.at(i);
                temps.remove("\"");
+               if(uid){
+                   update.append("\'"+temps+"\'");
+                   uid=0;
+               }
                linedata.append(temps);
                linedata.append("\'");
                linedata.append(",");
             }
             linedata.append("\'Mentor\', \'Other\')");
+            q.exec(update);
             q.exec(linedata);
         }
         file.close();
         model_mentors->select();
         ui->tableView_mentors->reset();
+        ui->tableView_mentors->resizeColumnsToContents();
     }
     else
     {
@@ -84,7 +92,9 @@ void MainWindow::on_actionImport_Mentees_triggered()
         }
         while(!ts.atEnd())
         {
+            int uid=1;
             QString linedata="insert into mentee(uid, first_name, last_name, languages, academic_level, college, consideration, role, gender) values(";
+            QString update="Delete From mentee where uid=";
             QStringList line=ts.readLine().split(',');
             for(int i=0;i<line.length();i++){
                linedata.append("'");
@@ -98,6 +108,10 @@ void MainWindow::on_actionImport_Mentees_triggered()
                else if(temps.contains("Engineering")) temps="CECS";
                else if(temps.contains("Health")) temps="CHM";
                else if(temps.contains("Science")) temps="COS";
+               if(uid){
+                   uid=0;
+                   update.append("\'"+temps+"\'");
+               }
                linedata.append(temps);
                linedata.append("\'");
                linedata.append(",");
@@ -109,6 +123,7 @@ void MainWindow::on_actionImport_Mentees_triggered()
         file.close();
         model_mentees->select();
         ui->tableView_mentees->reset();
+        ui->tableView_mentees->resizeColumnsToContents();
     }
     else
     {

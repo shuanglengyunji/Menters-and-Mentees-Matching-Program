@@ -58,13 +58,6 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_mentors_searc_note">
-              <property name="text">
-               <string>Please search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item row="3" column="0">
@@ -177,13 +170,6 @@
              <widget class="QPushButton" name="pushButton_mentees_search">
               <property name="text">
                <string>Search</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_mentees_search_note">
-              <property name="text">
-               <string>Please Search &quot;U_Number&quot; OR &quot;First Name&quot; OR &quot;Last NAME&quot; ONLY!</string>
               </property>
              </widget>
             </item>
