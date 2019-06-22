@@ -7,12 +7,13 @@
 #include <QString>
 #include <QDir>
 #include <QTableView>
+#include <QFileDialog>
 
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlTableModel>
-#include <QFileDialog>
+#include <QSqlRecord>
 
 # define MY_DATA_BASE_NAME "db_mm.db"
 # define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
@@ -66,6 +67,12 @@ private slots:
 
     void on_pushButton_Down_clicked();
 
+    void on_pushButton_Refresh_clicked();
+
+    void on_pushButton_Clear_clicked();
+
+    void on_tableView_match_mentors_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 
@@ -74,6 +81,17 @@ private:
     QSqlTableModel * model_mentors;
     QSqlTableModel * model_mentees;
 
+    QSqlQueryModel * model_match_mentors;
+    QSqlQueryModel * model_match_mentees_matched;
+    QSqlQueryModel * model_match_mentees_to_be_match;
+
+    void init_database(QString work_path);
+    void init_mentors_page();
+    void init_mentees_page();
+    void init_match_page();
+
+    void match(QSqlQueryModel * mentor, QSqlQueryModel * mentee, bool college,bool language, bool gender,bool academiclevel, bool consideration);
+    void refresh();
 };
 
 #endif // MAINWINDOW_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>480</height>
+    <width>953</width>
+    <height>604</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -221,13 +221,6 @@
             </item>
             <item row="0" column="0">
              <layout class="QGridLayout" name="gridLayout_match_mentees_rule">
-              <item row="0" column="7">
-               <widget class="QPushButton" name="pushButton_Auto">
-                <property name="text">
-                 <string>AUTO</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="3">
                <widget class="QCheckBox" name="checkBox_Language">
                 <property name="text">
@@ -235,17 +228,10 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="5">
-               <widget class="QCheckBox" name="checkBox_Consideration">
+              <item row="0" column="7">
+               <widget class="QPushButton" name="pushButton_Auto">
                 <property name="text">
-                 <string>Consideration</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QCheckBox" name="checkBox_College">
-                <property name="text">
-                 <string>College</string>
+                 <string>AUTO</string>
                 </property>
                </widget>
               </item>
@@ -256,17 +242,24 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_Rule">
-                <property name="text">
-                 <string> Rule: </string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="4">
                <widget class="QCheckBox" name="checkBox_AcademicLevel">
                 <property name="text">
                  <string>Academic Level</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QCheckBox" name="checkBox_Consideration">
+                <property name="text">
+                 <string>Consideration</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="8">
+               <widget class="QPushButton" name="pushButton_Refresh">
+                <property name="text">
+                 <string>Refresh</string>
                 </property>
                </widget>
               </item>
@@ -282,6 +275,27 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item row="0" column="2">
+               <widget class="QCheckBox" name="checkBox_College">
+                <property name="text">
+                 <string>College</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_Rule">
+                <property name="text">
+                 <string> Rule: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="9">
+               <widget class="QPushButton" name="pushButton_Clear">
+                <property name="text">
+                 <string>Clear</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -361,7 +375,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>740</width>
+     <width>953</width>
      <height>21</height>
     </rect>
    </property>

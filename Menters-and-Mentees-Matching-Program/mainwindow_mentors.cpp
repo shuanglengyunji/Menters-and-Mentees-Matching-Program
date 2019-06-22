@@ -3,6 +3,33 @@
 
 // mentors
 
+void MainWindow::init_mentors_page()
+{
+    // init mentors' table model
+    model_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_mentors->setTable("mentor");
+    model_mentors->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model_mentors->select();
+
+    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
+    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
+    model_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
+    model_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
+    model_mentors->setHeaderData(4, Qt::Horizontal, "Academic Level");
+    model_mentors->setHeaderData(5, Qt::Horizontal, "College");
+    model_mentors->setHeaderData(6, Qt::Horizontal, "Language");
+    model_mentors->setHeaderData(7, Qt::Horizontal, "Training 1");
+    model_mentors->setHeaderData(8, Qt::Horizontal, "Training 2");
+    model_mentors->setHeaderData(9, Qt::Horizontal, "WWVP Card Num");
+    model_mentors->setHeaderData(10, Qt::Horizontal, "Confirm");
+    model_mentors->setHeaderData(11, Qt::Horizontal, "Role");
+
+    // set table view
+    ui->tableView_mentors->setModel(model_mentors);
+    ui->tableView_mentors->hideColumn(11);
+    ui->tableView_mentors->resizeColumnsToContents();
+}
+
 void MainWindow::on_lineEdit_mentors_search_editingFinished()
 {
     QString str = ui->lineEdit_mentors_search->text().trimmed();    // Returns a string that has whitespace removed from the start and the end

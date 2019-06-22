@@ -16,8 +16,33 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "tmp Path" << tmp_path;
     QDir().mkdir(tmp_path);
 
+    // init database
+    init_database(tmp_path);
+
+    // init pages
+    init_mentors_page();
+    init_mentees_page();
+    init_match_page();
+
+    // switch to mentors' page
+    ui->stack->setCurrentIndex(2);
+    ui->actionManage_Mentors->setChecked(true);
+    qDebug() << "Switch to Mentors Page";
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete model_mentors;
+    delete model_mentees;
+    delete ui;
+}
+
+void MainWindow::init_database(QString work_path)
+{
+    // get path
     // database path
-    QString db_path = tmp_path + "/" + MY_DATA_BASE_NAME;
+    QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
     if(QFile().exists(db_path))
     {
         QFile().remove(db_path);
@@ -26,13 +51,13 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "Database Path:" << db_path;
 
     // database demo path
-    QString db_demo_path = tmp_path + "/" + MY_DATABASE_DEMO_NAME;
+    QString db_demo_path = work_path + "/" + MY_DATABASE_DEMO_NAME;
     qDebug() << "Database Demo Path:" << db_demo_path;
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(db_path);
-    //db.setDatabaseName(db_demo_path);
+    //db.setDatabaseName(db_path);
+    db.setDatabaseName(db_demo_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -42,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QSqlQuery query(db);
 
-
+    /*
     // match
     QString str = "CREATE TABLE [match] ( m_id INTEGER PRIMARY KEY UNIQUE NOT NULL, \
             mentor_id VARCHAR (10) REFERENCES [mentor ] (uid) NOT NULL, \
@@ -74,63 +99,9 @@ MainWindow::MainWindow(QWidget *parent) :
                 languages      VARCHAR (30) NOT NULL DEFAULT English,   \
                 consideration  TEXT (200), role VARCHAR DEFAULT mentee NOT NULL)";
     query.exec(str);
-
+    */
 
     qDebug() << "Database Init Success";
-
-    // display mentors' table
-    model_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
-    model_mentors->setTable("mentor");
-    model_mentors->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model_mentors->select();
-
-    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
-    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
-    model_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
-    model_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
-    model_mentors->setHeaderData(4, Qt::Horizontal, "Academic Level");
-    model_mentors->setHeaderData(5, Qt::Horizontal, "College");
-    model_mentors->setHeaderData(6, Qt::Horizontal, "Language");
-    model_mentors->setHeaderData(7, Qt::Horizontal, "Training 1");
-    model_mentors->setHeaderData(8, Qt::Horizontal, "Training 2");
-    model_mentors->setHeaderData(9, Qt::Horizontal, "WWVP Card Num");
-    model_mentors->setHeaderData(10, Qt::Horizontal, "Confirm");
-    model_mentors->setHeaderData(11, Qt::Horizontal, "Role");
-
-    ui->tableView_mentors->setModel(model_mentors);
-    ui->tableView_mentors->hideColumn(11);
-    ui->tableView_mentors->resizeColumnsToContents();
-
-    // display mentees' table
-    model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
-    model_mentees->setTable("mentee");
-    model_mentees->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model_mentees->select();
-
-    model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
-    model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");
-    model_mentees->setHeaderData(2, Qt::Horizontal, "Last Name");
-    model_mentees->setHeaderData(3, Qt::Horizontal, "Gender");
-    model_mentees->setHeaderData(4, Qt::Horizontal, "Academic Level");
-    model_mentees->setHeaderData(5, Qt::Horizontal, "College");
-    model_mentees->setHeaderData(6, Qt::Horizontal, "Language");
-    model_mentees->setHeaderData(7, Qt::Horizontal, "Consideration");
-    model_mentees->setHeaderData(8, Qt::Horizontal, "Role");
-
-    ui->tableView_mentees->setModel(model_mentees);
-    ui->tableView_mentees->hideColumn(8);
-    ui->tableView_mentees->resizeColumnsToContents();
-
-    // switch to mentors' page
-    ui->stack->setCurrentIndex(0);
-    ui->actionManage_Mentors->setChecked(true);
-    qDebug() << "Switch to Mentors Page";
-
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
 
 void MainWindow::on_actionManage_Mentors_triggered()
@@ -163,4 +134,8 @@ void MainWindow::on_actionManage_Matching_triggered()
     ui->actionManage_Matching->setChecked(true);
 
 }
+
+
+
+
 

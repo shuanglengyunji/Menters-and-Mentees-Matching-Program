@@ -3,6 +3,30 @@
 
 // mentees
 
+void MainWindow::init_mentees_page()
+{
+    // init mentees' table model
+    model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
+    model_mentees->setTable("mentee");
+    model_mentees->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model_mentees->select();
+
+    model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
+    model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");
+    model_mentees->setHeaderData(2, Qt::Horizontal, "Last Name");
+    model_mentees->setHeaderData(3, Qt::Horizontal, "Gender");
+    model_mentees->setHeaderData(4, Qt::Horizontal, "Academic Level");
+    model_mentees->setHeaderData(5, Qt::Horizontal, "College");
+    model_mentees->setHeaderData(6, Qt::Horizontal, "Language");
+    model_mentees->setHeaderData(7, Qt::Horizontal, "Consideration");
+    model_mentees->setHeaderData(8, Qt::Horizontal, "Role");
+
+    // set table view
+    ui->tableView_mentees->setModel(model_mentees);
+    ui->tableView_mentees->hideColumn(8);
+    ui->tableView_mentees->resizeColumnsToContents();
+}
+
 void MainWindow::on_lineEdit_mentees_search_editingFinished()
 {
     QString str = ui->lineEdit_mentees_search->text().trimmed();    // Returns a string that has whitespace removed from the start and the end

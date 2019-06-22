@@ -52,6 +52,8 @@ void MainWindow::on_actionImport_Mentors_triggered()
             q.exec(linedata);
         }
         file.close();
+
+        // show
         model_mentors->select();
         ui->tableView_mentors->reset();
         ui->tableView_mentors->resizeColumnsToContents();
@@ -121,6 +123,8 @@ void MainWindow::on_actionImport_Mentees_triggered()
             q.exec(linedata);
         }
         file.close();
+
+        // show
         model_mentees->select();
         ui->tableView_mentees->reset();
         ui->tableView_mentees->resizeColumnsToContents();
