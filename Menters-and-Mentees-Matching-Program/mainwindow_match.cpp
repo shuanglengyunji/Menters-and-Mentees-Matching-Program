@@ -250,25 +250,60 @@ void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
 void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
 {
     QString str = ui->lineEdit_match_search_mentors->text().trimmed();    // Returns a string that has whitespace removed from the start and the end
+    QString argument = "";
     if(str.isEmpty()) {
-        model_proxy_match_mentors->setFilterRegExp("");
+        argument = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
+        model_match_mentors->setQuery(argument,db);
         return;
     }
 
     QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
 
-//    int num = list.size();
-//    for (int i=0; i < num ; i++)
-//    {
-//        QString tmp = list.at(i);
-//    }
-
+    int num = list.size();
     QString tmp = list.at(0);
-    model_proxy_match_mentors->setFilterRegExp(tmp);
+    argument = "SELECT * FROM mentor WHERE (is_confirm = 'y') AND (uid LIKE '%" + tmp + "%'";
+    for (int i=0; i < num ; i++)
+    {
+        tmp = list.at(i);
+        argument = argument
+                + " OR " + "uid LIKE '%" + tmp + "%'"               // Uni ID
+                + " OR " + "first_name LIKE '%" + tmp + "%'"        // First Name
+                + " OR " + "last_name LIKE '%" + tmp + "%'";        // Last Name
+    }
+    argument = argument + ")";
+    qDebug() << argument;
+    model_match_mentors->setQuery(argument,db);
+    ui->tableView_match_mentors->reset();
+    ui->tableView_match_mentors->resizeColumnsToContents();
 }
 
 void MainWindow::on_lineEdit_match_search_mentees_editingFinished()
 {
+    QString str = ui->lineEdit_match_search_mentees->text().trimmed();    // Returns a string that has whitespace removed from the start and the end
+    QString argument = "";
+    if(str.isEmpty()) {
+        argument = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+        model_match_mentees_to_be_match->setQuery(argument,db);
+        return;
+    }
 
+    QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
+
+    int num = list.size();
+    QString tmp = list.at(0);
+    argument = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0 AND (uid LIKE '%" + tmp + "%'";
+    for (int i=0; i < num ; i++)
+    {
+        tmp = list.at(i);
+        argument = argument
+                + " OR " + "uid LIKE '%" + tmp + "%'"               // Uni ID
+                + " OR " + "first_name LIKE '%" + tmp + "%'"        // First Name
+                + " OR " + "last_name LIKE '%" + tmp + "%'";        // Last Name
+    }
+    argument = argument + ")";
+    qDebug() << argument;
+    model_match_mentees_to_be_match->setQuery(argument,db);
+    ui->tableView_match_mentees_to_be_match->reset();
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
 }
 

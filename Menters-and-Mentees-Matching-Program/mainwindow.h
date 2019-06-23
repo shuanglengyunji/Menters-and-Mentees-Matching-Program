@@ -101,7 +101,6 @@ private:
     QSqlQueryModel * model_match_mentees_to_be_match;
 
     QSortFilterProxyModel * model_proxy_match_mentors;
-    QSortFilterProxyModel * model_proxy_match_mentees_matched;
     QSortFilterProxyModel * model_proxy_match_mentees_to_be_match;
 
     void init_database(QString work_path);
