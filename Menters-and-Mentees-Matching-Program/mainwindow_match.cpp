@@ -9,11 +9,12 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
     QString searche("\')");
     int rcollege,rlanguage,rgender,racademiclevel,rconsideration;                   //declare rule variables
     int cscore=0,hscore=0,hid=0;
-    int zero=0;
     int maxassign=mentee->rowCount()/mentor->rowCount()+1;                          //calculate max menteenumbers
-    for (int i=0;i<mentor->rowCount();i++)                          //get pre-assigned mentees
-    {
-        QSqlRecord tmpmentor = mentor->record(i);
+
+    qDebug()<<maxassign<<endl;
+
+    for (int i=0;i<mentor->rowCount();i++) {                                        //get pre-assigned mentees
+        QSqlRecord tmpmentor=mentor->record(i);
         QString mentorid=tmpmentor.value(0).toString();
 
         qDebug()<<mentorid<<endl;
@@ -51,8 +52,7 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
         rconsideration=0;
     }
 
-    for (int k=0;k<mentee->rowCount();k++)                                          //start matching
-    {
+    for (int k=0;k<mentee->rowCount();k++) {                                        //start matching
         QSqlRecord tempmentee=mentee->record(k);                                    //get mentee data
         QString menteeid=tempmentee.value(0).toString();
         QString mentorid;
@@ -74,9 +74,13 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
         hscore=0;
         hid=0;
 
+
+
         for (int i=0;i<mentor->rowCount();i++) {                                    //start scoring
-            if(menteenumber[i]>=maxassign)                                          //if mentor have enough mentees. skip
+            if(menteenumber[i]>=maxassign){                                          //if mentor have enough mentees. skip
+                if(hid==i) hid++;
                 continue;
+            }
 
             QSqlRecord tmpmentor=mentor->record(i);                                 //get mentor data
             QString mentorid=tmpmentor.value(0).toString();
@@ -102,22 +106,24 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
                 cscore+=1*racademiclevel;
             if(gendementee==gendementor)
                 cscore+=1*rgender;
-            if(rconsideration)
-                cscore*=zero;
 
             if(cscore>hscore){                                                      //final mentor
                 hscore=cscore;
                 hid=i;
             }
+
         }
 
         menteenumber[hid]+=1;                                                       //process matching
         QString inser="insert into match (mentor_id,mentee_id) values (";
-        QSqlRecord tmpmentor = mentor->record(hid);
+        QSqlRecord tmpmentor=mentor->record(hid);
         mentorid=tmpmentor.value(0).toString();
         inser.append("\'"+mentorid+"\'"+",\'"+menteeid+"\')");
+
         qDebug()<<inser<<endl;
+
         q.exec(inser);
+
     }
 }
 
