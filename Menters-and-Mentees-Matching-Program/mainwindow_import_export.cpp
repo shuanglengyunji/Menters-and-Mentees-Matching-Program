@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+// Import
+
 // Mentors
 
 void MainWindow::on_actionImport_Mentors_triggered()
@@ -133,5 +135,36 @@ void MainWindow::on_actionImport_Mentees_triggered()
     {
         QMessageBox::warning(this, tr("Unable to open file"), tr("An error occurred while opening file: ") + db.lastError().text());
     }
+
+}
+
+// Match Result
+
+void MainWindow::on_actionImport_Match_Result_triggered()
+{
+
+}
+
+// -----------------------------------------------------------
+
+// Export
+
+void MainWindow::on_actionExport_Mentors_triggered()
+{
+
+}
+
+void MainWindow::on_actionExport_Mentees_triggered()
+{
+
+}
+
+void MainWindow::on_actionExport_Match_Result_triggered()
+{
+
+}
+
+void MainWindow::on_actionExport_Wattle_File_triggered()
+{
 
 }

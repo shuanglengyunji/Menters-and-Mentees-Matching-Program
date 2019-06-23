@@ -134,6 +134,12 @@ void MainWindow::refresh()
     model_match_mentees_to_be_match->setQuery(str,db);
     ui->tableView_match_mentees_to_be_match->reset();
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+
+    // Mentees Matched
+    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = ''";
+    model_match_mentees_matched->setQuery(str,db);
+    ui->tableView_match_mentees_matched->reset();
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
 }
 
 // ----------------------------------------------------------
@@ -196,7 +202,30 @@ void MainWindow::init_match_page()
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
 
     // Mentees matched
+    model_match_mentees_matched = new QSqlQueryModel(this);
+    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = ''";
+    model_match_mentees_matched->setQuery(str,db);
 
+    model_match_mentees_matched->setHeaderData(0, Qt::Horizontal, "Uni ID");
+    model_match_mentees_matched->setHeaderData(1, Qt::Horizontal, "First Name");
+    model_match_mentees_matched->setHeaderData(2, Qt::Horizontal, "Last Name");
+    model_match_mentees_matched->setHeaderData(3, Qt::Horizontal, "Gender");
+    model_match_mentees_matched->setHeaderData(4, Qt::Horizontal, "Academic Level");
+    model_match_mentees_matched->setHeaderData(5, Qt::Horizontal, "College");
+    model_match_mentees_matched->setHeaderData(6, Qt::Horizontal, "Language");
+    model_match_mentees_matched->setHeaderData(7, Qt::Horizontal, "Consideration");
+    model_match_mentees_matched->setHeaderData(8, Qt::Horizontal, "Role");
+
+    // set table view
+    ui->tableView_match_mentees_matched->setModel(model_match_mentees_matched);
+    ui->tableView_match_mentees_matched->hideColumn(8);
+    ui->tableView_match_mentees_matched->hideColumn(9);
+    ui->tableView_match_mentees_matched->hideColumn(10);
+    ui->tableView_match_mentees_matched->hideColumn(11);
+    ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_match_mentees_matched->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
 }
 
 void MainWindow::on_pushButton_Auto_clicked()
@@ -235,7 +264,14 @@ void MainWindow::on_pushButton_Down_clicked()
 
 void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
 {
+    // Selected Row
     int row = index.row();
     QString Mentor_U_Num = model_match_mentors->record(row).value(0).toString();
+
+    // Mentees Matched
+    QString str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
+    model_match_mentees_matched->setQuery(str,db);
+    ui->tableView_match_mentees_matched->reset();
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
 }
 

@@ -73,6 +73,16 @@ private slots:
 
     void on_tableView_match_mentors_clicked(const QModelIndex &index);
 
+    void on_actionImport_Match_Result_triggered();
+
+    void on_actionExport_Mentors_triggered();
+
+    void on_actionExport_Mentees_triggered();
+
+    void on_actionExport_Match_Result_triggered();
+
+    void on_actionExport_Wattle_File_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -92,6 +102,7 @@ private:
 
     void match(QSqlQueryModel * mentor, QSqlQueryModel * mentee, bool college,bool language, bool gender,bool academiclevel, bool consideration);
     void refresh();
+
 };
 
 #endif // MAINWINDOW_H

@@ -196,7 +196,11 @@
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_match_mentors">
             <item row="0" column="0">
-             <widget class="QTableView" name="tableView_match_mentors"/>
+             <widget class="QTableView" name="tableView_match_mentors">
+              <property name="sortingEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_match_mentors_search">
@@ -217,7 +221,11 @@
           <item row="0" column="1">
            <layout class="QGridLayout" name="gridLayout_match_mentees">
             <item row="1" column="0">
-             <widget class="QTableView" name="tableView_match_mentees_matched"/>
+             <widget class="QTableView" name="tableView_match_mentees_matched">
+              <property name="sortingEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item row="0" column="0">
              <layout class="QGridLayout" name="gridLayout_match_mentees_rule">
@@ -300,7 +308,11 @@
              </layout>
             </item>
             <item row="4" column="0">
-             <widget class="QTableView" name="tableView_match_mentees_to_be_match"/>
+             <widget class="QTableView" name="tableView_match_mentees_to_be_match">
+              <property name="sortingEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item row="2" column="0">
              <layout class="QGridLayout" name="gridLayout_match_mentees_manual">
@@ -385,6 +397,12 @@
     </property>
     <addaction name="actionImport_Mentors"/>
     <addaction name="actionImport_Mentees"/>
+    <addaction name="actionImport_Match_Result"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_Mentors"/>
+    <addaction name="actionExport_Mentees"/>
+    <addaction name="actionExport_Match_Result"/>
+    <addaction name="actionExport_Wattle_File"/>
    </widget>
    <widget class="QMenu" name="menuFunction">
     <property name="title">
@@ -429,6 +447,31 @@
    </property>
    <property name="text">
     <string>Manage Matching</string>
+   </property>
+  </action>
+  <action name="actionImport_Match_Result">
+   <property name="text">
+    <string>Import Match Result</string>
+   </property>
+  </action>
+  <action name="actionExport_Mentors">
+   <property name="text">
+    <string>Export Mentors</string>
+   </property>
+  </action>
+  <action name="actionExport_Mentees">
+   <property name="text">
+    <string>Export Mentees</string>
+   </property>
+  </action>
+  <action name="actionExport_Match_Result">
+   <property name="text">
+    <string>Export Match Result</string>
+   </property>
+  </action>
+  <action name="actionExport_Wattle_File">
+   <property name="text">
+    <string>Export Wattle File</string>
    </property>
   </action>
  </widget>
