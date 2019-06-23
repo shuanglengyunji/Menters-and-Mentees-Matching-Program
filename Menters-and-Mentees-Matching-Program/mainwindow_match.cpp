@@ -236,6 +236,12 @@ void MainWindow::init_match_page()
 
 void MainWindow::on_pushButton_Auto_clicked()
 {
+    QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
+    model_match_mentors->setQuery(str,db);
+
+    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+    model_match_mentees_to_be_match->setQuery(str,db);
+
     bool college = ui->checkBox_College->isChecked();
     bool language = ui->checkBox_Language->isChecked();
     bool gender = ui->checkBox_Gender->isChecked();
