@@ -14,6 +14,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QSqlRecord>
+#include <QSortFilterProxyModel>
 
 # define MY_DATA_BASE_NAME "db_mm.db"
 # define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
@@ -83,6 +84,10 @@ private slots:
 
     void on_actionExport_Wattle_File_triggered();
 
+    void on_lineEdit_match_search_mentors_editingFinished();
+
+    void on_lineEdit_match_search_mentees_editingFinished();
+
 private:
     Ui::MainWindow *ui;
 
@@ -94,6 +99,10 @@ private:
     QSqlQueryModel * model_match_mentors;
     QSqlQueryModel * model_match_mentees_matched;
     QSqlQueryModel * model_match_mentees_to_be_match;
+
+    QSortFilterProxyModel * model_proxy_match_mentors;
+    QSortFilterProxyModel * model_proxy_match_mentees_matched;
+    QSortFilterProxyModel * model_proxy_match_mentees_to_be_match;
 
     void init_database(QString work_path);
     void init_mentors_page();

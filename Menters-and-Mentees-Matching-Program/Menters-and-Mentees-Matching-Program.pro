@@ -27,6 +27,7 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        mainwindow_algorithm.cpp \
         mainwindow_import_export.cpp \
         mainwindow_match.cpp \
         mainwindow_mentees.cpp \

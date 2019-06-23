@@ -35,6 +35,9 @@ MainWindow::~MainWindow()
 {
     delete model_mentors;
     delete model_mentees;
+    delete model_match_mentors;
+    delete model_match_mentees_matched;
+    delete model_match_mentees_to_be_match;
     delete ui;
 }
 
@@ -56,8 +59,8 @@ void MainWindow::init_database(QString work_path)
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName(db_path);
-    db.setDatabaseName(db_demo_path);
+    db.setDatabaseName(db_path);
+    //db.setDatabaseName(db_demo_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -67,7 +70,7 @@ void MainWindow::init_database(QString work_path)
 
     QSqlQuery query(db);
 
-    /*
+
     // match
     QString str = "CREATE TABLE [match] ( m_id INTEGER PRIMARY KEY UNIQUE NOT NULL, \
             mentor_id VARCHAR (10) REFERENCES [mentor ] (uid) NOT NULL, \
@@ -99,7 +102,7 @@ void MainWindow::init_database(QString work_path)
                 languages      VARCHAR (30) NOT NULL DEFAULT English,   \
                 consideration  TEXT (200), role VARCHAR DEFAULT mentee NOT NULL)";
     query.exec(str);
-    */
+
 
     qDebug() << "Database Init Success";
 }
@@ -134,10 +137,5 @@ void MainWindow::on_actionManage_Matching_triggered()
     ui->actionManage_Matching->setChecked(true);
 
 }
-
-
-
-
-
 
 

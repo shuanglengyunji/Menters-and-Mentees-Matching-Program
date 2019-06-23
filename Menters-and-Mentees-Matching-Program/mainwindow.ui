@@ -198,7 +198,7 @@
             <item row="0" column="0">
              <widget class="QTableView" name="tableView_match_mentors">
               <property name="sortingEnabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -310,7 +310,7 @@
             <item row="4" column="0">
              <widget class="QTableView" name="tableView_match_mentees_to_be_match">
               <property name="sortingEnabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
              </widget>
             </item>
