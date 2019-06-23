@@ -260,12 +260,75 @@ void MainWindow::on_pushButton_Clear_clicked()
 
 void MainWindow::on_pushButton_Up_clicked()
 {
+    // get u_num
+    int row_mentor = ui->tableView_match_mentors->selectionModel()->currentIndex().row();
+    QString Mentor_U_Num = model_match_mentors->record(row_mentor).value(0).toString();
+
+    int row_mentee = ui->tableView_match_mentees_to_be_match->selectionModel()->currentIndex().row();
+    QString Mentee_U_Num = model_match_mentees_to_be_match->record(row_mentee).value(0).toString();
+    qDebug() << Mentor_U_Num << Mentee_U_Num;
+
+    if(Mentor_U_Num.isEmpty() || Mentee_U_Num.isEmpty())
+    {
+        return;
+    }
+
+    //INSERT INTO match(mentor_id, mentee_id) VALUES('u1234567', 'u7777777')
+    QString str = "INSERT INTO match(mentor_id, mentee_id) VALUES('" + Mentor_U_Num + "', '" + Mentee_U_Num + "')";
+    QSqlQuery query(db);
+    query.exec(str);
+    qDebug() << str;
+
+    // show
+
+    // Mentees to be matched
+    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+    model_match_mentees_to_be_match->setQuery(str,db);
+    ui->tableView_match_mentees_to_be_match->reset();
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+
+    // Mentees Matched
+    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
+    model_match_mentees_matched->setQuery(str,db);
+    ui->tableView_match_mentees_matched->reset();
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
 
 }
 
 void MainWindow::on_pushButton_Down_clicked()
 {
+    // get u_num
+    int row_mentor = ui->tableView_match_mentors->selectionModel()->currentIndex().row();
+    QString Mentor_U_Num = model_match_mentors->record(row_mentor).value(0).toString();
 
+    int row_mentee = ui->tableView_match_mentees_matched->selectionModel()->currentIndex().row();
+    QString Mentee_U_Num = model_match_mentees_matched->record(row_mentee).value(0).toString();
+    qDebug() << Mentor_U_Num << Mentee_U_Num;
+
+    if(Mentor_U_Num.isEmpty() || Mentee_U_Num.isEmpty())
+    {
+        return;
+    }
+
+    //INSERT INTO match(mentor_id, mentee_id) VALUES('u1234567', 'u7777777')
+    QString str = "DELETE FROM match WHERE mentee_id = '" + Mentee_U_Num + "'";
+    QSqlQuery query(db);
+    query.exec(str);
+    qDebug() << str;
+
+    // show
+
+    // Mentees to be matched
+    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+    model_match_mentees_to_be_match->setQuery(str,db);
+    ui->tableView_match_mentees_to_be_match->reset();
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+
+    // Mentees Matched
+    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
+    model_match_mentees_matched->setQuery(str,db);
+    ui->tableView_match_mentees_matched->reset();
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
 }
 
 void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
