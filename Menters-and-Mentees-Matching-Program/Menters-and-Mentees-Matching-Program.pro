@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        delegate_training.cpp \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
         mainwindow_mentors.cpp
 
 HEADERS += \
+        delegate_training.h \
         mainwindow.h
 
 FORMS += \

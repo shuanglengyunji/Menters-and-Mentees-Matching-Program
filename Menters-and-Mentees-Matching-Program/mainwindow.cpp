@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     init_match_page();
 
     // switch to mentors' page
-    ui->stack->setCurrentIndex(2);
+    ui->stack->setCurrentIndex(0);
     ui->actionManage_Mentors->setChecked(true);
     qDebug() << "Switch to Mentors Page";
 
