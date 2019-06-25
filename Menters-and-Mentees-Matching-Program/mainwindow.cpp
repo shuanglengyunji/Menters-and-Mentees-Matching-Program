@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     init_match_page();
 
     // switch to mentors' page
-    ui->stack->setCurrentIndex(2);
+    ui->stack->setCurrentIndex(0);
     ui->actionManage_Mentors->setChecked(true);
     qDebug() << "Switch to Mentors Page";
 
@@ -38,6 +38,8 @@ MainWindow::~MainWindow()
     delete model_match_mentors;
     delete model_match_mentees_matched;
     delete model_match_mentees_to_be_match;
+    delete model_proxy_match_mentors;
+    delete model_proxy_match_mentees_to_be_match;
     delete ui;
 }
 

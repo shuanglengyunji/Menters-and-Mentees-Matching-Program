@@ -46,6 +46,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-VERSION = 0.1
-
+VERSION = 1.0
 
