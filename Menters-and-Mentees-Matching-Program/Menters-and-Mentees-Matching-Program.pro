@@ -48,13 +48,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-<<<<<<< HEAD
 VERSION = 1.0
-=======
-VERSION = 0.1
 
 RESOURCES += \
     icon.qrc
->>>>>>> d7213b9b247450944b6080396be52f56e052f86a
 
 RC_ICONS = icon.ico
