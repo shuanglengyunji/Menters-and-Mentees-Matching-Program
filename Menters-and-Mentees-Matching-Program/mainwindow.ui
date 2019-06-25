@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Set4ANU</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icon.qrc">
+    <normaloff>:/icon/icon.ico</normaloff>:/icon/icon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -35,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -62,13 +66,6 @@
           </item>
           <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_edit">
-            <item row="1" column="6">
-             <widget class="QPushButton" name="pushButton_mentors_add">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="5">
              <spacer name="horizontalSpacer_mentors">
               <property name="orientation">
@@ -82,13 +79,6 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_mentors_delete">
-              <property name="text">
-               <string>Delete</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="7">
              <widget class="QPushButton" name="pushButton_mentors_revert">
               <property name="text">
@@ -96,10 +86,31 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="8">
+            <item row="1" column="9">
              <widget class="QPushButton" name="pushButton_mentors_submit">
               <property name="text">
                <string>Submit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_mentors_delete">
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6">
+             <widget class="QPushButton" name="pushButton_mentors_add">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="8">
+             <widget class="QPushButton" name="pushButton_Auto_Confirm">
+              <property name="text">
+               <string>Auto Confirm</string>
               </property>
              </widget>
             </item>
@@ -476,6 +487,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

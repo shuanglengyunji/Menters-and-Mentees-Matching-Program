@@ -16,6 +16,8 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
+#include <delegate_training.h>
+
 # define MY_DATA_BASE_NAME "db_mm.db"
 # define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
 
@@ -88,14 +90,23 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
+    void on_pushButton_Auto_Confirm_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QSqlDatabase db;
 
+    // Mentor page
     QSqlTableModel * model_mentors;
+    Delegate_Training * delegare_model_mentor_training_1;
+    Delegate_Training * delegare_model_mentor_training_2;
+    Delegate_Training * delegare_model_mentor_training_3;
+
+    // Mentee page
     QSqlTableModel * model_mentees;
 
+    // Match page
     QSqlQueryModel * model_match_mentors;
     QSqlQueryModel * model_match_mentees_matched;
     QSqlQueryModel * model_match_mentees_to_be_match;
@@ -110,6 +121,8 @@ private:
 
     void match(QSqlQueryModel * mentor, QSqlQueryModel * mentee, bool college,bool language, bool gender,bool academiclevel, bool consideration);
     void refresh();
+
+    void training_Auto_confirm();
 
 };
 
