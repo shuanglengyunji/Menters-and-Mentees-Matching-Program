@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        delegate_training.cpp \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
         mainwindow_mentors.cpp
 
 HEADERS += \
+        delegate_training.h \
         mainwindow.h
 
 FORMS += \
@@ -46,5 +48,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
+<<<<<<< HEAD
 VERSION = 1.0
+=======
+VERSION = 0.1
 
+RESOURCES += \
+    icon.qrc
+>>>>>>> d7213b9b247450944b6080396be52f56e052f86a
+
+RC_ICONS = icon.ico

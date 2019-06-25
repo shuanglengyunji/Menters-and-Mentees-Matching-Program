@@ -8,13 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // app apth
-    QString path = qApp->applicationDirPath();
-    qDebug() << "App Dir:" << path;
-
-    // tmp path
-    QString tmp_path = path + "/tmp";
-    qDebug() << "tmp Path" << tmp_path;
+    QString tmp_path = qApp->applicationDirPath() + "/tmp";
     QDir().mkdir(tmp_path);
+    qDebug() << "tmp Path" << tmp_path;
 
     // init database
     init_database(tmp_path);
@@ -45,23 +41,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::init_database(QString work_path)
 {
-    // get path
-    // database path
+    // get database path and database demo path
     QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
-    if(QFile().exists(db_path))
-    {
-        QFile().remove(db_path);
-        qDebug() << "Old database removed";
-    }
-    qDebug() << "Database Path:" << db_path;
-
-    // database demo path
     QString db_demo_path = work_path + "/" + MY_DATABASE_DEMO_NAME;
-    qDebug() << "Database Demo Path:" << db_demo_path;
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(db_path);
+    db.setDatabaseName(":memory:");
+    //db.setDatabaseName(db_path);
     //db.setDatabaseName(db_demo_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
@@ -71,10 +58,20 @@ void MainWindow::init_database(QString work_path)
     }
 
     QSqlQuery query(db);
+    QString str = "";
 
+    // Drop all the tables
+    str = "DROP TABLE IF EXISTS 'match'";
+    query.exec(str);
+
+    str = "DROP TABLE IF EXISTS 'mentor'";
+    query.exec(str);
+
+    str = "DROP TABLE IF EXISTS 'mentee'";
+    query.exec(str);
 
     // match
-    QString str = "CREATE TABLE [match] ( m_id INTEGER PRIMARY KEY UNIQUE NOT NULL, \
+    str = "CREATE TABLE [match] ( m_id INTEGER PRIMARY KEY UNIQUE NOT NULL, \
             mentor_id VARCHAR (10) REFERENCES [mentor ] (uid) NOT NULL, \
             mentee_id VARCHAR (10) REFERENCES mentee (uid) NOT NULL)";
     query.exec(str);
@@ -139,5 +136,6 @@ void MainWindow::on_actionManage_Matching_triggered()
     ui->actionManage_Matching->setChecked(true);
 
 }
+
 
 

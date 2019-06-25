@@ -60,6 +60,7 @@ void MainWindow::on_actionImport_Mentors_triggered()
         ui->tableView_mentors->reset();
         ui->tableView_mentors->resizeColumnsToContents();
         refresh();
+        training_Auto_confirm();
     }
     else
     {

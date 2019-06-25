@@ -140,6 +140,13 @@ void MainWindow::on_pushButton_Auto_clicked()
         model_for_mentees->fetchMore();
     }
 
+    if (model_for_mentors->rowCount() == 0 || model_for_mentees->rowCount() == 0)
+    {
+        delete model_for_mentors;
+        delete model_for_mentees;
+        return;
+    }
+
     match(model_for_mentors,model_for_mentees,college,language,gender,academiclevel,consideration);
 
     delete model_for_mentors;
