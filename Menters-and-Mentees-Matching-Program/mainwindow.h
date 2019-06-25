@@ -90,6 +90,8 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
+    void on_pushButton_Auto_Confirm_clicked();
+
 private:
     Ui::MainWindow *ui;
 

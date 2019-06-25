@@ -66,13 +66,6 @@
           </item>
           <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_edit">
-            <item row="1" column="6">
-             <widget class="QPushButton" name="pushButton_mentors_add">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="5">
              <spacer name="horizontalSpacer_mentors">
               <property name="orientation">
@@ -86,13 +79,6 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_mentors_delete">
-              <property name="text">
-               <string>Delete</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="7">
              <widget class="QPushButton" name="pushButton_mentors_revert">
               <property name="text">
@@ -100,10 +86,31 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="8">
+            <item row="1" column="9">
              <widget class="QPushButton" name="pushButton_mentors_submit">
               <property name="text">
                <string>Submit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_mentors_delete">
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6">
+             <widget class="QPushButton" name="pushButton_mentors_add">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="8">
+             <widget class="QPushButton" name="pushButton_Auto_Confirm">
+              <property name="text">
+               <string>Auto Confirm</string>
               </property>
              </widget>
             </item>

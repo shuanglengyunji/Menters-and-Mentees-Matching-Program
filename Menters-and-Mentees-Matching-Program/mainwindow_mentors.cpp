@@ -3,6 +3,8 @@
 
 void MainWindow::training_Auto_confirm()
 {
+    qDebug() << "auto confirmed";
+
     while(model_mentors->canFetchMore())
     {
         model_mentors->fetchMore();
@@ -160,4 +162,9 @@ void MainWindow::on_pushButton_mentors_submit_clicked()
     }
 
     qDebug() << "Submit All";
+}
+
+void MainWindow::on_pushButton_Auto_Confirm_clicked()
+{
+    training_Auto_confirm();
 }
