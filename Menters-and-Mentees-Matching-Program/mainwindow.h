@@ -90,23 +90,47 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
-    void on_pushButton_Auto_Confirm_clicked();
-
 private:
     Ui::MainWindow *ui;
 
+    // ------------------------------------
+
+    // Database
+
     QSqlDatabase db;
 
+    void init_database(QString work_path);
+
+    // ------------------------------------
+
     // Mentor page
+
     QSqlTableModel * model_mentors;
     Delegate_Training * delegare_model_mentor_training_1;
     Delegate_Training * delegare_model_mentor_training_2;
     Delegate_Training * delegare_model_mentor_training_3;
+    Delegate_Training * delegare_model_mentor_training_confirm;
+
+    void init_mentors_page();
+    void init_mentors_model();
+    void init_mentors_view();
+
+    void training_Auto_confirm();
+
+    // ------------------------------------
 
     // Mentee page
+
     QSqlTableModel * model_mentees;
 
+    void init_mentees_page();
+    void init_mentees_model();
+    void init_mentees_view();
+
+    // ------------------------------------
+
     // Match page
+
     QSqlQueryModel * model_match_mentors;
     QSqlQueryModel * model_match_mentees_matched;
     QSqlQueryModel * model_match_mentees_to_be_match;
@@ -114,15 +138,34 @@ private:
     QSortFilterProxyModel * model_proxy_match_mentors;
     QSortFilterProxyModel * model_proxy_match_mentees_to_be_match;
 
-    void init_database(QString work_path);
-    void init_mentors_page();
-    void init_mentees_page();
     void init_match_page();
+    void init_match_mentors_model();
+    void init_match_mentors_proxy_model();
+    void init_match_mentors_view();
+    void init_match_mentees_to_be_match_model();
+    void init_match_mentees_to_be_match_proxy_model();
+    void init_match_mentees_to_be_match_view();
+    void init_match_mentees_matched_model();
+    void init_match_mentees_matched_view();
+    void refresh_match_mentors_view();
+    void refresh_match_mentees_to_be_match_view();
+    void refresh_match_mentees_matched_view();
+    void refresh_match();
 
     void match(QSqlQueryModel * mentor, QSqlQueryModel * mentee, bool college,bool language, bool gender,bool academiclevel, bool consideration);
-    void refresh();
+    void match_manual_add(QString Mentor_U_Num, QString Mentee_U_Num);
+    void match_manual_remove(QString Mentor_U_Num, QString Mentee_U_Num);
 
-    void training_Auto_confirm();
+    // ------------------------------------
+
+    void import_mentors();
+    void import_mentees();
+    void import_match();
+
+    void export_mentors();
+    void export_mentees();
+    void export_match_result();
+    void export_wattle_file();
 
 };
 

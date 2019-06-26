@@ -1,6 +1,50 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+void MainWindow::match_manual_add(QString Mentor_U_Num, QString Mentee_U_Num)
+{
+    //INSERT INTO match(mentor_id, mentee_id) VALUES('u1234567', 'u7777777')
+    QString str = "INSERT INTO match(mentor_id, mentee_id) VALUES('" + Mentor_U_Num + "', '" + Mentee_U_Num + "')";
+    QSqlQuery query(db);
+    query.exec(str);
+    qDebug() << str;
+
+    // show
+
+    // Mentees to be matched
+    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+    model_match_mentees_to_be_match->setQuery(str,db);
+    refresh_match_mentees_to_be_match_view();
+
+    // Mentees Matched
+    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
+    model_match_mentees_matched->setQuery(str,db);
+    refresh_match_mentees_matched_view();
+}
+
+void MainWindow::match_manual_remove(QString Mentor_U_Num, QString Mentee_U_Num)
+{
+    //INSERT INTO match(mentor_id, mentee_id) VALUES('u1234567', 'u7777777')
+    QString str = "DELETE FROM match WHERE mentee_id = '" + Mentee_U_Num + "'";
+    QSqlQuery query(db);
+    query.exec(str);
+    qDebug() << str;
+
+    // show
+
+    // Mentees to be matched
+    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+    model_match_mentees_to_be_match->setQuery(str,db);
+    ui->tableView_match_mentees_to_be_match->reset();
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+
+    // Mentees Matched
+    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
+    model_match_mentees_matched->setQuery(str,db);
+    ui->tableView_match_mentees_matched->reset();
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+}
+
 void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool college, bool language, bool gender, bool academiclevel, bool consideration)
 {
     QSqlQuery q("", db);                                                            //link to database
@@ -64,9 +108,11 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
         QString menteeid=tempmentee.value(0).toString();
         QString mentorid;
         QString tempmenteecollege=tempmentee.value(5).toString();
-        QStringList collegementee=tempmenteecollege.split('|');
+        tempmenteecollege.remove(" ");
+        QStringList collegementee=tempmenteecollege.split(',');
         QString tempmenteelanguage=tempmentee.value(6).toString();
-        QStringList languagementee=tempmenteelanguage.split('|');
+        tempmenteelanguage.remove(" ");
+        QStringList languagementee=tempmenteelanguage.split(',');
         QString academiclevelmentee=tempmentee.value(4).toString();
         academiclevelmentee.remove(" ");
         QString gendementee=tempmentee.value(3).toString();
@@ -93,9 +139,11 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
             QSqlRecord tmpmentor=mentor->record(i);                                 //get mentor data
             QString mentorid=tmpmentor.value(0).toString();
             QString tempmentorcollege=tmpmentor.value(5).toString();
-            QStringList collegementor=tempmentorcollege.split('|');
+            tempmentorcollege.remove(" ");
+            QStringList collegementor=tempmentorcollege.split(',');
             QString tempmentorlanguage=tmpmentor.value(6).toString();
-            QStringList languagementor=tempmentorlanguage.split('|');
+            tempmentorlanguage.remove(" ");
+            QStringList languagementor=tempmentorlanguage.split(',');
             QString academiclevelmentor=tmpmentor.value(4).toString();
             academiclevelmentor.remove(" ");
             QString gendementor=tmpmentor.value(3).toString();

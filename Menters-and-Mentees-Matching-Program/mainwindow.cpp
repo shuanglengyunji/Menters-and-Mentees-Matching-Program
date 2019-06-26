@@ -71,37 +71,66 @@ void MainWindow::init_database(QString work_path)
     query.exec(str);
 
     // match
-    str = "CREATE TABLE [match] ( m_id INTEGER PRIMARY KEY UNIQUE NOT NULL, \
-            mentor_id VARCHAR (10) REFERENCES [mentor ] (uid) NOT NULL, \
-            mentee_id VARCHAR (10) REFERENCES mentee (uid) NOT NULL)";
-    query.exec(str);
-
-    // mentor
-    str = "CREATE TABLE mentor ( uid VARCHAR (10) PRIMARY KEY UNIQUE NOT NULL,  \
-            first_name     VARCHAR (20) NOT NULL,   \
-            last_name      VARCHAR (20) NOT NULL,   \
-            gender         VARCHAR (20) NOT NULL,   \
-            academic_level VARCHAR (20) NOT NULL,   \
-            college        VARCHAR (50) NOT NULL,   \
-            languages      VARCHAR (30) NOT NULL DEFAULT English,   \
-            train_1        CHAR (1)     DEFAULT n NOT NULL, \
-            train_2        CHAR (1)     NOT NULL DEFAULT n, \
-            wwvp_card      VARCHAR (10),    \
-            is_confirm     CHAR (1)     DEFAULT n NOT NULL, \
-            role           VARCHAR      DEFAULT mentor NOT NULL)";
+    str = "CREATE TABLE [match] (                           \
+            m_id      INTEGER      PRIMARY KEY              \
+                                   UNIQUE                   \
+                                   NOT NULL                 \
+                                   COLLATE BINARY,          \
+            mentor_id VARCHAR (10) REFERENCES mentor (uid)  \
+                                   NOT NULL,                \
+            mentee_id VARCHAR (10) REFERENCES mentee (uid)  \
+                                   NOT NULL                 \
+        )";
     query.exec(str);
 
     // mentee
-    str = "CREATE TABLE mentee ( uid VARCHAR (10) PRIMARY KEY UNIQUE NOT NULL, \
-                first_name     VARCHAR (20) NOT NULL,   \
-                last_name      VARCHAR      NOT NULL,   \
-                gender         VARCHAR (8)  NOT NULL,   \
-                academic_level VARCHAR (20) NOT NULL,   \
-                college        VARCHAR (50) NOT NULL,   \
-                languages      VARCHAR (30) NOT NULL DEFAULT English,   \
-                consideration  TEXT (200), role VARCHAR DEFAULT mentee NOT NULL)";
+    str = "CREATE TABLE mentee (                            \
+            uid            VARCHAR (10) PRIMARY KEY         \
+                                        UNIQUE              \
+                                        NOT NULL,           \
+            first_name     VARCHAR (20) NOT NULL,           \
+            last_name      VARCHAR      NOT NULL,           \
+            gender         VARCHAR (8)  NOT NULL,           \
+            email          VARCHAR (30),                    \
+            mobile         VARCHAR (20),                    \
+            academic_level VARCHAR (20),                    \
+            college        VARCHAR (50),                    \
+            languages      VARCHAR (30) NOT NULL            \
+                                        DEFAULT English,    \
+            consideration  TEXT (200),                      \
+            role           VARCHAR      DEFAULT mentee      \
+                                        NOT NULL            \
+        )";
     query.exec(str);
 
+    // mentor
+    str = "CREATE TABLE mentor (                        \
+            uid            VARCHAR (10) PRIMARY KEY     \
+                                        UNIQUE          \
+                                        NOT NULL,       \
+            first_name     VARCHAR (20) NOT NULL,       \
+            last_name      VARCHAR (20) NOT NULL,       \
+            gender         VARCHAR (20),                \
+            email          VARCHAR (30),                \
+            mobile         VARCHAR (20),                \
+            add_info       TEXT (500),                  \
+            academic_level VARCHAR (20),                \
+            college        VARCHAR (50),                \
+            languages      VARCHAR (30) DEFAULT English \
+                                        NOT NULL,       \
+            train_1        CHAR (1)     DEFAULT n       \
+                                        NOT NULL,       \
+            train_2        CHAR (1)     NOT NULL        \
+                                        DEFAULT n,      \
+            train_3        CHAR (1)     DEFAULT n       \
+                                        NOT NULL,       \
+            wwvp_card      VARCHAR (10),                \
+            is_confirm     CHAR (1)     DEFAULT n       \
+                                        NOT NULL,       \
+            role           VARCHAR      DEFAULT mentor  \
+                                        NOT NULL        \
+        )";
+    query.exec(str);
 
     qDebug() << "Database Init Success";
 }

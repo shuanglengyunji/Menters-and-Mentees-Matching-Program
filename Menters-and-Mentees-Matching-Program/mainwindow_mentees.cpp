@@ -3,7 +3,7 @@
 
 // mentees
 
-void MainWindow::init_mentees_page()
+void MainWindow::init_mentees_model()
 {
     // init mentees' table model
     model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
@@ -15,16 +15,27 @@ void MainWindow::init_mentees_page()
     model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");
     model_mentees->setHeaderData(2, Qt::Horizontal, "Last Name");
     model_mentees->setHeaderData(3, Qt::Horizontal, "Gender");
-    model_mentees->setHeaderData(4, Qt::Horizontal, "Academic Level");
-    model_mentees->setHeaderData(5, Qt::Horizontal, "College");
-    model_mentees->setHeaderData(6, Qt::Horizontal, "Language");
-    model_mentees->setHeaderData(7, Qt::Horizontal, "Consideration");
-    model_mentees->setHeaderData(8, Qt::Horizontal, "Role");
+    model_mentees->setHeaderData(4, Qt::Horizontal, "Email");
+    model_mentees->setHeaderData(5, Qt::Horizontal, "Mobile");
+    model_mentees->setHeaderData(6, Qt::Horizontal, "Academic Level");
+    model_mentees->setHeaderData(7, Qt::Horizontal, "College");
+    model_mentees->setHeaderData(8, Qt::Horizontal, "Language");
+    model_mentees->setHeaderData(9, Qt::Horizontal, "Consideration");
+    model_mentees->setHeaderData(10, Qt::Horizontal, "Role");
+}
 
+void MainWindow::init_mentees_view()
+{
     // set table view
     ui->tableView_mentees->setModel(model_mentees);
-    ui->tableView_mentees->hideColumn(8);
+    ui->tableView_mentees->hideColumn(10);
     ui->tableView_mentees->resizeColumnsToContents();
+}
+
+void MainWindow::init_mentees_page()
+{
+    init_mentees_model();
+    init_mentees_view();
 }
 
 void MainWindow::on_lineEdit_mentees_search_editingFinished()
