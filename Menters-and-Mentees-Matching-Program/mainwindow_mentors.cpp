@@ -3,38 +3,46 @@
 
 void MainWindow::training_Auto_confirm()
 {
-//    qDebug() << "auto confirmed";
+    qDebug() << "auto confirmed";
 
-//    while(model_mentors->canFetchMore())
-//    {
-//        model_mentors->fetchMore();
-//    }
-//    int row = model_mentors->rowCount();
+    while(model_mentors->canFetchMore())
+    {
+        model_mentors->fetchMore();
+    }
+    int row = model_mentors->rowCount();
 
-//    for(int i=0; i<row; i++)
-//    {
-//        QString train_1 = model_mentors->index(i,7).data().toString();
-//        QString train_2 = model_mentors->index(i,8).data().toString();
-//        QString WWVP = model_mentors->index(i,9).data().toString();
+    for(int i=0; i<row; i++)
+    {
+        QString train_1 = model_mentors->index(i,10).data().toString();
+        QString train_2 = model_mentors->index(i,11).data().toString();
+        QString train_3 = model_mentors->index(i,12).data().toString();
+        QString WWVP = model_mentors->index(i,13).data().toString();
 
-//        if(train_1 != "y")
-//        {
-//            model_mentors->setData(model_mentors->index(i,7),"n");
-//        }
+        if(train_1 != "y")
+        {
+            model_mentors->setData(model_mentors->index(i,10),"n");
+        }
 
-//        if(train_2 != "y")
-//        {
-//            model_mentors->setData(model_mentors->index(i,8),"n");
-//        }
+        if(train_2 != "y")
+        {
+            model_mentors->setData(model_mentors->index(i,11),"n");
+        }
 
-//        if(train_1 == "y" && train_2 == "y" && !WWVP.isEmpty())
-//        {
-//            model_mentors->setData(model_mentors->index(i,10),"y");
-//        }
-//        else {
-//            model_mentors->setData(model_mentors->index(i,10),"n");
-//        }
-//    }
+        if(train_3 != "y")
+        {
+            model_mentors->setData(model_mentors->index(i,12),"n");
+        }
+
+        if(train_1 == "y" && train_2 == "y" && train_3 == "y" && !WWVP.isEmpty())
+        {
+            model_mentors->setData(model_mentors->index(i,14),"y");
+        }
+        else
+        {
+            model_mentors->setData(model_mentors->index(i,14),"n");
+        }
+    }
+    //model_mentors->submitAll();
 }
 
 void MainWindow::init_mentors_model()
@@ -117,8 +125,8 @@ void MainWindow::on_lineEdit_mentors_search_editingFinished()
 
 void MainWindow::on_pushButton_mentors_add_clicked()
 {
-    QSqlTableModel *tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentors->model());
-    if (!tm)
+    QSqlTableModel *tm = model_mentors;
+    if (tm == nullptr)
         return;
 
     QModelIndex insertIndex = ui->tableView_mentors->currentIndex();
@@ -133,7 +141,7 @@ void MainWindow::on_pushButton_mentors_add_clicked()
 
 void MainWindow::on_pushButton_mentors_delete_clicked()
 {
-    QSqlTableModel *tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentors->model());
+    QSqlTableModel *tm = model_mentors;
     if (!tm)
         return;
 
@@ -156,7 +164,7 @@ void MainWindow::on_pushButton_mentors_delete_clicked()
 
 void MainWindow::on_pushButton_mentors_revert_clicked()
 {
-    QSqlTableModel * tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentors->model());
+    QSqlTableModel * tm = model_mentors;
     if (tm)
         tm->revertAll();
 
@@ -165,7 +173,7 @@ void MainWindow::on_pushButton_mentors_revert_clicked()
 
 void MainWindow::on_pushButton_mentors_submit_clicked()
 {
-    QSqlTableModel * tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentors->model());
+    QSqlTableModel * tm = model_mentors;
     if (tm){
         if(!tm->submitAll()){
             qDebug()<<"Unable to submit"<<endl;

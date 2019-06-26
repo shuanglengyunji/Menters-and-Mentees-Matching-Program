@@ -52,6 +52,8 @@ void MainWindow::init_match_mentors_view()
     ui->tableView_match_mentors->resizeColumnsToContents();
 }
 
+// ----------------------------------------------------
+
 void MainWindow::init_match_mentees_to_be_match_model()
 {
     // Mentees to be matched
@@ -90,6 +92,8 @@ void MainWindow::init_match_mentees_to_be_match_view()
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
 }
 
+// ----------------------------------------------------
+
 void MainWindow::init_match_mentees_matched_model()
 {
     // Mentees matched
@@ -123,6 +127,8 @@ void MainWindow::init_match_mentees_matched_view()
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
 }
+
+// ----------------------------------------------------
 
 void MainWindow::refresh_match()
 {
@@ -193,10 +199,10 @@ void MainWindow::on_pushButton_Up_clicked()
 {
     // get u_num
     int row_mentor = ui->tableView_match_mentors->selectionModel()->currentIndex().row();
-    QString Mentor_U_Num = model_match_mentors->record(row_mentor).value(0).toString();
+    QString Mentor_U_Num = model_proxy_match_mentors->index(row_mentor,0).data().toString();
 
     int row_mentee = ui->tableView_match_mentees_to_be_match->selectionModel()->currentIndex().row();
-    QString Mentee_U_Num = model_match_mentees_to_be_match->record(row_mentee).value(0).toString();
+    QString Mentee_U_Num = model_proxy_match_mentees_to_be_match->index(row_mentee,0).data().toString();
 
     if(Mentor_U_Num.isEmpty() || Mentee_U_Num.isEmpty())
     {
@@ -211,7 +217,7 @@ void MainWindow::on_pushButton_Down_clicked()
 {
     // get u_num
     int row_mentor = ui->tableView_match_mentors->selectionModel()->currentIndex().row();
-    QString Mentor_U_Num = model_match_mentors->record(row_mentor).value(0).toString();
+    QString Mentor_U_Num = model_proxy_match_mentors->index(row_mentor,0).data().toString();
 
     int row_mentee = ui->tableView_match_mentees_matched->selectionModel()->currentIndex().row();
     QString Mentee_U_Num = model_match_mentees_matched->record(row_mentee).value(0).toString();
@@ -228,7 +234,7 @@ void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
 {
     // Selected Row
     int row = index.row();
-    QString Mentor_U_Num = model_match_mentors->record(row).value(0).toString();
+    QString Mentor_U_Num = model_proxy_match_mentors->index(row,0).data().toString();
 
     // Mentees Matched
     QString str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
