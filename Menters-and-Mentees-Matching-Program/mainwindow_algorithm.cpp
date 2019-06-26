@@ -45,14 +45,15 @@ void MainWindow::match_manual_remove(QString Mentor_U_Num, QString Mentee_U_Num)
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
 }
 
-void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool college, bool language, bool gender, bool academiclevel, bool consideration)
+
+void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, int college, int language, int gender, int academiclevel, int consideration, int max_mentees_num)
 {
     QSqlQuery q("", db);                                                            //link to database
     QList <int> menteenumber;                                                       //number of mentees for each mentor
     QString searchs("SELECT COUNT(mentor_id) FROM match WHERE (mentor_id = \'");    //initial search command
     QString searche("\')");
-    int rcollege,rlanguage,rgender,racademiclevel,rconsideration;                   //declare rule variables
     int cscore=0,hscore=0,hid=0,lscore=0,ccnt=0;
+    bool collegecheck=false,languagecheck=false,gendercheck=false,academiclevelcheck=false,enable=false,matched=false;
 
     for (int i=0;i<mentor->rowCount();i++) {                                        //get pre-assigned mentees
         QSqlRecord tmpmentor=mentor->record(i);
@@ -67,64 +68,41 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
             menteenumber.append(q.value(0).toInt());
         }
     }
-    if(college){                                                                    //ensure rule variable values
-        rcollege=1;
-    } else {
-        rcollege=0;
-    }
-    if(language){
-        rlanguage=1;
-    } else {
-        rlanguage=0;
-    }
-    if(gender){
-        rgender=1;
-    } else {
-        rgender=0;
-    }
-    if(academiclevel){
-        racademiclevel=1;
-    } else {
-        racademiclevel=0;
-    }
-    if(consideration){
-        rconsideration=1;
-    } else {
-        rconsideration=0;
-    }
-    for (int k=0;k<mentee->rowCount();k++) {
+
+        for (int k=0;k<mentee->rowCount();k++) {
         QSqlRecord tempmentee=mentee->record(k);
-        QString consideration=tempmentee.value(7).toString();
-        if(!consideration.isEmpty() && rconsideration){
+        QString tempconsideration=tempmentee.value(9).toString();
+        if(!tempconsideration.isEmpty() && consideration==1){
             ccnt++;
         }
     }
 
     int maxassign=(mentee->rowCount()-ccnt)/mentor->rowCount();                   //calculate max menteenumbers
+
     qDebug()<<maxassign<<endl;
 
     for (int k=0;k<mentee->rowCount();k++) {                                        //start matching
         QSqlRecord tempmentee=mentee->record(k);                                    //get mentee data
         QString menteeid=tempmentee.value(0).toString();
         QString mentorid;
-        QString tempmenteecollege=tempmentee.value(5).toString();
+        QString tempmenteecollege=tempmentee.value(7).toString();
         tempmenteecollege.remove(" ");
         QStringList collegementee=tempmenteecollege.split(',');
-        QString tempmenteelanguage=tempmentee.value(6).toString();
+        QString tempmenteelanguage=tempmentee.value(8).toString();
         tempmenteelanguage.remove(" ");
         QStringList languagementee=tempmenteelanguage.split(',');
-        QString academiclevelmentee=tempmentee.value(4).toString();
+        QString academiclevelmentee=tempmentee.value(6).toString();
         academiclevelmentee.remove(" ");
         QString gendementee=tempmentee.value(3).toString();
-        QString consideration=tempmentee.value(7).toString();
+        QString tempconsideration=tempmentee.value(9).toString();
         bool isfull=false;
-        if(!consideration.isEmpty() && rconsideration)                              //if there is some consideration and it need to be considered, this mentee will not be auto-assign
+        if(!tempconsideration.isEmpty() && consideration==1)                        //if there is some consideration and it need to be considered, this mentee will not be auto-assign
             continue;
 
         hscore=0;                                                                   //initial assign variable
         lscore=1000;
         hid=0;
-
+        matched=false;
 
 
 
@@ -138,20 +116,30 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
 
             QSqlRecord tmpmentor=mentor->record(i);                                 //get mentor data
             QString mentorid=tmpmentor.value(0).toString();
-            QString tempmentorcollege=tmpmentor.value(5).toString();
+            QString tempmentorcollege=tmpmentor.value(7).toString();
             tempmentorcollege.remove(" ");
             QStringList collegementor=tempmentorcollege.split(',');
-            QString tempmentorlanguage=tmpmentor.value(6).toString();
+            QString tempmentorlanguage=tmpmentor.value(8).toString();
             tempmentorlanguage.remove(" ");
             QStringList languagementor=tempmentorlanguage.split(',');
-            QString academiclevelmentor=tmpmentor.value(4).toString();
+            QString academiclevelmentor=tmpmentor.value(6).toString();
             academiclevelmentor.remove(" ");
             QString gendementor=tmpmentor.value(3).toString();
 
+            collegecheck=false;
+            languagecheck=false;
+            gendercheck=true;
+            academiclevelcheck=true;
+            enable=true;
             cscore=0;
             for(int h=0;h<collegementee.count();h++){                               //scoring
                 if(collegementor.contains(collegementee.value(h))){
-                    cscore+=1*rcollege;
+                    if(college!=100){
+                        cscore+=1*college;
+                    }
+                    else {
+                        collegecheck=true;
+                    }
                 }
             }
 
@@ -159,27 +147,59 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
 
             for(int h=0;h<languagementee.count();h++){
                 if(collegementor.contains(languagementee.value(h))){
-                    cscore+=1*rlanguage;
+                    if(language!=100){
+                        cscore+=1*language;
+                    }
+                    else {
+                        languagecheck=true;
+                    }
                 }
             }
 
             qDebug()<<"Mentee: "<<menteeid<<"to mentor: "<<mentorid<<", Score now considered language:"<<cscore<<endl;
 
-            if(academiclevelmentee == academiclevelmentor)
-                cscore+=1*racademiclevel;
+            if(academiclevelmentee == academiclevelmentor){
+                if(academiclevel!=100){
+                    cscore+=1*academiclevel;
+                }
+            }
+            else {
+                academiclevelcheck=false;
+            }
 
             qDebug()<<"Mentee: "<<menteeid<<"to mentor: "<<mentorid<<", Score now considered level of study:"<<cscore<<endl;
 
-            if(gendementee==gendementor)
-                cscore+=1*rgender;
+            if(gendementee==gendementor){
+                if(gender!=100){
+                    cscore+=1*gender;
+                }
+            }
+            else {
+                gendercheck=false;
+            }
 
             qDebug()<<"Mentee: "<<menteeid<<"to mentor: "<<mentorid<<", Score now considered gender:"<<cscore<<endl;
 
-            if(cscore>hscore){                                                      //final mentor
+            //judge if this mentor absolute same
+            if(college==100 && collegecheck==false){
+                enable=false;
+            }
+            if(language==100 && languagecheck==false){
+                enable=false;
+            }
+            if(gender==100 && gendercheck==false){
+                enable=false;
+            }
+            if(academiclevel==100 && academiclevelcheck==false){
+                enable=false;
+            }
+
+            if(cscore>hscore && enable){                                                      //final mentor
                 hscore=cscore;
                 hid=i;
+                matched=true;
             }
-            if(cscore<lscore){
+            if(cscore<lscore && enable){
                 lscore=cscore;
             }
         }
@@ -192,15 +212,21 @@ void MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, bool coll
             }
         }
 
-        menteenumber[hid]+=1;                                                       //process matching
-        QString inser="insert into match (mentor_id,mentee_id) values (";
-        QSqlRecord tmpmentor=mentor->record(hid);
-        mentorid=tmpmentor.value(0).toString();
-        inser.append("\'"+mentorid+"\'"+",\'"+menteeid+"\')");
+        if(matched){
+            menteenumber[hid]+=1;                                                       //process matching
+            QString inser="insert into match (mentor_id,mentee_id) values (";
+            QSqlRecord tmpmentor=mentor->record(hid);
+            mentorid=tmpmentor.value(0).toString();
+            inser.append("\'"+mentorid+"\'"+",\'"+menteeid+"\')");
 
-        qDebug()<<"Mentee: "<<menteeid<<", Highest score: "<<hscore<<" at mentor: "<<mentorid<<", Lowest score: "<<lscore<<" , "<<inser<<endl;
+            qDebug()<<"Mentee: "<<menteeid<<", Highest score: "<<hscore<<" at mentor: "<<mentorid<<", Lowest score: "<<lscore<<" , "<<inser<<endl;
 
-        q.exec(inser);
+            q.exec(inser);
+        }
+        else {
+            continue;
+        }
 
     }
 }
+

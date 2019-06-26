@@ -298,39 +298,132 @@ void MainWindow::on_lineEdit_match_search_mentees_editingFinished()
 
 void MainWindow::on_pushButton_Auto_clicked()
 {
-//    bool college = ui->checkBox_College->isChecked();
-//    bool language = ui->checkBox_Language->isChecked();
-//    bool gender = ui->checkBox_Gender->isChecked();
-//    bool academiclevel = ui->checkBox_AcademicLevel->isChecked();
-//    bool consideration = ui->checkBox_Consideration->isChecked();
+    qDebug() << "Auto Match";
 
-//    QSqlQueryModel * model_for_mentors = new QSqlQueryModel(this);
-//    QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
-//    model_for_mentors->setQuery(str,db);
-//    while(model_for_mentors->canFetchMore())
-//    {
-//        model_for_mentors->fetchMore();
-//    }
+    int gender = ui->comboBox_gender->currentIndex();
+    int college = ui->comboBox_college->currentIndex();
+    int language = ui->comboBox_language->currentIndex();
+    int academiclevel = ui->comboBox_academic_level->currentIndex();
+    int consideration = ui->comboBox_consideration->currentIndex();
+    int max_mentees_num = ui->spinBox_mentees_num->value();
 
-//    QSqlQueryModel * model_for_mentees = new QSqlQueryModel(this);
-//    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
-//    model_for_mentees->setQuery(str,db);
-//    while(model_for_mentees->canFetchMore())
-//    {
-//        model_for_mentees->fetchMore();
-//    }
+    switch (gender) {
+    case 0:
+        gender = 0;
+        break;
+    case 1:
+        gender = 100;
+        break;
+    case 2:
+        gender = 3;
+        break;
+    case 3:
+        gender = 2;
+        break;
+    case 4:
+        gender = 1;
+        break;
+    default:
+        gender = 0;
+        break;
+    }
 
-//    if (model_for_mentors->rowCount() == 0 || model_for_mentees->rowCount() == 0)
-//    {
-//        delete model_for_mentors;
-//        delete model_for_mentees;
-//        return;
-//    }
+    switch (college) {
+    case 0:
+        college = 0;
+        break;
+    case 1:
+        college = 100;
+        break;
+    case 2:
+        college = 3;
+        break;
+    case 3:
+        college = 2;
+        break;
+    case 4:
+        college = 1;
+        break;
+    default:
+        college = 0;
+        break;
+    }
 
-//    match(model_for_mentors,model_for_mentees,college,language,gender,academiclevel,consideration);
+    switch (language) {
+    case 0:
+        language = 0;
+        break;
+    case 1:
+        language = 100;
+        break;
+    case 2:
+        language = 3;
+        break;
+    case 3:
+        language = 2;
+        break;
+    case 4:
+        language = 1;
+        break;
+    default:
+        language = 0;
+        break;
+    }
 
-//    delete model_for_mentors;
-//    delete model_for_mentees;
+    switch (academiclevel) {
+    case 0:
+        academiclevel = 0;
+        break;
+    case 1:
+        academiclevel = 100;
+        break;
+    case 2:
+        academiclevel = 3;
+        break;
+    case 3:
+        academiclevel = 2;
+        break;
+    case 4:
+        academiclevel = 1;
+        break;
+    default:
+        academiclevel = 0;
+        break;
+    }
 
-//    refresh_match();
+//    qDebug() << gender;
+//    qDebug() << college;
+//    qDebug() << language;
+//    qDebug() << academiclevel;
+//    qDebug() << consideration;
+
+    QSqlQueryModel * model_for_mentors = new QSqlQueryModel(this);
+    QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
+    model_for_mentors->setQuery(str,db);
+    while(model_for_mentors->canFetchMore())
+    {
+        model_for_mentors->fetchMore();
+    }
+
+    QSqlQueryModel * model_for_mentees = new QSqlQueryModel(this);
+    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+    model_for_mentees->setQuery(str,db);
+    while(model_for_mentees->canFetchMore())
+    {
+        model_for_mentees->fetchMore();
+    }
+
+    if (model_for_mentors->rowCount() == 0 || model_for_mentees->rowCount() == 0)
+    {
+        delete model_for_mentors;
+        delete model_for_mentees;
+        return;
+    }
+
+    match(model_for_mentors,model_for_mentees,college,language,gender,academiclevel,consideration,max_mentees_num);
+
+    delete model_for_mentors;
+    delete model_for_mentees;
+
+    refresh_match();
 }

@@ -152,7 +152,9 @@ private:
     void refresh_match_mentees_matched_view();
     void refresh_match();
 
-    void match(QSqlQueryModel * mentor, QSqlQueryModel * mentee, bool college,bool language, bool gender,bool academiclevel, bool consideration);
+    // ------------------------------------
+
+    void match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, int college, int language, int gender, int academiclevel, int consideration, int max_mentees_num);
     void match_manual_add(QString Mentor_U_Num, QString Mentee_U_Num);
     void match_manual_remove(QString Mentor_U_Num, QString Mentee_U_Num);
 

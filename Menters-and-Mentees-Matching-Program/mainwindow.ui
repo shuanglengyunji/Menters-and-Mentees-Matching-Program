@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -301,14 +301,14 @@
           <item row="0" column="2">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="label_gender">
               <property name="text">
                <string>Gender:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox">
+             <widget class="QComboBox" name="comboBox_gender">
               <property name="accessibleName">
                <string/>
               </property>
@@ -340,14 +340,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="label_college">
               <property name="text">
                <string>College:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_3">
+             <widget class="QComboBox" name="comboBox_college">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -376,14 +376,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="label_language">
               <property name="text">
                <string>Language:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_4">
+             <widget class="QComboBox" name="comboBox_language">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -412,14 +412,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="label_academic_level">
               <property name="text">
                <string>Academic Level:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_5">
+             <widget class="QComboBox" name="comboBox_academic_level">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -448,14 +448,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="label_consideration">
               <property name="text">
                <string>Consdieration:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_6">
+             <widget class="QComboBox" name="comboBox_consideration">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -470,6 +470,33 @@
             </item>
             <item>
              <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mentees_num">
+              <property name="text">
+               <string>Max Mentees Num:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox_mentees_num">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>10</number>
+              </property>
+              <property name="value">
+               <number>5</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>

@@ -74,13 +74,6 @@ void MainWindow::import_mentors()
             }
         }
         file.close();
-
-        // show
-        model_mentors->select();
-        ui->tableView_mentors->reset();
-        ui->tableView_mentors->resizeColumnsToContents();
-        refresh_match();
-        training_Auto_confirm();
     }
     else
     {
@@ -162,11 +155,6 @@ void MainWindow::import_mentees()
          }
          file.close();
 
-         // show
-         model_mentees->select();
-         ui->tableView_mentees->reset();
-         ui->tableView_mentees->resizeColumnsToContents();
-         refresh_match();
      }
      else
      {
@@ -235,9 +223,13 @@ void MainWindow::export_mentors()
     {
        return;
     }
-    model_mentors = new QSqlTableModel(this,db);
-    model_mentors->setTable("mentor");
-    model_mentors->select();
+    QSqlTableModel * exmodel_mentors = new QSqlTableModel(this,db);
+    exmodel_mentors->setTable("mentor");
+    exmodel_mentors->select();
+    while(exmodel_mentors->canFetchMore()){
+        exmodel_mentors->fetchMore();
+    }
+
     int fl=1;
     if(QFile().exists(addr)){
        QFile().remove(addr);
@@ -253,9 +245,9 @@ void MainWindow::export_mentors()
            in<<datain;
            fl=0;
        }
-       for(int i=0;i<model_mentors->rowCount();i++){
+       for(int i=0;i<exmodel_mentors->rowCount();i++){
            datain.clear();
-           QSqlRecord data=model_mentors->record(i);
+           QSqlRecord data=exmodel_mentors->record(i);
            for (int j=0;j<data.count();j++) {
                if(j==15) continue;
                QString temp=data.value(j).toString();
@@ -284,9 +276,12 @@ void MainWindow::export_mentees()
     {
         return;
     }
-    model_mentees = new QSqlTableModel(this,db);
-    model_mentees->setTable("mentee");
-    model_mentees->select();
+    QSqlTableModel * exmodel_mentees = new QSqlTableModel(this,db);
+    exmodel_mentees->setTable("mentee");
+    exmodel_mentees->select();
+    while(exmodel_mentees->canFetchMore()){
+        exmodel_mentees->fetchMore();
+    }
     int fl=1;
     if(QFile().exists(addr)){
         QFile().remove(addr);
@@ -336,7 +331,11 @@ void MainWindow::export_match_result()
         return;
     }
     QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
-    model_match_mentors->setQuery(str,db);
+    QSqlQueryModel * exmodel_match_mentors=new QSqlQueryModel(this);;
+    exmodel_match_mentors->setQuery(str,db);
+    while(exmodel_match_mentors->canFetchMore()){
+        exmodel_match_mentors->fetchMore();
+    }
     int fl=1;
     if(QFile().exists(addr)){
         QFile().remove(addr);
@@ -353,8 +352,8 @@ void MainWindow::export_match_result()
             fl=0;
         }
         datain.clear();
-        for (int i=0;i<model_match_mentors->rowCount();i++) {
-            QSqlRecord mentordata=model_match_mentors->record(i);
+        for (int i=0;i<exmodel_match_mentors->rowCount();i++) {
+            QSqlRecord mentordata=exmodel_match_mentors->record(i);
             QString mentorid=mentordata.value(0).toString();
             QString groupid=QString::number(i+1,10);
             datain=(groupid+",");
@@ -378,6 +377,9 @@ void MainWindow::export_match_result()
             datain.clear();
             str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + mentorid + "'";
             matchr->setQuery(str,db);
+            while(matchr->canFetchMore()){
+                matchr->fetchMore();
+            }
             for (int j=0;j<matchr->rowCount();j++) {
                 datain=groupid+",";
                 QSqlRecord menteedata=matchr->record(j);
@@ -412,12 +414,19 @@ void MainWindow::export_wattle_file()
     {
         return;
     }
-    model_mentees = new QSqlTableModel(this,db);
-    model_mentees->setTable("mentee");
-    model_mentees->select();
-    model_mentors = new QSqlTableModel(this,db);
-    model_mentors->setTable("mentor");
-    model_mentors->select();
+    QSqlTableModel * exmodel_mentees = new QSqlTableModel(this,db);
+    exmodel_mentees->setTable("mentee");
+    exmodel_mentees->select();
+    while(exmodel_mentees->canFetchMore())
+    {
+        exmodel_mentees->fetchMore();
+    }
+    QSqlTableModel * exmodel_mentors = new QSqlTableModel(this,db);
+    exmodel_mentors->setTable("mentor");
+    exmodel_mentors->select();
+    while(exmodel_mentors->canFetchMore()){
+        exmodel_mentors->fetchMore();
+    }
     int fl=1;
     if(QFile().exists(addr)){
         QFile().remove(addr);
@@ -433,9 +442,9 @@ void MainWindow::export_wattle_file()
             in<<datain;
             fl=0;
         }
-        for(int i=0;i<model_mentors->rowCount();i++){
+        for(int i=0;i<exmodel_mentors->rowCount();i++){
             datain.clear();
-            QSqlRecord data=model_mentors->record(i);
+            QSqlRecord data=exmodel_mentors->record(i);
             datain.append(data.value(0).toString());
             datain.append(",");
             datain.append("Set4_ANU,Student,");
@@ -446,9 +455,9 @@ void MainWindow::export_wattle_file()
 
             in<<datain;
         }
-        for(int i=0;i<model_mentees->rowCount();i++){
+        for(int i=0;i<exmodel_mentees->rowCount();i++){
             datain.clear();
-            QSqlRecord data=model_mentees->record(i);
+            QSqlRecord data=exmodel_mentees->record(i);
             datain.append(data.value(0).toString());
             datain.append(",");
             datain.append("Set4_ANU,Student,");
@@ -471,12 +480,25 @@ void MainWindow::on_actionImport_Mentors_triggered()
 {
     qDebug() << "Import Mentors data";
     import_mentors();
+
+    // show
+    model_mentors->select();
+    ui->tableView_mentors->reset();
+    ui->tableView_mentors->resizeColumnsToContents();
+    refresh_match();
+    training_Auto_confirm();
 }
 
 void MainWindow::on_actionImport_Mentees_triggered()
 {
     qDebug() << "Import Mentees data";
     import_mentees();
+
+    // show
+    model_mentees->select();
+    ui->tableView_mentees->reset();
+    ui->tableView_mentees->resizeColumnsToContents();
+    refresh_match();
 }
 
 void MainWindow::on_actionImport_Match_Result_triggered()
