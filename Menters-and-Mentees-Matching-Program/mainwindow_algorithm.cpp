@@ -227,7 +227,7 @@ void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mente
             }
         }
 
-        if(matched || (college!=100 && language!=100 && academiclevel!=100 && gender!=100)){
+        if(!isfull && (matched || (college!=100 && language!=100 && academiclevel!=100 && gender!=100))){
             menteenumber[hid]+=1;                                                       //process matching
             QString inser="insert into match (mentor_id,mentee_id) values (";
             QSqlRecord tmpmentor=mentor->record(hid);

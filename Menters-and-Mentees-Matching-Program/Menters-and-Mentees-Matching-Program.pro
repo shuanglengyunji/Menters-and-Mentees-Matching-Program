@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         delegate_training.cpp \
+        delegate_wwvp.cpp \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 
 HEADERS += \
         delegate_training.h \
+        delegate_wwvp.h \
         mainwindow.h
 
 FORMS += \

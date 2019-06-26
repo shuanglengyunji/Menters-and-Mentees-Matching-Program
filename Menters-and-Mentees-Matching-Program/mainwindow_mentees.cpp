@@ -8,7 +8,7 @@ void MainWindow::init_mentees_model()
     // init mentees' table model
     model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("mentee");
-    model_mentees->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model_mentees->setEditStrategy(QSqlTableModel::OnRowChange);
     model_mentees->select();
 
     model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
@@ -79,7 +79,12 @@ void MainWindow::on_pushButton_mentees_add_clicked()
 
 void MainWindow::on_pushButton_mentees_delete_clicked()
 {
-    QSqlTableModel *tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentees->model());
+    while(model_mentees->canFetchMore())
+    {
+        model_mentees->fetchMore();
+    }
+
+    QSqlTableModel *tm = model_mentees;
     if (!tm)
         return;
 
@@ -88,14 +93,17 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
         tm->removeRow(currentSelection.at(i).row());
     }
 
-    if (tm){
-        if(!tm->submitAll()){
-            qDebug()<<"Unable to delete"<<endl;
-            QSqlError err = tm->lastError();
-            QMessageBox::warning(this, tr("Unable to delete"), tr("An error occurred while "
-                                       "deleting the connection: ") + err.text());
-        }
-    }
+//    if (tm){
+//        if(!tm->submitAll()){
+//            qDebug()<<"Unable to delete"<<endl;
+//            QSqlError err = tm->lastError();
+//            QMessageBox::warning(this, tr("Unable to delete"), tr("An error occurred while "
+//                                       "deleting the connection: ") + err.text());
+//        }
+//    }
+
+    ui->tableView_mentees->reset();
+    ui->tableView_mentees->resizeColumnsToContents();
 
     qDebug() << "Delete Row";
 }
@@ -107,19 +115,4 @@ void MainWindow::on_pushButton_mentees_revert_clicked()
         tm->revertAll();
 
     qDebug() << "Revert";
-}
-
-void MainWindow::on_pushButton_mentees_submit_clicked()
-{
-    QSqlTableModel * tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentees->model());
-    if (tm){
-        if(!tm->submitAll()){
-            qDebug()<<"Unable to submit"<<endl;
-            QSqlError err = tm->lastError();
-            QMessageBox::warning(this, tr("Unable to submit"), tr("An error occurred while "
-                                       "submitting the connection: ") + err.text());
-        }
-    }
-
-    qDebug() << "Submit All";
 }

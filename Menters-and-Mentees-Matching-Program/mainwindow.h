@@ -17,6 +17,7 @@
 #include <QSortFilterProxyModel>
 
 #include <delegate_training.h>
+#include <delegate_wwvp.h>
 
 # define MY_DATA_BASE_NAME "db_mm.db"
 # define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
@@ -54,15 +55,11 @@ private slots:
 
     void on_pushButton_mentees_revert_clicked();
 
-    void on_pushButton_mentees_submit_clicked();
-
     void on_pushButton_mentors_add_clicked();
 
     void on_pushButton_mentors_delete_clicked();
 
     void on_pushButton_mentors_revert_clicked();
-
-    void on_pushButton_mentors_submit_clicked();
 
     void on_pushButton_Auto_clicked();
 
@@ -90,6 +87,8 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
+    void edit_finished();
+
 private:
     Ui::MainWindow *ui;
 
@@ -110,6 +109,7 @@ private:
     Delegate_Training * delegare_model_mentor_training_2;
     Delegate_Training * delegare_model_mentor_training_3;
     Delegate_Training * delegare_model_mentor_training_confirm;
+    delegate_WWVP * delegare_model_mentor_WWVP;
 
     void init_mentors_page();
     void init_mentors_model();
