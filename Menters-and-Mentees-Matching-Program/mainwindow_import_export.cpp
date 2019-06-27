@@ -350,7 +350,7 @@ void MainWindow::export_match_result()
             datain.clear();
             QTextStream in(&file);
             if(fl){
-                datain="groupid,uid,Firstname,Lastname,gender,email,mobile,academic_level,college,language,role\r\n";
+                datain="Group,Username,Firstname,Lastname,Gender,Email,Mobile,Academic_Level,College,Language,Role\r\n";
                 in<<datain;
                 fl=0;
             }

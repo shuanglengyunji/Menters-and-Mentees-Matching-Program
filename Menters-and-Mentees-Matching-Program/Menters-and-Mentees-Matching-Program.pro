@@ -50,7 +50,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-VERSION = 1.0
+VERSION = 2.1
 
 RESOURCES += \
     icon.qrc
