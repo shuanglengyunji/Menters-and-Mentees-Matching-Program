@@ -49,9 +49,10 @@ void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mente
 {
     QSqlQuery q("", db);                                                            //link to database
     QList <int> menteenumber;                                                       //number of mentees for each mentor
+    QList <int> mentorscore;
     QString searchs("SELECT COUNT(mentor_id) FROM match WHERE (mentor_id = \'");    //initial search command
     QString searche("\')");
-    int cscore=0,hscore=0,hid=0,lscore=0,ccnt=0;
+    int cscore=0,hscore=0,hid=0,ccnt=0;
     bool collegecheck=false,languagecheck=false,gendercheck=false,academiclevelcheck=false,enable=false,matched=false;
 
     for (int i=0;i<mentor->rowCount();i++) {                                        //get pre-assigned mentees
@@ -65,6 +66,7 @@ void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mente
         while(q.next()){
             //qDebug()<<q.value(0).toInt()<<endl;
             menteenumber.append(q.value(0).toInt());
+            mentorscore.append(-1);
         }
     }
 
@@ -102,7 +104,6 @@ void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mente
             continue;
 
         hscore=0;                                                                   //initial assign variable
-        lscore=1000;
         hid=0;
         matched=false;
 
@@ -113,7 +114,7 @@ void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mente
 
 
         for (int i=0;i<mentor->rowCount();i++) {                                    //start scoring
-
+            mentorscore[i]=-1;
             if(menteenumber[i]>=maxassign){                                         //if mentor have enough mentees. skip
                 if(hid==i) hid++;
                 if(hid>=menteenumber.count()) {isfull=true;hid--;}
@@ -214,15 +215,15 @@ void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mente
                 hid=i;
                 matched=true;
             }
-            if(cscore<=lscore && enable){
-                lscore=cscore;
+            if(enable){
+                mentorscore[i]=cscore;
             }
         }
 
-        if((hscore==lscore || isfull) && (college!=100 && language!=100 && academiclevel!=100 && gender!=100)){
-            for (int h=0;h<menteenumber.count();h++) {
-                if(menteenumber[h]<menteenumber[hid]){
-                    hid=h;
+        if(!isfull && (matched || (college!=100 && language!=100 && academiclevel!=100 && gender!=100))){
+            for (int i=0;i<mentorscore.count();i++) {
+                if(mentorscore[i]==hscore && menteenumber[i]<=menteenumber[hid]){
+                    hid=i;
                 }
             }
         }

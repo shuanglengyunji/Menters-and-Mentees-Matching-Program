@@ -306,6 +306,11 @@ void MainWindow::on_pushButton_Auto_clicked()
 {
     qDebug() << "Auto Match";
 
+    match_in_turn();
+}
+
+void MainWindow::match_in_turn()
+{
     int gender = ui->comboBox_gender->currentIndex();
     int college = ui->comboBox_college->currentIndex();
     int language = ui->comboBox_language->currentIndex();
@@ -403,33 +408,35 @@ void MainWindow::on_pushButton_Auto_clicked()
 //    qDebug() << academiclevel;
 //    qDebug() << consideration;
 
-    QSqlQueryModel * model_for_mentors = new QSqlQueryModel(this);
-    QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
-    model_for_mentors->setQuery(str,db);
-    while(model_for_mentors->canFetchMore())
+    for (int max_mentees_num_tmp = 1; max_mentees_num_tmp <= max_mentees_num; ++max_mentees_num_tmp)
     {
-        model_for_mentors->fetchMore();
-    }
+        QSqlQueryModel * model_for_mentors = new QSqlQueryModel(this);
+        QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
+        model_for_mentors->setQuery(str,db);
+        while(model_for_mentors->canFetchMore())
+        {
+            model_for_mentors->fetchMore();
+        }
 
-    QSqlQueryModel * model_for_mentees = new QSqlQueryModel(this);
-    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
-    model_for_mentees->setQuery(str,db);
-    while(model_for_mentees->canFetchMore())
-    {
-        model_for_mentees->fetchMore();
-    }
+        QSqlQueryModel * model_for_mentees = new QSqlQueryModel(this);
+        str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
+        model_for_mentees->setQuery(str,db);
+        while(model_for_mentees->canFetchMore())
+        {
+            model_for_mentees->fetchMore();
+        }
 
-    if (model_for_mentors->rowCount() == 0 || model_for_mentees->rowCount() == 0)
-    {
+        if (model_for_mentors->rowCount() == 0 || model_for_mentees->rowCount() == 0)
+        {
+            delete model_for_mentors;
+            delete model_for_mentees;
+            return;
+        }
+
+        match(model_for_mentors,model_for_mentees,college,language,gender,academiclevel,consideration,max_mentees_num_tmp);
+
         delete model_for_mentors;
         delete model_for_mentees;
-        return;
     }
-
-    match(model_for_mentors,model_for_mentees,college,language,gender,academiclevel,consideration,max_mentees_num);
-
-    delete model_for_mentors;
-    delete model_for_mentees;
-
     refresh_match();
 }

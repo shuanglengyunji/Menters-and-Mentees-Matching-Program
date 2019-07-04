@@ -152,6 +152,8 @@ private:
     void refresh_match_mentees_matched_view();
     void refresh_match();
 
+    void match_in_turn();
+
     // ------------------------------------
 
     void match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, int college, int language, int gender, int academiclevel, int consideration, int max_mentees_num);
