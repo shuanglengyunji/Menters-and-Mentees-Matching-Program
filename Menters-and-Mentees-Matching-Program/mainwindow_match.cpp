@@ -437,6 +437,7 @@ void MainWindow::match_in_turn()
 
         delete model_for_mentors;
         delete model_for_mentees;
+
+        refresh_match();
     }
-    refresh_match();
 }
