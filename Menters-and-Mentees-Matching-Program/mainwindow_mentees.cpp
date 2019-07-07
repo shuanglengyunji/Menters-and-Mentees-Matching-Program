@@ -102,8 +102,16 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
 //        }
 //    }
 
+    QSqlQuery query(db);
+    QString str = "";
+
+    str = "DELETE FROM match";
+    query.exec(str);
+
+    model_mentees->select();
     ui->tableView_mentees->reset();
     ui->tableView_mentees->resizeColumnsToContents();
+    refresh_match();
 
     qDebug() << "Delete Row";
 }

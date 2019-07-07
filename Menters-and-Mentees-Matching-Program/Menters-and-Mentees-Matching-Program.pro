@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        delegate_confirm.cpp \
         delegate_training.cpp \
         delegate_wwvp.cpp \
         main.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
         mainwindow_mentors.cpp
 
 HEADERS += \
+        delegate_confirm.h \
         delegate_training.h \
         delegate_wwvp.h \
         mainwindow.h
@@ -50,7 +52,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-VERSION = 2.4
+VERSION = 2.4.1
 
 RESOURCES += \
     icon.qrc
