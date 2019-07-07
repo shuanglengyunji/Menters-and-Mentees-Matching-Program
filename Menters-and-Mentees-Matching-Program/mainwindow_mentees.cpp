@@ -116,3 +116,20 @@ void MainWindow::on_pushButton_mentees_revert_clicked()
 
     qDebug() << "Revert";
 }
+
+void MainWindow::on_pushButton_mentees_clear_clicked()
+{
+    QSqlQuery query(db);
+    QString str = "";
+
+    str = "DELETE FROM match";
+    query.exec(str);
+
+    str = "DELETE FROM mentee";
+    query.exec(str);
+
+    model_mentees->select();
+    ui->tableView_mentees->reset();
+    ui->tableView_mentees->resizeColumnsToContents();
+    refresh_match();
+}

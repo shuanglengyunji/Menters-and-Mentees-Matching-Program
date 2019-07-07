@@ -207,4 +207,19 @@ void MainWindow::on_pushButton_mentors_revert_clicked()
     qDebug() << "Revert";
 }
 
+void MainWindow::on_pushButton_mentors_clear_clicked()
+{
+    QSqlQuery query(db);
+    QString str = "";
 
+    str = "DELETE FROM match";
+    query.exec(str);
+
+    str = "DELETE FROM mentor";
+    query.exec(str);
+
+    model_mentors->select();
+    ui->tableView_mentors->reset();
+    ui->tableView_mentors->resizeColumnsToContents();
+    refresh_match();
+}

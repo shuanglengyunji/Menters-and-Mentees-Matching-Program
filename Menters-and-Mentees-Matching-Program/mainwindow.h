@@ -89,6 +89,10 @@ private slots:
 
     void edit_finished();
 
+    void on_pushButton_mentees_clear_clicked();
+
+    void on_pushButton_mentors_clear_clicked();
+
 private:
     Ui::MainWindow *ui;
 
