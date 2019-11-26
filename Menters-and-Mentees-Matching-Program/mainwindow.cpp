@@ -43,12 +43,12 @@ void MainWindow::init_database(QString work_path)
 {
     // get database path and database demo path
     QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
-    QString db_demo_path = work_path + "/" + MY_DATABASE_DEMO_NAME;
+    //QString db_demo_path = work_path + "/" + MY_DATABASE_DEMO_NAME;
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(":memory:");
-    //db.setDatabaseName(db_path);
+    //db.setDatabaseName(":memory:");
+    db.setDatabaseName(db_path);
     //db.setDatabaseName(db_demo_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
@@ -61,14 +61,14 @@ void MainWindow::init_database(QString work_path)
     QString str = "";
 
     // Drop all the tables
-    str = "DROP TABLE IF EXISTS 'match'";
-    query.exec(str);
+    //str = "DROP TABLE IF EXISTS 'match'";
+    //query.exec(str);
 
-    str = "DROP TABLE IF EXISTS 'mentor'";
-    query.exec(str);
+    //str = "DROP TABLE IF EXISTS 'mentor'";
+    //query.exec(str);
 
-    str = "DROP TABLE IF EXISTS 'mentee'";
-    query.exec(str);
+    //str = "DROP TABLE IF EXISTS 'mentee'";
+    //query.exec(str);
 
     // match
     str = "CREATE TABLE [match] (                           \
@@ -165,6 +165,7 @@ void MainWindow::on_actionManage_Matching_triggered()
     ui->actionManage_Matching->setChecked(true);
 
 }
+
 
 
 

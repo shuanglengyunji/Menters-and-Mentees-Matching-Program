@@ -32,17 +32,17 @@ void MainWindow::init_mentors_view()
     // set table view
     ui->tableView_mentors->setModel(model_mentors);
 
-    delegare_model_mentor_training_1 = new Delegate_Training(this);
-    delegare_model_mentor_training_2 = new Delegate_Training(this);
-    delegare_model_mentor_training_3 = new Delegate_Training(this);
-    delegare_model_mentor_training_confirm = new Delegate_Training(this);
-    delegare_model_mentor_WWVP = new delegate_WWVP(this);
+    delegate_model_mentor_training_1 = new Delegate_Training(this);
+    delegate_model_mentor_training_2 = new Delegate_Training(this);
+    delegate_model_mentor_training_3 = new Delegate_Training(this);
+    delegate_model_mentor_WWVP = new Delegate_WWVP(this);
+    delegate_model_mentor_confirm = new Delegate_confirm(this);
 
-    ui->tableView_mentors->setItemDelegateForColumn(10,delegare_model_mentor_training_1);
-    ui->tableView_mentors->setItemDelegateForColumn(11,delegare_model_mentor_training_2);
-    ui->tableView_mentors->setItemDelegateForColumn(12,delegare_model_mentor_training_3);
-    ui->tableView_mentors->setItemDelegateForColumn(13,delegare_model_mentor_WWVP);
-    ui->tableView_mentors->setItemDelegateForColumn(14,delegare_model_mentor_training_confirm);
+    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_model_mentor_training_1);
+    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_model_mentor_training_2);
+    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_model_mentor_training_3);
+    ui->tableView_mentors->setItemDelegateForColumn(13,delegate_model_mentor_WWVP);
+    ui->tableView_mentors->setItemDelegateForColumn(14,delegate_model_mentor_confirm);
 
     ui->tableView_mentors->hideColumn(15);
     ui->tableView_mentors->resizeColumnsToContents();
@@ -62,6 +62,7 @@ void MainWindow::edit_finished()
     QString train_2 = model_mentors->index(row,11).data().toString();
     QString train_3 = model_mentors->index(row,12).data().toString();
     QString WWVP = model_mentors->index(row,13).data().toString();
+    QString confirm = model_mentors->index(row,14).data().toString();
 
     if(train_1 == "y" && train_2 == "y" && train_3 == "y" && !WWVP.isEmpty())
     {
@@ -69,6 +70,16 @@ void MainWindow::edit_finished()
     }
     else
     {
+        if (confirm == "y")
+        {
+            QSqlQuery query(db);
+            QString str = "";
+
+            str = "DELETE FROM match";
+            query.exec(str);
+
+            refresh_match();
+        }
         model_mentors->setData(model_mentors->index(row,14),"n");
     }
     model_mentors->submit();
@@ -192,8 +203,16 @@ void MainWindow::on_pushButton_mentors_delete_clicked()
         }
     }
 
+    QSqlQuery query(db);
+    QString str = "";
+
+    str = "DELETE FROM match";
+    query.exec(str);
+
+    model_mentors->select();
     ui->tableView_mentors->reset();
     ui->tableView_mentors->resizeColumnsToContents();
+    refresh_match();
 
     qDebug() << "Delete Row";
 }
@@ -207,4 +226,19 @@ void MainWindow::on_pushButton_mentors_revert_clicked()
     qDebug() << "Revert";
 }
 
+void MainWindow::on_pushButton_mentors_clear_clicked()
+{
+    QSqlQuery query(db);
+    QString str = "";
 
+    str = "DELETE FROM match";
+    query.exec(str);
+
+    str = "DELETE FROM mentor";
+    query.exec(str);
+
+    model_mentors->select();
+    ui->tableView_mentors->reset();
+    ui->tableView_mentors->resizeColumnsToContents();
+    refresh_match();
+}

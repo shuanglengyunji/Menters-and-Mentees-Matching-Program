@@ -18,6 +18,7 @@
 
 #include <delegate_training.h>
 #include <delegate_wwvp.h>
+#include <delegate_confirm.h>
 
 # define MY_DATA_BASE_NAME "db_mm.db"
 # define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
@@ -89,6 +90,10 @@ private slots:
 
     void edit_finished();
 
+    void on_pushButton_mentees_clear_clicked();
+
+    void on_pushButton_mentors_clear_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -105,11 +110,11 @@ private:
     // Mentor page
 
     QSqlTableModel * model_mentors;
-    Delegate_Training * delegare_model_mentor_training_1;
-    Delegate_Training * delegare_model_mentor_training_2;
-    Delegate_Training * delegare_model_mentor_training_3;
-    Delegate_Training * delegare_model_mentor_training_confirm;
-    delegate_WWVP * delegare_model_mentor_WWVP;
+    Delegate_Training * delegate_model_mentor_training_1;
+    Delegate_Training * delegate_model_mentor_training_2;
+    Delegate_Training * delegate_model_mentor_training_3;
+    Delegate_WWVP * delegate_model_mentor_WWVP;
+    Delegate_confirm * delegate_model_mentor_confirm;
 
     void init_mentors_page();
     void init_mentors_model();
