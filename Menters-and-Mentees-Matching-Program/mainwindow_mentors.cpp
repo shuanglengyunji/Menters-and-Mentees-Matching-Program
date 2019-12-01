@@ -9,22 +9,22 @@ void MainWindow::init_mentors_model()
     model_mentors->setEditStrategy(QSqlTableModel::OnRowChange);
     model_mentors->select();
 
-    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
-    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
-    model_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
-    model_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
-    model_mentors->setHeaderData(4, Qt::Horizontal, "Email");
-    model_mentors->setHeaderData(5, Qt::Horizontal, "Mobile");
-    model_mentors->setHeaderData(6, Qt::Horizontal, "Addtional information");
-    model_mentors->setHeaderData(7, Qt::Horizontal, "Academic Level");
-    model_mentors->setHeaderData(8, Qt::Horizontal, "College");
-    model_mentors->setHeaderData(9, Qt::Horizontal, "Language");
-    model_mentors->setHeaderData(10, Qt::Horizontal, "Training 1");
-    model_mentors->setHeaderData(11, Qt::Horizontal, "Training 2");
-    model_mentors->setHeaderData(12, Qt::Horizontal, "Training 3");
-    model_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
-    model_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
-    model_mentors->setHeaderData(15, Qt::Horizontal, "Role");
+//    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
+//    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
+//    model_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
+//    model_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
+//    model_mentors->setHeaderData(4, Qt::Horizontal, "Email");
+//    model_mentors->setHeaderData(5, Qt::Horizontal, "Mobile");
+//    model_mentors->setHeaderData(6, Qt::Horizontal, "Addtional information");
+//    model_mentors->setHeaderData(7, Qt::Horizontal, "Academic Level");
+//    model_mentors->setHeaderData(8, Qt::Horizontal, "College");
+//    model_mentors->setHeaderData(9, Qt::Horizontal, "Language");
+//    model_mentors->setHeaderData(10, Qt::Horizontal, "Training 1");
+//    model_mentors->setHeaderData(11, Qt::Horizontal, "Training 2");
+//    model_mentors->setHeaderData(12, Qt::Horizontal, "Training 3");
+//    model_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
+//    model_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
+//    model_mentors->setHeaderData(15, Qt::Horizontal, "Role");
 }
 
 void MainWindow::init_mentors_view()
@@ -32,25 +32,25 @@ void MainWindow::init_mentors_view()
     // set table view
     ui->tableView_mentors->setModel(model_mentors);
 
-    delegate_model_mentor_training_1 = new Delegate_Training(this);
-    delegate_model_mentor_training_2 = new Delegate_Training(this);
-    delegate_model_mentor_training_3 = new Delegate_Training(this);
-    delegate_model_mentor_WWVP = new Delegate_WWVP(this);
-    delegate_model_mentor_confirm = new Delegate_confirm(this);
+//    delegate_model_mentor_training_1 = new Delegate_Training(this);
+//    delegate_model_mentor_training_2 = new Delegate_Training(this);
+//    delegate_model_mentor_training_3 = new Delegate_Training(this);
+//    delegate_model_mentor_WWVP = new Delegate_WWVP(this);
+//    delegate_model_mentor_confirm = new Delegate_confirm(this);
 
-    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_model_mentor_training_1);
-    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_model_mentor_training_2);
-    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_model_mentor_training_3);
-    ui->tableView_mentors->setItemDelegateForColumn(13,delegate_model_mentor_WWVP);
-    ui->tableView_mentors->setItemDelegateForColumn(14,delegate_model_mentor_confirm);
+//    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_model_mentor_training_1);
+//    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_model_mentor_training_2);
+//    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_model_mentor_training_3);
+//    ui->tableView_mentors->setItemDelegateForColumn(13,delegate_model_mentor_WWVP);
+//    ui->tableView_mentors->setItemDelegateForColumn(14,delegate_model_mentor_confirm);
 
-    ui->tableView_mentors->hideColumn(15);
+//    ui->tableView_mentors->hideColumn(15);
     ui->tableView_mentors->resizeColumnsToContents();
 
-    connect(ui->tableView_mentors->itemDelegateForColumn(10),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-    connect(ui->tableView_mentors->itemDelegateForColumn(11),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-    connect(ui->tableView_mentors->itemDelegateForColumn(12),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-    connect(ui->tableView_mentors->itemDelegateForColumn(13),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
+//    connect(ui->tableView_mentors->itemDelegateForColumn(10),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
+//    connect(ui->tableView_mentors->itemDelegateForColumn(11),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
+//    connect(ui->tableView_mentors->itemDelegateForColumn(12),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
+//    connect(ui->tableView_mentors->itemDelegateForColumn(13),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
 }
 
 void MainWindow::edit_finished()

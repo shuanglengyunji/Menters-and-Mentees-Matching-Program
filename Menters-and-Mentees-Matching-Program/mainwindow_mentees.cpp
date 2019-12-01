@@ -11,24 +11,24 @@ void MainWindow::init_mentees_model()
     model_mentees->setEditStrategy(QSqlTableModel::OnRowChange);
     model_mentees->select();
 
-    model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
-    model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");
-    model_mentees->setHeaderData(2, Qt::Horizontal, "Last Name");
-    model_mentees->setHeaderData(3, Qt::Horizontal, "Gender");
-    model_mentees->setHeaderData(4, Qt::Horizontal, "Email");
-    model_mentees->setHeaderData(5, Qt::Horizontal, "Mobile");
-    model_mentees->setHeaderData(6, Qt::Horizontal, "Academic Level");
-    model_mentees->setHeaderData(7, Qt::Horizontal, "College");
-    model_mentees->setHeaderData(8, Qt::Horizontal, "Language");
-    model_mentees->setHeaderData(9, Qt::Horizontal, "Consideration");
-    model_mentees->setHeaderData(10, Qt::Horizontal, "Role");
+//    model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
+//    model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");
+//    model_mentees->setHeaderData(2, Qt::Horizontal, "Last Name");
+//    model_mentees->setHeaderData(3, Qt::Horizontal, "Gender");
+//    model_mentees->setHeaderData(4, Qt::Horizontal, "Email");
+//    model_mentees->setHeaderData(5, Qt::Horizontal, "Mobile");
+//    model_mentees->setHeaderData(6, Qt::Horizontal, "Academic Level");
+//    model_mentees->setHeaderData(7, Qt::Horizontal, "College");
+//    model_mentees->setHeaderData(8, Qt::Horizontal, "Language");
+//    model_mentees->setHeaderData(9, Qt::Horizontal, "Consideration");
+//    model_mentees->setHeaderData(10, Qt::Horizontal, "Role");
 }
 
 void MainWindow::init_mentees_view()
 {
     // set table view
     ui->tableView_mentees->setModel(model_mentees);
-    ui->tableView_mentees->hideColumn(10);
+//    ui->tableView_mentees->hideColumn(10);
     ui->tableView_mentees->resizeColumnsToContents();
 }
 
