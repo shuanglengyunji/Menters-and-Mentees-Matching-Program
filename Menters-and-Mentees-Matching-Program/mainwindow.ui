@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -195,6 +195,7 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="page_group_mentors"/>
         <widget class="QWidget" name="page_matching">
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="1">
@@ -469,7 +470,7 @@
              </widget>
             </item>
             <item>
-             <widget class="Line" name="line">
+             <widget class="Line" name="line_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -496,7 +497,7 @@
              </widget>
             </item>
             <item>
-             <widget class="Line" name="line_2">
+             <widget class="Line" name="line_1">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -574,6 +575,7 @@
     </property>
     <addaction name="actionManage_Mentors"/>
     <addaction name="actionManage_Mentees"/>
+    <addaction name="actionMentors_Grouping"/>
     <addaction name="actionManage_Matching"/>
    </widget>
    <addaction name="menuFile"/>
@@ -594,7 +596,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Manage Mentors</string>
+    <string>Mentors Editing</string>
    </property>
   </action>
   <action name="actionManage_Mentees">
@@ -602,7 +604,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Manage Mentees</string>
+    <string>Mentees Editing</string>
    </property>
   </action>
   <action name="actionManage_Matching">
@@ -610,7 +612,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Manage Matching</string>
+    <string>Mentees Grouping</string>
    </property>
   </action>
   <action name="actionImport_Match_Result">
@@ -636,6 +638,11 @@
   <action name="actionExport_Wattle_File">
    <property name="text">
     <string>Export Wattle File</string>
+   </property>
+  </action>
+  <action name="actionMentors_Grouping">
+   <property name="text">
+    <string>Mentors Grouping</string>
    </property>
   </action>
  </widget>

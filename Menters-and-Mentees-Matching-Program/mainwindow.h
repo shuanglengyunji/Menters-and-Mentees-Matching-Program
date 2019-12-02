@@ -20,8 +20,7 @@
 #include <delegate_wwvp.h>
 #include <delegate_confirm.h>
 
-# define MY_DATA_BASE_NAME "db_mm.db"
-# define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
+# define MY_DATA_BASE_NAME "database.db"
 
 namespace Ui {
 class MainWindow;
