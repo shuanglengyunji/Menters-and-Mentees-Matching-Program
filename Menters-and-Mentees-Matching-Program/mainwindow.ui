@@ -560,13 +560,11 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionImport_Mentors"/>
-    <addaction name="actionImport_Mentees"/>
-    <addaction name="actionImport_Match_Result"/>
+    <addaction name="actionImport_Mentors_and_Mentees"/>
+    <addaction name="actionImport_Grouping_Results"/>
     <addaction name="separator"/>
-    <addaction name="actionExport_Mentors"/>
-    <addaction name="actionExport_Mentees"/>
-    <addaction name="actionExport_Match_Result"/>
+    <addaction name="actionExport_Mentors_and_Mentees"/>
+    <addaction name="actionExport_Grouping_Results"/>
     <addaction name="actionExport_Wattle_File"/>
    </widget>
    <widget class="QMenu" name="menuFunction">
@@ -581,14 +579,9 @@
    <addaction name="menuFile"/>
    <addaction name="menuFunction"/>
   </widget>
-  <action name="actionImport_Mentors">
+  <action name="actionImport_Mentors_and_Mentees">
    <property name="text">
-    <string>Import Mentors</string>
-   </property>
-  </action>
-  <action name="actionImport_Mentees">
-   <property name="text">
-    <string>Import Mentees</string>
+    <string>Import Mentors and Mentees</string>
    </property>
   </action>
   <action name="actionMentors_Editing">
@@ -615,24 +608,19 @@
     <string>Mentees Grouping</string>
    </property>
   </action>
-  <action name="actionImport_Match_Result">
+  <action name="actionImport_Grouping_Results">
    <property name="text">
-    <string>Import Match Result</string>
+    <string>Import Grouping Results</string>
    </property>
   </action>
-  <action name="actionExport_Mentors">
+  <action name="actionExport_Mentors_and_Mentees">
    <property name="text">
-    <string>Export Mentors</string>
+    <string>Export Mentors and Mentees</string>
    </property>
   </action>
-  <action name="actionExport_Mentees">
+  <action name="actionExport_Grouping_Results">
    <property name="text">
-    <string>Export Mentees</string>
-   </property>
-  </action>
-  <action name="actionExport_Match_Result">
-   <property name="text">
-    <string>Export Match Result</string>
+    <string>Export Grouping Results</string>
    </property>
   </action>
   <action name="actionExport_Wattle_File">

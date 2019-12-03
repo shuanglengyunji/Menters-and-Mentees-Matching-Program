@@ -1,6 +1,142 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+void MainWindow::import_mentors_and_mentees()
+{
+    QString file_path = QFileDialog::getOpenFileName(this,tr("Import Mentors and Mentees Data"),"",tr("Data file (*.xlsx)"));
+    if(file_path.isEmpty())
+    {
+        return;
+    }
+}
+
+void MainWindow::import_grouping_results()
+{
+    QString file_path = QFileDialog::getOpenFileName(this,tr("Import Grouping results"),"",tr("Data file (*.xlsx)"));
+    if(file_path.isEmpty())
+    {
+        return;
+    }
+
+}
+
+// ---------------------------------------
+
+void MainWindow::export_mentors_and_mentees()
+{
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save Mentors and Mentees Data"), "Mentors and Mentees", tr("*.xlsx"));
+    if(addr.isEmpty())
+    {
+       return;
+    }
+}
+
+void MainWindow::export_grouping_results()
+{
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save Grouping Results"), "Grouping", tr("*.xlsx")); // choose a path
+    if(addr.isEmpty())
+    {
+        return;
+    }
+}
+
+void MainWindow::export_wattle_file()
+{
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle", tr("*.csv")); //choose a path
+    if(addr.isEmpty())
+    {
+        return;
+    }
+}
+
+// ---------------------------------------
+
+// Import
+
+void MainWindow::on_actionImport_Mentors_and_Mentees_triggered()
+{
+    //qDebug() << "Import Mentors and Mentees";
+}
+
+void MainWindow::on_actionImport_Grouping_Results_triggered()
+{
+    //qDebug() << "Import Grouping";
+}
+
+// -----------------------------------------------------------
+
+// Export
+
+void MainWindow::on_actionExport_Mentors_and_Mentees_triggered()
+{
+    //qDebug() << "Export Mentors and Mentees";
+}
+
+void MainWindow::on_actionExport_Grouping_Results_triggered()
+{
+    //qDebug() << "Export Grouping";
+}
+
+void MainWindow::on_actionExport_Wattle_File_triggered()
+{
+    //qDebug() << "Export Wattle";
+}
+
+/*
+
+void MainWindow::on_actionImport_Mentors_triggered()
+{
+    qDebug() << "Import Mentors data";
+    import_mentors();
+
+    // show
+    model_mentors->select();
+    ui->tableView_mentors->reset();
+    ui->tableView_mentors->resizeColumnsToContents();
+    refresh_match();
+    training_Auto_confirm();
+}
+
+void MainWindow::on_actionImport_Mentees_triggered()
+{
+    qDebug() << "Import Mentees data";
+    import_mentees();
+
+    // show
+    model_mentees->select();
+    ui->tableView_mentees->reset();
+    ui->tableView_mentees->resizeColumnsToContents();
+    refresh_match();
+}
+
+void MainWindow::on_actionImport_Match_Result_triggered()
+{
+    qDebug() << "Import Mentees data";
+    import_match();
+}
+
+void MainWindow::on_actionExport_Mentors_triggered()
+{
+    qDebug() << "Export Mentors data";
+    export_mentors();
+}
+
+void MainWindow::on_actionExport_Mentees_triggered()
+{
+    qDebug() << "Export Mentees data";
+    export_mentees();
+}
+
+void MainWindow::on_actionExport_Match_Result_triggered()
+{
+    qDebug() << "Export Match Result";
+    export_match_result();
+}
+
+*/
+
+/*
+
 void MainWindow::import_mentors()
 {
     QString file_path;
@@ -479,65 +615,4 @@ void MainWindow::export_wattle_file()
         delete exmodel_mentors;
 }
 
-// ---------------------------------------
-
-// Import
-
-void MainWindow::on_actionImport_Mentors_triggered()
-{
-    qDebug() << "Import Mentors data";
-    import_mentors();
-
-    // show
-    model_mentors->select();
-    ui->tableView_mentors->reset();
-    ui->tableView_mentors->resizeColumnsToContents();
-    refresh_match();
-    training_Auto_confirm();
-}
-
-void MainWindow::on_actionImport_Mentees_triggered()
-{
-    qDebug() << "Import Mentees data";
-    import_mentees();
-
-    // show
-    model_mentees->select();
-    ui->tableView_mentees->reset();
-    ui->tableView_mentees->resizeColumnsToContents();
-    refresh_match();
-}
-
-void MainWindow::on_actionImport_Match_Result_triggered()
-{
-    qDebug() << "Import Mentees data";
-    import_match();
-}
-
-// -----------------------------------------------------------
-
-// Export
-
-void MainWindow::on_actionExport_Mentors_triggered()
-{
-    qDebug() << "Export Mentors data";
-    export_mentors();
-}
-
-void MainWindow::on_actionExport_Mentees_triggered()
-{
-    qDebug() << "Export Mentees data";
-    export_mentees();
-}
-
-void MainWindow::on_actionExport_Match_Result_triggered()
-{
-    qDebug() << "Export Match Result";
-    export_match_result();
-}
-
-void MainWindow::on_actionExport_Wattle_File_triggered()
-{
-    qDebug() << "Export Wattle";
-    export_wattle_file();
-}
+*/

@@ -86,17 +86,13 @@ private slots:
 
     // Import and Export
 
-    void on_actionImport_Mentors_triggered();
+    void on_actionImport_Mentors_and_Mentees_triggered();
 
-    void on_actionImport_Mentees_triggered();
+    void on_actionImport_Grouping_Results_triggered();
 
-    void on_actionImport_Match_Result_triggered();
+    void on_actionExport_Mentors_and_Mentees_triggered();
 
-    void on_actionExport_Mentors_triggered();
-
-    void on_actionExport_Mentees_triggered();
-
-    void on_actionExport_Match_Result_triggered();
+    void on_actionExport_Grouping_Results_triggered();
 
     void on_actionExport_Wattle_File_triggered();
 
@@ -183,13 +179,11 @@ private:
 
     // ------------------------------------
 
-    void import_mentors();
-    void import_mentees();
-    void import_match();
+    void import_mentors_and_mentees();
+    void import_grouping_results();
 
-    void export_mentors();
-    void export_mentees();
-    void export_match_result();
+    void export_mentors_and_mentees();
+    void export_grouping_results();
     void export_wattle_file();
 
 };
