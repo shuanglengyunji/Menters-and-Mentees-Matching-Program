@@ -35,19 +35,22 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionImport_Mentors_triggered();
 
-    void on_actionImport_Mentees_triggered();
+    // Mentors
 
-    void on_actionManage_Mentors_triggered();
+    void on_pushButton_mentors_add_clicked();
 
-    void on_actionManage_Mentees_triggered();
+    void on_pushButton_mentors_delete_clicked();
 
-    void on_actionManage_Matching_triggered();
+    void on_pushButton_mentors_revert_clicked();
 
     void on_lineEdit_mentors_search_editingFinished();
 
-    void on_lineEdit_mentees_search_editingFinished();
+    void on_pushButton_mentors_clear_clicked();
+
+    void edit_finished();
+
+    // Mentees
 
     void on_pushButton_mentees_add_clicked();
 
@@ -55,11 +58,15 @@ private slots:
 
     void on_pushButton_mentees_revert_clicked();
 
-    void on_pushButton_mentors_add_clicked();
+    void on_lineEdit_mentees_search_editingFinished();
 
-    void on_pushButton_mentors_delete_clicked();
+    void on_pushButton_mentees_clear_clicked();
 
-    void on_pushButton_mentors_revert_clicked();
+    // Mentors Grouping
+
+
+
+    // Mentees Grouping
 
     void on_pushButton_Auto_clicked();
 
@@ -73,6 +80,16 @@ private slots:
 
     void on_tableView_match_mentors_clicked(const QModelIndex &index);
 
+    void on_lineEdit_match_search_mentors_editingFinished();
+
+    void on_lineEdit_match_search_mentees_editingFinished();
+
+    // Import and Export
+
+    void on_actionImport_Mentors_triggered();
+
+    void on_actionImport_Mentees_triggered();
+
     void on_actionImport_Match_Result_triggered();
 
     void on_actionExport_Mentors_triggered();
@@ -83,15 +100,15 @@ private slots:
 
     void on_actionExport_Wattle_File_triggered();
 
-    void on_lineEdit_match_search_mentors_editingFinished();
+    // Page
 
-    void on_lineEdit_match_search_mentees_editingFinished();
+    void on_actionMentors_Editing_triggered();
 
-    void edit_finished();
+    void on_actionMentees_Editing_triggered();
 
-    void on_pushButton_mentees_clear_clicked();
+    void on_actionMentees_Grouping_triggered();
 
-    void on_pushButton_mentors_clear_clicked();
+    void on_actionMentors_Grouping_triggered();
 
 private:
     Ui::MainWindow *ui;

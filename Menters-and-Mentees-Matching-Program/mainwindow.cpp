@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // switch to mentors' page
     ui->stack->setCurrentIndex(0);
-    ui->actionManage_Mentors->setChecked(true);     //qDebug() << "Switch to Mentors Page";
+    ui->actionMentors_Editing->setChecked(true);     //qDebug() << "Switch to Mentors Page";
 }
 
 MainWindow::~MainWindow()
@@ -99,32 +99,48 @@ void MainWindow::init_database(QString work_path)
     qDebug() << "Database Init Success";
 }
 
-void MainWindow::on_actionManage_Mentors_triggered()
+void MainWindow::on_actionMentors_Editing_triggered()
 {
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
 
-    ui->actionManage_Mentors->setChecked(true);
-    ui->actionManage_Mentees->setChecked(false);
-    ui->actionManage_Matching->setChecked(false);
+    ui->actionMentors_Editing->setChecked(true);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
 }
 
-void MainWindow::on_actionManage_Mentees_triggered()
+void MainWindow::on_actionMentees_Editing_triggered()
 {
     ui->stack->setCurrentIndex(1);      // qDebug() << "Switch to Mentees Page";
 
-    ui->actionManage_Mentors->setChecked(false);
-    ui->actionManage_Mentees->setChecked(true);
-    ui->actionManage_Matching->setChecked(false);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(true);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
 }
 
-void MainWindow::on_actionManage_Matching_triggered()
+void MainWindow::on_actionMentors_Grouping_triggered()
 {
-    ui->stack->setCurrentIndex(2);      // qDebug() << "Switch to Matching Page";
+    ui->stack->setCurrentIndex(2);      // qDebug() << "Switch to Mentors Grouping Page";
 
-    ui->actionManage_Mentors->setChecked(false);
-    ui->actionManage_Mentees->setChecked(false);
-    ui->actionManage_Matching->setChecked(true);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(true);
+    ui->actionMentees_Grouping->setChecked(false);
 }
+
+void MainWindow::on_actionMentees_Grouping_triggered()
+{
+    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentees Grouping Page";
+
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(true);
+}
+
+
+
 
 /*
 
@@ -193,5 +209,4 @@ str = "CREATE TABLE mentor (                        \
                                     NOT NULL        \
     )";
 */
-
 

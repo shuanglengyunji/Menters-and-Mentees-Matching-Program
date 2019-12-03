@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1243</width>
-    <height>787</height>
+    <width>1035</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -552,7 +552,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1243</width>
+     <width>1035</width>
      <height>21</height>
     </rect>
    </property>
@@ -573,10 +573,10 @@
     <property name="title">
      <string>Function</string>
     </property>
-    <addaction name="actionManage_Mentors"/>
-    <addaction name="actionManage_Mentees"/>
+    <addaction name="actionMentors_Editing"/>
+    <addaction name="actionMentees_Editing"/>
     <addaction name="actionMentors_Grouping"/>
-    <addaction name="actionManage_Matching"/>
+    <addaction name="actionMentees_Grouping"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFunction"/>
@@ -591,7 +591,7 @@
     <string>Import Mentees</string>
    </property>
   </action>
-  <action name="actionManage_Mentors">
+  <action name="actionMentors_Editing">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -599,7 +599,7 @@
     <string>Mentors Editing</string>
    </property>
   </action>
-  <action name="actionManage_Mentees">
+  <action name="actionMentees_Editing">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -607,7 +607,7 @@
     <string>Mentees Editing</string>
    </property>
   </action>
-  <action name="actionManage_Matching">
+  <action name="actionMentees_Grouping">
    <property name="checkable">
     <bool>true</bool>
    </property>
