@@ -1,13 +1,55 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "xlsxdocument.h"
+#include "xlsxchartsheet.h"
+#include "xlsxcellrange.h"
+#include "xlsxchart.h"
+#include "xlsxrichstring.h"
+#include "xlsxworkbook.h"
+using namespace QXlsx;
+
 void MainWindow::import_mentors_and_mentees()
 {
-    QString file_path = QFileDialog::getOpenFileName(this,tr("Import Mentors and Mentees Data"),"",tr("Data file (*.xlsx)"));
+    QString file_path = QFileDialog::getOpenFileName(this,tr("Import Mentors and Mentees Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
     if(file_path.isEmpty())
     {
         return;
     }
+
+    // [1] Reading excel file(*.xlsx)
+    Document xlsxR(file_path);
+    if ( !xlsxR.load() ) // load excel file
+    {
+        QMessageBox::warning(this, tr("File authorization failed"), tr("Failed to load xlsx file."));
+        return;
+    }
+
+    // [2] Check Existence of Sheets ("Mentors" and "Mentees")
+    if ( !xlsxR.selectSheet("Mentors") )
+    {
+        QMessageBox::warning(this, tr("Mentors Sheet Missing"), tr("Please make sure there is a sheet named \"Mentors\" in the data file."));
+        return;
+    }
+    if ( !xlsxR.selectSheet("Mentees") )
+    {
+        QMessageBox::warning(this, tr("Mentees Sheet Missing"), tr("Please make sure there is a sheet named \"Mentees\" in the data file."));
+        return;
+    }
+
+    // [3] Read Mentors Sheet
+    int row = 1; int col = 1;
+    Cell* cell = xlsxR.cellAt(row, col); // get cell pointer.
+    if ( cell != NULL )
+    {
+        QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
+        qDebug() << "[debug] cell(1,1) is " << var; // Display value. It is 'Hello Qt!'.
+    }
+    else
+    {
+        qDebug() << "[debug][error] cell(1,1) is not set.";
+    }
+
 }
 
 void MainWindow::import_grouping_results()
@@ -55,7 +97,7 @@ void MainWindow::export_wattle_file()
 
 void MainWindow::on_actionImport_Mentors_and_Mentees_triggered()
 {
-    //qDebug() << "Import Mentors and Mentees";
+    import_mentors_and_mentees();
 }
 
 void MainWindow::on_actionImport_Grouping_Results_triggered()
