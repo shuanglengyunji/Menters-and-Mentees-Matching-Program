@@ -39,47 +39,43 @@ void MainWindow::import_mentors_and_mentees()
         return;
     }
 
-    // [3] Read Mentors Sheet
+    // [3] Import Mentors Sheet
     xlsxR.selectSheet("Mentors");
-    int row_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
+    int mentors_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
 
-    QString uid,first_name,last_name,gender,academic_level,college,degree,type,languages,languages_text,hall,special,interests,wwvp,train_1,train_2,train_3,train_complete,round,is_confirmed,is_grouped;
-    QString sql;
-
-    for (int row = 2;row <= row_max; row = row + 1)
+    for (int row = 2;row <= mentors_max; row = row + 1)
     {
         // read data
-        uid = xlsxR.cellAt(row, 4)->readValue().toString();
-        first_name = xlsxR.cellAt(row, 2)->readValue().toString();
-        last_name = xlsxR.cellAt(row, 3)->readValue().toString();
-        gender = xlsxR.cellAt(row, 11)->readValue().toString();
-        academic_level = xlsxR.cellAt(row, 7)->readValue().toString();
-        college = xlsxR.cellAt(row, 8)->readValue().toString();
-        degree = xlsxR.cellAt(row, 9)->readValue().toString();
-        type = xlsxR.cellAt(row, 10)->readValue().toString();
-        languages = xlsxR.cellAt(row, 12)->readValue().toString();
-        languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
-        hall = xlsxR.cellAt(row, 14)->readValue().toString();
-        special = xlsxR.cellAt(row, 15)->readValue().toString();
-        interests = xlsxR.cellAt(row, 16)->readValue().toString();
-        wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
-        train_1 = xlsxR.cellAt(row, 17)->readValue().toString();
-        train_2 = xlsxR.cellAt(row, 18)->readValue().toString();
-        train_3 = xlsxR.cellAt(row, 19)->readValue().toString();
+        QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
+        QString first_name = xlsxR.cellAt(row, 2)->readValue().toString();
+        QString last_name = xlsxR.cellAt(row, 3)->readValue().toString();
+        QString gender = xlsxR.cellAt(row, 11)->readValue().toString();
+        QString academic_level = xlsxR.cellAt(row, 7)->readValue().toString();
+        QString college = xlsxR.cellAt(row, 8)->readValue().toString();
+        QString degree = xlsxR.cellAt(row, 9)->readValue().toString();
+        QString type = xlsxR.cellAt(row, 10)->readValue().toString();
+        QString languages = xlsxR.cellAt(row, 12)->readValue().toString();
+        QString languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
+        QString hall = xlsxR.cellAt(row, 14)->readValue().toString();
+        QString special = xlsxR.cellAt(row, 15)->readValue().toString();
+        QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
+        QString wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
+        QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString();
+        QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString();
+        QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString();
+        QString train_complete = "n";
         if (train_1=="y" && train_1=="y" && train_1=="y")
             train_complete = "y";
-        else
-            train_complete = "n";
-        round = xlsxR.cellAt(row, 6)->readValue().toString();
+        QString round = xlsxR.cellAt(row, 6)->readValue().toString();
         if (round == "Yes - I will be here")
-            round = "round 1";
+            round = "Round 1";
         else
-            round = "round 2";
-        is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
-        is_grouped = "0";
+            round = "Round 2";
+        QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
+        QString is_grouped = "0";
 
         // create sql
-        sql = "INSERT INTO mentor VALUES (\"" +
+        QString sql = "INSERT INTO mentor VALUES (\"" +
                 uid + "\",\"" + first_name + "\",\"" + last_name + "\",\"" + gender + "\",\"" +
                 academic_level + "\",\"" + college + "\",\"" + degree + "\",\"" + type + "\",\"" +
                 languages + "\",\"" + languages_text + "\",\"" + hall + "\",\"" + special + "\",\"" +
@@ -89,12 +85,49 @@ void MainWindow::import_mentors_and_mentees()
         // execute sql
         if ( !query.exec(sql) )
         {
-            qDebug() << "Failed to Import Row " << row;
-            //QMessageBox::warning(this, tr("Record Import Failure"), tr("Failed to Import Row") + QVariant(row).toString());
+            //qDebug() << "Failed to Import Row " << row;
+            QMessageBox::warning(this, tr("Mentor Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
             //qDebug() << sql;
         }
-
     }
+
+    // [4] Import Mentees Sheet
+    xlsxR.selectSheet("Mentees");
+    int mentees_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
+
+    for (int row = 2;row <= mentees_max; row = row + 1)
+    {
+        // read data
+        QString uid = xlsxR.cellAt(row, 3)->readValue().toString();
+        QString first_name = xlsxR.cellAt(row, 1)->readValue().toString();
+        QString last_name = xlsxR.cellAt(row, 2)->readValue().toString();
+        QString gender = xlsxR.cellAt(row, 9)->readValue().toString();
+        QString academic_level = xlsxR.cellAt(row, 5)->readValue().toString();
+        QString college = xlsxR.cellAt(row, 6)->readValue().toString();
+        QString degree = xlsxR.cellAt(row, 7)->readValue().toString();
+        QString type = xlsxR.cellAt(row, 8)->readValue().toString();
+        QString languages = xlsxR.cellAt(row, 10)->readValue().toString();
+        QString languages_text = xlsxR.cellAt(row, 11)->readValue().toString();
+        QString requests = xlsxR.cellAt(row, 13)->readValue().toString();
+        QString special_categories = xlsxR.cellAt(row, 12)->readValue().toString();
+        QString round = xlsxR.cellAt(row, 4)->readValue().toString();
+
+        // create sql
+        QString sql = "INSERT INTO mentee VALUES (\"" +
+                uid + "\",\"" + first_name + "\",\"" + last_name + "\",\"" + gender + "\",\"" +
+                academic_level + "\",\"" + college + "\",\"" + degree + "\",\"" + type + "\",\"" +
+                languages + "\",\"" + languages_text + "\",\"" + requests + "\",\"" + special_categories + "\",\"" +
+                round + "\")";    // qDebug() << sql;
+
+        // execute sql
+        if ( !query.exec(sql) )
+        {
+            qDebug() << "Failed to Import Row " << row;
+            //QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
+            //qDebug() << sql;
+        }
+    }
+
 }
 
 void MainWindow::import_grouping_results()

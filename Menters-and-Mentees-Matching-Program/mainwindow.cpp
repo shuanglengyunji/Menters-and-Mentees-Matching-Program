@@ -60,21 +60,26 @@ void MainWindow::init_database(QString work_path)
     query.exec("DROP TABLE IF EXISTS 'mentee'");
 
     // Create New Tables
-    query.exec("CREATE TABLE IF NOT EXISTS [group] (                             \
-               gid         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,  \
+    query.exec("CREATE TABLE IF NOT EXISTS [group] (                            \
+               gid          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,  \
                mentor_id	VARCHAR(10) NOT NULL,                               \
                mentee_id	VARCHAR(10) NOT NULL                                \
            )");
-    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (            \
-               uid	VARCHAR(10) NOT NULL UNIQUE,                \
-               first_name	VARCHAR(20) NOT NULL,               \
-               last_name	VARCHAR(20) NOT NULL,               \
+    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
+               uid              VARCHAR(10) NOT NULL UNIQUE,                \
+               first_name       VARCHAR(20) NOT NULL,               \
+               last_name        VARCHAR(20) NOT NULL,               \
+               gender           VARCHAR(20) NOT NULL,                   \
                academic_level	VARCHAR(20) NOT NULL,           \
-               college	VARCHAR(50) NOT NULL,                   \
-               requests	TEXT(500),                          \
-               round_1	CHAR(1) NOT NULL,                       \
-               round_2	CHAR(1) NOT NULL,                       \
-               PRIMARY KEY(uid)                                \
+               college          VARCHAR(50) NOT NULL,                   \
+               degree           VARCHAR(100) NOT NULL,                  \
+               type             VARCHAR(50) NOT NULL,                       \
+               languages        VARCHAR(20) NOT NULL,               \
+               languages_text	TEXT(500),                      \
+               requests         TEXT(1000),                             \
+               special_categories	TEXT(1000),                 \
+               round            TEXT(100),                              \
+               PRIMARY KEY(uid)                                 \
            )");
     query.exec("CREATE TABLE IF NOT EXISTS [mentor] (           \
                uid              VARCHAR(10) NOT NULL UNIQUE,    \
