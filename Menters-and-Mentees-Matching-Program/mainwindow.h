@@ -48,7 +48,7 @@ private slots:
 
     void on_pushButton_mentors_clear_clicked();
 
-    void edit_finished();
+    // void edit_finished();
 
     // Mentees
 
@@ -121,28 +121,23 @@ private:
 
     // Mentor page
 
-    QSqlTableModel * model_mentors;
-    Delegate_Training * delegate_model_mentor_training_1;
-    Delegate_Training * delegate_model_mentor_training_2;
-    Delegate_Training * delegate_model_mentor_training_3;
-    Delegate_WWVP * delegate_model_mentor_WWVP;
-    Delegate_confirm * delegate_model_mentor_confirm;
+    QSqlTableModel * model_mentors = nullptr;
 
-    void init_mentors_page();
-    void init_mentors_model();
-    void init_mentors_view();
+    // Delegate_Training * delegate_model_mentor_training_1;
+    // Delegate_Training * delegate_model_mentor_training_2;
+    // Delegate_Training * delegate_model_mentor_training_3;
+    // Delegate_WWVP * delegate_model_mentor_WWVP;
+    // Delegate_confirm * delegate_model_mentor_confirm;
 
-    void training_Auto_confirm();
+    void load_mentors();
 
     // ------------------------------------
 
     // Mentee page
 
-    QSqlTableModel * model_mentees;
+    QSqlTableModel * model_mentees = nullptr;
 
-    void init_mentees_page();
-    void init_mentees_model();
-    void init_mentees_view();
+    void load_mentees();
 
     // ------------------------------------
 

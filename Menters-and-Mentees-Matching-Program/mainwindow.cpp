@@ -15,8 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     init_database(tmp_path);
 
     // init pages
-    init_mentors_page();
-    init_mentees_page();
+    load_mentors();
+    load_mentees();
     init_match_page();
 
     // switch to mentors' page
@@ -117,6 +117,8 @@ void MainWindow::on_actionMentors_Editing_triggered()
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
+
+    load_mentors();
 }
 
 void MainWindow::on_actionMentees_Editing_triggered()
@@ -127,6 +129,8 @@ void MainWindow::on_actionMentees_Editing_triggered()
     ui->actionMentees_Editing->setChecked(true);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
+
+    load_mentees();
 }
 
 void MainWindow::on_actionMentors_Grouping_triggered()

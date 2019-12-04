@@ -128,6 +128,8 @@ void MainWindow::import_mentors_and_mentees()
         }
     }
 
+    load_mentors();
+    load_mentees();
 }
 
 void MainWindow::import_grouping_results()
