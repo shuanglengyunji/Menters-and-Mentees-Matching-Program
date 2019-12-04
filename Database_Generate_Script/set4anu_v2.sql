@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS [mentor] (
 	languages	VARCHAR(20) NOT NULL,
 	languages_text	TEXT(500),
 	hall	VARCHAR(20) NOT NULL,
-	special	TEXT(500),
-	interests	TEXT(500),
+	special	TEXT(1000),
+	interests	TEXT(1000),
 	wwvp	VARCHAR(10) NOT NULL,
 	train_1	CHAR(1) NOT NULL DEFAULT 'n',
 	train_2	CHAR(1) NOT NULL DEFAULT 'n',
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS [mentee] (
 	last_name	VARCHAR(20) NOT NULL,
 	academic_level	VARCHAR(20) NOT NULL,
 	college	VARCHAR(50) NOT NULL,
-	requests	TEXT(500),
+	requests	TEXT(1000),
 	round	TEXT(100),
 	PRIMARY KEY("uid")
 );
