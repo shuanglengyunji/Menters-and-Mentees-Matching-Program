@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS [mentor] (
 	academic_level	VARCHAR(20) NOT NULL,
 	college	VARCHAR(50) NOT NULL,
 	degree	VARCHAR(30) NOT NULL,
-	type	VARCHAR(20) NOT NULL,
+	type	VARCHAR(50) NOT NULL,
 	languages	VARCHAR(20) NOT NULL,
 	hall	VARCHAR(20) NOT NULL,
 	special	TEXT(500),
@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS [mentor] (
 	train_2	CHAR(1) NOT NULL,
 	train_3	CHAR(1) NOT NULL,
 	train_complete	CHAR(1) NOT NULL,
-	round_1	CHAR(1) NOT NULL,
-	round_2	CHAR(1) NOT NULL,
+	round	TEXT(100) NOT NULL,
 	is_grouped	INTEGER NOT NULL DEFAULT 0,
 	PRIMARY KEY("uid")
 );
@@ -34,8 +33,7 @@ CREATE TABLE IF NOT EXISTS "mentee" (
 	academic_level	VARCHAR(20) NOT NULL,
 	college	VARCHAR(50) NOT NULL,
 	requests	TEXT(500),
-	round_1	CHAR(1) NOT NULL,
-	round_2	CHAR(1) NOT NULL,
+	round	TEXT(100) NOT NULL,
 	PRIMARY KEY("uid")
 );
 COMMIT;
