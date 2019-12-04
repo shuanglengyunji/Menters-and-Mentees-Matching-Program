@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS [mentor] (
 	gender	VARCHAR(20) NOT NULL,
 	academic_level	VARCHAR(20) NOT NULL,
 	college	VARCHAR(50) NOT NULL,
-	degree	VARCHAR(30) NOT NULL,
+	degree	VARCHAR(50) NOT NULL,
 	type	VARCHAR(50) NOT NULL,
 	languages	VARCHAR(20) NOT NULL,
 	languages_text	TEXT(500),
@@ -35,11 +35,13 @@ CREATE TABLE IF NOT EXISTS [mentee] (
 	gender	VARCHAR(20) NOT NULL,
 	academic_level	VARCHAR(20) NOT NULL,
 	college	VARCHAR(50) NOT NULL,
+	degree	VARCHAR(50) NOT NULL,
 	type	VARCHAR(50) NOT NULL,
 	languages	VARCHAR(20) NOT NULL,
 	languages_text	TEXT(500),
 	hall	VARCHAR(20) NOT NULL,
 	requests	TEXT(1000),
+	special_categories	TEXT(1000),
 	round	TEXT(100),
 	PRIMARY KEY("uid")
 );
