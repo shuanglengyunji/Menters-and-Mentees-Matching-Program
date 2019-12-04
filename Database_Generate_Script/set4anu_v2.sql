@@ -9,31 +9,33 @@ CREATE TABLE IF NOT EXISTS [mentor] (
 	degree	VARCHAR(30) NOT NULL,
 	type	VARCHAR(50) NOT NULL,
 	languages	VARCHAR(20) NOT NULL,
+	languages_text	TEXT(500),
 	hall	VARCHAR(20) NOT NULL,
 	special	TEXT(500),
 	interests	TEXT(500),
 	wwvp	VARCHAR(10) NOT NULL,
-	train_1	CHAR(1) NOT NULL,
-	train_2	CHAR(1) NOT NULL,
-	train_3	CHAR(1) NOT NULL,
+	train_1	CHAR(1) NOT NULL DEFAULT 'n',
+	train_2	CHAR(1) NOT NULL DEFAULT 'n',
+	train_3	CHAR(1) NOT NULL DEFAULT 'n',
 	train_complete	CHAR(1) NOT NULL,
-	round	TEXT(100) NOT NULL,
+	round	TEXT(100),
 	is_grouped	INTEGER NOT NULL DEFAULT 0,
+	is_confirmed TEXT(500),
 	PRIMARY KEY("uid")
 );
-CREATE TABLE IF NOT EXISTS "group" (
+CREATE TABLE IF NOT EXISTS [group] (
 	gid	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	mentor_id	VARCHAR(10) NOT NULL,
 	mentee_id	VARCHAR(10) NOT NULL
 );
-CREATE TABLE IF NOT EXISTS "mentee" (
+CREATE TABLE IF NOT EXISTS [mentee] (
 	uid	VARCHAR(10) NOT NULL UNIQUE,
 	first_name	VARCHAR(20) NOT NULL,
 	last_name	VARCHAR(20) NOT NULL,
 	academic_level	VARCHAR(20) NOT NULL,
 	college	VARCHAR(50) NOT NULL,
 	requests	TEXT(500),
-	round	TEXT(100) NOT NULL,
+	round	TEXT(100),
 	PRIMARY KEY("uid")
 );
 COMMIT;
