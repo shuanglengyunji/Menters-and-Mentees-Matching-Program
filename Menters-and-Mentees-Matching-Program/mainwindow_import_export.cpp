@@ -20,9 +20,9 @@ void MainWindow::import_data()
     }
 
     // [0] Drop exist tables
-    query.exec("DROP TABLE IF EXISTS 'group'");
-    query.exec("DROP TABLE IF EXISTS 'mentor'");
-    query.exec("DROP TABLE IF EXISTS 'mentee'");
+    query.exec("DELETE * FROM 'group'");
+    query.exec("DELETE * FROM 'mentor'");
+    query.exec("DELETE * FROM 'mentee'");
 
     // [1] Reading excel file(*.xlsx)
     Document xlsxR(addr);
@@ -288,56 +288,6 @@ void MainWindow::export_wattle_file()
         return;
     }
 
-    // [1] Reading excel file(*.xlsx)
-    Document xlsxR(addr);
-    if ( !xlsxR.load() ) // load excel file
-    {
-        QMessageBox::warning(this, tr("File authorization failed"), tr("Failed to load xlsx file."));
-        return;
-    }
-
-    // [3] Import Mentors Sheet
-    xlsxR.selectSheet("Mentors");
-
-    int row = 1;
-    // read data
-    QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
-    QString first_name = xlsxR.cellAt(row, 2)->readValue().toString();
-    QString last_name = xlsxR.cellAt(row, 3)->readValue().toString();
-    QString gender = xlsxR.cellAt(row, 11)->readValue().toString();
-    QString academic_level = xlsxR.cellAt(row, 7)->readValue().toString();
-    QString college = xlsxR.cellAt(row, 8)->readValue().toString();
-    QString degree = xlsxR.cellAt(row, 9)->readValue().toString();
-    QString type = xlsxR.cellAt(row, 10)->readValue().toString();
-    QString languages = xlsxR.cellAt(row, 12)->readValue().toString();
-    QString languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
-    QString hall = xlsxR.cellAt(row, 14)->readValue().toString();
-    QString special = xlsxR.cellAt(row, 15)->readValue().toString();
-    QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
-    QString wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
-    QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString();
-    QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString();
-    QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString();
-    QString train_complete = "n";
-    if (train_1=="y" && train_1=="y" && train_1=="y")
-        train_complete = "y";
-    QString round = xlsxR.cellAt(row, 6)->readValue().toString();
-    if (round == "Yes - I will be here")
-        round = "Round 1";
-    else
-        round = "Round 2";
-    QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
-    QString is_grouped = "0";
-
-    QString sql = "INSERT INTO mentor VALUES (\"" +
-            uid + "\",\"" + first_name + "\",\"" + last_name + "\",\"" + gender + "\",\"" +
-            academic_level + "\",\"" + college + "\",\"" + degree + "\",\"" + type + "\",\"" +
-            languages + "\",\"" + languages_text + "\",\"" + hall + "\",\"" + special + "\",\"" +
-            interests + "\",\"" + wwvp + "\",\"" + train_1 + "\",\"" + train_2 + "\",\"" +
-            train_3 + "\",\"" + train_complete + "\",\"" + round + "\",\"" + is_confirmed + "\",\"" + is_grouped + "\")";    // qDebug() << sql;
-
-    qDebug() << sql;
-
 }
 
 // ---------------------------------------
@@ -363,8 +313,9 @@ void MainWindow::on_actionExport_Data_triggered()
 void MainWindow::on_actionClear_Data_triggered()
 {
     QSqlQuery query(db);
-    query.exec("DELETE FROM mentor");
-    query.exec("DELETE FROM mentee");
+    query.exec("DELETE * FROM 'group'");
+    query.exec("DELETE * FROM 'mentor'");
+    query.exec("DELETE * FROM 'mentee'");
     load_mentors();
     load_mentees();
 }
