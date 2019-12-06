@@ -26,8 +26,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    // mentors
     delete model_mentors;
+
+    // mentees
     delete model_mentees;
+
+    // grouping
     delete model_match_mentors;
     delete model_match_mentees_matched;
     delete model_match_mentees_to_be_match;
@@ -42,8 +47,8 @@ void MainWindow::init_database(QString work_path)
     QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
 
     // init database
-    db = QSqlDatabase::addDatabase("QSQLITE");      //db.setDatabaseName(":memory:");
-    db.setDatabaseName(db_path);
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -52,7 +57,6 @@ void MainWindow::init_database(QString work_path)
     }
 
     QSqlQuery query(db);
-    QString str = "";
 
     // Drop All Tables
     query.exec("DROP TABLE IF EXISTS 'group'");
@@ -106,7 +110,7 @@ void MainWindow::init_database(QString work_path)
                PRIMARY KEY(uid)                                 \
            )");
 
-    qDebug() << "Database Init Success";
+    //qDebug() << "Database Init Success";
 }
 
 void MainWindow::on_actionMentors_Editing_triggered()
@@ -154,8 +158,6 @@ void MainWindow::on_actionMentees_Grouping_triggered()
 }
 
 
-
-
 /*
 
 // Drop all the tables
@@ -166,63 +168,6 @@ query.exec(str);
 str = "DROP TABLE IF EXISTS 'mentee'";
 query.exec(str);
 
-// match
-str = "CREATE TABLE [match] (                           \
-        m_id      INTEGER      PRIMARY KEY              \
-                               UNIQUE                   \
-                               NOT NULL                 \
-                               COLLATE BINARY,          \
-        mentor_id VARCHAR (10) REFERENCES mentor (uid)  \
-                               NOT NULL,                \
-        mentee_id VARCHAR (10) REFERENCES mentee (uid)  \
-                               NOT NULL                 \
-    )";
-// mentee
-str = "CREATE TABLE mentee (                            \
-        uid            VARCHAR (10) PRIMARY KEY         \
-                                    UNIQUE              \
-                                    NOT NULL,           \
-        first_name     VARCHAR (20) NOT NULL,           \
-        last_name      VARCHAR      NOT NULL,           \
-        gender         VARCHAR (8)  NOT NULL,           \
-        email          VARCHAR (30),                    \
-        mobile         VARCHAR (20),                    \
-        academic_level VARCHAR (20),                    \
-        college        VARCHAR (50),                    \
-        languages      VARCHAR (30) NOT NULL            \
-                                    DEFAULT English,    \
-        consideration  TEXT (200),                      \
-        role           VARCHAR      DEFAULT mentee      \
-                                    NOT NULL            \
-    )";
-// mentor
-str = "CREATE TABLE mentor (                        \
-        uid            VARCHAR (10) PRIMARY KEY     \
-                                    UNIQUE          \
-                                    NOT NULL,       \
-        first_name     VARCHAR (20) NOT NULL,       \
-        last_name      VARCHAR (20) NOT NULL,       \
-        gender         VARCHAR (20),                \
-        email          VARCHAR (30),                \
-        mobile         VARCHAR (20),                \
-        add_info       TEXT (500),                  \
-        academic_level VARCHAR (20),                \
-        college        VARCHAR (50),                \
-        languages      VARCHAR (30) DEFAULT English \
-                                    NOT NULL,       \
-        train_1        CHAR (1)     DEFAULT n       \
-                                    NOT NULL,       \
-        train_2        CHAR (1)     NOT NULL        \
-                                    DEFAULT n,      \
-        train_3        CHAR (1)     DEFAULT n       \
-                                    NOT NULL,       \
-        wwvp_card      VARCHAR (10),                \
-        is_confirm     CHAR (1)     DEFAULT n       \
-                                    NOT NULL,       \
-        role           VARCHAR      DEFAULT mentor  \
-                                    NOT NULL        \
-    )";
 */
-
 
 

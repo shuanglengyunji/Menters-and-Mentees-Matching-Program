@@ -22,7 +22,12 @@ void MainWindow::load_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->reset();
+    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(700);
     ui->tableView_mentors->resizeColumnsToContents();
+    ui->tableView_mentors->resizeRowsToContents();
+
+    connect(ui->tableView_mentors->horizontalHeader(),&QHeaderView::sectionResized,
+            ui->tableView_mentors,&QTableView::resizeRowsToContents);
 }
 
 // search
@@ -46,22 +51,6 @@ void MainWindow::on_lineEdit_mentors_search_editingFinished()
                 + " OR " + "last_name LIKE '%" + tmp + "%'";        // Last Name
     }
     model_mentors->setFilter(argument);
-}
-
-// add
-void MainWindow::on_pushButton_mentors_add_clicked()
-{
-    QSqlTableModel *tm = model_mentors;
-    if (tm == nullptr)
-        return;
-
-    QModelIndex insertIndex = ui->tableView_mentors->currentIndex();
-    int row = insertIndex.row() == -1 ? 0 : insertIndex.row();
-    tm->insertRow(row);
-    insertIndex = tm->index(row, 0);
-
-    ui->tableView_mentors->setCurrentIndex(insertIndex);
-    ui->tableView_mentors->edit(insertIndex);
 }
 
 // delete
@@ -90,10 +79,6 @@ void MainWindow::on_pushButton_mentors_delete_clicked()
     }
 
     load_mentors();
-
-    //QSqlQuery query(db);
-    //query.exec("DELETE FROM group");
-    // refresh_match();
 }
 
 //revert
@@ -106,6 +91,7 @@ void MainWindow::on_pushButton_mentors_revert_clicked()
     load_mentors();
 }
 
+/*
 // clear
 void MainWindow::on_pushButton_mentors_clear_clicked()
 {
@@ -113,10 +99,26 @@ void MainWindow::on_pushButton_mentors_clear_clicked()
     query.exec("DELETE FROM mentor");
 
     load_mentors();
-
-    // query.exec("DELETE FROM group");
-    // refresh_match();
 }
+*/
+
+/*
+// add
+void MainWindow::on_pushButton_mentors_add_clicked()
+{
+    QSqlTableModel *tm = model_mentors;
+    if (tm == nullptr)
+        return;
+
+    QModelIndex insertIndex = ui->tableView_mentors->currentIndex();
+    int row = insertIndex.row() == -1 ? 0 : insertIndex.row();
+    tm->insertRow(row);
+    insertIndex = tm->index(row, 0);
+
+    ui->tableView_mentors->setCurrentIndex(insertIndex);
+    ui->tableView_mentors->edit(insertIndex);
+}
+*/
 
 //    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
 //    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");

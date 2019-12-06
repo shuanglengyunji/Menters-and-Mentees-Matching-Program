@@ -22,7 +22,12 @@ void MainWindow::load_mentees()
     // link mentees QSqlTableModel to QTableView
     ui->tableView_mentees->setModel(model_mentees);
     ui->tableView_mentees->reset();
+    ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(500);
     ui->tableView_mentees->resizeColumnsToContents();
+    ui->tableView_mentees->resizeRowsToContents();
+
+    connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
+            ui->tableView_mentees,&QTableView::resizeRowsToContents);
 }
 
 // search
@@ -48,21 +53,7 @@ void MainWindow::on_lineEdit_mentees_search_editingFinished()
     model_mentees->setFilter(argument);
 }
 
-// add
-void MainWindow::on_pushButton_mentees_add_clicked()
-{
-    QSqlTableModel *tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentees->model());
-    if (!tm)
-        return;
 
-    QModelIndex insertIndex = ui->tableView_mentees->currentIndex();
-    int row = insertIndex.row() == -1 ? 0 : insertIndex.row();
-    tm->insertRow(row);
-    insertIndex = tm->index(row, 0);
-
-    ui->tableView_mentees->setCurrentIndex(insertIndex);
-    ui->tableView_mentees->edit(insertIndex);
-}
 
 // delete
 void MainWindow::on_pushButton_mentees_delete_clicked()
@@ -90,10 +81,6 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
     }
 
     load_mentees();
-
-    //QSqlQuery query(db);
-    //query.exec("DELETE FROM match");
-    //refresh_match();
 }
 
 // revert
@@ -106,18 +93,34 @@ void MainWindow::on_pushButton_mentees_revert_clicked()
     load_mentees();
 }
 
+/*
 // clear
 void MainWindow::on_pushButton_mentees_clear_clicked()
 {
     QSqlQuery query(db);
-    query.exec("DELETE FROM match");
+    query.exec("DELETE FROM mentee");
 
     load_mentees();
-
-//    query.exec("DELETE FROM mentee");
-//    refresh_match();
 }
+*/
 
+/*
+// add
+void MainWindow::on_pushButton_mentees_add_clicked()
+{
+    QSqlTableModel *tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentees->model());
+    if (!tm)
+        return;
+
+    QModelIndex insertIndex = ui->tableView_mentees->currentIndex();
+    int row = insertIndex.row() == -1 ? 0 : insertIndex.row();
+    tm->insertRow(row);
+    insertIndex = tm->index(row, 0);
+
+    ui->tableView_mentees->setCurrentIndex(insertIndex);
+    ui->tableView_mentees->edit(insertIndex);
+}
+*/
 
 //    model_mentees->setHeaderData(0, Qt::Horizontal, "Uni ID");
 //    model_mentees->setHeaderData(1, Qt::Horizontal, "First Name");

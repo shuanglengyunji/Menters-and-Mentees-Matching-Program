@@ -44,43 +44,8 @@
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="2" column="0">
-           <widget class="QTableView" name="tableView_mentors">
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <layout class="QGridLayout" name="gridLayout_mentors_search">
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_mentors_search">
-              <property name="text">
-               <string>Search</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLineEdit" name="lineEdit_mentors_search"/>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_mentors_clear">
-              <property name="text">
-               <string>Clear</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_edit">
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_mentors_revert">
-              <property name="text">
-               <string>Revert</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="7">
+            <item row="1" column="6">
              <widget class="QPushButton" name="pushButton_mentors_delete">
               <property name="text">
                <string>Delete</string>
@@ -100,35 +65,49 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="6">
-             <widget class="QPushButton" name="pushButton_mentors_add">
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_mentors_revert">
               <property name="text">
-               <string>Add</string>
+               <string>Revert</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_mentors">
-            <property name="text">
-             <string>Mentors</string>
+          <item row="1" column="0">
+           <widget class="QTableView" name="tableView_mentors">
+            <property name="sortingEnabled">
+             <bool>true</bool>
             </property>
            </widget>
+          </item>
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_mentors_search">
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdit_mentors_search"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_mentors_search">
+              <property name="text">
+               <string>Search</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_mentees">
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="4" column="0">
+          <item row="2" column="0">
+           <widget class="QTableView" name="tableView_mentees">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_edit">
-            <item row="0" column="6">
-             <widget class="QPushButton" name="pushButton_mentees_add">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="5">
              <spacer name="horizontalSpacer_mentees">
               <property name="orientation">
@@ -142,7 +121,7 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="7">
+            <item row="0" column="6">
              <widget class="QPushButton" name="pushButton_mentees_delete">
               <property name="text">
                <string>Delete</string>
@@ -158,11 +137,8 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="0">
+          <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_search">
-            <item row="0" column="0">
-             <widget class="QLineEdit" name="lineEdit_mentees_search"/>
-            </item>
             <item row="0" column="1">
              <widget class="QPushButton" name="pushButton_mentees_search">
               <property name="text">
@@ -170,28 +146,10 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_mentees_clear">
-              <property name="text">
-               <string>Clear</string>
-              </property>
-             </widget>
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdit_mentees_search"/>
             </item>
            </layout>
-          </item>
-          <item row="3" column="0">
-           <widget class="QTableView" name="tableView_mentees">
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_mentees">
-            <property name="text">
-             <string>Mentees</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -560,11 +518,10 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionImport_Mentors_and_Mentees"/>
-    <addaction name="actionImport_Grouping_Results"/>
+    <addaction name="actionImport_Data"/>
+    <addaction name="actionExport_Data"/>
+    <addaction name="actionClear_Data"/>
     <addaction name="separator"/>
-    <addaction name="actionExport_Mentors_and_Mentees"/>
-    <addaction name="actionExport_Grouping_Results"/>
     <addaction name="actionExport_Wattle_File"/>
    </widget>
    <widget class="QMenu" name="menuFunction">
@@ -579,9 +536,9 @@
    <addaction name="menuFile"/>
    <addaction name="menuFunction"/>
   </widget>
-  <action name="actionImport_Mentors_and_Mentees">
+  <action name="actionImport_Data">
    <property name="text">
-    <string>Import Mentors and Mentees</string>
+    <string>Import Date</string>
    </property>
   </action>
   <action name="actionMentors_Editing">
@@ -608,19 +565,9 @@
     <string>Mentees Grouping</string>
    </property>
   </action>
-  <action name="actionImport_Grouping_Results">
+  <action name="actionExport_Data">
    <property name="text">
-    <string>Import Grouping Results</string>
-   </property>
-  </action>
-  <action name="actionExport_Mentors_and_Mentees">
-   <property name="text">
-    <string>Export Mentors and Mentees</string>
-   </property>
-  </action>
-  <action name="actionExport_Grouping_Results">
-   <property name="text">
-    <string>Export Grouping Results</string>
+    <string>Export Data</string>
    </property>
   </action>
   <action name="actionExport_Wattle_File">
@@ -631,6 +578,11 @@
   <action name="actionMentors_Grouping">
    <property name="text">
     <string>Mentors Grouping</string>
+   </property>
+  </action>
+  <action name="actionClear_Data">
+   <property name="text">
+    <string>Clear Data</string>
    </property>
   </action>
  </widget>

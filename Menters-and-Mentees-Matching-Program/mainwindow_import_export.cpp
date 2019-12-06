@@ -9,18 +9,18 @@
 #include "xlsxworkbook.h"
 using namespace QXlsx;
 
-void MainWindow::import_mentors_and_mentees()
+void MainWindow::import_data()
 {
     QSqlQuery query(db);
 
-    QString file_path = QFileDialog::getOpenFileName(this,tr("Import Mentors and Mentees Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
-    if(file_path.isEmpty())
+    QString addr = QFileDialog::getOpenFileName(this,tr("Import Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
+    if(addr.isEmpty())
     {
         return;
     }
 
     // [1] Reading excel file(*.xlsx)
-    Document xlsxR(file_path);
+    Document xlsxR(addr);
     if ( !xlsxR.load() ) // load excel file
     {
         QMessageBox::warning(this, tr("File authorization failed"), tr("Failed to load xlsx file."));
@@ -73,6 +73,8 @@ void MainWindow::import_mentors_and_mentees()
             round = "Round 2";
         QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
         QString is_grouped = "0";
+
+        //qDebug() << xlsxR.cellAt(row, 20)->readValue().toString();
 
         // create sql
         QString sql = "INSERT INTO mentor VALUES (\"" +
@@ -127,82 +129,296 @@ void MainWindow::import_mentors_and_mentees()
             //qDebug() << sql;
         }
     }
-
-    load_mentors();
-    load_mentees();
-}
-
-void MainWindow::import_grouping_results()
-{
-    QString file_path = QFileDialog::getOpenFileName(this,tr("Import Grouping results"),"",tr("Data file (*.xlsx)"));
-    if(file_path.isEmpty())
-    {
-        return;
-    }
-
 }
 
 // ---------------------------------------
 
-void MainWindow::export_mentors_and_mentees()
+void MainWindow::export_data()
 {
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Mentors and Mentees Data"), "Mentors and Mentees", tr("*.xlsx"));
+
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save Mentors and Mentees Data"), "Data", tr("*.xlsx"));
     if(addr.isEmpty())
     {
        return;
     }
-}
 
-void MainWindow::export_grouping_results()
-{
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Grouping Results"), "Grouping", tr("*.xlsx")); // choose a path
-    if(addr.isEmpty())
+    // [1]  Create excel file object
+
+    QXlsx::Document xlsxW;
+
+    // [2]  Create Sheets and Sheet Headers
+    // Mentors
+    xlsxW.addSheet("Mentors");
+
+    xlsxW.write("A1","Confirmation");
+    xlsxW.write("B1","First Name");
+    xlsxW.write("C1","Last Name");
+    xlsxW.write("D1","Uni ID");
+    xlsxW.write("E1","WWVP");
+    xlsxW.write("F1","O-Week");
+    xlsxW.write("G1","UG/PG");
+    xlsxW.write("H1","Academic College");
+    xlsxW.write("I1","Degree");
+    xlsxW.write("J1","Dom/Int");
+    xlsxW.write("K1","Gender");
+    xlsxW.write("L1","Languages");
+    xlsxW.write("M1","Language - Text");
+    xlsxW.write("N1","Residential Hall");
+    xlsxW.write("O1","Special Categories");
+    xlsxW.write("P1","Interests");
+    xlsxW.write("Q1","Training 1");
+    xlsxW.write("R1","Training 2");
+    xlsxW.write("S1","Training 3");
+    xlsxW.write("T1","Training Complete");
+
+    // Mentees
+    xlsxW.addSheet("Mentees");
+
+    xlsxW.write("A1","First Name");
+    xlsxW.write("B1","Last Name");
+    xlsxW.write("C1","Uni ID");
+    xlsxW.write("D1","Round");
+    xlsxW.write("E1","UG/PG");
+    xlsxW.write("F1","Academic College");
+    xlsxW.write("G1","u18");
+    xlsxW.write("H1","Dom/Int");
+    xlsxW.write("I1","Gender");
+    xlsxW.write("J1","Languages");
+    xlsxW.write("K1","Language - Text");
+    xlsxW.write("L1","Special Categories");
+    xlsxW.write("M1","Requests");
+
+    // Group
+    xlsxW.addSheet("Group");
+
+    // [3] Fill data into xlsx file
+
+    // mentors
+
+    QSqlTableModel * exmodel_mentors = new QSqlTableModel(this,db);
+    exmodel_mentors->setTable("mentor");
+    exmodel_mentors->select();
+    while(exmodel_mentors->canFetchMore()){
+        exmodel_mentors->fetchMore();
+    }
+
+    xlsxW.selectSheet("Mentors");
+    for (int row = 0; row < exmodel_mentors->rowCount(); row++)
     {
-        return;
+        QSqlRecord r = exmodel_mentors->record(row);
+
+        xlsxW.write("A"+QVariant(row+2).toString(),r.value(19));
+        xlsxW.write("B"+QVariant(row+2).toString(),r.value(1));
+        xlsxW.write("C"+QVariant(row+2).toString(),r.value(2));
+        xlsxW.write("D"+QVariant(row+2).toString(),r.value(0));
+        xlsxW.write("E"+QVariant(row+2).toString(),r.value(13));
+        xlsxW.write("F"+QVariant(row+2).toString(),r.value(18));
+        xlsxW.write("G"+QVariant(row+2).toString(),r.value(4));
+        xlsxW.write("H"+QVariant(row+2).toString(),r.value(5));
+        xlsxW.write("I"+QVariant(row+2).toString(),r.value(6));
+        xlsxW.write("J"+QVariant(row+2).toString(),r.value(7));
+        xlsxW.write("K"+QVariant(row+2).toString(),r.value(3));
+        xlsxW.write("L"+QVariant(row+2).toString(),r.value(8));
+        xlsxW.write("M"+QVariant(row+2).toString(),r.value(9));
+        xlsxW.write("N"+QVariant(row+2).toString(),r.value(10));
+        xlsxW.write("O"+QVariant(row+2).toString(),r.value(11));
+        xlsxW.write("P"+QVariant(row+2).toString(),r.value(12));
+        xlsxW.write("Q"+QVariant(row+2).toString(),r.value(14));
+        xlsxW.write("R"+QVariant(row+2).toString(),r.value(15));
+        xlsxW.write("S"+QVariant(row+2).toString(),r.value(16));
+        xlsxW.write("T"+QVariant(row+2).toString(),r.value(17));
+    }
+
+    delete exmodel_mentors;
+
+    // mentees
+
+    QSqlTableModel * exmodel_mentees = new QSqlTableModel(this,db);
+    exmodel_mentees->setTable("mentee");
+    exmodel_mentees->select();
+    while(exmodel_mentees->canFetchMore()){
+        exmodel_mentees->fetchMore();
+    }
+
+    xlsxW.selectSheet("Mentees");
+    for (int row = 0; row < exmodel_mentees->rowCount(); row++)
+    {
+        QSqlRecord r = exmodel_mentees->record(row);
+
+        xlsxW.write("A"+QVariant(row+2).toString(),r.value(1));
+        xlsxW.write("B"+QVariant(row+2).toString(),r.value(2));
+        xlsxW.write("C"+QVariant(row+2).toString(),r.value(0));
+        xlsxW.write("D"+QVariant(row+2).toString(),r.value(12));
+        xlsxW.write("E"+QVariant(row+2).toString(),r.value(4));
+        xlsxW.write("F"+QVariant(row+2).toString(),r.value(5));
+        xlsxW.write("G"+QVariant(row+2).toString(),r.value(6));
+        xlsxW.write("H"+QVariant(row+2).toString(),r.value(7));
+        xlsxW.write("I"+QVariant(row+2).toString(),r.value(3));
+        xlsxW.write("J"+QVariant(row+2).toString(),r.value(8));
+        xlsxW.write("K"+QVariant(row+2).toString(),r.value(9));
+        xlsxW.write("L"+QVariant(row+2).toString(),r.value(11));
+        xlsxW.write("M"+QVariant(row+2).toString(),r.value(10));
+    }
+
+    delete exmodel_mentees;
+
+    // [4]
+    if ( !xlsxW.saveAs(addr) )
+    {
+        QMessageBox::warning(this, tr("File Saving failed"), tr("Failed to save data file."));
     }
 }
+
+// ---------------------------------------
 
 void MainWindow::export_wattle_file()
 {
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle", tr("*.csv")); //choose a path
+//    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle", tr("*.csv")); //choose a path
+//    if(addr.isEmpty())
+//    {
+//        return;
+//    }
+
+    QString addr = QFileDialog::getOpenFileName(this,tr("Import Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
     if(addr.isEmpty())
     {
         return;
     }
+
+    // [1] Reading excel file(*.xlsx)
+    Document xlsxR(addr);
+    if ( !xlsxR.load() ) // load excel file
+    {
+        QMessageBox::warning(this, tr("File authorization failed"), tr("Failed to load xlsx file."));
+        return;
+    }
+
+    // [3] Import Mentors Sheet
+    xlsxR.selectSheet("Mentors");
+
+    int row = 1;
+    // read data
+    QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
+    QString first_name = xlsxR.cellAt(row, 2)->readValue().toString();
+    QString last_name = xlsxR.cellAt(row, 3)->readValue().toString();
+    QString gender = xlsxR.cellAt(row, 11)->readValue().toString();
+    QString academic_level = xlsxR.cellAt(row, 7)->readValue().toString();
+    QString college = xlsxR.cellAt(row, 8)->readValue().toString();
+    QString degree = xlsxR.cellAt(row, 9)->readValue().toString();
+    QString type = xlsxR.cellAt(row, 10)->readValue().toString();
+    QString languages = xlsxR.cellAt(row, 12)->readValue().toString();
+    QString languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
+    QString hall = xlsxR.cellAt(row, 14)->readValue().toString();
+    QString special = xlsxR.cellAt(row, 15)->readValue().toString();
+    QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
+    QString wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
+    QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString();
+    QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString();
+    QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString();
+    QString train_complete = "n";
+    if (train_1=="y" && train_1=="y" && train_1=="y")
+        train_complete = "y";
+    QString round = xlsxR.cellAt(row, 6)->readValue().toString();
+    if (round == "Yes - I will be here")
+        round = "Round 1";
+    else
+        round = "Round 2";
+    QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
+    QString is_grouped = "0";
+
+    QString sql = "INSERT INTO mentor VALUES (\"" +
+            uid + "\",\"" + first_name + "\",\"" + last_name + "\",\"" + gender + "\",\"" +
+            academic_level + "\",\"" + college + "\",\"" + degree + "\",\"" + type + "\",\"" +
+            languages + "\",\"" + languages_text + "\",\"" + hall + "\",\"" + special + "\",\"" +
+            interests + "\",\"" + wwvp + "\",\"" + train_1 + "\",\"" + train_2 + "\",\"" +
+            train_3 + "\",\"" + train_complete + "\",\"" + round + "\",\"" + is_confirmed + "\",\"" + is_grouped + "\")";    // qDebug() << sql;
+
+    qDebug() << sql;
+
 }
 
 // ---------------------------------------
 
 // Import
 
-void MainWindow::on_actionImport_Mentors_and_Mentees_triggered()
+void MainWindow::on_actionImport_Data_triggered()
 {
-    import_mentors_and_mentees();
+    import_data();
+    load_mentors();
+    load_mentees();
 }
-
-void MainWindow::on_actionImport_Grouping_Results_triggered()
-{
-    //qDebug() << "Import Grouping";
-}
-
-// -----------------------------------------------------------
 
 // Export
 
-void MainWindow::on_actionExport_Mentors_and_Mentees_triggered()
+void MainWindow::on_actionExport_Data_triggered()
 {
-    //qDebug() << "Export Mentors and Mentees";
+    export_data();
 }
 
-void MainWindow::on_actionExport_Grouping_Results_triggered()
+// Clear
+
+void MainWindow::on_actionClear_Data_triggered()
 {
-    //qDebug() << "Export Grouping";
+    QSqlQuery query(db);
+    query.exec("DELETE FROM mentor");
+    query.exec("DELETE FROM mentee");
+    load_mentors();
+    load_mentees();
 }
+
+// Wattle File
 
 void MainWindow::on_actionExport_Wattle_File_triggered()
 {
-    //qDebug() << "Export Wattle";
+    export_wattle_file();
 }
+
+/*
+// Mentors
+xlsxW.addSheet("Mentors");
+
+xlsxW.write("A1","Confirmation");
+xlsxW.write("B1","First Name");
+xlsxW.write("C1","Last Name");
+xlsxW.write("D1","Uni ID");
+xlsxW.write("E1","WWVP");
+xlsxW.write("F1","O-Week");
+xlsxW.write("G1","UG/PG");
+xlsxW.write("H1","Academic College");
+xlsxW.write("I1","Degree");
+xlsxW.write("J1","Dom/Int");
+xlsxW.write("K1","Gender");
+xlsxW.write("L1","Languages");
+xlsxW.write("M1","Language - Text");
+xlsxW.write("N1","Residential Hall");
+xlsxW.write("O1","Special Categories");
+xlsxW.write("P1","Interests");
+xlsxW.write("Q1","Training 1");
+xlsxW.write("R1","Training 2");
+xlsxW.write("S1","Training 3");
+xlsxW.write("T1","Training Complete");
+
+// Mentees
+xlsxW.addSheet("Mentees");
+
+xlsxW.write("A1","First Name");
+xlsxW.write("B1","Last Name");
+xlsxW.write("C1","Uni ID");
+xlsxW.write("D1","Round");
+xlsxW.write("E1","UG/PG");
+xlsxW.write("F1","Academic College");
+xlsxW.write("G1","u18");
+xlsxW.write("H1","Dom/Int");
+xlsxW.write("I1","Gender");
+xlsxW.write("J1","Languages");
+xlsxW.write("K1","Language - Text");
+xlsxW.write("L1","Special Categories");
+xlsxW.write("M1","Requests");
+
+// Group
+xlsxW.addSheet("Group");
+*/
+
 
 /*
 

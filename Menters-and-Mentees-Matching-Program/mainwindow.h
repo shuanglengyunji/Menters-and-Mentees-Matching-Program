@@ -38,29 +38,21 @@ private slots:
 
     // Mentors
 
-    void on_pushButton_mentors_add_clicked();
-
     void on_pushButton_mentors_delete_clicked();
 
     void on_pushButton_mentors_revert_clicked();
 
     void on_lineEdit_mentors_search_editingFinished();
 
-    void on_pushButton_mentors_clear_clicked();
-
     // void edit_finished();
 
     // Mentees
-
-    void on_pushButton_mentees_add_clicked();
 
     void on_pushButton_mentees_delete_clicked();
 
     void on_pushButton_mentees_revert_clicked();
 
     void on_lineEdit_mentees_search_editingFinished();
-
-    void on_pushButton_mentees_clear_clicked();
 
     // Mentors Grouping
 
@@ -86,13 +78,11 @@ private slots:
 
     // Import and Export
 
-    void on_actionImport_Mentors_and_Mentees_triggered();
+    void on_actionImport_Data_triggered();
 
-    void on_actionImport_Grouping_Results_triggered();
+    void on_actionExport_Data_triggered();
 
-    void on_actionExport_Mentors_and_Mentees_triggered();
-
-    void on_actionExport_Grouping_Results_triggered();
+    void on_actionClear_Data_triggered();
 
     void on_actionExport_Wattle_File_triggered();
 
@@ -123,13 +113,13 @@ private:
 
     QSqlTableModel * model_mentors = nullptr;
 
+    void load_mentors();
+
     // Delegate_Training * delegate_model_mentor_training_1;
     // Delegate_Training * delegate_model_mentor_training_2;
     // Delegate_Training * delegate_model_mentor_training_3;
     // Delegate_WWVP * delegate_model_mentor_WWVP;
     // Delegate_confirm * delegate_model_mentor_confirm;
-
-    void load_mentors();
 
     // ------------------------------------
 
@@ -174,11 +164,8 @@ private:
 
     // ------------------------------------
 
-    void import_mentors_and_mentees();
-    void import_grouping_results();
-
-    void export_mentors_and_mentees();
-    void export_grouping_results();
+    void import_data();
+    void export_data();
     void export_wattle_file();
 
 };
