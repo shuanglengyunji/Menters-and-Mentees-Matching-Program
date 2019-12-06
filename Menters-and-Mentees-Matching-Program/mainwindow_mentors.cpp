@@ -16,7 +16,7 @@ void MainWindow::load_mentors()
     // link db to mentors QSqlTableModel
     model_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_mentors->setTable("mentor");
-    model_mentors->setEditStrategy(QSqlTableModel::OnRowChange);
+    model_mentors->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_mentors->select();
 
     // link mentors QSqlTableModel to QTableView
@@ -26,8 +26,12 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
 
+    // resize row height according to column width
     connect(ui->tableView_mentors->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_mentors,&QTableView::resizeRowsToContents);
+
+    // hide group status
+    ui->tableView_mentors->hideColumn(20);
 }
 
 // search
@@ -81,15 +85,133 @@ void MainWindow::on_pushButton_mentors_delete_clicked()
     load_mentors();
 }
 
-//revert
-void MainWindow::on_pushButton_mentors_revert_clicked()
+void MainWindow::display_mentors_column()
 {
-    QSqlTableModel * tm = model_mentors;
-    if (tm)
-        tm->revertAll();
+    // gender
+    if (ui->checkBox_mentors_gender->isChecked())
+    {
+        ui->tableView_mentors->showColumn(3);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(3);
+    }
 
-    load_mentors();
+    // academic info
+    if (ui->checkBox_mentors_academic_info->isChecked())
+    {
+        ui->tableView_mentors->showColumn(4);
+        ui->tableView_mentors->showColumn(5);
+        ui->tableView_mentors->showColumn(6);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(4);
+        ui->tableView_mentors->hideColumn(5);
+        ui->tableView_mentors->hideColumn(6);
+    }
+
+    // type
+    if (ui->checkBox_mentors_type->isChecked())
+    {
+        ui->tableView_mentors->showColumn(7);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(7);
+    }
+
+    // language
+    if (ui->checkBox_mentors_language->isChecked())
+    {
+        ui->tableView_mentors->showColumn(8);
+        ui->tableView_mentors->showColumn(9);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(8);
+        ui->tableView_mentors->hideColumn(9);
+    }
+
+    // hall
+    if (ui->checkBox_mentors_hall->isChecked())
+    {
+        ui->tableView_mentors->showColumn(10);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(10);
+    }
+
+    // special
+    if (ui->checkBox_mentors_special->isChecked())
+    {
+        ui->tableView_mentors->showColumn(11);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(11);
+    }
+
+    // interests
+    if (ui->checkBox_mentors_interests->isChecked())
+    {
+        ui->tableView_mentors->showColumn(12);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(12);
+    }
+
+    // wwvp
+    if (ui->checkBox_mentors_wwvp->isChecked())
+    {
+        ui->tableView_mentors->showColumn(13);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(13);
+    }
+
+    // training
+    if (ui->checkBox_mentors_training->isChecked())
+    {
+        ui->tableView_mentors->showColumn(14);
+        ui->tableView_mentors->showColumn(15);
+        ui->tableView_mentors->showColumn(16);
+        ui->tableView_mentors->showColumn(17);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(14);
+        ui->tableView_mentors->hideColumn(15);
+        ui->tableView_mentors->hideColumn(16);
+        ui->tableView_mentors->hideColumn(17);
+    }
+
+    // round
+    if (ui->checkBox_mentors_round->isChecked())
+    {
+        ui->tableView_mentors->showColumn(18);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(18);
+    }
+
+    // confirmation
+    if (ui->checkBox_mentors_confirmation->isChecked())
+    {
+        ui->tableView_mentors->showColumn(19);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(19);
+    }
 }
+
+
+
 
 /*
 // clear

@@ -39,20 +39,13 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="2" column="0">
+          <item row="3" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_edit">
-            <item row="1" column="6">
-             <widget class="QPushButton" name="pushButton_mentors_delete">
-              <property name="text">
-               <string>Delete</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="5">
+            <item row="1" column="4">
              <spacer name="horizontalSpacer_mentors">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -65,27 +58,24 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_mentors_revert">
+            <item row="1" column="5">
+             <widget class="QPushButton" name="pushButton_mentors_delete">
               <property name="text">
-               <string>Revert</string>
+               <string>Delete</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QTableView" name="tableView_mentors">
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
+          <item row="1" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_search">
-            <item row="0" column="0">
-             <widget class="QLineEdit" name="lineEdit_mentors_search"/>
-            </item>
             <item row="0" column="1">
              <widget class="QPushButton" name="pushButton_mentors_search">
               <property name="text">
@@ -93,22 +83,159 @@
               </property>
              </widget>
             </item>
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdit_mentors_search"/>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label_mentors_display">
+              <property name="text">
+               <string>Mentors:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_gender">
+              <property name="text">
+               <string>Gender</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_academic_info">
+              <property name="text">
+               <string>Academic Info</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_type">
+              <property name="text">
+               <string>Dom/Int</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_language">
+              <property name="text">
+               <string>Language</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_hall">
+              <property name="text">
+               <string>Hall</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_special">
+              <property name="text">
+               <string>Special</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_interests">
+              <property name="text">
+               <string>Interests</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_wwvp">
+              <property name="text">
+               <string>WWVP</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_training">
+              <property name="text">
+               <string>Training</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_round">
+              <property name="text">
+               <string>Round</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_confirmation">
+              <property name="text">
+               <string>Confirmation</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_mentors_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_mentees">
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="2" column="0">
-           <widget class="QTableView" name="tableView_mentees">
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_edit">
             <item row="0" column="5">
+             <widget class="QPushButton" name="pushButton_mentees_delete">
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
              <spacer name="horizontalSpacer_mentees">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -121,23 +248,16 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="6">
-             <widget class="QPushButton" name="pushButton_mentees_delete">
-              <property name="text">
-               <string>Delete</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton_mentees_revert">
-              <property name="text">
-               <string>Revert</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
-          <item row="0" column="0">
+          <item row="3" column="0">
+           <widget class="QTableView" name="tableView_mentees">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_search">
             <item row="0" column="1">
              <widget class="QPushButton" name="pushButton_mentees_search">
@@ -151,9 +271,226 @@
             </item>
            </layout>
           </item>
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_mentees_display">
+              <property name="text">
+               <string>Mentees:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_gender">
+              <property name="text">
+               <string>Gender</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_academic_info">
+              <property name="text">
+               <string>Academic Info</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_type">
+              <property name="text">
+               <string>Dom/Int</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_language">
+              <property name="text">
+               <string>Languages</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_requests">
+              <property name="text">
+               <string>Requests</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_special_categories">
+              <property name="text">
+               <string>Special Categories</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_round">
+              <property name="text">
+               <string>Round</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_mentees_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page_group_mentors"/>
+        <widget class="QWidget" name="page_group_mentors">
+         <layout class="QGridLayout" name="gridLayout_9">
+          <item row="0" column="1">
+           <layout class="QVBoxLayout" name="verticalLayout_left_and_right">
+            <item>
+             <spacer name="verticalSpacer_above_left_and_right">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_left">
+              <property name="text">
+               <string>&lt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_between_left_and_right">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_right">
+              <property name="text">
+               <string>&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_under_left_and_right">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="5">
+           <layout class="QGridLayout" name="gridLayout_mentor_control">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <spacer name="verticalSpacer_mentor_control">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0">
+             <widget class="QComboBox" name="comboBox"/>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_grouped_mentor">
+            <item row="0" column="0">
+             <widget class="QTableView" name="tableView_mentor_grouped"/>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_grouped_mentor_search">
+                <property name="text">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="lineEdit_grouped_mentor_search"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="4">
+           <layout class="QGridLayout" name="gridLayout_mentor_to_be_group">
+            <item row="0" column="0">
+             <widget class="QTableView" name="tableView_mentor_to_be_group"/>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="lineEdit_mentor_to_be_group_seasrch"/>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_mentor_to_be_group_search">
+                <property name="text">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
         <widget class="QWidget" name="page_matching">
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="1">
@@ -538,7 +875,7 @@
   </widget>
   <action name="actionImport_Data">
    <property name="text">
-    <string>Import Date</string>
+    <string>Import Data</string>
    </property>
   </action>
   <action name="actionMentors_Editing">
@@ -576,6 +913,9 @@
    </property>
   </action>
   <action name="actionMentors_Grouping">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Mentors Grouping</string>
    </property>

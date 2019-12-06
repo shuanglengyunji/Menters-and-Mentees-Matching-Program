@@ -20,8 +20,35 @@ MainWindow::MainWindow(QWidget *parent) :
     init_match_page();
 
     // switch to mentors' page
-    ui->stack->setCurrentIndex(0);
-    ui->actionMentors_Editing->setChecked(true);     //qDebug() << "Switch to Mentors Page";
+    ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
+    ui->actionMentors_Editing->setChecked(true);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
+
+    // display selection
+
+    // mentors
+    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+
+    // mentees
+    connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 }
 
 MainWindow::~MainWindow()
@@ -169,5 +196,8 @@ str = "DROP TABLE IF EXISTS 'mentee'";
 query.exec(str);
 
 */
+
+
+
 
 

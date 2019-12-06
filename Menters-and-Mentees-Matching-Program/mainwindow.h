@@ -40,9 +40,9 @@ private slots:
 
     void on_pushButton_mentors_delete_clicked();
 
-    void on_pushButton_mentors_revert_clicked();
-
     void on_lineEdit_mentors_search_editingFinished();
+
+    void display_mentors_column();
 
     // void edit_finished();
 
@@ -50,9 +50,9 @@ private slots:
 
     void on_pushButton_mentees_delete_clicked();
 
-    void on_pushButton_mentees_revert_clicked();
-
     void on_lineEdit_mentees_search_editingFinished();
+
+    void display_mentees_column();
 
     // Mentors Grouping
 
@@ -95,6 +95,8 @@ private slots:
     void on_actionMentees_Grouping_triggered();
 
     void on_actionMentors_Grouping_triggered();
+
+
 
 private:
     Ui::MainWindow *ui;

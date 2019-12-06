@@ -16,7 +16,7 @@ void MainWindow::load_mentees()
     // link db to mentees QSqlTableModel
     model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("mentee");
-    model_mentees->setEditStrategy(QSqlTableModel::OnRowChange);
+    model_mentees->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_mentees->select();
 
     // link mentees QSqlTableModel to QTableView
@@ -53,8 +53,6 @@ void MainWindow::on_lineEdit_mentees_search_editingFinished()
     model_mentees->setFilter(argument);
 }
 
-
-
 // delete
 void MainWindow::on_pushButton_mentees_delete_clicked()
 {
@@ -83,15 +81,86 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
     load_mentees();
 }
 
-// revert
-void MainWindow::on_pushButton_mentees_revert_clicked()
+void MainWindow::display_mentees_column()
 {
-    QSqlTableModel * tm = qobject_cast<QSqlTableModel *>(ui->tableView_mentees->model());
-    if (tm)
-        tm->revertAll();
+    // gender
+    if (ui->checkBox_mentees_gender->isChecked())
+    {
+        ui->tableView_mentees->showColumn(3);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(3);
+    }
 
-    load_mentees();
+    // academic info
+    if (ui->checkBox_mentees_academic_info->isChecked())
+    {
+        ui->tableView_mentees->showColumn(4);
+        ui->tableView_mentees->showColumn(5);
+        ui->tableView_mentees->showColumn(6);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(4);
+        ui->tableView_mentees->hideColumn(5);
+        ui->tableView_mentees->hideColumn(6);
+    }
+
+    // type
+    if (ui->checkBox_mentees_type->isChecked())
+    {
+        ui->tableView_mentees->showColumn(7);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(7);
+    }
+
+    // language
+    if (ui->checkBox_mentees_language->isChecked())
+    {
+        ui->tableView_mentees->showColumn(8);
+        ui->tableView_mentees->showColumn(9);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(8);
+        ui->tableView_mentees->hideColumn(9);
+    }
+
+    // requests
+    if (ui->checkBox_mentees_requests->isChecked())
+    {
+        ui->tableView_mentees->showColumn(10);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(10);
+    }
+
+    // special categories
+    if (ui->checkBox_mentees_special_categories->isChecked())
+    {
+        ui->tableView_mentees->showColumn(11);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(11);
+    }
+
+    // round
+    if (ui->checkBox_mentees_round->isChecked())
+    {
+        ui->tableView_mentees->showColumn(12);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(12);
+    }
 }
+
+
 
 /*
 // clear

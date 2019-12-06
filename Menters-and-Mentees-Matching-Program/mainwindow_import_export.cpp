@@ -19,6 +19,11 @@ void MainWindow::import_data()
         return;
     }
 
+    // [0] Drop exist tables
+    query.exec("DROP TABLE IF EXISTS 'group'");
+    query.exec("DROP TABLE IF EXISTS 'mentor'");
+    query.exec("DROP TABLE IF EXISTS 'mentee'");
+
     // [1] Reading excel file(*.xlsx)
     Document xlsxR(addr);
     if ( !xlsxR.load() ) // load excel file
@@ -73,8 +78,6 @@ void MainWindow::import_data()
             round = "Round 2";
         QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
         QString is_grouped = "0";
-
-        //qDebug() << xlsxR.cellAt(row, 20)->readValue().toString();
 
         // create sql
         QString sql = "INSERT INTO mentor VALUES (\"" +
