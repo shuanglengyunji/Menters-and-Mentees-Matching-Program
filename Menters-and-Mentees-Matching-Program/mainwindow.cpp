@@ -14,19 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // init database
     init_database(tmp_path);
 
-    // init pages
-    load_mentors();
-    load_mentees();
-    init_match_page();
-
     // switch to mentors' page
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
-    ui->actionMentors_Editing->setChecked(true);
+    ui->actionManage->setChecked(true);
+    ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
-
-    // display selection
 
     // mentors
     connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
@@ -75,7 +69,8 @@ void MainWindow::init_database(QString work_path)
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
+    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
+    db.setDatabaseName(db_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -85,16 +80,11 @@ void MainWindow::init_database(QString work_path)
 
     QSqlQuery query(db);
 
-    // Drop All Tables
-    query.exec("DROP TABLE IF EXISTS 'group'");
-    query.exec("DROP TABLE IF EXISTS 'mentor'");
-    query.exec("DROP TABLE IF EXISTS 'mentee'");
-
     // Create New Tables
     query.exec("CREATE TABLE IF NOT EXISTS [group] (                            \
                gid          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,  \
-               mentor_id	VARCHAR(10) NOT NULL,                               \
-               mentee_id	VARCHAR(10) NOT NULL                                \
+               mentor_id	VARCHAR(100) NOT NULL,                               \
+               mentee_id	VARCHAR(100)                                \
            )");
     query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
                uid              VARCHAR(10) NOT NULL UNIQUE,                \
@@ -140,10 +130,22 @@ void MainWindow::init_database(QString work_path)
     //qDebug() << "Database Init Success";
 }
 
+void MainWindow::on_actionManage_triggered()
+{
+    ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentees Grouping Page";
+
+    ui->actionManage->setChecked(true);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
+}
+
 void MainWindow::on_actionMentors_Editing_triggered()
 {
-    ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
+    ui->stack->setCurrentIndex(1);      // qDebug() << "Switch to Mentors Page";
 
+    ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(true);
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
@@ -154,8 +156,9 @@ void MainWindow::on_actionMentors_Editing_triggered()
 
 void MainWindow::on_actionMentees_Editing_triggered()
 {
-    ui->stack->setCurrentIndex(1);      // qDebug() << "Switch to Mentees Page";
+    ui->stack->setCurrentIndex(2);      // qDebug() << "Switch to Mentees Page";
 
+    ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(true);
     ui->actionMentors_Grouping->setChecked(false);
@@ -166,23 +169,28 @@ void MainWindow::on_actionMentees_Editing_triggered()
 
 void MainWindow::on_actionMentors_Grouping_triggered()
 {
-    ui->stack->setCurrentIndex(2);      // qDebug() << "Switch to Mentors Grouping Page";
+    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentors Grouping Page";
 
+    ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(true);
     ui->actionMentees_Grouping->setChecked(false);
+
+    load_group_mentors();
 }
 
 void MainWindow::on_actionMentees_Grouping_triggered()
 {
-    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentees Grouping Page";
+    ui->stack->setCurrentIndex(4);      // qDebug() << "Switch to Mentees Grouping Page";
 
+    ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(true);
 }
+
 
 
 /*
@@ -196,6 +204,14 @@ str = "DROP TABLE IF EXISTS 'mentee'";
 query.exec(str);
 
 */
+
+
+
+
+
+
+
+
 
 
 

@@ -294,35 +294,31 @@ void MainWindow::export_wattle_file()
 
 // Import
 
-void MainWindow::on_actionImport_Data_triggered()
+void MainWindow::on_pushButton_manage_import_clicked()
 {
     import_data();
-    load_mentors();
-    load_mentees();
 }
 
 // Export
 
-void MainWindow::on_actionExport_Data_triggered()
+void MainWindow::on_pushButton_manage_export_clicked()
 {
     export_data();
 }
 
 // Clear
 
-void MainWindow::on_actionClear_Data_triggered()
+void MainWindow::on_pushButton_manage_clear_clicked()
 {
     QSqlQuery query(db);
     query.exec("DELETE * FROM 'group'");
     query.exec("DELETE * FROM 'mentor'");
     query.exec("DELETE * FROM 'mentee'");
-    load_mentors();
-    load_mentees();
 }
 
 // Wattle File
 
-void MainWindow::on_actionExport_Wattle_File_triggered()
+void MainWindow::on_pushButton_manage_export_wattle_clicked()
 {
     export_wattle_file();
 }

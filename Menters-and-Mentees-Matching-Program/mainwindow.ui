@@ -39,8 +39,62 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>3</number>
         </property>
+        <widget class="QWidget" name="page_manage">
+         <widget class="QPushButton" name="pushButton_manage_import">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>93</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Import</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_export">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>60</y>
+            <width>93</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_clear">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>100</y>
+            <width>93</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_export_wattle">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>20</y>
+            <width>131</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export_Wattle_File</string>
+          </property>
+         </widget>
+        </widget>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="3" column="0">
@@ -450,7 +504,7 @@
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_grouped_mentor">
             <item row="0" column="0">
-             <widget class="QTableView" name="tableView_mentor_grouped"/>
+             <widget class="QTableView" name="tableView_group_mentor_grouped"/>
             </item>
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
@@ -471,7 +525,7 @@
           <item row="0" column="4">
            <layout class="QGridLayout" name="gridLayout_mentor_to_be_group">
             <item row="0" column="0">
-             <widget class="QTableView" name="tableView_mentor_to_be_group"/>
+             <widget class="QTableView" name="tableView_group_mentor_to_be_group"/>
             </item>
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
@@ -848,36 +902,21 @@
      <x>0</x>
      <y>0</y>
      <width>1035</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionImport_Data"/>
-    <addaction name="actionExport_Data"/>
-    <addaction name="actionClear_Data"/>
-    <addaction name="separator"/>
-    <addaction name="actionExport_Wattle_File"/>
-   </widget>
    <widget class="QMenu" name="menuFunction">
     <property name="title">
      <string>Function</string>
     </property>
+    <addaction name="actionManage"/>
     <addaction name="actionMentors_Editing"/>
     <addaction name="actionMentees_Editing"/>
     <addaction name="actionMentors_Grouping"/>
     <addaction name="actionMentees_Grouping"/>
    </widget>
-   <addaction name="menuFile"/>
    <addaction name="menuFunction"/>
   </widget>
-  <action name="actionImport_Data">
-   <property name="text">
-    <string>Import Data</string>
-   </property>
-  </action>
   <action name="actionMentors_Editing">
    <property name="checkable">
     <bool>true</bool>
@@ -902,16 +941,6 @@
     <string>Mentees Grouping</string>
    </property>
   </action>
-  <action name="actionExport_Data">
-   <property name="text">
-    <string>Export Data</string>
-   </property>
-  </action>
-  <action name="actionExport_Wattle_File">
-   <property name="text">
-    <string>Export Wattle File</string>
-   </property>
-  </action>
   <action name="actionMentors_Grouping">
    <property name="checkable">
     <bool>true</bool>
@@ -920,9 +949,12 @@
     <string>Mentors Grouping</string>
    </property>
   </action>
-  <action name="actionClear_Data">
+  <action name="actionManage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Clear Data</string>
+    <string>Manage</string>
    </property>
   </action>
  </widget>

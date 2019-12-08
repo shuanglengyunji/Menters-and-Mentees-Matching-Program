@@ -57,8 +57,7 @@ private slots:
     // Mentors Grouping
 
 
-
-    // Mentees Grouping
+    // Matching
 
     void on_pushButton_Auto_clicked();
 
@@ -78,15 +77,17 @@ private slots:
 
     // Import and Export
 
-    void on_actionImport_Data_triggered();
+    void on_pushButton_manage_import_clicked();
 
-    void on_actionExport_Data_triggered();
+    void on_pushButton_manage_export_clicked();
 
-    void on_actionClear_Data_triggered();
+    void on_pushButton_manage_clear_clicked();
 
-    void on_actionExport_Wattle_File_triggered();
+    void on_pushButton_manage_export_wattle_clicked();
 
     // Page
+
+    void on_actionManage_triggered();
 
     void on_actionMentors_Editing_triggered();
 
@@ -96,7 +97,7 @@ private slots:
 
     void on_actionMentors_Grouping_triggered();
 
-
+    void on_tableView_group_mentor_to_be_group_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
@@ -111,7 +112,7 @@ private:
 
     // ------------------------------------
 
-    // Mentor page
+    // Mentors
 
     QSqlTableModel * model_mentors = nullptr;
 
@@ -125,7 +126,7 @@ private:
 
     // ------------------------------------
 
-    // Mentee page
+    // Mentees
 
     QSqlTableModel * model_mentees = nullptr;
 
@@ -133,7 +134,16 @@ private:
 
     // ------------------------------------
 
-    // Match page
+    // Group Mentors
+
+    QSqlQueryModel * model_group_mentors_to_be_grouped = nullptr;
+    QSqlQueryModel * model_group_mentors_grouped = nullptr;
+
+    void load_group_mentors();
+
+    // ------------------------------------
+
+    // Match
 
     QSqlQueryModel * model_match_mentors;
     QSqlQueryModel * model_match_mentees_matched;

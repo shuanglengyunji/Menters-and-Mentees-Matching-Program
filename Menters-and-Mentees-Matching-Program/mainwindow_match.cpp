@@ -8,22 +8,22 @@ void MainWindow::init_match_mentors_model()
     QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
     model_match_mentors->setQuery(str,db);
 
-    model_match_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
-    model_match_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
-    model_match_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
-    model_match_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
-    model_match_mentors->setHeaderData(4, Qt::Horizontal, "Email");
-    model_match_mentors->setHeaderData(5, Qt::Horizontal, "Mobile");
-    model_match_mentors->setHeaderData(6, Qt::Horizontal, "Addtional information");
-    model_match_mentors->setHeaderData(7, Qt::Horizontal, "Academic Level");
-    model_match_mentors->setHeaderData(8, Qt::Horizontal, "College");
-    model_match_mentors->setHeaderData(9, Qt::Horizontal, "Language");
-    model_match_mentors->setHeaderData(10, Qt::Horizontal, "Training 1");
-    model_match_mentors->setHeaderData(11, Qt::Horizontal, "Training 2");
-    model_match_mentors->setHeaderData(12, Qt::Horizontal, "Training 3");
-    model_match_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
-    model_match_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
-    model_match_mentors->setHeaderData(15, Qt::Horizontal, "Role");
+//    model_match_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
+//    model_match_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
+//    model_match_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
+//    model_match_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
+//    model_match_mentors->setHeaderData(4, Qt::Horizontal, "Email");
+//    model_match_mentors->setHeaderData(5, Qt::Horizontal, "Mobile");
+//    model_match_mentors->setHeaderData(6, Qt::Horizontal, "Addtional information");
+//    model_match_mentors->setHeaderData(7, Qt::Horizontal, "Academic Level");
+//    model_match_mentors->setHeaderData(8, Qt::Horizontal, "College");
+//    model_match_mentors->setHeaderData(9, Qt::Horizontal, "Language");
+//    model_match_mentors->setHeaderData(10, Qt::Horizontal, "Training 1");
+//    model_match_mentors->setHeaderData(11, Qt::Horizontal, "Training 2");
+//    model_match_mentors->setHeaderData(12, Qt::Horizontal, "Training 3");
+//    model_match_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
+//    model_match_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
+//    model_match_mentors->setHeaderData(15, Qt::Horizontal, "Role");
 
 }
 
@@ -38,17 +38,17 @@ void MainWindow::init_match_mentors_view()
 {
     // set table view
     ui->tableView_match_mentors->setModel(model_proxy_match_mentors);
-    ui->tableView_match_mentors->hideColumn(4);
-    ui->tableView_match_mentors->hideColumn(5);
-    ui->tableView_match_mentors->hideColumn(10);
-    ui->tableView_match_mentors->hideColumn(11);
-    ui->tableView_match_mentors->hideColumn(12);
-    ui->tableView_match_mentors->hideColumn(13);
-    ui->tableView_match_mentors->hideColumn(14);
-    ui->tableView_match_mentors->hideColumn(15);
+//    ui->tableView_match_mentors->hideColumn(4);
+//    ui->tableView_match_mentors->hideColumn(5);
+//    ui->tableView_match_mentors->hideColumn(10);
+//    ui->tableView_match_mentors->hideColumn(11);
+//    ui->tableView_match_mentors->hideColumn(12);
+//    ui->tableView_match_mentors->hideColumn(13);
+//    ui->tableView_match_mentors->hideColumn(14);
+//    ui->tableView_match_mentors->hideColumn(15);
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView_match_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentors->resizeColumnsToContents();
 }
 

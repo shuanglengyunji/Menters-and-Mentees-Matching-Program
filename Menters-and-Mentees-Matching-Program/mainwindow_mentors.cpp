@@ -31,7 +31,7 @@ void MainWindow::load_mentors()
             ui->tableView_mentors,&QTableView::resizeRowsToContents);
 
     // hide group status
-    ui->tableView_mentors->hideColumn(20);
+    // ui->tableView_mentors->hideColumn(20);
 }
 
 // search
