@@ -19,14 +19,9 @@ CREATE TABLE IF NOT EXISTS [mentor] (
 	train_3	CHAR(1) NOT NULL DEFAULT 'n',
 	train_complete	CHAR(1) NOT NULL,
 	round	TEXT(100),
-	is_grouped	INTEGER NOT NULL DEFAULT 0,
+	group_id	INTEGER NOT NULL DEFAULT 0,
 	is_confirmed TEXT(500),
 	PRIMARY KEY("uid")
-);
-CREATE TABLE IF NOT EXISTS [group] (
-	gid	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	mentor_id	VARCHAR(10) NOT NULL,
-	mentee_id	VARCHAR(10) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS [mentee] (
 	uid	VARCHAR(10) NOT NULL UNIQUE,
@@ -42,6 +37,7 @@ CREATE TABLE IF NOT EXISTS [mentee] (
 	requests	TEXT(1000),
 	special_categories	TEXT(1000),
 	round	TEXT(100),
+	group_id	INTEGER NOT NULL DEFAULT 0,
 	PRIMARY KEY("uid")
 );
 COMMIT;
