@@ -29,7 +29,7 @@ void MainWindow::load_group_mentors()
     model_group_mentors_grouped = new QSqlQueryModel(this);
     model_group_mentors_grouped->setQuery("SELECT mentor_id FROM groups",db);
 
-    int row_num = model_group_mentors_grouped->rowCount();
+    //int row_num = model_group_mentors_grouped->rowCount();
 
 
     ui->tableView_group_mentor_grouped->setModel(model_group_mentors_grouped);

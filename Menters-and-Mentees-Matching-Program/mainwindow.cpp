@@ -23,26 +23,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionMentees_Grouping->setChecked(false);
 
     // mentors
-    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+//    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
 
     // mentees
-    connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+//    connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 }
 
 MainWindow::~MainWindow()
@@ -69,8 +69,7 @@ void MainWindow::init_database(QString work_path)
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
-    db.setDatabaseName(db_path);
+    db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -81,53 +80,48 @@ void MainWindow::init_database(QString work_path)
     QSqlQuery query(db);
 
     // Create New Tables
-    query.exec("CREATE TABLE IF NOT EXISTS [group] (                            \
-               gid          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,  \
-               mentor_id	VARCHAR(100) NOT NULL,                               \
-               mentee_id	VARCHAR(100)                                \
-           )");
-    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
-               uid              VARCHAR(10) NOT NULL UNIQUE,                \
-               first_name       VARCHAR(20) NOT NULL,               \
-               last_name        VARCHAR(20) NOT NULL,               \
-               gender           VARCHAR(20) NOT NULL,                   \
-               academic_level	VARCHAR(20) NOT NULL,           \
-               college          VARCHAR(50) NOT NULL,                   \
-               degree           VARCHAR(100) NOT NULL,                  \
-               type             VARCHAR(50) NOT NULL,                       \
-               languages        VARCHAR(20) NOT NULL,               \
-               languages_text	TEXT(500),                      \
-               requests         TEXT(1000),                             \
-               special_categories	TEXT(1000),                 \
-               round            TEXT(100),                              \
-               PRIMARY KEY(uid)                                 \
-           )");
     query.exec("CREATE TABLE IF NOT EXISTS [mentor] (           \
-               uid              VARCHAR(10) NOT NULL UNIQUE,    \
-               first_name       VARCHAR(20) NOT NULL,           \
-               last_name        VARCHAR(20) NOT NULL,           \
-               gender           VARCHAR(20) NOT NULL,           \
-               academic_level	VARCHAR(20) NOT NULL,           \
-               college          VARCHAR(50) NOT NULL,           \
-               degree           VARCHAR(30) NOT NULL,           \
-               type             VARCHAR(50) NOT NULL,           \
-               languages        VARCHAR(20) NOT NULL,           \
+               group_id         INTEGER NOT NULL DEFAULT 0,         \
+               is_confirmed 	CHAR(1) NOT NULL DEFAULT 'n',                     \
+               first_name		VARCHAR(20) NOT NULL,           \
+               last_name		VARCHAR(20) NOT NULL,           \
+               uid				VARCHAR(10) NOT NULL UNIQUE,    \
+               wwvp             VARCHAR(10),                        \
+               round			INTEGER(1),                     \
+               academic_level	VARCHAR(50),                     \
+               college			INTEGER(1),                     \
+               degree			VARCHAR(100),                   \
+               type             INTEGER(1),                         \
+               gender			INTEGER(1),                     \
+               languages		VARCHAR(50),                    \
                languages_text	TEXT(500),                      \
-               hall             VARCHAR(20) NOT NULL,           \
-               special          TEXT(1000),                      \
-               interests        TEXT(1000),                      \
-               wwvp             VARCHAR(10) NOT NULL,           \
-               train_1          CHAR(1) NOT NULL,               \
-               train_2          CHAR(1) NOT NULL,               \
-               train_3          CHAR(1) NOT NULL,               \
-               train_complete	CHAR(1) NOT NULL,               \
-               round            TEXT(100) NOT NULL,             \
-               is_confirmed     TEXT(500),                      \
-               is_grouped       INTEGER NOT NULL DEFAULT 0,     \
+               hall             VARCHAR(50),                        \
+               special			VARCHAR(50),                    \
+               interests		TEXT(1000),                     \
+               train_1			CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_2			CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_3			CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_complete	CHAR(1) NOT NULL DEFAULT 'n',   \
                PRIMARY KEY(uid)                                 \
            )");
 
-    //qDebug() << "Database Init Success";
+    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
+               group_id			INTEGER NOT NULL DEFAULT 0,     \
+               first_name			VARCHAR(20) NOT NULL,       \
+               last_name			VARCHAR(20) NOT NULL,       \
+               uid					VARCHAR(10) NOT NULL UNIQUE,\
+               round				INTEGER(1),                 \
+               academic_level		VARCHAR(50),                 \
+               college				INTEGER(1),                 \
+               degree				VARCHAR(100),               \
+               type                 INTEGER(1),                 \
+               gender				INTEGER(1),                 \
+               languages			VARCHAR(50),                \
+               languages_text		TEXT(500),                  \
+               special_categories	VARCHAR(50),                \
+               requests             TEXT(1000),                 \
+               PRIMARY KEY(uid)                                 \
+           )");
 }
 
 void MainWindow::on_actionManage_triggered()

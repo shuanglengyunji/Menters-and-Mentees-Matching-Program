@@ -20,7 +20,6 @@ void MainWindow::import_data()
     }
 
     // [0] Drop exist tables
-    query.exec("DELETE * FROM 'group'");
     query.exec("DELETE * FROM 'mentor'");
     query.exec("DELETE * FROM 'mentee'");
 
@@ -51,41 +50,188 @@ void MainWindow::import_data()
     for (int row = 2;row <= mentors_max; row = row + 1)
     {
         // read data
-        QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
+
+        QString group_id = "0";
+
+        QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
+        if (is_confirmed == "I have read and understood the above text")
+        {
+            is_confirmed = "y";
+        }
+        else
+        {
+            is_confirmed = "n";
+        }
+
         QString first_name = xlsxR.cellAt(row, 2)->readValue().toString();
         QString last_name = xlsxR.cellAt(row, 3)->readValue().toString();
-        QString gender = xlsxR.cellAt(row, 11)->readValue().toString();
+        QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
+
+        QString wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
+        if ( wwvp.toUpper() == "NO" || wwvp.isEmpty() ) {
+            wwvp = "n";
+        }
+        else if ( wwvp.toUpper() == "YES" || wwvp.toUpper() == "Y") {
+            wwvp = "y";
+        }
+
+        QString round = xlsxR.cellAt(row, 6)->readValue().toString();
+        if (round == "Yes - I will be here")
+        {
+            round = "0";
+        }
+        else if (round == "Likely - I plan to be here, but can't be certain at this stage" || round == "No - I won't be here during that time")
+        {
+            round = "1";
+        }
+        else
+        {
+            qDebug() << "[Import] Unexpected round!";
+        }
+
         QString academic_level = xlsxR.cellAt(row, 7)->readValue().toString();
+        if (academic_level == "Postgraduate (coursework)")
+        {
+            academic_level = "1";
+        }
+        else if (academic_level == "Undergraduate")
+        {
+            academic_level = "0";
+        }
+        else
+        {
+            qDebug() << "[Import] Unexpected academic level!";
+            academic_level = "0";
+        }
+
         QString college = xlsxR.cellAt(row, 8)->readValue().toString();
+        college = college.simplified();
+        college.replace("College of Asia and the Pacific","0");
+        college.replace("College of Asia & the Pacific","0");
+        college.replace("College of Arts and Social Sciences","1");
+        college.replace("ANU College of Arts & Social Sciences","1");
+        college.replace("College of Business and Economics","2");
+        college.replace("College of Business & Economics","2");
+        college.replace("College of Engineering and Computer Science","3");
+        college.replace("ANU College of Law","4");
+        college.replace("College of Science","5");
+        college.replace("College of Health and Medicine","6");
+
         QString degree = xlsxR.cellAt(row, 9)->readValue().toString();
+
         QString type = xlsxR.cellAt(row, 10)->readValue().toString();
+        if (type == "International")
+            type = "1";
+        else if (type == "Domestic")
+            type = "0";
+        else
+            qDebug() << "[Import] Unexpected type!";
+
+        QString gender = xlsxR.cellAt(row, 11)->readValue().toString();
+        if (gender == "Female")
+        {
+            gender = "0";
+        }
+        else if (gender == "Male")
+        {
+            gender = "1";
+        }
+        else if (gender == "Other")
+        {
+            gender = "2";
+        }
+        else if (gender == "Prefer not to say")
+        {
+            gender = "3";
+        }
+        else
+        {
+            qDebug() << "[Import] Unexpected gender!";
+        }
+
         QString languages = xlsxR.cellAt(row, 12)->readValue().toString();
+        languages = languages.simplified();
+        languages.replace("Hindi","0");
+        languages.replace("Vietnamese","1");
+        languages.replace("German","2");
+        languages.replace("Korean","3");
+        languages.replace("Tamil","4");
+        languages.replace("Mandarin (Chinese)","5");
+        languages.replace("Spanish","6");
+        languages.replace("Cantonese","7");
+        languages.replace("Indonesian","8");
+        languages.replace("Japanese","9");
+        languages.replace("Urdu","10");
+        languages.replace(",Other (please specify)","");
+        languages.replace("Other (please specify)","");
+        languages.replace(" ","");
+        if (languages.isEmpty())
+        {
+            languages = "11";
+        }
+
         QString languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
         QString hall = xlsxR.cellAt(row, 14)->readValue().toString();
+
         QString special = xlsxR.cellAt(row, 15)->readValue().toString();
+        special = special.simplified();
+        special.replace("An international student wanting to learn about Australian culture","0");
+        special.replace("An exchange student (rather than a student new to university)","1");
+        special.replace("Being a mature age student (greater than three years between school/uni or degrees)","2");
+        special.replace("A mentee who lives with disability or mental illness","3");
+        special.replace("A mentee who works more than 20hrs/wk while studying","4");
+        special.replace("A mentee who identifies as LGBTIQ+","5");
+        special.replace("A mentee who is the parent, guardian, or carer of children or another person","6");
+        special.replace("A mentee from a rural area","7");
+        special.replace("A mentee who is under the age of 18","8");
+        special.replace("A mentee who is particularly uncomfortable speaking in English (but wants to improve)","9");
+        special.replace("A mentee who is particularly shy or lacks confidence and wants someone patient (yes this is a request we get)","10");
+
         QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
-        QString wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
+
         QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString();
+        if (train_1 != "y")
+            train_1 = "n";
+
         QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString();
+        if (train_2 != "y")
+            train_2 = "n";
+
         QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString();
+        if (train_3 != "y")
+            train_3 = "n";
+
         QString train_complete = "n";
         if (train_1=="y" && train_1=="y" && train_1=="y")
             train_complete = "y";
-        QString round = xlsxR.cellAt(row, 6)->readValue().toString();
-        if (round == "Yes - I will be here")
-            round = "Round 1";
-        else
-            round = "Round 2";
-        QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
-        QString is_grouped = "0";
 
         // create sql
-        QString sql = "INSERT INTO mentor VALUES (\"" +
-                uid + "\",\"" + first_name + "\",\"" + last_name + "\",\"" + gender + "\",\"" +
-                academic_level + "\",\"" + college + "\",\"" + degree + "\",\"" + type + "\",\"" +
-                languages + "\",\"" + languages_text + "\",\"" + hall + "\",\"" + special + "\",\"" +
-                interests + "\",\"" + wwvp + "\",\"" + train_1 + "\",\"" + train_2 + "\",\"" +
-                train_3 + "\",\"" + train_complete + "\",\"" + round + "\",\"" + is_confirmed + "\",\"" + is_grouped + "\")";    // qDebug() << sql;
+
+        QString sql = "INSERT INTO mentor VALUES (" +
+                QString("%1,").arg(group_id) +
+                QString("\"%1\",").arg(is_confirmed) +
+                QString("\"%1\",").arg(first_name) +
+                QString("\"%1\",").arg(last_name) +
+                QString("\"%1\",").arg(uid) +
+                QString("\"%1\",").arg(wwvp) +
+                QString("%1,").arg(round) +
+                QString("%1,").arg(academic_level) +
+                QString("\"%1\",").arg(college) +
+                QString("\"%1\",").arg(degree) +
+                QString("%1,").arg(type) +
+                QString("%1,").arg(gender) +
+                QString("\"%1\",").arg(languages) +
+                QString("\"%1\",").arg(languages_text) +
+                QString("\"%1\",").arg(hall) +
+                QString("\"%1\",").arg(special) +
+                QString("\"%1\",").arg(interests) +
+                QString("\"%1\",").arg(train_1) +
+                QString("\"%1\",").arg(train_2) +
+                QString("\"%1\",").arg(train_3) +
+                QString("\"%1\"").arg(train_complete) +
+                ")";
+
+        //qDebug() << sql;
 
         // execute sql
         if ( !query.exec(sql) )
@@ -93,7 +239,9 @@ void MainWindow::import_data()
             //qDebug() << "Failed to Import Row " << row;
             QMessageBox::warning(this, tr("Mentor Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
             //qDebug() << sql;
+            //qDebug() << query.lastError();
         }
+
     }
 
     // [4] Import Mentees Sheet
@@ -103,32 +251,161 @@ void MainWindow::import_data()
     for (int row = 2;row <= mentees_max; row = row + 1)
     {
         // read data
-        QString uid = xlsxR.cellAt(row, 3)->readValue().toString();
+
+        QString group_id = "0";
+
         QString first_name = xlsxR.cellAt(row, 1)->readValue().toString();
         QString last_name = xlsxR.cellAt(row, 2)->readValue().toString();
-        QString gender = xlsxR.cellAt(row, 9)->readValue().toString();
-        QString academic_level = xlsxR.cellAt(row, 5)->readValue().toString();
-        QString college = xlsxR.cellAt(row, 6)->readValue().toString();
-        QString degree = xlsxR.cellAt(row, 7)->readValue().toString();
-        QString type = xlsxR.cellAt(row, 8)->readValue().toString();
-        QString languages = xlsxR.cellAt(row, 10)->readValue().toString();
-        QString languages_text = xlsxR.cellAt(row, 11)->readValue().toString();
-        QString requests = xlsxR.cellAt(row, 13)->readValue().toString();
-        QString special_categories = xlsxR.cellAt(row, 12)->readValue().toString();
+        QString uid = xlsxR.cellAt(row, 3)->readValue().toString();
+
         QString round = xlsxR.cellAt(row, 4)->readValue().toString();
+        if (round == "Round 1")
+        {
+            round = "0";
+        }
+        else if (round == "Round 2")
+        {
+            round = "1";
+        }
+        else
+        {
+            round = "0";
+            qDebug() << "[Import] Unexpected round!";
+        }
+
+        QString academic_level = xlsxR.cellAt(row, 5)->readValue().toString();
+        if (academic_level == "Postgraduate Coursework")
+        {
+            academic_level = "1";
+        }
+        else if (academic_level == "Undergraduate")
+        {
+            academic_level = "0";
+        }
+        else
+        {
+            academic_level = "0";
+            qDebug() << "[Import] Unexpected academic level!";
+        }
+
+        QString college = xlsxR.cellAt(row, 6)->readValue().toString();
+        college = college.simplified();
+        college.replace(",School of Art and Design (as part of the College of Arts and Social Sciences)","");
+        college.replace("College of Asia and the Pacific","0");
+        college.replace("College of Asia & the Pacific","0");
+        college.replace("College of Arts and Social Sciences","1");
+        college.replace("College of Arts & Social Sciences","1");
+        college.replace("College of Business and Economics","2");
+        college.replace("College of Business & Economics","2");
+        college.replace("College of Engineering and Computer Science","3");
+        college.replace("College of Engineering & Computer Science","3");
+        college.replace("College of Law","4");
+        college.replace("College of Science","5");
+        college.replace("College of Health and Medicine","6");
+        college.replace("College of Health & Medicine","6");
+        college.replace("ANU ","");
+
+        QString degree = xlsxR.cellAt(row, 7)->readValue().toString();
+
+        QString type = xlsxR.cellAt(row, 8)->readValue().toString();
+        if (type == "International")
+        {
+            type = "1";
+        }
+        else if (type == "Domestic")
+        {
+            type = "0";
+        }
+        else
+        {
+            type = "0";
+            qDebug() << "[Import] Unexpected type!";
+        }
+
+        QString gender = xlsxR.cellAt(row, 9)->readValue().toString();
+        if (gender == "Female")
+        {
+            gender = "0";
+        }
+        else if (gender == "Male")
+        {
+            gender = "1";
+        }
+        else if (gender == "Other")
+        {
+            gender = "2";
+        }
+        else if (gender == "Prefer not to say")
+        {
+            gender = "3";
+        }
+        else
+        {
+            gender = "3";
+            qDebug() << "[Import] Unexpected gender!";
+        }
+
+        QString languages = xlsxR.cellAt(row, 10)->readValue().toString();
+        languages = languages.simplified();
+        languages.replace("Hindi","0");
+        languages.replace("Vietnamese","1");
+        languages.replace("German","2");
+        languages.replace("Korean","3");
+        languages.replace("Tamil","4");
+        languages.replace("Mandarin (Chinese)","5");
+        languages.replace("Spanish","6");
+        languages.replace("Cantonese","7");
+        languages.replace("Indonesian","8");
+        languages.replace("Japanese","9");
+        languages.replace("Urdu","10");
+        languages.replace(",Other (please specify)","");
+        languages.replace("Other (please specify)","");
+        languages.replace(" ","");
+        if (languages.isEmpty())
+        {
+            languages = "11";
+        }
+
+        QString languages_text = xlsxR.cellAt(row, 11)->readValue().toString();
+
+        QString special_categories = xlsxR.cellAt(row, 12)->readValue().toString();
+        special_categories = special_categories.simplified();
+        special_categories.replace("Australian culture","0");
+        special_categories.replace("Going on exchange","1");
+        special_categories.replace("Being a mature age student (greater than three years between school/uni or degrees)","2");
+        special_categories.replace("Living with disability or mental illness","3");
+        special_categories.replace("Working full or part time while studying","4");
+        special_categories.replace("Identifying as LGBTIQ+","5");
+        special_categories.replace("Being the parent, guardian, or carer of children or another person","6");
+        special_categories.replace("Living in a rural or regional area","7");
+
+        QString requests = xlsxR.cellAt(row, 13)->readValue().toString();
 
         // create sql
-        QString sql = "INSERT INTO mentee VALUES (\"" +
-                uid + "\",\"" + first_name + "\",\"" + last_name + "\",\"" + gender + "\",\"" +
-                academic_level + "\",\"" + college + "\",\"" + degree + "\",\"" + type + "\",\"" +
-                languages + "\",\"" + languages_text + "\",\"" + requests + "\",\"" + special_categories + "\",\"" +
-                round + "\")";    // qDebug() << sql;
+        QString sql = "INSERT INTO mentee VALUES (" +
+                QString("%1,").arg(group_id) +
+                QString("\"%1\",").arg(first_name) +
+                QString("\"%1\",").arg(last_name) +
+                QString("\"%1\",").arg(uid) +
+                QString("%1,").arg(round) +
+                QString("\"%1\",").arg(academic_level) +
+                QString("\"%1\",").arg(college) +
+                QString("\"%1\",").arg(degree) +
+                QString("%1,").arg(type) +
+                QString("%1,").arg(gender) +
+                QString("\"%1\",").arg(languages) +
+                QString("\"%1\",").arg(languages_text) +
+                QString("\"%1\",").arg(special_categories) +
+                QString("\"%1\"").arg(requests) +
+                ")";
 
         // execute sql
         if ( !query.exec(sql) )
         {
-            qDebug() << "Failed to Import Row " << row;
-            //QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
+            //qDebug() << "Failed to Import Row " << row;
+            //qDebug() << sql;
+            //qDebug() << query.lastError();
+            QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
             //qDebug() << sql;
         }
     }
