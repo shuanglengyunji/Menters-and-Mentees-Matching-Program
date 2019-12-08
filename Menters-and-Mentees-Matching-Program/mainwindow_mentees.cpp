@@ -83,74 +83,64 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
 
 void MainWindow::display_mentees_column()
 {
-    // gender
-    if (ui->checkBox_mentees_gender->isChecked())
+    // round
+    if (ui->checkBox_mentees_round->isChecked())
     {
-        ui->tableView_mentees->showColumn(3);
+        ui->tableView_mentees->showColumn(4);
     }
     else
     {
-        ui->tableView_mentees->hideColumn(3);
+        ui->tableView_mentees->hideColumn(4);
     }
 
     // academic info
     if (ui->checkBox_mentees_academic_info->isChecked())
     {
-        ui->tableView_mentees->showColumn(4);
         ui->tableView_mentees->showColumn(5);
         ui->tableView_mentees->showColumn(6);
+        ui->tableView_mentees->showColumn(7);
     }
     else
     {
-        ui->tableView_mentees->hideColumn(4);
         ui->tableView_mentees->hideColumn(5);
         ui->tableView_mentees->hideColumn(6);
+        ui->tableView_mentees->hideColumn(7);
     }
 
     // type
     if (ui->checkBox_mentees_type->isChecked())
     {
-        ui->tableView_mentees->showColumn(7);
+        ui->tableView_mentees->showColumn(8);
     }
     else
     {
-        ui->tableView_mentees->hideColumn(7);
+        ui->tableView_mentees->hideColumn(8);
+    }
+
+    // gender
+    if (ui->checkBox_mentees_gender->isChecked())
+    {
+        ui->tableView_mentees->showColumn(9);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(9);
     }
 
     // language
     if (ui->checkBox_mentees_language->isChecked())
     {
-        ui->tableView_mentees->showColumn(8);
-        ui->tableView_mentees->showColumn(9);
-    }
-    else
-    {
-        ui->tableView_mentees->hideColumn(8);
-        ui->tableView_mentees->hideColumn(9);
-    }
-
-    // requests
-    if (ui->checkBox_mentees_requests->isChecked())
-    {
         ui->tableView_mentees->showColumn(10);
-    }
-    else
-    {
-        ui->tableView_mentees->hideColumn(10);
-    }
-
-    // special categories
-    if (ui->checkBox_mentees_special_categories->isChecked())
-    {
         ui->tableView_mentees->showColumn(11);
     }
     else
     {
+        ui->tableView_mentees->hideColumn(10);
         ui->tableView_mentees->hideColumn(11);
     }
 
-    // round
-    if (ui->checkBox_mentees_round->isChecked())
+    // special categories
+    if (ui->checkBox_mentees_special_categories->isChecked())
     {
         ui->tableView_mentees->showColumn(12);
     }
@@ -158,6 +148,17 @@ void MainWindow::display_mentees_column()
     {
         ui->tableView_mentees->hideColumn(12);
     }
+
+    // requests
+    if (ui->checkBox_mentees_requests->isChecked())
+    {
+        ui->tableView_mentees->showColumn(13);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(13);
+    }
+
 }
 
 

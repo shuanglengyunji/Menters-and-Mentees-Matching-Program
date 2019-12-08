@@ -87,54 +87,52 @@ void MainWindow::on_pushButton_mentors_delete_clicked()
 
 void MainWindow::display_mentors_column()
 {
-    // gender
-    if (ui->checkBox_mentors_gender->isChecked())
+    // confirmation
+    if (ui->checkBox_mentors_confirmation->isChecked())
     {
-        ui->tableView_mentors->showColumn(3);
+        ui->tableView_mentors->showColumn(1);
     }
     else
     {
-        ui->tableView_mentors->hideColumn(3);
+        ui->tableView_mentors->hideColumn(1);
+    }
+
+    // wwvp
+    if (ui->checkBox_mentors_wwvp->isChecked())
+    {
+        ui->tableView_mentors->showColumn(5);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(5);
+    }
+
+    // round
+    if (ui->checkBox_mentors_round->isChecked())
+    {
+        ui->tableView_mentors->showColumn(6);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(6);
     }
 
     // academic info
     if (ui->checkBox_mentors_academic_info->isChecked())
     {
-        ui->tableView_mentors->showColumn(4);
-        ui->tableView_mentors->showColumn(5);
-        ui->tableView_mentors->showColumn(6);
-    }
-    else
-    {
-        ui->tableView_mentors->hideColumn(4);
-        ui->tableView_mentors->hideColumn(5);
-        ui->tableView_mentors->hideColumn(6);
-    }
-
-    // type
-    if (ui->checkBox_mentors_type->isChecked())
-    {
         ui->tableView_mentors->showColumn(7);
-    }
-    else
-    {
-        ui->tableView_mentors->hideColumn(7);
-    }
-
-    // language
-    if (ui->checkBox_mentors_language->isChecked())
-    {
         ui->tableView_mentors->showColumn(8);
         ui->tableView_mentors->showColumn(9);
     }
     else
     {
+        ui->tableView_mentors->hideColumn(7);
         ui->tableView_mentors->hideColumn(8);
         ui->tableView_mentors->hideColumn(9);
     }
 
-    // hall
-    if (ui->checkBox_mentors_hall->isChecked())
+    // type
+    if (ui->checkBox_mentors_type->isChecked())
     {
         ui->tableView_mentors->showColumn(10);
     }
@@ -143,8 +141,8 @@ void MainWindow::display_mentors_column()
         ui->tableView_mentors->hideColumn(10);
     }
 
-    // special
-    if (ui->checkBox_mentors_special->isChecked())
+    // gender
+    if (ui->checkBox_mentors_gender->isChecked())
     {
         ui->tableView_mentors->showColumn(11);
     }
@@ -153,61 +151,64 @@ void MainWindow::display_mentors_column()
         ui->tableView_mentors->hideColumn(11);
     }
 
-    // interests
-    if (ui->checkBox_mentors_interests->isChecked())
+    // language
+    if (ui->checkBox_mentors_language->isChecked())
     {
         ui->tableView_mentors->showColumn(12);
-    }
-    else
-    {
-        ui->tableView_mentors->hideColumn(12);
-    }
-
-    // wwvp
-    if (ui->checkBox_mentors_wwvp->isChecked())
-    {
         ui->tableView_mentors->showColumn(13);
     }
     else
     {
+        ui->tableView_mentors->hideColumn(12);
         ui->tableView_mentors->hideColumn(13);
+    }
+
+    // hall
+    if (ui->checkBox_mentors_hall->isChecked())
+    {
+        ui->tableView_mentors->showColumn(14);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(14);
+    }
+
+    // special
+    if (ui->checkBox_mentors_special->isChecked())
+    {
+        ui->tableView_mentors->showColumn(15);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(15);
+    }
+
+    // interests
+    if (ui->checkBox_mentors_interests->isChecked())
+    {
+        ui->tableView_mentors->showColumn(16);
+    }
+    else
+    {
+        ui->tableView_mentors->hideColumn(16);
     }
 
     // training
     if (ui->checkBox_mentors_training->isChecked())
     {
-        ui->tableView_mentors->showColumn(14);
-        ui->tableView_mentors->showColumn(15);
-        ui->tableView_mentors->showColumn(16);
         ui->tableView_mentors->showColumn(17);
-    }
-    else
-    {
-        ui->tableView_mentors->hideColumn(14);
-        ui->tableView_mentors->hideColumn(15);
-        ui->tableView_mentors->hideColumn(16);
-        ui->tableView_mentors->hideColumn(17);
-    }
-
-    // round
-    if (ui->checkBox_mentors_round->isChecked())
-    {
         ui->tableView_mentors->showColumn(18);
+        ui->tableView_mentors->showColumn(19);
+        ui->tableView_mentors->showColumn(20);
     }
     else
     {
+        ui->tableView_mentors->hideColumn(17);
         ui->tableView_mentors->hideColumn(18);
+        ui->tableView_mentors->hideColumn(19);
+        ui->tableView_mentors->hideColumn(20);
     }
 
-    // confirmation
-    if (ui->checkBox_mentors_confirmation->isChecked())
-    {
-        ui->tableView_mentors->showColumn(19);
-    }
-    else
-    {
-        ui->tableView_mentors->hideColumn(19);
-    }
 }
 
 

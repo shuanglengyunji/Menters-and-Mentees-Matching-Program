@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QPushButton" name="pushButton_manage_import">
@@ -152,9 +152,29 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentors_gender">
+             <widget class="QCheckBox" name="checkBox_mentors_confirmation">
               <property name="text">
-               <string>Gender</string>
+               <string>Confirmation</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_wwvp">
+              <property name="text">
+               <string>WWVP</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_round">
+              <property name="text">
+               <string>Round</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -175,6 +195,16 @@
              <widget class="QCheckBox" name="checkBox_mentors_type">
               <property name="text">
                <string>Dom/Int</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentors_gender">
+              <property name="text">
+               <string>Gender</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -222,39 +252,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentors_wwvp">
-              <property name="text">
-               <string>WWVP</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QCheckBox" name="checkBox_mentors_training">
               <property name="text">
                <string>Training</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_round">
-              <property name="text">
-               <string>Round</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_confirmation">
-              <property name="text">
-               <string>Confirmation</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -335,9 +335,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentees_gender">
+             <widget class="QCheckBox" name="checkBox_mentees_round">
               <property name="text">
-               <string>Gender</string>
+               <string>Round</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -365,9 +365,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentees_language">
+             <widget class="QCheckBox" name="checkBox_mentees_gender">
               <property name="text">
-               <string>Languages</string>
+               <string>Gender</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -375,9 +375,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentees_requests">
+             <widget class="QCheckBox" name="checkBox_mentees_language">
               <property name="text">
-               <string>Requests</string>
+               <string>Languages</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -395,9 +395,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentees_round">
+             <widget class="QCheckBox" name="checkBox_mentees_requests">
               <property name="text">
-               <string>Round</string>
+               <string>Requests</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -902,7 +902,7 @@
      <x>0</x>
      <y>0</y>
      <width>1035</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">
