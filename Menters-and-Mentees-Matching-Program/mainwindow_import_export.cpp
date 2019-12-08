@@ -20,8 +20,8 @@ void MainWindow::import_data()
     }
 
     // [0] Drop exist tables
-    query.exec("DELETE * FROM 'mentor'");
-    query.exec("DELETE * FROM 'mentee'");
+    query.exec("DELETE FROM 'mentor'");
+    query.exec("DELETE FROM 'mentee'");
 
     // [1] Reading excel file(*.xlsx)
     Document xlsxR(addr);
