@@ -9,15 +9,14 @@
 #include "xlsxworkbook.h"
 using namespace QXlsx;
 
-void MainWindow::import_data()
+void MainWindow::import_data(QString addr,bool include_match_result)
 {
-    QSqlQuery query(db);
-
-    QString addr = QFileDialog::getOpenFileName(this,tr("Import Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
     if(addr.isEmpty())
     {
         return;
     }
+
+    QSqlQuery query(db);
 
     // [0] Drop exist tables
     query.exec("DELETE FROM 'mentor'");
@@ -107,11 +106,8 @@ void MainWindow::import_data()
         QString college = xlsxR.cellAt(row, 8)->readValue().toString();
         college = college.simplified();
         college.replace("College of Asia and the Pacific","0");
-        college.replace("College of Asia & the Pacific","0");
         college.replace("College of Arts and Social Sciences","1");
-        college.replace("ANU College of Arts & Social Sciences","1");
         college.replace("College of Business and Economics","2");
-        college.replace("College of Business & Economics","2");
         college.replace("College of Engineering and Computer Science","3");
         college.replace("ANU College of Law","4");
         college.replace("College of Science","5");
@@ -413,10 +409,8 @@ void MainWindow::import_data()
 
 // ---------------------------------------
 
-void MainWindow::export_data()
+void MainWindow::export_data(QString addr,bool include_match_result)
 {
-
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Mentors and Mentees Data"), "Data", tr("*.xlsx"));
     if(addr.isEmpty())
     {
        return;
@@ -486,27 +480,140 @@ void MainWindow::export_data()
     for (int row = 0; row < exmodel_mentors->rowCount(); row++)
     {
         QSqlRecord r = exmodel_mentors->record(row);
+        QVariant tmp;
+        QString tmp_str;
 
-        xlsxW.write("A"+QVariant(row+2).toString(),r.value(19));
-        xlsxW.write("B"+QVariant(row+2).toString(),r.value(1));
-        xlsxW.write("C"+QVariant(row+2).toString(),r.value(2));
-        xlsxW.write("D"+QVariant(row+2).toString(),r.value(0));
-        xlsxW.write("E"+QVariant(row+2).toString(),r.value(13));
-        xlsxW.write("F"+QVariant(row+2).toString(),r.value(18));
-        xlsxW.write("G"+QVariant(row+2).toString(),r.value(4));
-        xlsxW.write("H"+QVariant(row+2).toString(),r.value(5));
-        xlsxW.write("I"+QVariant(row+2).toString(),r.value(6));
-        xlsxW.write("J"+QVariant(row+2).toString(),r.value(7));
-        xlsxW.write("K"+QVariant(row+2).toString(),r.value(3));
-        xlsxW.write("L"+QVariant(row+2).toString(),r.value(8));
-        xlsxW.write("M"+QVariant(row+2).toString(),r.value(9));
-        xlsxW.write("N"+QVariant(row+2).toString(),r.value(10));
-        xlsxW.write("O"+QVariant(row+2).toString(),r.value(11));
-        xlsxW.write("P"+QVariant(row+2).toString(),r.value(12));
-        xlsxW.write("Q"+QVariant(row+2).toString(),r.value(14));
-        xlsxW.write("R"+QVariant(row+2).toString(),r.value(15));
-        xlsxW.write("S"+QVariant(row+2).toString(),r.value(16));
-        xlsxW.write("T"+QVariant(row+2).toString(),r.value(17));
+        // Confirmation
+        if (r.value(1) == "y")
+        {
+            tmp = QVariant("I have read and understood the above text");
+        }
+        else
+        {
+            tmp = "";
+        }
+        xlsxW.write("A"+QVariant(row+2).toString(),tmp);
+
+        xlsxW.write("B"+QVariant(row+2).toString(),r.value(2));     // First Name
+        xlsxW.write("C"+QVariant(row+2).toString(),r.value(3));     // Last Name
+        xlsxW.write("D"+QVariant(row+2).toString(),r.value(4));     // Uni ID
+
+        if (r.value(5) == "y")
+        {
+            tmp = "Yes";
+        }
+        else
+        {
+            tmp = "No";
+        }
+        xlsxW.write("E"+QVariant(row+2).toString(),tmp);     // WWVP
+
+        // O-Week
+        if (r.value(6) == "0")
+        {
+            tmp = QVariant("Yes - I will be here");
+        }
+        else
+        {
+            tmp = QVariant("No - I won't be here during that time");
+        }
+        xlsxW.write("F"+QVariant(row+2).toString(),tmp);
+
+        // UG/PG
+        if (r.value(7) == "0")
+        {
+            tmp = "Undergraduate";
+        }
+        else
+        {
+            tmp = "Postgraduate (coursework)";
+        }
+        xlsxW.write("G"+QVariant(row+2).toString(),tmp);
+
+        // Academic College
+        tmp_str = r.value(8).toString().simplified();
+        tmp_str.replace("0","College of Asia and the Pacific");
+        tmp_str.replace("1","College of Arts and Social Sciences");
+        tmp_str.replace("2","College of Business and Economics");
+        tmp_str.replace("3","College of Engineering and Computer Science");
+        tmp_str.replace("4","ANU College of Law");
+        tmp_str.replace("5","College of Science");
+        tmp_str.replace("6","College of Health and Medicine");
+        xlsxW.write("H"+QVariant(row+2).toString(),QVariant(tmp_str));
+
+        xlsxW.write("I"+QVariant(row+2).toString(),r.value(9));     // Degree
+
+        // Dom/Int
+        if (r.value(10) == "0")
+        {
+            tmp = "Domestic";
+        }
+        else
+        {
+            tmp = "International";
+        }
+        xlsxW.write("J"+QVariant(row+2).toString(),tmp);
+
+        // Gender
+        if (r.value(11) == "0")
+        {
+            tmp = "Female";
+        }
+        else if (r.value(11) == "1")
+        {
+            tmp = "Male";
+        }
+        else if (r.value(11) == "2")
+        {
+            tmp = "Other";
+        }
+        else if (r.value(11) == "3")
+        {
+            tmp = "Prefer not to say";
+        }
+        else
+        {
+            tmp = "Prefer not to say";
+        }
+        xlsxW.write("K"+QVariant(row+2).toString(),tmp);
+
+        // Languages
+        tmp_str = r.value(12).toString().simplified();
+        tmp_str.replace("0","Hindi");
+        tmp_str.replace("1","Vietnamese");
+        tmp_str.replace("2","German");
+        tmp_str.replace("3","Korean");
+        tmp_str.replace("4","Tamil");
+        tmp_str.replace("5","Mandarin (Chinese)");
+        tmp_str.replace("6","Spanish");
+        tmp_str.replace("7","Cantonese");
+        tmp_str.replace("8","Indonesian");
+        tmp_str.replace("9","Japanese");
+        tmp_str.replace("10","Urdu");
+        xlsxW.write("L"+QVariant(row+2).toString(),QVariant(tmp_str));
+
+        xlsxW.write("M"+QVariant(row+2).toString(),r.value(13));    // Languages - Text
+        xlsxW.write("N"+QVariant(row+2).toString(),r.value(14));    // Residential Hall
+
+        tmp_str = r.value(15).toString().simplified();
+        tmp_str.replace("0","An international student wanting to learn about Australian culture");
+        tmp_str.replace("1","An exchange student (rather than a student new to university)");
+        tmp_str.replace("2","Being a mature age student (greater than three years between school/uni or degrees)");
+        tmp_str.replace("3","A mentee who lives with disability or mental illness");
+        tmp_str.replace("4","A mentee who works more than 20hrs/wk while studying");
+        tmp_str.replace("5","A mentee who identifies as LGBTIQ+");
+        tmp_str.replace("6","A mentee who is the parent, guardian, or carer of children or another person");
+        tmp_str.replace("7","A mentee from a rural area");
+        tmp_str.replace("8","A mentee who is under the age of 18");
+        tmp_str.replace("9","A mentee who is particularly uncomfortable speaking in English (but wants to improve)");
+        tmp_str.replace("10","A mentee who is particularly shy or lacks confidence and wants someone patient (yes this is a request we get)");
+        xlsxW.write("O"+QVariant(row+2).toString(),tmp_str);    // Special Categories
+
+        xlsxW.write("P"+QVariant(row+2).toString(),r.value(16));    // Interests
+        xlsxW.write("Q"+QVariant(row+2).toString(),r.value(17));    // Training 1
+        xlsxW.write("R"+QVariant(row+2).toString(),r.value(18));    // Training 2
+        xlsxW.write("S"+QVariant(row+2).toString(),r.value(19));    // Training 3
+        xlsxW.write("T"+QVariant(row+2).toString(),r.value(20));    // Training Complete
     }
 
     delete exmodel_mentors;
@@ -524,20 +631,111 @@ void MainWindow::export_data()
     for (int row = 0; row < exmodel_mentees->rowCount(); row++)
     {
         QSqlRecord r = exmodel_mentees->record(row);
+        QVariant tmp;
+        QString tmp_str;
 
-        xlsxW.write("A"+QVariant(row+2).toString(),r.value(1));
-        xlsxW.write("B"+QVariant(row+2).toString(),r.value(2));
-        xlsxW.write("C"+QVariant(row+2).toString(),r.value(0));
-        xlsxW.write("D"+QVariant(row+2).toString(),r.value(12));
-        xlsxW.write("E"+QVariant(row+2).toString(),r.value(4));
-        xlsxW.write("F"+QVariant(row+2).toString(),r.value(5));
-        xlsxW.write("G"+QVariant(row+2).toString(),r.value(6));
-        xlsxW.write("H"+QVariant(row+2).toString(),r.value(7));
-        xlsxW.write("I"+QVariant(row+2).toString(),r.value(3));
-        xlsxW.write("J"+QVariant(row+2).toString(),r.value(8));
-        xlsxW.write("K"+QVariant(row+2).toString(),r.value(9));
-        xlsxW.write("L"+QVariant(row+2).toString(),r.value(11));
-        xlsxW.write("M"+QVariant(row+2).toString(),r.value(10));
+        xlsxW.write("A"+QVariant(row+2).toString(),r.value(1));     // First Name
+        xlsxW.write("B"+QVariant(row+2).toString(),r.value(2));     // Last Name
+        xlsxW.write("C"+QVariant(row+2).toString(),r.value(3));     // Uni ID
+
+        // Round
+        if (r.value(4) == "0")
+        {
+            tmp = "Round 1";
+        }
+        else
+        {
+            tmp = "Round 2";
+        }
+        xlsxW.write("D"+QVariant(row+2).toString(),tmp);
+
+        // UG/PG
+        if (r.value(5) == "0")
+        {
+            tmp = "Undergraduate";
+        }
+        else
+        {
+            tmp = "Postgraduate Coursework";
+        }
+        xlsxW.write("E"+QVariant(row+2).toString(),tmp);
+
+        // Academic College
+        tmp_str = r.value(6).toString().simplified();
+        tmp_str.replace("0","College of Asia and the Pacific");
+        tmp_str.replace("1","College of Arts and Social Sciences");
+        tmp_str.replace("2","College of Business and Economics");
+        tmp_str.replace("3","College of Engineering and Computer Science");
+        tmp_str.replace("4","College of Law");
+        tmp_str.replace("5","College of Science");
+        tmp_str.replace("6","College of Health and Medicine");
+        xlsxW.write("F"+QVariant(row+2).toString(),tmp_str);
+
+        xlsxW.write("G"+QVariant(row+2).toString(),r.value(7));     // u18(Degree)
+
+        // Dom/Int
+        if (r.value(8) == "0")
+        {
+            tmp = "Domestic";
+        }
+        else
+        {
+            tmp = "International";
+        }
+        xlsxW.write("H"+QVariant(row+2).toString(),tmp);
+
+        // Gender
+        if (r.value(9) == "0")
+        {
+            tmp = "Female";
+        }
+        else if (r.value(9) == "1")
+        {
+            tmp = "Male";
+        }
+        else if (r.value(9) == "2")
+        {
+            tmp = "Other";
+        }
+        else if (r.value(9) == "3")
+        {
+            tmp = "Prefer not to say";
+        }
+        else
+        {
+            tmp = "Prefer not to say";
+        }
+        xlsxW.write("I"+QVariant(row+2).toString(),tmp);
+
+        // Languages
+        tmp_str = r.value(10).toString().simplified();
+        tmp_str.replace("0","Hindi");
+        tmp_str.replace("1","Vietnamese");
+        tmp_str.replace("2","German");
+        tmp_str.replace("3","Korean");
+        tmp_str.replace("4","Tamil");
+        tmp_str.replace("5","Mandarin (Chinese)");
+        tmp_str.replace("6","Spanish");
+        tmp_str.replace("7","Cantonese");
+        tmp_str.replace("8","Indonesian");
+        tmp_str.replace("9","Japanese");
+        tmp_str.replace("10","Urdu");
+        xlsxW.write("J"+QVariant(row+2).toString(),QVariant(tmp_str));
+
+        xlsxW.write("K"+QVariant(row+2).toString(),r.value(11));    // Language - Text
+
+        tmp_str = r.value(12).toString().simplified();
+        tmp_str.replace("0","Australian culture");
+        tmp_str.replace("1","Going on exchange");
+        tmp_str.replace("2","Being a mature age student (greater than three years between school/uni or degrees)");
+        tmp_str.replace("3","Living with disability or mental illness");
+        tmp_str.replace("4","Working full or part time while studying");
+        tmp_str.replace("5","Identifying as LGBTIQ+");
+        tmp_str.replace("6","Being the parent, guardian, or carer of children or another person");
+        tmp_str.replace("7","Living in a rural or regional area");
+        xlsxW.write("L"+QVariant(row+2).toString(),tmp_str);    // Special Categories
+
+        xlsxW.write("M"+QVariant(row+2).toString(),r.value(13));    // Requests
     }
 
     delete exmodel_mentees;
@@ -551,15 +749,8 @@ void MainWindow::export_data()
 
 // ---------------------------------------
 
-void MainWindow::export_wattle_file()
+void MainWindow::export_wattle_file(QString addr)
 {
-//    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle", tr("*.csv")); //choose a path
-//    if(addr.isEmpty())
-//    {
-//        return;
-//    }
-
-    QString addr = QFileDialog::getOpenFileName(this,tr("Import Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
     if(addr.isEmpty())
     {
         return;
@@ -567,38 +758,7 @@ void MainWindow::export_wattle_file()
 
 }
 
-// ---------------------------------------
 
-// Import
-
-void MainWindow::on_pushButton_manage_import_clicked()
-{
-    import_data();
-}
-
-// Export
-
-void MainWindow::on_pushButton_manage_export_clicked()
-{
-    export_data();
-}
-
-// Clear
-
-void MainWindow::on_pushButton_manage_clear_clicked()
-{
-    QSqlQuery query(db);
-    query.exec("DELETE * FROM 'group'");
-    query.exec("DELETE * FROM 'mentor'");
-    query.exec("DELETE * FROM 'mentee'");
-}
-
-// Wattle File
-
-void MainWindow::on_pushButton_manage_export_wattle_clicked()
-{
-    export_wattle_file();
-}
 
 /*
 // Mentors
@@ -642,476 +802,10 @@ xlsxW.write("K1","Language - Text");
 xlsxW.write("L1","Special Categories");
 xlsxW.write("M1","Requests");
 
-// Group
-xlsxW.addSheet("Group");
 */
 
 
 /*
-
-void MainWindow::on_actionImport_Mentors_triggered()
-{
-    qDebug() << "Import Mentors data";
-    import_mentors();
-
-    // show
-    model_mentors->select();
-    ui->tableView_mentors->reset();
-    ui->tableView_mentors->resizeColumnsToContents();
-    refresh_match();
-    training_Auto_confirm();
-}
-
-void MainWindow::on_actionImport_Mentees_triggered()
-{
-    qDebug() << "Import Mentees data";
-    import_mentees();
-
-    // show
-    model_mentees->select();
-    ui->tableView_mentees->reset();
-    ui->tableView_mentees->resizeColumnsToContents();
-    refresh_match();
-}
-
-void MainWindow::on_actionImport_Match_Result_triggered()
-{
-    qDebug() << "Import Mentees data";
-    import_match();
-}
-
-void MainWindow::on_actionExport_Mentors_triggered()
-{
-    qDebug() << "Export Mentors data";
-    export_mentors();
-}
-
-void MainWindow::on_actionExport_Mentees_triggered()
-{
-    qDebug() << "Export Mentees data";
-    export_mentees();
-}
-
-void MainWindow::on_actionExport_Match_Result_triggered()
-{
-    qDebug() << "Export Match Result";
-    export_match_result();
-}
-
-*/
-
-/*
-
-void MainWindow::import_mentors()
-{
-    QString file_path;
-        file_path = QFileDialog::getOpenFileName(this,tr("Import Mentors Data"),"",tr("Data file (*.csv)"));
-        if(file_path.isEmpty())
-        {
-            qDebug() << "Open failed";
-            return;
-        }
-        qDebug() << "Mentors file Path:" << file_path;
-
-
-        QSqlQuery q("", db);
-
-        QFile file(file_path);
-        QTextStream ts (&file);
-        //int fs=1;
-        bool intext=false;
-
-        QString linedatainit="insert into mentor(uid, first_name, last_name, gender, email, mobile, add_info, academic_level, college, languages, train_1, train_2, train_3, wwvp_card, is_confirm, role)  values (";
-        //QString linedatainit="insert into mentor(uid, first_name, last_name, email, mobile, add_info, academic_level, college, languages, train_1, train_2, train_3, wwvp_card, is_confirmed, role, gender)  values (";
-        QString linedata=linedatainit;
-
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
-            QByteArray line=file.readLine();
-            while(!ts.atEnd())
-            {
-                if(!intext) linedata=linedatainit;
-                else {
-                    linedata.chop(1);
-                }
-                QString update="Delete From mentor where uid=";
-                QStringList line=ts.readLine().split(',');
-                for(int i=0;i<line.length();i++){
-                   if(!intext){
-                       linedata.append("\'");
-                   }
-                   QString temps=line.at(i);
-                   if(i==0 && !intext){
-                       update.append("\'"+temps+"\'");
-                       q.exec(update);
-                   }
-
-                   temps.replace("&","and");
-                   temps.replace("\'","\'\'");
-                   temps.remove("ANU ");
-
-                   if(temps.contains("\"")){
-                       temps.remove("\"");
-                       if(intext) {
-                           intext=false;
-                       }
-                       else {
-                           intext=true;
-                       }
-                   }
-
-                   linedata.append(temps);
-                   if(!intext){
-                       linedata.append("\'");
-                   }
-                   linedata.append(",");
-                }
-
-                if(!intext) {
-                    linedata.append("\'Mentor\')");
-                    //linedata.append("\'Mentor\',\'Other\')");
-                    qDebug()<<linedata<<endl;
-                    q.exec(linedata);
-                }
-            }
-            file.close();
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Unable to open file"), tr("An error occurred while opening file: ") + db.lastError().text());
-        }
-}
-
-void MainWindow::import_mentees()
-{
-    QString file_path;
-         file_path = QFileDialog::getOpenFileName(this,tr("Import Mentees Data"),"",tr("Data file (*.csv)"));
-         if(file_path.isEmpty())
-         {
-             qDebug() << "Open failed";
-             return;
-         }
-         qDebug() << "Mentees file Path:" << file_path;
-
-         QSqlQuery q("", db);
-
-         QFile file(file_path);
-         QTextStream ts (&file);
-         int fs=1;
-         bool intext=false;
-
-         QString linedatainit="insert into mentee(uid, first_name, last_name, gender, email, mobile, academic_level, college, languages, consideration, role) values(";
-         QString linedata=linedatainit;
-
-         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-         {
-             if(fs) {
-                 QByteArray line=file.readLine();
-                 fs=0;
-             }
-             while(!ts.atEnd())
-             {
-                 if(!intext) linedata=linedatainit;
-                 else {
-                     linedata.chop(1);
-                 }
-                 QString update="Delete From mentee where uid=";
-                 QStringList line=ts.readLine().split(',');
-                 for(int i=0;i<line.length();i++){
-                    if(!intext){
-                        linedata.append("\'");
-                    }
-                    QString temps=line.at(i);
-                    if(i==0 && !intext){
-                        update.append("\'"+temps+"\'");
-                        q.exec(update);
-                    }
-
-                    temps.replace("&","and");
-                    temps.replace("\'","\'\'");
-                    temps.remove("ANU ");
-
-                    if(temps.contains("\"")){
-                        temps.remove("\"");
-                        if(intext) {
-                            intext=false;
-                        }
-                        else {
-                            intext=true;
-                        }
-                    }
-
-
-                    linedata.append(temps);
-                    if(!intext){
-                        linedata.append("\'");
-                    }
-                    linedata.append(",");
-                 }
-                 if(!intext){
-                     linedata.append("\'Mentee\')");
-                     //qDebug()<<linedata<<endl;
-                     q.exec(linedata);
-                 }
-             }
-             file.close();
-
-         }
-         else
-         {
-             QMessageBox::warning(this, tr("Unable to open file"), tr("An error occurred while opening file: ") + q.lastError().text());
-         }
-}
-
-void MainWindow::import_match()
-{
-    QString file_path;
-        file_path = QFileDialog::getOpenFileName(this,tr("Import Match result"),"",tr("Data file (*.csv)"));
-        if(file_path.isEmpty())
-        {
-            qDebug() << "Open failed";
-            return;
-        }
-        qDebug() << "Match file Path:" << file_path;
-
-        QSqlQuery q("", db);
-
-        QFile file(file_path);
-        QTextStream ts (&file);
-        int fs=1;
-        bool insert=false;
-        QString groupid="0";
-        QString pgroupid="1";
-        QString mentorid;
-        QString menteeid;
-
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
-            if(fs) {
-                QByteArray line=file.readLine();
-                fs=0;
-            }
-            while(!ts.atEnd())
-            {
-                QString linedata="insert into match (mentor_id,mentee_id) values (";
-                QStringList line=ts.readLine().split(',');
-                pgroupid=groupid;
-                groupid=line.at(0);
-                if(pgroupid==groupid){
-                    menteeid=line.at(1);
-                    insert=true;
-                }
-                else {
-                    mentorid=line.at(1);
-                    insert=false;
-                }
-
-                if(insert){
-                    q.exec(linedata+"\'"+mentorid+"\'"+","+"\'"+menteeid+"\')");
-                    qDebug()<<linedata+"\'"+mentorid+"\'"+","+"\'"+menteeid+"\')"<<endl;
-                }
-            }
-            file.close();
-        }
-}
-
-// ---------------------------------------
-
-void MainWindow::export_mentors()
-{
-        QString addr = QFileDialog::getSaveFileName(this, tr("Save Mentor Data"), "Mentor", tr("*.csv"));
-        if(addr.isEmpty())
-        {
-           return;
-        }
-        QSqlTableModel * exmodel_mentors = new QSqlTableModel(this,db);
-        exmodel_mentors->setTable("mentor");
-        exmodel_mentors->select();
-        while(exmodel_mentors->canFetchMore()){
-            exmodel_mentors->fetchMore();
-        }
-
-        int fl=1;
-        if(QFile().exists(addr)){
-           QFile().remove(addr);
-        }
-        QFile file(addr);
-        QString datain;
-        if(file.open(QIODevice::WriteOnly)){
-           qDebug()<<addr<<endl;
-           QTextStream in(&file);
-           if(fl){
-               datain.clear();
-               datain="University ID,First Name,Family (Last) name,Gender,Email,Mobile,Additional information,Level of study ,College,Languages,Training 1,Training 2,Training 3,WWVP Card,Confirmed\r\n";
-               in<<datain;
-               fl=0;
-           }
-           for(int i=0;i<exmodel_mentors->rowCount();i++){
-               datain.clear();
-               QSqlRecord data=exmodel_mentors->record(i);
-               for (int j=0;j<data.count();j++) {
-                   if(j==15) continue;
-                   QString temp=data.value(j).toString();
-                   if(temp.contains(","))
-                   {
-                       datain.append("\""+temp+"\"");
-                   }
-                   else {
-                       datain.append(temp);
-                   }
-                   datain.append(",");
-               }
-               datain.chop(1);
-               datain.append("\r\n");
-               qDebug()<<datain<<endl;
-               in<<datain;
-           }
-        }
-        file.close();
-        delete exmodel_mentors;
-}
-
-void MainWindow::export_mentees()
-{
-        QString addr = QFileDialog::getSaveFileName(this, tr("Save Mentee Data"), "Mentee", tr("*.csv"));
-        if(addr.isEmpty())
-        {
-            return;
-        }
-        QSqlTableModel * exmodel_mentees = new QSqlTableModel(this,db);
-        exmodel_mentees->setTable("mentee");
-        exmodel_mentees->select();
-        while(exmodel_mentees->canFetchMore()){
-            exmodel_mentees->fetchMore();
-        }
-        qDebug()<<exmodel_mentees->rowCount()<<endl;
-        int fl=1;
-        if(QFile().exists(addr)){
-            QFile().remove(addr);
-        }
-        QFile file(addr);
-        QString datain;
-        if(file.open(QIODevice::WriteOnly)){
-            qDebug()<<addr<<endl;
-            QTextStream in(&file);
-            if(fl){
-                datain.clear();
-                datain="Student No,Firstname,Surname,Gender,Email,Mobile,Academic Level,College,Language,Considerations\r\n";
-                in<<datain;
-                fl=0;
-            }
-            for(int i=0;i<exmodel_mentees->rowCount();i++){
-                datain.clear();
-                QSqlRecord data=exmodel_mentees->record(i);
-                for (int j=0;j<data.count();j++) {
-                    if(j==10) continue;
-                    QString temp=data.value(j).toString();
-                    if(temp.contains(","))
-                    {
-                        datain.append("\""+temp+"\"");
-                    }
-                    else {
-                        datain.append(temp);
-                    }
-                    datain.append(",");
-                }
-                datain.chop(1);
-                datain.append("\r\n");
-
-                qDebug()<<datain<<endl;
-
-                in<<datain;
-            }
-        }
-        file.close();
-        delete exmodel_mentees;
-}
-
-void MainWindow::export_match_result()
-{
-        QString addr = QFileDialog::getSaveFileName(this, tr("Save Match Result"), "Match", tr("*.csv")); //选择路径
-        if(addr.isEmpty())
-        {
-            return;
-        }
-        QString str = "SELECT * FROM mentor WHERE (is_confirm = 'y')";
-        QSqlQueryModel * exmodel_match_mentors=new QSqlQueryModel(this);;
-        exmodel_match_mentors->setQuery(str,db);
-        while(exmodel_match_mentors->canFetchMore()){
-            exmodel_match_mentors->fetchMore();
-        }
-        int fl=1;
-        if(QFile().exists(addr)){
-            QFile().remove(addr);
-        }
-        QFile file(addr);
-        QString datain;
-        QSqlQueryModel * matchr = new QSqlQueryModel(this);
-        if(file.open(QIODevice::WriteOnly)){
-            datain.clear();
-            QTextStream in(&file);
-            if(fl){
-                datain="Group,Username,Firstname,Lastname,Gender,Email,Mobile,Academic_Level,College,Language,Role\r\n";
-                in<<datain;
-                fl=0;
-            }
-            datain.clear();
-            for (int i=0;i<exmodel_match_mentors->rowCount();i++) {
-                QSqlRecord mentordata=exmodel_match_mentors->record(i);
-                QString mentorid=mentordata.value(0).toString();
-                QString groupid=QString::number(i+1,10);
-                datain=(groupid+",");
-                for(int j=0;j<mentordata.count();j++){
-                    if((j<10 || j==15) && j!=6){
-                        QString temp=mentordata.value(j).toString();
-                        if(temp.contains(","))
-                        {
-                            datain.append("\""+temp+"\"");
-                        }
-                        else
-                        {
-                            datain.append(temp);
-                        }
-                        datain.append(",");
-                    }
-                }
-                datain.chop(1);
-                datain.append("\r\n");
-                in<<datain;
-                datain.clear();
-                str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + mentorid + "'";
-                matchr->setQuery(str,db);
-                while(matchr->canFetchMore()){
-                    matchr->fetchMore();
-                }
-                for (int j=0;j<matchr->rowCount();j++) {
-                    datain=groupid+",";
-                    QSqlRecord menteedata=matchr->record(j);
-                    for (int h=0;h<menteedata.count();h++) {
-                        if (h<9||h==10) {
-                            QString temp=menteedata.value(h).toString();
-                            if(temp.contains(","))
-                            {
-                                datain.append("\""+temp+"\"");
-                            }
-                            else
-                            {
-                                datain.append(temp);
-                            }
-                            datain.append(",");
-                        }
-                    }
-                    datain.chop(1);
-                    datain.append("\r\n");
-                    in<<datain;
-                }
-                matchr->clear();
-            }
-        }
-        file.close();
-        delete matchr;
-        delete exmodel_match_mentors;
-}
 
 void MainWindow::export_wattle_file()
 {

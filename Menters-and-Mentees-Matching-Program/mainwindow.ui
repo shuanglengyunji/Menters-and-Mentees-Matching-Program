@@ -39,61 +39,100 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_manage">
-         <widget class="QPushButton" name="pushButton_manage_import">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>20</y>
-            <width>93</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Import</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_export">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>60</y>
-            <width>93</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Export</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_clear">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>100</y>
-            <width>93</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Clear</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_export_wattle">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>20</y>
-            <width>131</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Export_Wattle_File</string>
-          </property>
-         </widget>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="pushButton_manage_import">
+              <property name="text">
+               <string>Import Mentors and Mentees Info</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QPushButton" name="pushButton_manage_export_match">
+              <property name="text">
+               <string>Export Mentors, Mentees Info and Matching Results</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QPushButton" name="pushButton_manage_clear">
+              <property name="text">
+               <string>Clear All</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLineEdit" name="lineEdit_import_path"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_manage_import_match">
+              <property name="text">
+               <string>Import Mentors, Mentees Info and Matching Results</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QToolButton" name="toolButton_import_path">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="lineEdit_export_path"/>
+            </item>
+            <item row="2" column="3">
+             <widget class="QToolButton" name="toolButton_wattle_file_path">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_manage_export">
+              <property name="text">
+               <string>Export Mentors and Mentees Info</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLineEdit" name="lineEdit_wattle_file_path"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="QToolButton" name="toolButton_export_path">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="pushButton_manage_export_wattle">
+              <property name="text">
+               <string>Export Wattle File</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">

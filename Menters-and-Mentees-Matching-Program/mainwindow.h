@@ -75,15 +75,28 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
-    // Import and Export
+    // Manage
+
+    void on_toolButton_import_path_clicked();
+
+    void on_toolButton_export_path_clicked();
+
+    void on_toolButton_wattle_file_path_clicked();
+
 
     void on_pushButton_manage_import_clicked();
 
+    void on_pushButton_manage_import_match_clicked();
+
     void on_pushButton_manage_export_clicked();
 
-    void on_pushButton_manage_clear_clicked();
+    void on_pushButton_manage_export_match_clicked();
+
 
     void on_pushButton_manage_export_wattle_clicked();
+
+
+    void on_pushButton_manage_clear_clicked();
 
     // Page
 
@@ -98,6 +111,8 @@ private slots:
     void on_actionMentors_Grouping_triggered();
 
     void on_tableView_group_mentor_to_be_group_clicked(const QModelIndex &index);
+
+
 
 private:
     Ui::MainWindow *ui;
@@ -176,9 +191,9 @@ private:
 
     // ------------------------------------
 
-    void import_data();
-    void export_data();
-    void export_wattle_file();
+    void import_data(QString addr, bool include_match_result);
+    void export_data(QString addr, bool include_match_result);
+    void export_wattle_file(QString addr);
 
 };
 
