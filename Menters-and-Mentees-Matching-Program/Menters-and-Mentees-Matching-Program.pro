@@ -31,7 +31,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm.cpp \
-        mainwindow_group_mentors.cpp \
+        mainwindow_group.cpp \
         mainwindow_import_export.cpp \
         mainwindow_manage.cpp \
         mainwindow_match.cpp \

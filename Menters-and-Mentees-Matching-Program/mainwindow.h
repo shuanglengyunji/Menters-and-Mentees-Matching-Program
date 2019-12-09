@@ -77,13 +77,6 @@ private slots:
 
     // Manage
 
-    void on_toolButton_import_path_clicked();
-
-    void on_toolButton_export_path_clicked();
-
-    void on_toolButton_wattle_file_path_clicked();
-
-
     void on_pushButton_manage_import_clicked();
 
     void on_pushButton_manage_import_match_clicked();
@@ -92,9 +85,7 @@ private slots:
 
     void on_pushButton_manage_export_match_clicked();
 
-
     void on_pushButton_manage_export_wattle_clicked();
-
 
     void on_pushButton_manage_clear_clicked();
 
@@ -113,6 +104,12 @@ private slots:
     void on_tableView_group_mentor_to_be_group_clicked(const QModelIndex &index);
 
 
+
+    void on_toolButton_left_clicked();
+
+    void on_toolButton_right_clicked();
+
+    void on_tableView_group_mentor_grouped_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
@@ -151,8 +148,8 @@ private:
 
     // Group Mentors
 
-    QSqlQueryModel * model_group_mentors_to_be_grouped = nullptr;
-    QSqlQueryModel * model_group_mentors_grouped = nullptr;
+    QSqlTableModel * model_group_mentors_to_be_grouped = nullptr;
+    QSqlTableModel * model_group_mentors_grouped = nullptr;
 
     void load_group_mentors();
 
