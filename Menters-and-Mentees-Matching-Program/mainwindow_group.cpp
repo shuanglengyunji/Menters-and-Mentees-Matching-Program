@@ -16,7 +16,7 @@ void MainWindow::load_group_mentors()
     model_group_mentors_to_be_grouped = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_to_be_grouped->setTable("mentor");
     model_group_mentors_to_be_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
-    model_group_mentors_to_be_grouped->setFilter("group_id=0");
+    model_group_mentors_to_be_grouped->setFilter("group_id=0 AND is_confirmed='y' AND wwvp<>'' AND wwvp<>'n'");
     model_group_mentors_to_be_grouped->select();
     while(model_group_mentors_to_be_grouped->canFetchMore()){
         model_group_mentors_to_be_grouped->fetchMore();
@@ -31,6 +31,7 @@ void MainWindow::load_group_mentors()
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
+    ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // resize row height according to column width
     connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
@@ -60,7 +61,7 @@ void MainWindow::load_group_mentors()
     model_group_mentors_grouped = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_grouped->setTable("mentor");
     model_group_mentors_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
-    model_group_mentors_grouped->setFilter("group_id<>0");
+    model_group_mentors_grouped->setFilter("group_id<>0 AND is_confirmed='y' AND wwvp<>'' AND wwvp<>'n'");
     model_group_mentors_grouped->select();
     while(model_group_mentors_grouped->canFetchMore()){
         model_group_mentors_grouped->fetchMore();
@@ -76,6 +77,7 @@ void MainWindow::load_group_mentors()
 
     ui->tableView_group_mentor_grouped->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
+    ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // resize row height according to column width
     connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
