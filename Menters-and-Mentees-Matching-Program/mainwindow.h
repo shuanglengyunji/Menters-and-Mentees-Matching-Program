@@ -64,8 +64,6 @@ private slots:
 
     void on_pushButton_mentor_clear_clicked();
 
-    void on_tableView_group_mentor_grouped_clicked(const QModelIndex &index);
-
     // Matching
 
     void on_pushButton_Auto_clicked();
@@ -109,6 +107,10 @@ private slots:
     void on_actionMentees_Grouping_triggered();
 
     void on_actionMentors_Grouping_triggered();
+
+    void on_lineEdit_group_mentor_grouped_search_editingFinished();
+
+    void on_lineEdit_group_mentor_to_be_group_search_editingFinished();
 
 private:
     Ui::MainWindow *ui;

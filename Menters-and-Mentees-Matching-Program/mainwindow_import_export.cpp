@@ -105,11 +105,13 @@ void MainWindow::import_data(QString addr,bool include_match_result)
 
         QString college = xlsxR.cellAt(row, 8)->readValue().toString();
         college = college.simplified();
+        college.replace("ANU ","");
+        college.replace("&","and");
         college.replace("College of Asia and the Pacific","0");
         college.replace("College of Arts and Social Sciences","1");
         college.replace("College of Business and Economics","2");
         college.replace("College of Engineering and Computer Science","3");
-        college.replace("ANU College of Law","4");
+        college.replace("College of Law","4");
         college.replace("College of Science","5");
         college.replace("College of Health and Medicine","6");
 
@@ -287,19 +289,15 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QString college = xlsxR.cellAt(row, 6)->readValue().toString();
         college = college.simplified();
         college.replace(",School of Art and Design (as part of the College of Arts and Social Sciences)","");
+        college.replace("ANU ","");
+        college.replace("&","and");
         college.replace("College of Asia and the Pacific","0");
-        college.replace("College of Asia & the Pacific","0");
         college.replace("College of Arts and Social Sciences","1");
-        college.replace("College of Arts & Social Sciences","1");
         college.replace("College of Business and Economics","2");
-        college.replace("College of Business & Economics","2");
         college.replace("College of Engineering and Computer Science","3");
-        college.replace("College of Engineering & Computer Science","3");
         college.replace("College of Law","4");
         college.replace("College of Science","5");
         college.replace("College of Health and Medicine","6");
-        college.replace("College of Health & Medicine","6");
-        college.replace("ANU ","");
 
         QString degree = xlsxR.cellAt(row, 7)->readValue().toString();
 

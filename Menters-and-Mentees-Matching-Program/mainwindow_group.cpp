@@ -28,6 +28,7 @@ void MainWindow::load_group_mentors()
     ui->tableView_group_mentor_to_be_group->horizontalHeader()->setMaximumSectionSize(700);
     ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
     ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
+    ui->tableView_group_mentor_to_be_group->setSortingEnabled(true);
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
@@ -96,6 +97,46 @@ void MainWindow::load_group_mentors()
     */
 }
 
+// Grouped mentor search
+void MainWindow::on_lineEdit_group_mentor_grouped_search_editingFinished()
+{
+    QString str = ui->lineEdit_group_mentor_grouped_search->text().simplified();    // Returns a string that has whitespace removed from the start and the end
+    QString argument = "group_id<>0 AND is_confirmed='y' AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'";
+    if(str.isEmpty()) {
+        model_group_mentors_grouped->setFilter(argument);
+        return;
+    }
+
+    QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
+    for (int i=0; i < list.size() ; i++)
+    {
+        QString tmp = list.at(i);
+        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp).arg(tmp).arg(tmp);       // Uni ID + First Name + Last Name
+        //qDebug() << argument;
+    }
+    model_group_mentors_grouped->setFilter(argument);
+}
+
+// To be grouped mentor search
+void MainWindow::on_lineEdit_group_mentor_to_be_group_search_editingFinished()
+{
+    QString str = ui->lineEdit_group_mentor_to_be_group_search->text().simplified();    // Returns a string that has whitespace removed from the start and the end
+    QString argument = "group_id=0 AND is_confirmed='y' AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'";
+    if(str.isEmpty()) {
+        model_group_mentors_to_be_grouped->setFilter(argument);
+        return;
+    }
+
+    QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
+    for (int i=0; i < list.size() ; i++)
+    {
+        QString tmp = list.at(i);
+        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp).arg(tmp).arg(tmp);       // Uni ID + First Name + Last Name
+        //qDebug() << argument;
+    }
+    model_group_mentors_to_be_grouped->setFilter(argument);
+}
+
 // Add to Group
 void MainWindow::on_toolButton_left_clicked()
 {
@@ -125,6 +166,7 @@ void MainWindow::on_toolButton_left_clicked()
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
 }
+
 
 // Remove from group
 void MainWindow::on_toolButton_right_clicked()
@@ -180,13 +222,9 @@ void MainWindow::on_pushButton_mentor_clear_clicked()
 {
     QSqlQuery query(db);
     query.exec("UPDATE mentor SET group_id=0");
+    query.exec("UPDATE mentee SET group_id=0");
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
 }
 
-void MainWindow::on_tableView_group_mentor_grouped_clicked(const QModelIndex &index)
-{
-    // ui->tableView_group_mentor_grouped->selectionModel()->currentIndex().row();
-
-}
 

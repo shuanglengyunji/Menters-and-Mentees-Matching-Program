@@ -804,14 +804,14 @@
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
               <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_grouped_mentor_search">
+               <widget class="QPushButton" name="pushButton_group_mentor_grouped_search">
                 <property name="text">
                  <string>Search</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_grouped_mentor_search"/>
+               <widget class="QLineEdit" name="lineEdit_group_mentor_grouped_search"/>
               </item>
              </layout>
             </item>
@@ -825,10 +825,10 @@
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
               <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_mentor_to_be_group_seasrch"/>
+               <widget class="QLineEdit" name="lineEdit_group_mentor_to_be_group_search"/>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_mentor_to_be_group_search">
+               <widget class="QPushButton" name="pushButton_group_mentor_to_be_group_search">
                 <property name="text">
                  <string>Search</string>
                 </property>
