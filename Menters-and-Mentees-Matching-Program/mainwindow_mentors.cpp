@@ -30,8 +30,8 @@ void MainWindow::load_mentors()
     connect(ui->tableView_mentors->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_mentors,&QTableView::resizeRowsToContents);
 
-    // hide group status
-    // ui->tableView_mentors->hideColumn(20);
+    // hide group id
+    ui->tableView_mentors->hideColumn(0);
 }
 
 // search

@@ -405,6 +405,39 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             //qDebug() << sql;
         }
     }
+
+    // [5] Import Matching Results
+
+    if (include_match_result)
+    {
+        QSqlQuery query(db);
+
+        if ( !xlsxR.selectSheet("Group"))
+        {
+            QMessageBox::warning(this, tr("Group Sheet Missing"), tr("Unable to Import Matching Results."));
+            return;
+        }
+        int group_max = xlsxR.dimension().lastRow();
+
+        for (int row = 2;row <= group_max; row = row + 1)
+        {
+            QVariant group_id = xlsxR.cellAt(row, 1)->readValue().toString();
+            QVariant uid = xlsxR.cellAt(row, 2)->readValue().toString();
+            QVariant role = xlsxR.cellAt(row, 3)->readValue().toString();
+
+            if (role == "mentor")
+            {
+                query.exec(QString("UPDATE mentor SET group_id=%1 WHERE uid=\'%2\'").arg(group_id.toString()).arg(uid.toString()));
+                //qDebug() << query.lastError();
+            }
+
+            if (role == "mentee")
+            {
+                query.exec(QString("UPDATE mentee SET group_id=%1 WHERE uid=\'%2\'").arg(group_id.toString()).arg(uid.toString()));
+                //qDebug() << query.lastError();
+            }
+        }
+    }
 }
 
 // ---------------------------------------
@@ -464,6 +497,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     // Group
     xlsxW.addSheet("Group");
+
+    xlsxW.write("A1","group_id");
+    xlsxW.write("B1","uid");
+    xlsxW.write("C1","role");
 
     // [3] Fill data into xlsx file
 
@@ -740,7 +777,71 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     delete exmodel_mentees;
 
-    // [4]
+    // [4] matching
+
+    if (include_match_result)
+    {
+        int row_count = 2;
+        xlsxW.selectSheet("Group");
+
+        // mentor
+
+        QSqlTableModel * exmodel_mentors_matching = new QSqlTableModel(this,db);
+        exmodel_mentors_matching->setTable("mentor");
+        exmodel_mentors_matching->select();
+        while(exmodel_mentors_matching->canFetchMore()){
+            exmodel_mentors_matching->fetchMore();
+        }
+
+        for (int row = 0; row < exmodel_mentors_matching->rowCount(); row++)
+        {
+            QSqlRecord r = exmodel_mentors_matching->record(row);
+
+            QVariant group_id = r.value(0);
+            QVariant uid = r.value(4);
+
+            if (group_id != "0")
+            {
+                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
+                xlsxW.write("B"+QVariant(row_count).toString(),uid);
+                xlsxW.write("C"+QVariant(row_count).toString(),"mentor");
+
+                row_count++;
+            }
+        }
+
+        delete exmodel_mentors_matching;
+
+        // mentee
+
+        QSqlTableModel * exmodel_mentees_matching = new QSqlTableModel(this,db);
+        exmodel_mentees_matching->setTable("mentee");
+        exmodel_mentees_matching->select();
+        while(exmodel_mentees_matching->canFetchMore()){
+            exmodel_mentees_matching->fetchMore();
+        }
+
+        for (int row = 0; row < exmodel_mentees_matching->rowCount(); row++)
+        {
+            QSqlRecord r = exmodel_mentees_matching->record(row);
+
+            QVariant group_id = r.value(0);
+            QVariant uid = r.value(3);
+
+            if (group_id != "0")
+            {
+                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
+                xlsxW.write("B"+QVariant(row_count).toString(),uid);
+                xlsxW.write("C"+QVariant(row_count).toString(),"mentee");
+
+                row_count++;
+            }
+        }
+
+        delete exmodel_mentees_matching;
+    }
+
+    // [5]
     if ( !xlsxW.saveAs(addr) )
     {
         QMessageBox::warning(this, tr("File Saving failed"), tr("Failed to save data file."));

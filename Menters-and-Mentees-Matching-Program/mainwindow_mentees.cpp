@@ -28,6 +28,9 @@ void MainWindow::load_mentees()
 
     connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_mentees,&QTableView::resizeRowsToContents);
+
+    // hide group id
+    ui->tableView_mentees->hideColumn(0);
 }
 
 // search

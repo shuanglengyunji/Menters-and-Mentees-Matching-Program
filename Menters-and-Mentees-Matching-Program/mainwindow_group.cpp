@@ -18,6 +18,9 @@ void MainWindow::load_group_mentors()
     model_group_mentors_to_be_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_group_mentors_to_be_grouped->setFilter("group_id=0");
     model_group_mentors_to_be_grouped->select();
+    while(model_group_mentors_to_be_grouped->canFetchMore()){
+        model_group_mentors_to_be_grouped->fetchMore();
+    }
 
     // link mentors QSqlTableModel to QTableView
     ui->tableView_group_mentor_to_be_group->setModel(model_group_mentors_to_be_grouped);
@@ -33,7 +36,16 @@ void MainWindow::load_group_mentors()
     connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
-    //int row_num = model_group_mentors_grouped->rowCount();
+    // hide columns
+    ui->tableView_group_mentor_to_be_group->hideColumn(1);
+    ui->tableView_group_mentor_to_be_group->hideColumn(5);
+    ui->tableView_group_mentor_to_be_group->hideColumn(17);
+    ui->tableView_group_mentor_to_be_group->hideColumn(18);
+    ui->tableView_group_mentor_to_be_group->hideColumn(19);
+    ui->tableView_group_mentor_to_be_group->hideColumn(20);
+
+    //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
     // mentors grouped
 
@@ -50,6 +62,9 @@ void MainWindow::load_group_mentors()
     model_group_mentors_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_group_mentors_grouped->setFilter("group_id<>0");
     model_group_mentors_grouped->select();
+    while(model_group_mentors_grouped->canFetchMore()){
+        model_group_mentors_grouped->fetchMore();
+    }
 
     // link mentors QSqlTableModel to QTableView
     ui->tableView_group_mentor_grouped->setModel(model_group_mentors_grouped);
@@ -66,12 +81,20 @@ void MainWindow::load_group_mentors()
     connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
+    // hide columns
+    ui->tableView_group_mentor_grouped->hideColumn(1);
+    ui->tableView_group_mentor_grouped->hideColumn(5);
+    ui->tableView_group_mentor_grouped->hideColumn(17);
+    ui->tableView_group_mentor_grouped->hideColumn(18);
+    ui->tableView_group_mentor_grouped->hideColumn(19);
+    ui->tableView_group_mentor_grouped->hideColumn(20);
 
     /*
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
     */
 }
 
+// Add to Group
 void MainWindow::on_toolButton_left_clicked()
 {
     QItemSelectionModel * selections_grouped = ui->tableView_group_mentor_grouped->selectionModel();
@@ -101,6 +124,7 @@ void MainWindow::on_toolButton_left_clicked()
     model_group_mentors_grouped->select();
 }
 
+// Remove from group
 void MainWindow::on_toolButton_right_clicked()
 {
     QItemSelectionModel * selections = ui->tableView_group_mentor_grouped->selectionModel();
@@ -114,6 +138,9 @@ void MainWindow::on_toolButton_right_clicked()
     }
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    // re-arrange group-id
+
 }
 
 
@@ -124,6 +151,6 @@ void MainWindow::on_tableView_group_mentor_to_be_group_clicked(const QModelIndex
 
 void MainWindow::on_tableView_group_mentor_grouped_clicked(const QModelIndex &index)
 {
-    ui->tableView_group_mentor_grouped->selectionModel()->currentIndex().row();
+    // ui->tableView_group_mentor_grouped->selectionModel()->currentIndex().row();
 }
 
