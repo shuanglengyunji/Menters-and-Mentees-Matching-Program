@@ -69,7 +69,8 @@ void MainWindow::init_database(QString work_path)
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
+    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
+    db.setDatabaseName(db_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -196,6 +197,10 @@ str = "DROP TABLE IF EXISTS 'mentee'";
 query.exec(str);
 
 */
+
+
+
+
 
 
 

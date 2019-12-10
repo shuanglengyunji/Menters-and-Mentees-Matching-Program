@@ -495,13 +495,6 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     xlsxW.write("L1","Special Categories");
     xlsxW.write("M1","Requests");
 
-    // Group
-    xlsxW.addSheet("Group");
-
-    xlsxW.write("A1","group_id");
-    xlsxW.write("B1","uid");
-    xlsxW.write("C1","role");
-
     // [3] Fill data into xlsx file
 
     // mentors
@@ -781,8 +774,16 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     if (include_match_result)
     {
+        // Add Sheet and Sheet Headers
+        xlsxW.addSheet("Group");
+
+        xlsxW.write("A1","group_id");
+        xlsxW.write("B1","uid");
+        xlsxW.write("C1","role");
+
+        // Export data
+
         int row_count = 2;
-        xlsxW.selectSheet("Group");
 
         // mentor
 

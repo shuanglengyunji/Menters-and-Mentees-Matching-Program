@@ -140,17 +140,51 @@ void MainWindow::on_toolButton_right_clicked()
     model_group_mentors_grouped->select();
 
     // re-arrange group-id
+    QSqlQueryModel querymodel;
+    QSqlQuery query(db);
 
+    int max_row = model_group_mentors_grouped->rowCount();
+    if (max_row == 0)
+        return;
+
+    int max_group_id = model_group_mentors_grouped->record(max_row-1).value("group_id").toInt();
+    int minus_num = 0;
+    for (int current_id = 1; current_id <= max_group_id; current_id++)
+    {
+        querymodel.setQuery(QString("SELECT uid from mentor WHERE group_id=%1").arg(current_id),db);
+        if ( querymodel.rowCount()==0 )     // a group doesn't have any menber
+        {
+            minus_num++;
+        }
+
+        for (int i = 0; i < querymodel.rowCount(); i++)
+        {
+            QVariant uid = querymodel.record(i).value("uid");
+            query.exec(QString("UPDATE mentor SET group_id=%1 WHERE uid=\'%2\'").arg(QVariant(current_id-minus_num).toString()).arg(uid.toString()));
+        }
+    }
+    model_group_mentors_to_be_grouped->select();
+    model_group_mentors_grouped->select();
 }
 
-
-void MainWindow::on_tableView_group_mentor_to_be_group_clicked(const QModelIndex &index)
+void MainWindow::on_pushButton_mentor_auto_clicked()
 {
-    // qDebug() << ui->tableView_group_mentor_to_be_group->selectionModel()->selection().size();
+    algorithm_mentors_group();
+    model_group_mentors_to_be_grouped->select();
+    model_group_mentors_grouped->select();
+}
+
+void MainWindow::on_pushButton_mentor_clear_clicked()
+{
+    QSqlQuery query(db);
+    query.exec("UPDATE mentor SET group_id=0");
+    model_group_mentors_to_be_grouped->select();
+    model_group_mentors_grouped->select();
 }
 
 void MainWindow::on_tableView_group_mentor_grouped_clicked(const QModelIndex &index)
 {
     // ui->tableView_group_mentor_grouped->selectionModel()->currentIndex().row();
+
 }
 

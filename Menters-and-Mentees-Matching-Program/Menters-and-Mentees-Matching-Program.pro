@@ -30,7 +30,8 @@ SOURCES += \
         delegate_wwvp.cpp \
         main.cpp \
         mainwindow.cpp \
-        mainwindow_algorithm.cpp \
+        mainwindow_algorithm_group.cpp \
+        mainwindow_algorithm_match.cpp \
         mainwindow_group.cpp \
         mainwindow_import_export.cpp \
         mainwindow_manage.cpp \

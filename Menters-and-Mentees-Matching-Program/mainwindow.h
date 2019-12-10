@@ -54,8 +54,17 @@ private slots:
 
     void display_mentees_column();
 
-    // Mentors Grouping
+    // Grouping
 
+    void on_toolButton_left_clicked();
+
+    void on_toolButton_right_clicked();
+
+    void on_pushButton_mentor_auto_clicked();
+
+    void on_pushButton_mentor_clear_clicked();
+
+    void on_tableView_group_mentor_grouped_clicked(const QModelIndex &index);
 
     // Matching
 
@@ -101,16 +110,6 @@ private slots:
 
     void on_actionMentors_Grouping_triggered();
 
-    void on_tableView_group_mentor_to_be_group_clicked(const QModelIndex &index);
-
-
-
-    void on_toolButton_left_clicked();
-
-    void on_toolButton_right_clicked();
-
-    void on_tableView_group_mentor_grouped_clicked(const QModelIndex &index);
-
 private:
     Ui::MainWindow *ui;
 
@@ -130,12 +129,6 @@ private:
 
     void load_mentors();
 
-    // Delegate_Training * delegate_model_mentor_training_1;
-    // Delegate_Training * delegate_model_mentor_training_2;
-    // Delegate_Training * delegate_model_mentor_training_3;
-    // Delegate_WWVP * delegate_model_mentor_WWVP;
-    // Delegate_confirm * delegate_model_mentor_confirm;
-
     // ------------------------------------
 
     // Mentees
@@ -146,12 +139,14 @@ private:
 
     // ------------------------------------
 
-    // Group Mentors
+    // Group
 
     QSqlTableModel * model_group_mentors_to_be_grouped = nullptr;
     QSqlTableModel * model_group_mentors_grouped = nullptr;
 
     void load_group_mentors();
+
+    void algorithm_mentors_group();
 
     // ------------------------------------
 
@@ -195,3 +190,12 @@ private:
 };
 
 #endif // MAINWINDOW_H
+
+
+// Delegate_Training * delegate_model_mentor_training_1;
+// Delegate_Training * delegate_model_mentor_training_2;
+// Delegate_Training * delegate_model_mentor_training_3;
+// Delegate_WWVP * delegate_model_mentor_WWVP;
+// Delegate_confirm * delegate_model_mentor_confirm;
+
+
