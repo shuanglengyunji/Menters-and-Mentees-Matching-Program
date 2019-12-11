@@ -160,9 +160,7 @@ private:
 
     void load_match_mentees();
 
-    // ------------------------------------
-
-    void match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, int college, int language, int gender, int academiclevel, int consideration, int max_mentees_num);
+    void algorithm_mentees_match();
 
     // ------------------------------------
 

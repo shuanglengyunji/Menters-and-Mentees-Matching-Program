@@ -211,11 +211,8 @@ void MainWindow::on_lineEdit_match_search_mentees_editingFinished()
 
 void MainWindow::on_pushButton_Auto_clicked()
 {
-    int gender = ui->comboBox_gender->currentIndex();
-    int college = ui->comboBox_college->currentIndex();
-    int language = ui->comboBox_language->currentIndex();
-    int academiclevel = ui->comboBox_academic_level->currentIndex();
-    int consideration = ui->comboBox_consideration->currentIndex();
-    int max_mentees_num = ui->spinBox_mentees_num->value();
+    algorithm_mentees_match();
+    model_match_mentees_matched->select();
+    model_match_mentees_to_be_match->select();
 }
 

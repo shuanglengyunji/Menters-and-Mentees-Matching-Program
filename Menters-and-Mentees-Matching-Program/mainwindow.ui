@@ -560,7 +560,7 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QLabel" name="label">
+               <widget class="QLabel" name="label_mentors_grouping">
                 <property name="text">
                  <string>Mentors Grouping: </string>
                 </property>
@@ -773,7 +773,7 @@
             <item row="4" column="0">
              <widget class="QLabel" name="label_mentor_academic_level">
               <property name="text">
-               <string>UG/PG:</string>
+               <string>Academic Level</string>
               </property>
              </widget>
             </item>
@@ -1088,89 +1088,14 @@
           <item row="0" column="2">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QLabel" name="label_gender">
+             <widget class="QLabel" name="label_round">
               <property name="text">
-               <string>Gender:</string>
+               <string>Round:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_gender">
-              <property name="accessibleName">
-               <string/>
-              </property>
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_college">
-              <property name="text">
-               <string>College:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_college">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_language">
-              <property name="text">
-               <string>Language:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_language">
+             <widget class="QComboBox" name="comboBox_round">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -1235,14 +1160,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_consideration">
+             <widget class="QLabel" name="label_college">
               <property name="text">
-               <string>Consdieration:</string>
+               <string>College:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_consideration">
+             <widget class="QComboBox" name="comboBox_college">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -1250,7 +1175,159 @@
               </item>
               <item>
                <property name="text">
-                <string>Manual Match</string>
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_type">
+              <property name="text">
+               <string>Dom/Int</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_type">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_gender">
+              <property name="text">
+               <string>Gender:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_gender">
+              <property name="accessibleName">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_language">
+              <property name="text">
+               <string>Language:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_language">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_special">
+              <property name="text">
+               <string>Special:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_special">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
                </property>
               </item>
              </widget>
