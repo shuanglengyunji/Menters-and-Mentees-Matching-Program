@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1035</width>
+    <width>1351</width>
     <height>580</height>
    </rect>
   </property>
@@ -42,80 +42,110 @@
          <number>3</number>
         </property>
         <widget class="QWidget" name="page_manage">
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_6">
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_manage_import_match">
-              <property name="text">
-               <string>Import Mentors, Mentees Info and Matching Results</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QPushButton" name="pushButton_manage_export_match">
-              <property name="text">
-               <string>Export Mentors, Mentees Info and Matching Results</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton_manage_import">
-              <property name="text">
-               <string>Import Mentors and Mentees Info</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_manage_export">
-              <property name="text">
-               <string>Export Mentors and Mentees Info</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="pushButton_manage_clear">
-              <property name="text">
-               <string>Clear All</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="pushButton_manage_export_wattle">
-              <property name="text">
-               <string>Export Wattle File</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="0" column="1">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <widget class="Line" name="line">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>96</y>
+            <width>311</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+         <widget class="Line" name="line_3">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>180</y>
+            <width>311</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_import_match">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>311</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Import Mentors, Mentees Info and Matching Results</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_export_match">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>150</y>
+            <width>311</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export Mentors, Mentees Info and Matching Results</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_import">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>311</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Import Mentors and Mentees Info</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_export">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>120</y>
+            <width>311</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export Mentors and Mentees Info</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_export_wattle">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>200</y>
+            <width>311</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export Wattle File</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_manage_clear">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>311</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Clear All</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -445,7 +475,49 @@
         </widget>
         <widget class="QWidget" name="page_group_mentors">
          <layout class="QGridLayout" name="gridLayout_9">
+          <item row="0" column="5">
+           <layout class="QGridLayout" name="gridLayout_mentor_to_be_group">
+            <item row="3" column="0">
+             <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="lineEdit_group_mentor_to_be_group_search"/>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_group_mentor_to_be_group_search">
+                <property name="text">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="QTableView" name="tableView_group_mentor_to_be_group"/>
+            </item>
+           </layout>
+          </item>
           <item row="0" column="1">
+           <layout class="QGridLayout" name="gridLayout_grouped_mentor">
+            <item row="2" column="0">
+             <widget class="QTableView" name="tableView_group_mentor_grouped"/>
+            </item>
+            <item row="3" column="0">
+             <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_group_mentor_grouped_search">
+                <property name="text">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="lineEdit_group_mentor_grouped_search"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="2">
            <layout class="QVBoxLayout" name="verticalLayout_left_and_right">
             <item>
              <spacer name="verticalSpacer_above_left_and_right">
@@ -496,7 +568,7 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="5">
+          <item row="0" column="7">
            <layout class="QGridLayout" name="gridLayout_mentor_control">
             <item row="11" column="0">
              <widget class="QComboBox" name="comboBox_mentor_gender">
@@ -797,44 +869,152 @@
            </layout>
           </item>
           <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_grouped_mentor">
-            <item row="0" column="0">
-             <widget class="QTableView" name="tableView_group_mentor_grouped"/>
+           <layout class="QGridLayout" name="gridLayout_grouped_mentor_select">
+            <item row="8" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_interests">
+              <property name="text">
+               <string>Interests</string>
+              </property>
+             </widget>
             </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_group_mentor_grouped_search">
-                <property name="text">
-                 <string>Search</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_group_mentor_grouped_search"/>
-              </item>
-             </layout>
+            <item row="7" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_special">
+              <property name="text">
+               <string>Special</string>
+              </property>
+             </widget>
             </item>
-           </layout>
-          </item>
-          <item row="0" column="4">
-           <layout class="QGridLayout" name="gridLayout_mentor_to_be_group">
-            <item row="0" column="0">
-             <widget class="QTableView" name="tableView_group_mentor_to_be_group"/>
+            <item row="19" column="1">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
             </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
-              <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_group_mentor_to_be_group_search"/>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_group_mentor_to_be_group_search">
-                <property name="text">
-                 <string>Search</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="13" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_type">
+              <property name="text">
+               <string>Dom/Int</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_gender">
+              <property name="text">
+               <string>Gender</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_interests">
+              <property name="text">
+               <string>Interests</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_gender">
+              <property name="text">
+               <string>Gender</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_hall">
+              <property name="text">
+               <string>Hall</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_language">
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_academic_info">
+              <property name="text">
+               <string>Academic Info</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Grouped Mentors:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Mentors to be Group:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_language">
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_round">
+              <property name="text">
+               <string>Round</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_type">
+              <property name="text">
+               <string>Dom/Int</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_grouped_academic_info">
+              <property name="text">
+               <string>Academic Info</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_special">
+              <property name="text">
+               <string>Special</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_round">
+              <property name="text">
+               <string>Round</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="1">
+             <widget class="QCheckBox" name="checkBox_group_mentor_to_be_grouped_hall">
+              <property name="text">
+               <string>Hall</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -1196,7 +1376,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1035</width>
+     <width>1351</width>
      <height>21</height>
     </rect>
    </property>

@@ -54,11 +54,11 @@ MainWindow::~MainWindow()
     delete model_mentees;
 
     // grouping
-    delete model_match_mentors;
-    delete model_match_mentees_matched;
-    delete model_match_mentees_to_be_match;
-    delete model_proxy_match_mentors;
-    delete model_proxy_match_mentees_to_be_match;
+//    delete model_match_mentors;
+//    delete model_match_mentees_matched;
+//    delete model_match_mentees_to_be_match;
+//    delete model_proxy_match_mentors;
+//    delete model_proxy_match_mentees_to_be_match;
     delete ui;
 }
 
