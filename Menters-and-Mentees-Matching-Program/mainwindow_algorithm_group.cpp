@@ -95,11 +95,11 @@ void MainWindow::algorithm_mentors_group()
     QSqlQueryModel mentor;
     QSqlQuery query(db);
 
-//    while(1)
-//    {
+    while(1)
+    {
         mentor.setQuery("SELECT * FROM mentor WHERE group_id = 0",db);
-//        if (mentor.rowCount() == 0)
-//            break;
+        if (mentor.rowCount() == 0)
+            break;
 
         if (mentor.rowCount() == 1){
             QString uid=mentor.record(0).value(4).toString();
@@ -256,11 +256,10 @@ void MainWindow::algorithm_mentors_group()
             if(college==1 && collegeCheck==false){enable=false;}
             if(type==1 && typeCheck==false){enable=false;}
             if(gender==1 && genderCheck==false){enable=false;}
-
             // store the maximum score
             if (enable)
             {
-                if (cscore>maxscore){
+                if (cscore>=maxscore){
                     // update minimum score
                     maxscore=cscore;
 
@@ -271,17 +270,15 @@ void MainWindow::algorithm_mentors_group()
             }
 
         }
-        qDebug()<<maxscore<<endl;
-        qDebug()<<group_mentor_id<<endl;
         // insert result into database
-        if (enable){
-            query.exec(QString("UPDATE mentor WHERE uid='%1' OR uid='%2' SET group_id=(SELECT MAX(group_id)+1 FROM mentor)").arg(mentor1id).arg(group_mentor_id));
+        if (group_mentor_id != nullptr){
+            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1' OR uid='%2'").arg(mentor1id).arg(group_mentor_id));
         }
         else{
-            query.exec(QString("UPDATE mentor WHERE uid='%1' SET group_id=(SELECT MAX(group_id)+1 FROM mentor)").arg(mentor1id));
+            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(mentor1id));
 
         }
-//    }
+    }
 
 
 
