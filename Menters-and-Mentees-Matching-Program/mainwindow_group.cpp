@@ -3,6 +3,15 @@
 
 void MainWindow::load_group_mentors()
 {
+    disconnect(ui->checkBox_group_mentor_hall,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_type,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_round,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_gender,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_special,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_language,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_interests,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+
     // mentors to be grouped
 
     // clear exist data
@@ -32,7 +41,7 @@ void MainWindow::load_group_mentors()
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
-    ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_group_mentor_to_be_group->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // resize row height according to column width
     connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
@@ -95,6 +104,15 @@ void MainWindow::load_group_mentors()
     /*
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
     */
+
+    connect(ui->checkBox_group_mentor_hall,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_type,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_round,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_gender,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_special,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_language,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_interests,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
 }
 
 // Grouped mentor search
@@ -227,4 +245,114 @@ void MainWindow::on_pushButton_mentor_clear_clicked()
     model_group_mentors_grouped->select();
 }
 
+void MainWindow::display_group_column()
+{
+    // round
+    if (ui->checkBox_group_mentor_round->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(6);
+        ui->tableView_group_mentor_to_be_group->showColumn(6);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(6);
+        ui->tableView_group_mentor_to_be_group->hideColumn(6);
+    }
+
+    // academic info
+    if (ui->checkBox_group_mentor_academic_info->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(7);
+        ui->tableView_group_mentor_grouped->showColumn(8);
+        ui->tableView_group_mentor_grouped->showColumn(9);
+        ui->tableView_group_mentor_to_be_group->showColumn(7);
+        ui->tableView_group_mentor_to_be_group->showColumn(8);
+        ui->tableView_group_mentor_to_be_group->showColumn(9);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(7);
+        ui->tableView_group_mentor_grouped->hideColumn(8);
+        ui->tableView_group_mentor_grouped->hideColumn(9);
+        ui->tableView_group_mentor_to_be_group->hideColumn(7);
+        ui->tableView_group_mentor_to_be_group->hideColumn(8);
+        ui->tableView_group_mentor_to_be_group->hideColumn(9);
+    }
+
+    // type
+    if (ui->checkBox_group_mentor_type->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(10);
+        ui->tableView_group_mentor_to_be_group->showColumn(10);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(10);
+        ui->tableView_group_mentor_to_be_group->hideColumn(10);
+    }
+
+    // gender
+    if (ui->checkBox_group_mentor_gender->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(11);
+        ui->tableView_group_mentor_to_be_group->showColumn(11);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(11);
+        ui->tableView_group_mentor_to_be_group->hideColumn(11);
+    }
+
+    // language
+    if (ui->checkBox_group_mentor_language->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(12);
+        ui->tableView_group_mentor_grouped->showColumn(13);
+        ui->tableView_group_mentor_to_be_group->showColumn(12);
+        ui->tableView_group_mentor_to_be_group->showColumn(13);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(12);
+        ui->tableView_group_mentor_grouped->hideColumn(13);
+        ui->tableView_group_mentor_to_be_group->hideColumn(12);
+        ui->tableView_group_mentor_to_be_group->hideColumn(13);
+    }
+
+    // hall
+    if (ui->checkBox_group_mentor_hall->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(14);
+        ui->tableView_group_mentor_to_be_group->showColumn(14);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(14);
+        ui->tableView_group_mentor_to_be_group->hideColumn(14);
+    }
+
+    // special
+    if (ui->checkBox_group_mentor_special->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(15);
+        ui->tableView_group_mentor_to_be_group->showColumn(15);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(15);
+        ui->tableView_group_mentor_to_be_group->hideColumn(15);
+    }
+
+    // interests
+    if (ui->checkBox_group_mentor_interests->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(16);
+        ui->tableView_group_mentor_to_be_group->showColumn(16);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(16);
+        ui->tableView_group_mentor_to_be_group->hideColumn(16);
+    }
+}
 

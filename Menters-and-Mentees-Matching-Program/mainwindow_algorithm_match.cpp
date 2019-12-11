@@ -1,50 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-void MainWindow::match_manual_add(QString Mentor_U_Num, QString Mentee_U_Num)
-{
-    //INSERT INTO match(mentor_id, mentee_id) VALUES('u1234567', 'u7777777')
-    QString str = "INSERT INTO match(mentor_id, mentee_id) VALUES('" + Mentor_U_Num + "', '" + Mentee_U_Num + "')";
-    QSqlQuery query(db);
-    query.exec(str);
-    qDebug() << str;
-
-    // show
-
-    // Mentees to be matched
-    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
-    model_match_mentees_to_be_match->setQuery(str,db);
-    refresh_match_mentees_to_be_match_view();
-
-    // Mentees Matched
-    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
-    model_match_mentees_matched->setQuery(str,db);
-    refresh_match_mentees_matched_view();
-}
-
-void MainWindow::match_manual_remove(QString Mentor_U_Num, QString Mentee_U_Num)
-{
-    //INSERT INTO match(mentor_id, mentee_id) VALUES('u1234567', 'u7777777')
-    QString str = "DELETE FROM match WHERE mentee_id = '" + Mentee_U_Num + "'";
-    QSqlQuery query(db);
-    query.exec(str);
-    qDebug() << str;
-
-    // show
-
-    // Mentees to be matched
-    str = "SELECT * FROM mentee WHERE (SELECT COUNT(*) as num from match WHERE(match.mentee_id = mentee.uid)) = 0";
-    model_match_mentees_to_be_match->setQuery(str,db);
-    ui->tableView_match_mentees_to_be_match->reset();
-    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
-
-    // Mentees Matched
-    str = "SELECT * FROM mentee LEFT JOIN match ON match.mentee_id = mentee.uid WHERE match.mentor_id = '" + Mentor_U_Num + "'";
-    model_match_mentees_matched->setQuery(str,db);
-    ui->tableView_match_mentees_matched->reset();
-    ui->tableView_match_mentees_matched->resizeColumnsToContents();
-}
-
 void MainWindow::MainWindow::match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, int college, int language, int gender, int academiclevel, int consideration, int max_mentees_num)
 {
     QSqlQuery q("", db);                                                            //link to database

@@ -64,6 +64,8 @@ private slots:
 
     void on_pushButton_mentor_clear_clicked();
 
+    void display_group_column();
+
     // Matching
 
     void on_pushButton_Auto_clicked();
@@ -71,8 +73,6 @@ private slots:
     void on_pushButton_Up_clicked();
 
     void on_pushButton_Down_clicked();
-
-    void on_pushButton_Refresh_clicked();
 
     void on_pushButton_Clear_clicked();
 
@@ -154,34 +154,15 @@ private:
 
     // Match
 
-    QSqlQueryModel * model_match_mentors;
-    QSqlQueryModel * model_match_mentees_matched;
-    QSqlQueryModel * model_match_mentees_to_be_match;
+    QSqlTableModel * model_match_mentors = nullptr;
+    QSqlTableModel * model_match_mentees_matched = nullptr;
+    QSqlTableModel * model_match_mentees_to_be_match = nullptr;
 
-    QSortFilterProxyModel * model_proxy_match_mentors;
-    QSortFilterProxyModel * model_proxy_match_mentees_to_be_match;
-
-    void init_match_page();
-    void init_match_mentors_model();
-    void init_match_mentors_proxy_model();
-    void init_match_mentors_view();
-    void init_match_mentees_to_be_match_model();
-    void init_match_mentees_to_be_match_proxy_model();
-    void init_match_mentees_to_be_match_view();
-    void init_match_mentees_matched_model();
-    void init_match_mentees_matched_view();
-    void refresh_match_mentors_view();
-    void refresh_match_mentees_to_be_match_view();
-    void refresh_match_mentees_matched_view();
-    void refresh_match();
-
-    void match_in_turn();
+    void load_match_mentees();
 
     // ------------------------------------
 
     void match(QSqlQueryModel *mentor, QSqlQueryModel *mentee, int college, int language, int gender, int academiclevel, int consideration, int max_mentees_num);
-    void match_manual_add(QString Mentor_U_Num, QString Mentee_U_Num);
-    void match_manual_remove(QString Mentor_U_Num, QString Mentee_U_Num);
 
     // ------------------------------------
 
