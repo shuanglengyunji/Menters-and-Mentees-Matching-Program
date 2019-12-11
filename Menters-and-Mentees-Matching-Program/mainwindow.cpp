@@ -9,28 +9,51 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // app apth
     QString tmp_path = qApp->applicationDirPath() + "/tmp";
-    QDir().mkdir(tmp_path);
-    qDebug() << "tmp Path" << tmp_path;
+    QDir().mkdir(tmp_path);  //qDebug() << "tmp Path" << tmp_path;
 
     // init database
     init_database(tmp_path);
 
-    // init pages
-    init_mentors_page();
-    init_mentees_page();
-    init_match_page();
-
     // switch to mentors' page
-    ui->stack->setCurrentIndex(0);
-    ui->actionManage_Mentors->setChecked(true);
-    qDebug() << "Switch to Mentors Page";
+    ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
+    ui->actionManage->setChecked(true);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
 
+    // mentors
+    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+
+    // mentees
+    connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 }
 
 MainWindow::~MainWindow()
 {
+    // mentors
     delete model_mentors;
+
+    // mentees
     delete model_mentees;
+
+    // grouping
     delete model_match_mentors;
     delete model_match_mentees_matched;
     delete model_match_mentees_to_be_match;
@@ -43,13 +66,11 @@ void MainWindow::init_database(QString work_path)
 {
     // get database path and database demo path
     QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
-    //QString db_demo_path = work_path + "/" + MY_DATABASE_DEMO_NAME;
 
     // init database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName(":memory:");
+    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
     db.setDatabaseName(db_path);
-    //db.setDatabaseName(db_demo_path);
     if (!db.open()) {
         qDebug() << "Cannot open database";
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -58,114 +79,122 @@ void MainWindow::init_database(QString work_path)
     }
 
     QSqlQuery query(db);
-    QString str = "";
 
-    // Drop all the tables
-    //str = "DROP TABLE IF EXISTS 'match'";
-    //query.exec(str);
+    // Create New Tables
+    query.exec("CREATE TABLE IF NOT EXISTS [mentor] (           \
+               group_id         INTEGER NOT NULL DEFAULT 0,         \
+               is_confirmed 	CHAR(1) NOT NULL DEFAULT 'n',                     \
+               first_name		VARCHAR(20) NOT NULL,           \
+               last_name		VARCHAR(20) NOT NULL,           \
+               uid				VARCHAR(10) NOT NULL UNIQUE,    \
+               wwvp             VARCHAR(10),                        \
+               round			INTEGER(1),                     \
+               academic_level	VARCHAR(50),                     \
+               college			INTEGER(1),                     \
+               degree			VARCHAR(100),                   \
+               type             INTEGER(1),                         \
+               gender			INTEGER(1),                     \
+               languages		VARCHAR(50),                    \
+               languages_text	TEXT(500),                      \
+               hall             VARCHAR(50),                        \
+               special			VARCHAR(50),                    \
+               interests		TEXT(1000),                     \
+               train_1			CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_2			CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_3			CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_complete	CHAR(1) NOT NULL DEFAULT 'n',   \
+               PRIMARY KEY(uid)                                 \
+           )");
 
-    //str = "DROP TABLE IF EXISTS 'mentor'";
-    //query.exec(str);
-
-    //str = "DROP TABLE IF EXISTS 'mentee'";
-    //query.exec(str);
-
-    // match
-    str = "CREATE TABLE [match] (                           \
-            m_id      INTEGER      PRIMARY KEY              \
-                                   UNIQUE                   \
-                                   NOT NULL                 \
-                                   COLLATE BINARY,          \
-            mentor_id VARCHAR (10) REFERENCES mentor (uid)  \
-                                   NOT NULL,                \
-            mentee_id VARCHAR (10) REFERENCES mentee (uid)  \
-                                   NOT NULL                 \
-        )";
-    query.exec(str);
-
-    // mentee
-    str = "CREATE TABLE mentee (                            \
-            uid            VARCHAR (10) PRIMARY KEY         \
-                                        UNIQUE              \
-                                        NOT NULL,           \
-            first_name     VARCHAR (20) NOT NULL,           \
-            last_name      VARCHAR      NOT NULL,           \
-            gender         VARCHAR (8)  NOT NULL,           \
-            email          VARCHAR (30),                    \
-            mobile         VARCHAR (20),                    \
-            academic_level VARCHAR (20),                    \
-            college        VARCHAR (50),                    \
-            languages      VARCHAR (30) NOT NULL            \
-                                        DEFAULT English,    \
-            consideration  TEXT (200),                      \
-            role           VARCHAR      DEFAULT mentee      \
-                                        NOT NULL            \
-        )";
-    query.exec(str);
-
-    // mentor
-    str = "CREATE TABLE mentor (                        \
-            uid            VARCHAR (10) PRIMARY KEY     \
-                                        UNIQUE          \
-                                        NOT NULL,       \
-            first_name     VARCHAR (20) NOT NULL,       \
-            last_name      VARCHAR (20) NOT NULL,       \
-            gender         VARCHAR (20),                \
-            email          VARCHAR (30),                \
-            mobile         VARCHAR (20),                \
-            add_info       TEXT (500),                  \
-            academic_level VARCHAR (20),                \
-            college        VARCHAR (50),                \
-            languages      VARCHAR (30) DEFAULT English \
-                                        NOT NULL,       \
-            train_1        CHAR (1)     DEFAULT n       \
-                                        NOT NULL,       \
-            train_2        CHAR (1)     NOT NULL        \
-                                        DEFAULT n,      \
-            train_3        CHAR (1)     DEFAULT n       \
-                                        NOT NULL,       \
-            wwvp_card      VARCHAR (10),                \
-            is_confirm     CHAR (1)     DEFAULT n       \
-                                        NOT NULL,       \
-            role           VARCHAR      DEFAULT mentor  \
-                                        NOT NULL        \
-        )";
-    query.exec(str);
-
-    qDebug() << "Database Init Success";
+    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
+               group_id			INTEGER NOT NULL DEFAULT 0,     \
+               first_name			VARCHAR(20) NOT NULL,       \
+               last_name			VARCHAR(20) NOT NULL,       \
+               uid					VARCHAR(10) NOT NULL UNIQUE,\
+               round				INTEGER(1),                 \
+               academic_level		VARCHAR(50),                 \
+               college				INTEGER(1),                 \
+               degree				VARCHAR(100),               \
+               type                 INTEGER(1),                 \
+               gender				INTEGER(1),                 \
+               languages			VARCHAR(50),                \
+               languages_text		TEXT(500),                  \
+               special_categories	VARCHAR(50),                \
+               requests             TEXT(1000),                 \
+               PRIMARY KEY(uid)                                 \
+           )");
 }
 
-void MainWindow::on_actionManage_Mentors_triggered()
+void MainWindow::on_actionManage_triggered()
 {
-    ui->stack->setCurrentIndex(0);
-    qDebug() << "Switch to Mentors Page";
+    ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentees Grouping Page";
 
-    ui->actionManage_Mentors->setChecked(true);
-    ui->actionManage_Mentees->setChecked(false);
-    ui->actionManage_Matching->setChecked(false);
+    ui->actionManage->setChecked(true);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
 }
 
-void MainWindow::on_actionManage_Mentees_triggered()
+void MainWindow::on_actionMentors_Editing_triggered()
 {
-    ui->stack->setCurrentIndex(1);
-    qDebug() << "Switch to Mentees Page";
+    ui->stack->setCurrentIndex(1);      // qDebug() << "Switch to Mentors Page";
 
-    ui->actionManage_Mentors->setChecked(false);
-    ui->actionManage_Mentees->setChecked(true);
-    ui->actionManage_Matching->setChecked(false);
+    ui->actionManage->setChecked(false);
+    ui->actionMentors_Editing->setChecked(true);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
+
+    load_mentors();
 }
 
-void MainWindow::on_actionManage_Matching_triggered()
+void MainWindow::on_actionMentees_Editing_triggered()
 {
-    ui->stack->setCurrentIndex(2);
-    qDebug() << "Switch to Matching Page";
+    ui->stack->setCurrentIndex(2);      // qDebug() << "Switch to Mentees Page";
 
-    ui->actionManage_Mentors->setChecked(false);
-    ui->actionManage_Mentees->setChecked(false);
-    ui->actionManage_Matching->setChecked(true);
+    ui->actionManage->setChecked(false);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(true);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(false);
 
+    load_mentees();
 }
 
+void MainWindow::on_actionMentors_Grouping_triggered()
+{
+    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentors Grouping Page";
 
+    ui->actionManage->setChecked(false);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(true);
+    ui->actionMentees_Grouping->setChecked(false);
 
+    load_group_mentors();
+}
+
+void MainWindow::on_actionMentees_Grouping_triggered()
+{
+    ui->stack->setCurrentIndex(4);      // qDebug() << "Switch to Mentees Grouping Page";
+
+    ui->actionManage->setChecked(false);
+    ui->actionMentors_Editing->setChecked(false);
+    ui->actionMentees_Editing->setChecked(false);
+    ui->actionMentors_Grouping->setChecked(false);
+    ui->actionMentees_Grouping->setChecked(true);
+}
+
+/*
+
+// Drop all the tables
+str = "DROP TABLE IF EXISTS 'match'";
+query.exec(str);
+str = "DROP TABLE IF EXISTS 'mentor'";
+query.exec(str);
+str = "DROP TABLE IF EXISTS 'mentee'";
+query.exec(str);
+
+*/
 

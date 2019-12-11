@@ -20,8 +20,7 @@
 #include <delegate_wwvp.h>
 #include <delegate_confirm.h>
 
-# define MY_DATA_BASE_NAME "db_mm.db"
-# define MY_DATABASE_DEMO_NAME "db_mm_demo.db"
+# define MY_DATA_BASE_NAME "database.db"
 
 namespace Ui {
 class MainWindow;
@@ -36,31 +35,36 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionImport_Mentors_triggered();
 
-    void on_actionImport_Mentees_triggered();
-
-    void on_actionManage_Mentors_triggered();
-
-    void on_actionManage_Mentees_triggered();
-
-    void on_actionManage_Matching_triggered();
-
-    void on_lineEdit_mentors_search_editingFinished();
-
-    void on_lineEdit_mentees_search_editingFinished();
-
-    void on_pushButton_mentees_add_clicked();
-
-    void on_pushButton_mentees_delete_clicked();
-
-    void on_pushButton_mentees_revert_clicked();
-
-    void on_pushButton_mentors_add_clicked();
+    // Mentors
 
     void on_pushButton_mentors_delete_clicked();
 
-    void on_pushButton_mentors_revert_clicked();
+    void on_lineEdit_mentors_search_editingFinished();
+
+    void display_mentors_column();
+
+    // void edit_finished();
+
+    // Mentees
+
+    void on_pushButton_mentees_delete_clicked();
+
+    void on_lineEdit_mentees_search_editingFinished();
+
+    void display_mentees_column();
+
+    // Grouping
+
+    void on_toolButton_left_clicked();
+
+    void on_toolButton_right_clicked();
+
+    void on_pushButton_mentor_auto_clicked();
+
+    void on_pushButton_mentor_clear_clicked();
+
+    // Matching
 
     void on_pushButton_Auto_clicked();
 
@@ -74,25 +78,39 @@ private slots:
 
     void on_tableView_match_mentors_clicked(const QModelIndex &index);
 
-    void on_actionImport_Match_Result_triggered();
-
-    void on_actionExport_Mentors_triggered();
-
-    void on_actionExport_Mentees_triggered();
-
-    void on_actionExport_Match_Result_triggered();
-
-    void on_actionExport_Wattle_File_triggered();
-
     void on_lineEdit_match_search_mentors_editingFinished();
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
-    void edit_finished();
+    // Manage
 
-    void on_pushButton_mentees_clear_clicked();
+    void on_pushButton_manage_import_clicked();
 
-    void on_pushButton_mentors_clear_clicked();
+    void on_pushButton_manage_import_match_clicked();
+
+    void on_pushButton_manage_export_clicked();
+
+    void on_pushButton_manage_export_match_clicked();
+
+    void on_pushButton_manage_export_wattle_clicked();
+
+    void on_pushButton_manage_clear_clicked();
+
+    // Page
+
+    void on_actionManage_triggered();
+
+    void on_actionMentors_Editing_triggered();
+
+    void on_actionMentees_Editing_triggered();
+
+    void on_actionMentees_Grouping_triggered();
+
+    void on_actionMentors_Grouping_triggered();
+
+    void on_lineEdit_group_mentor_grouped_search_editingFinished();
+
+    void on_lineEdit_group_mentor_to_be_group_search_editingFinished();
 
 private:
     Ui::MainWindow *ui;
@@ -107,34 +125,34 @@ private:
 
     // ------------------------------------
 
-    // Mentor page
+    // Mentors
 
-    QSqlTableModel * model_mentors;
-    Delegate_Training * delegate_model_mentor_training_1;
-    Delegate_Training * delegate_model_mentor_training_2;
-    Delegate_Training * delegate_model_mentor_training_3;
-    Delegate_WWVP * delegate_model_mentor_WWVP;
-    Delegate_confirm * delegate_model_mentor_confirm;
+    QSqlTableModel * model_mentors = nullptr;
 
-    void init_mentors_page();
-    void init_mentors_model();
-    void init_mentors_view();
-
-    void training_Auto_confirm();
+    void load_mentors();
 
     // ------------------------------------
 
-    // Mentee page
+    // Mentees
 
-    QSqlTableModel * model_mentees;
+    QSqlTableModel * model_mentees = nullptr;
 
-    void init_mentees_page();
-    void init_mentees_model();
-    void init_mentees_view();
+    void load_mentees();
 
     // ------------------------------------
 
-    // Match page
+    // Group
+
+    QSqlTableModel * model_group_mentors_to_be_grouped = nullptr;
+    QSqlTableModel * model_group_mentors_grouped = nullptr;
+
+    void load_group_mentors();
+
+    void algorithm_mentors_group();
+
+    // ------------------------------------
+
+    // Match
 
     QSqlQueryModel * model_match_mentors;
     QSqlQueryModel * model_match_mentees_matched;
@@ -167,15 +185,19 @@ private:
 
     // ------------------------------------
 
-    void import_mentors();
-    void import_mentees();
-    void import_match();
-
-    void export_mentors();
-    void export_mentees();
-    void export_match_result();
-    void export_wattle_file();
+    void import_data(QString addr, bool include_match_result);
+    void export_data(QString addr, bool include_match_result);
+    void export_wattle_file(QString addr);
 
 };
 
 #endif // MAINWINDOW_H
+
+
+// Delegate_Training * delegate_model_mentor_training_1;
+// Delegate_Training * delegate_model_mentor_training_2;
+// Delegate_Training * delegate_model_mentor_training_3;
+// Delegate_WWVP * delegate_model_mentor_WWVP;
+// Delegate_confirm * delegate_model_mentor_confirm;
+
+

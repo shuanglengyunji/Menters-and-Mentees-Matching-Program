@@ -30,8 +30,11 @@ SOURCES += \
         delegate_wwvp.cpp \
         main.cpp \
         mainwindow.cpp \
-        mainwindow_algorithm.cpp \
+        mainwindow_algorithm_group.cpp \
+        mainwindow_algorithm_match.cpp \
+        mainwindow_group.cpp \
         mainwindow_import_export.cpp \
+        mainwindow_manage.cpp \
         mainwindow_match.cpp \
         mainwindow_mentees.cpp \
         mainwindow_mentors.cpp
@@ -44,6 +47,12 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+# QXlsx code for Application Qt project
+QXLSX_PARENTPATH=../QXlsx/QXlsx         # current QXlsx path is . (. means curret directory)
+QXLSX_HEADERPATH=../QXlsx/QXlsx/header/  # current QXlsx header path is ./header/
+QXLSX_SOURCEPATH=../QXlsx/QXlsx/source/  # current QXlsx source path is ./source/
+include(../QXlsx/QXlsx/QXlsx.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
