@@ -111,7 +111,9 @@ void MainWindow::algorithm_mentors_group()
 
         QString mentor1id;
         QString group_mentor_id;
+        int maxscore=0;
         bool enable=true;
+
         for (int k=1;k<mentor.rowCount();k++) {
             // mentor2: the k mentor(score for each mentors except the current one
             QSqlRecord mentor2=mentor.record(k);
@@ -255,30 +257,22 @@ void MainWindow::algorithm_mentors_group()
             if(type==1 && typeCheck==false){enable=false;}
             if(gender==1 && genderCheck==false){enable=false;}
 
-            qDebug()<<roundCheck<<endl;
-
-            qDebug()<<levelCheck<<endl;
-            qDebug()<<collegeCheck<<endl;
-
-            qDebug()<<typeCheck<<endl;
-            qDebug()<<genderCheck<<endl;
-            qDebug()<<enable<<endl;
-
-            qDebug()<<cscore<<endl;
-
-            // store the minimum score
-            int maxscore=0;
+            // store the maximum score
             if (enable)
             {
                 if (cscore>maxscore){
                     // update minimum score
                     maxscore=cscore;
+
                     //record the mentor with minimum score
                     group_mentor_id=mentor2id;
+
                 }
             }
-        }
 
+        }
+        qDebug()<<maxscore<<endl;
+        qDebug()<<group_mentor_id<<endl;
         // insert result into database
         if (enable){
             query.exec(QString("UPDATE mentor WHERE uid='%1' OR uid='%2' SET group_id=(SELECT MAX(group_id)+1 FROM mentor)").arg(mentor1id).arg(group_mentor_id));
