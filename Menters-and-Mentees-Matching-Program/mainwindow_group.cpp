@@ -40,7 +40,7 @@ void MainWindow::load_group_mentors()
     ui->tableView_group_mentor_to_be_group->setSortingEnabled(true);
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
+    //ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_to_be_group->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // resize row height according to column width
@@ -86,7 +86,7 @@ void MainWindow::load_group_mentors()
     ui->tableView_group_mentor_grouped->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_group_mentor_grouped->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
+    //ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // resize row height according to column width

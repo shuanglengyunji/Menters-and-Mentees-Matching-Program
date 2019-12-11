@@ -76,7 +76,7 @@ void MainWindow::load_match_mentees()
 
     ui->tableView_match_mentees_matched->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::MultiSelection);
-    //ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // resize row height according to column width
     connect(ui->tableView_match_mentees_matched->horizontalHeader(),&QHeaderView::sectionResized,
