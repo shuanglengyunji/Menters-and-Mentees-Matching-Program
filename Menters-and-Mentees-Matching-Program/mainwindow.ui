@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="Line" name="line">
@@ -1332,7 +1332,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">
