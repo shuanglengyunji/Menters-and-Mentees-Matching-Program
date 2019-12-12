@@ -1,14 +1,18 @@
-#ifndef DELEGATE_WWVP_H
-#define DELEGATE_WWVP_H
+#ifndef DELEGATE_TRAINING_H
+#define DELEGATE_TRAINING_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class Delegate_WWVP : public QItemDelegate
+class Delegate_Yes_No : public QStyledItemDelegate
 {
     Q_OBJECT
 
 public:
-    Delegate_WWVP(QObject *parent = nullptr);
+    Delegate_Yes_No(QObject *parent = nullptr);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
@@ -19,4 +23,4 @@ public:
     void updateEditorGeometry(QWidget *editor,const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-#endif // DELEGATE_WWVP_H
+#endif // DELEGATE_TRAINING_H

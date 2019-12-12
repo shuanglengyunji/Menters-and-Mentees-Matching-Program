@@ -22,27 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
-    // mentors
-    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-
-    // mentees
-    connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    // delegate
+    delegate_yes_no = new Delegate_Yes_No(this);
+    delegate_round = new Delegate_Round(this);
+    delegate_academic_level = new Delegate_Academic_Level(this);
+    delegate_type = new Delegate_Type(this);
+    delegate_gender = new Delegate_Gender(this);
+    delegate_language = new Delegate_Language(this);
 }
 
 MainWindow::~MainWindow()
@@ -53,12 +39,15 @@ MainWindow::~MainWindow()
     // mentees
     delete model_mentees;
 
-    // grouping
+    // group
+    delete model_group_mentors_grouped;
+    delete model_group_mentors_to_be_grouped;
+
+    // match
     delete model_match_mentors;
     delete model_match_mentees_matched;
     delete model_match_mentees_to_be_match;
-    delete model_proxy_match_mentors;
-    delete model_proxy_match_mentees_to_be_match;
+
     delete ui;
 }
 
@@ -184,6 +173,8 @@ void MainWindow::on_actionMentees_Grouping_triggered()
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(true);
+
+    load_match_mentees();
 }
 
 /*

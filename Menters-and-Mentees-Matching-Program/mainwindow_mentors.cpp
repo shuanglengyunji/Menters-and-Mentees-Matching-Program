@@ -6,6 +6,19 @@
 // load
 void MainWindow::load_mentors()
 {
+    // disconnect
+    disconnect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    disconnect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+
     // clear exist data
     if ( model_mentors != nullptr )
     {
@@ -22,7 +35,23 @@ void MainWindow::load_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->reset();
-    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(300);
+
+    // hide group id
+    //ui->tableView_mentors->hideColumn(0);
+
+    // delegate
+    ui->tableView_mentors->setItemDelegateForColumn(1,delegate_yes_no);
+    ui->tableView_mentors->setItemDelegateForColumn(17,delegate_yes_no);
+    ui->tableView_mentors->setItemDelegateForColumn(18,delegate_yes_no);
+    ui->tableView_mentors->setItemDelegateForColumn(19,delegate_yes_no);
+    ui->tableView_mentors->setItemDelegateForColumn(20,delegate_yes_no);
+    ui->tableView_mentors->setItemDelegateForColumn(6,delegate_round);
+    ui->tableView_mentors->setItemDelegateForColumn(7,delegate_academic_level);
+    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_type);
+    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_gender);
+    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_language);
+
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
 
@@ -30,8 +59,18 @@ void MainWindow::load_mentors()
     connect(ui->tableView_mentors->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_mentors,&QTableView::resizeRowsToContents);
 
-    // hide group id
-    ui->tableView_mentors->hideColumn(0);
+    // connect
+    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_special,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
 }
 
 // search
@@ -211,20 +250,6 @@ void MainWindow::display_mentors_column()
 
 }
 
-
-
-
-/*
-// clear
-void MainWindow::on_pushButton_mentors_clear_clicked()
-{
-    QSqlQuery query(db);
-    query.exec("DELETE FROM mentor");
-
-    load_mentors();
-}
-*/
-
 /*
 // add
 void MainWindow::on_pushButton_mentors_add_clicked()
@@ -259,22 +284,6 @@ void MainWindow::on_pushButton_mentors_add_clicked()
 //    model_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
 //    model_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
 //    model_mentors->setHeaderData(15, Qt::Horizontal, "Role");
-
-//    delegate_model_mentor_training_1 = new Delegate_Training(this);
-//    delegate_model_mentor_training_2 = new Delegate_Training(this);
-//    delegate_model_mentor_training_3 = new Delegate_Training(this);
-//    delegate_model_mentor_WWVP = new Delegate_WWVP(this);
-//    delegate_model_mentor_confirm = new Delegate_confirm(this);
-//    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_model_mentor_training_1);
-//    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_model_mentor_training_2);
-//    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_model_mentor_training_3);
-//    ui->tableView_mentors->setItemDelegateForColumn(13,delegate_model_mentor_WWVP);
-//    ui->tableView_mentors->setItemDelegateForColumn(14,delegate_model_mentor_confirm);
-//    ui->tableView_mentors->hideColumn(15);
-//    connect(ui->tableView_mentors->itemDelegateForColumn(10),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-//    connect(ui->tableView_mentors->itemDelegateForColumn(11),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-//    connect(ui->tableView_mentors->itemDelegateForColumn(12),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-//    connect(ui->tableView_mentors->itemDelegateForColumn(13),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
 
 /*
 

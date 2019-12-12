@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1035</width>
-    <height>580</height>
+    <width>1077</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -42,80 +42,100 @@
          <number>3</number>
         </property>
         <widget class="QWidget" name="page_manage">
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_6">
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_manage_import_match">
-              <property name="text">
-               <string>Import Mentors, Mentees Info and Matching Results</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QPushButton" name="pushButton_manage_export_match">
-              <property name="text">
-               <string>Export Mentors, Mentees Info and Matching Results</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton_manage_import">
-              <property name="text">
-               <string>Import Mentors and Mentees Info</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_manage_export">
-              <property name="text">
-               <string>Export Mentors and Mentees Info</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="pushButton_manage_clear">
-              <property name="text">
-               <string>Clear All</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="pushButton_manage_export_wattle">
-              <property name="text">
-               <string>Export Wattle File</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="0" column="1">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <widget class="QWidget" name="gridLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>641</width>
+            <height>271</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Export:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButton_manage_import">
+             <property name="text">
+              <string>Mentors and Mentees</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export">
+             <property name="text">
+              <string>Mentors and Mentees</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QPushButton" name="pushButton_manage_export_wattle">
+             <property name="text">
+              <string>Export Wattle File</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="pushButton_manage_export_match">
+             <property name="text">
+              <string>Mentors, Mentees and Grouping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="pushButton_manage_import_match">
+             <property name="text">
+              <string>Mentors, Mentees and Grouping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Import:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="pushButton_manage_clear">
+             <property name="text">
+              <string>Clear All</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -445,61 +465,222 @@
         </widget>
         <widget class="QWidget" name="page_group_mentors">
          <layout class="QGridLayout" name="gridLayout_9">
-          <item row="0" column="1">
-           <layout class="QVBoxLayout" name="verticalLayout_left_and_right">
-            <item>
-             <spacer name="verticalSpacer_above_left_and_right">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
+          <item row="0" column="3">
+           <layout class="QGridLayout" name="gridLayout_10">
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout_grouped_mentor_select">
+              <item row="1" column="6">
+               <widget class="QCheckBox" name="checkBox_group_mentor_hall">
+                <property name="text">
+                 <string>Hall</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="5">
+               <widget class="QCheckBox" name="checkBox_group_mentor_language">
+                <property name="text">
+                 <string>Language</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="4">
+               <widget class="QCheckBox" name="checkBox_group_mentor_gender">
+                <property name="text">
+                 <string>Gender</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="7">
+               <widget class="QCheckBox" name="checkBox_group_mentor_special">
+                <property name="text">
+                 <string>Special</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QCheckBox" name="checkBox_group_mentor_academic_info">
+                <property name="text">
+                 <string>Academic Info</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QCheckBox" name="checkBox_group_mentor_round">
+                <property name="text">
+                 <string>Round</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QCheckBox" name="checkBox_group_mentor_type">
+                <property name="text">
+                 <string>Dom/Int</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="8">
+               <widget class="QCheckBox" name="checkBox_group_mentor_interests">
+                <property name="text">
+                 <string>Interests</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_mentors_grouping">
+                <property name="text">
+                 <string>Mentors Grouping: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="9">
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
-            <item>
-             <widget class="QToolButton" name="toolButton_left">
-              <property name="text">
-               <string>&lt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_between_left_and_right">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="toolButton_right">
-              <property name="text">
-               <string>&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_under_left_and_right">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="2">
+               <layout class="QGridLayout" name="gridLayout_mentor_to_be_group">
+                <item row="2" column="0">
+                 <widget class="QTableView" name="tableView_group_mentor_to_be_group"/>
+                </item>
+                <item row="3" column="0">
+                 <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="lineEdit_group_mentor_to_be_group_search"/>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="pushButton_group_mentor_to_be_group_search">
+                    <property name="text">
+                     <string>Search</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QGridLayout" name="gridLayout_grouped_mentor">
+                <item row="2" column="0">
+                 <widget class="QTableView" name="tableView_group_mentor_grouped"/>
+                </item>
+                <item row="3" column="0">
+                 <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="pushButton_group_mentor_grouped_search">
+                    <property name="text">
+                     <string>Search</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="lineEdit_group_mentor_grouped_search"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_left_and_right">
+                <item>
+                 <spacer name="verticalSpacer_above_left_and_right">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolButton_left">
+                  <property name="text">
+                   <string>&lt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_between_left_and_right">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolButton_right">
+                  <property name="text">
+                   <string>&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_under_left_and_right">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
-          <item row="0" column="5">
+          <item row="0" column="8">
            <layout class="QGridLayout" name="gridLayout_mentor_control">
-            <item row="11" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_gender">
+            <item row="19" column="0">
+             <widget class="QPushButton" name="pushButton_mentor_auto">
+              <property name="text">
+               <string>AUTO</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_language">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -507,12 +688,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Hight Priority</string>
+                <string>High Priority</string>
                </property>
               </item>
               <item>
@@ -527,21 +703,29 @@
               </item>
              </widget>
             </item>
-            <item row="18" column="0">
-             <widget class="QSpinBox" name="spinBox_mentors_num">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>5</number>
-              </property>
-              <property name="value">
-               <number>2</number>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_mentor_type">
+              <property name="text">
+               <string>Dom/Int:</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_college">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_mentor_round">
+              <property name="text">
+               <string>Round:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_mentor_college">
+              <property name="text">
+               <string>College:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_academic_level">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -576,142 +760,10 @@
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_mentor_college">
-              <property name="text">
-               <string>College:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="21" column="0">
-             <spacer name="verticalSpacer_mentor_group">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_mentor_type">
-              <property name="text">
-               <string>Dom/Int:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="0">
-             <widget class="QLabel" name="label_mentor_language">
-              <property name="text">
-               <string>Language:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_academic_level">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="17" column="0">
-             <widget class="QLabel" name="label_mentor_max_num">
-              <property name="text">
-               <string>Max Mentors Num:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_mentor_gender">
-              <property name="text">
-               <string>Gender:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_language">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="19" column="0">
-             <widget class="QPushButton" name="pushButton_mentor_auto">
-              <property name="text">
-               <string>AUTO</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_special">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_mentor_academic_level">
               <property name="text">
-               <string>UG/PG:</string>
+               <string>Academic Level</string>
               </property>
              </widget>
             </item>
@@ -742,6 +794,142 @@
                 <string>Low Priority</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_mentor_gender">
+              <property name="text">
+               <string>Gender:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_college">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_special">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_mentor_max_num">
+              <property name="text">
+               <string>Max Mentors Num:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="0">
+             <widget class="QSpinBox" name="spinBox_mentors_num">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>2</number>
+              </property>
+              <property name="value">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="0">
+             <widget class="QPushButton" name="pushButton_mentor_clear">
+              <property name="text">
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="0">
+             <spacer name="verticalSpacer_mentor_group">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="11" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_gender">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Hight Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_mentor_language">
+              <property name="text">
+               <string>Language:</string>
+              </property>
              </widget>
             </item>
             <item row="16" column="0">
@@ -779,62 +967,6 @@
                </property>
               </item>
              </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_mentor_round">
-              <property name="text">
-               <string>Round:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="0">
-             <widget class="QPushButton" name="pushButton_mentor_clear">
-              <property name="text">
-               <string>Clear</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_grouped_mentor">
-            <item row="0" column="0">
-             <widget class="QTableView" name="tableView_group_mentor_grouped"/>
-            </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_grouped_mentor_search">
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_group_mentor_grouped_search">
-                <property name="text">
-                 <string>Search</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_group_mentor_grouped_search"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="4">
-           <layout class="QGridLayout" name="gridLayout_mentor_to_be_group">
-            <item row="0" column="0">
-             <widget class="QTableView" name="tableView_group_mentor_to_be_group"/>
-            </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_mentor_to_be_group_2">
-              <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_group_mentor_to_be_group_search"/>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_group_mentor_to_be_group_search">
-                <property name="text">
-                 <string>Search</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </item>
            </layout>
           </item>
@@ -946,89 +1078,14 @@
           <item row="0" column="2">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QLabel" name="label_gender">
+             <widget class="QLabel" name="label_round">
               <property name="text">
-               <string>Gender:</string>
+               <string>Round:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_gender">
-              <property name="accessibleName">
-               <string/>
-              </property>
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_college">
-              <property name="text">
-               <string>College:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_college">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_language">
-              <property name="text">
-               <string>Language:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_language">
+             <widget class="QComboBox" name="comboBox_round">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -1093,14 +1150,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_consideration">
+             <widget class="QLabel" name="label_college">
               <property name="text">
-               <string>Consdieration:</string>
+               <string>College:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_consideration">
+             <widget class="QComboBox" name="comboBox_college">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -1108,7 +1165,159 @@
               </item>
               <item>
                <property name="text">
-                <string>Manual Match</string>
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_type">
+              <property name="text">
+               <string>Dom/Int</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_type">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_gender">
+              <property name="text">
+               <string>Gender:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_gender">
+              <property name="accessibleName">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_language">
+              <property name="text">
+               <string>Language:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_language">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_special">
+              <property name="text">
+               <string>Special:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_special">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
                </property>
               </item>
              </widget>
@@ -1155,13 +1364,6 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_Refresh">
-              <property name="text">
-               <string>Refresh</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QPushButton" name="pushButton_Clear">
               <property name="text">
                <string>Clear</string>
@@ -1196,8 +1398,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1035</width>
-     <height>21</height>
+     <width>1077</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">
