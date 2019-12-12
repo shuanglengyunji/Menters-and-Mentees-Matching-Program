@@ -31,15 +31,22 @@ void MainWindow::load_mentees()
     // link mentees QSqlTableModel to QTableView
     ui->tableView_mentees->setModel(model_mentees);
     ui->tableView_mentees->reset();
-    ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(500);
+    ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(400);
+
+    // hide group id
+    //ui->tableView_mentees->hideColumn(0);
+
+    // delegate
+    ui->tableView_mentees->setItemDelegateForColumn(4,delegate_round);
+    ui->tableView_mentees->setItemDelegateForColumn(5,delegate_academic_level);
+    ui->tableView_mentees->setItemDelegateForColumn(8,delegate_type);
+    ui->tableView_mentees->setItemDelegateForColumn(9,delegate_gender);
+
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();
 
     connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_mentees,&QTableView::resizeRowsToContents);
-
-    // hide group id
-    ui->tableView_mentees->hideColumn(0);
 
     // connect
     connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);

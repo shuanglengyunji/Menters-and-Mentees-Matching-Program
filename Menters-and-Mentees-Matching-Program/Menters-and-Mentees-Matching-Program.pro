@@ -25,9 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        delegate_confirm.cpp \
-        delegate_training.cpp \
-        delegate_wwvp.cpp \
+        delegate_academic_level.cpp \
+        delegate_gender.cpp \
+        delegate_language.cpp \
+        delegate_round.cpp \
+        delegate_type.cpp \
+        delegate_yes_no.cpp \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm_group.cpp \
@@ -40,9 +43,12 @@ SOURCES += \
         mainwindow_mentors.cpp
 
 HEADERS += \
-        delegate_confirm.h \
-        delegate_training.h \
-        delegate_wwvp.h \
+        delegate_academic_level.h \
+        delegate_gender.h \
+        delegate_language.h \
+        delegate_round.h \
+        delegate_type.h \
+        delegate_yes_no.h \
         mainwindow.h
 
 FORMS += \

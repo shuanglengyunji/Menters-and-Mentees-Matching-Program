@@ -1,14 +1,18 @@
-#ifndef DELEGATE_TRAINING_H
-#define DELEGATE_TRAINING_H
+#ifndef DELEGATE_GENDER_H
+#define DELEGATE_GENDER_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class Delegate_Training : public QItemDelegate
+class Delegate_Gender : public QStyledItemDelegate
 {
     Q_OBJECT
 
 public:
-    Delegate_Training(QObject *parent = nullptr);
+    Delegate_Gender(QObject *parent = nullptr);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
@@ -17,6 +21,7 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
     void updateEditorGeometry(QWidget *editor,const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
 };
 
-#endif // DELEGATE_TRAINING_H
+#endif // DELEGATE_GENDER_H

@@ -1,12 +1,18 @@
-#ifndef DELEGATE_CONFIRM_H
-#define DELEGATE_CONFIRM_H
+#ifndef DELEGATE_TYPE_H
+#define DELEGATE_TYPE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class Delegate_confirm : public QItemDelegate
+class Delegate_Type : public QStyledItemDelegate
 {
+    Q_OBJECT
+
 public:
-    Delegate_confirm(QObject *parent = nullptr);
+    Delegate_Type(QObject *parent = nullptr);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
@@ -18,4 +24,4 @@ public:
 
 };
 
-#endif // DELEGATE_CONFIRM_H
+#endif // DELEGATE_TYPE_H

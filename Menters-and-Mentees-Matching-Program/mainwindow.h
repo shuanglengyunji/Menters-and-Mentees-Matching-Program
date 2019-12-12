@@ -16,9 +16,12 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
-#include <delegate_training.h>
-#include <delegate_wwvp.h>
-#include <delegate_confirm.h>
+#include <delegate_yes_no.h>
+#include <delegate_round.h>
+#include <delegate_academic_level.h>
+#include <delegate_type.h>
+#include <delegate_gender.h>
+#include <delegate_language.h>
 
 # define MY_DATA_BASE_NAME "database.db"
 
@@ -125,6 +128,16 @@ private:
 
     // ------------------------------------
 
+    // Manage
+
+    void import_data(QString addr, bool include_match_result);
+
+    void export_data(QString addr, bool include_match_result);
+
+    void export_wattle_file(QString addr);
+
+    // ------------------------------------
+
     // Mentors
 
     QSqlTableModel * model_mentors = nullptr;
@@ -164,19 +177,15 @@ private:
 
     // ------------------------------------
 
-    void import_data(QString addr, bool include_match_result);
-    void export_data(QString addr, bool include_match_result);
-    void export_wattle_file(QString addr);
+    // Delegrate
 
+    Delegate_Yes_No * delegate_yes_no = nullptr;
+    Delegate_Round * delegate_round = nullptr;
+    Delegate_Academic_Level * delegate_academic_level = nullptr;
+    Delegate_Type * delegate_type = nullptr;
+    Delegate_Gender * delegate_gender = nullptr;
+    Delegate_Language * delegate_language = nullptr;
 };
 
 #endif // MAINWINDOW_H
-
-
-// Delegate_Training * delegate_model_mentor_training_1;
-// Delegate_Training * delegate_model_mentor_training_2;
-// Delegate_Training * delegate_model_mentor_training_3;
-// Delegate_WWVP * delegate_model_mentor_WWVP;
-// Delegate_confirm * delegate_model_mentor_confirm;
-
 
