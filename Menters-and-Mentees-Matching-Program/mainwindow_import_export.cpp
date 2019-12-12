@@ -165,7 +165,11 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         languages.replace(" ","");
         if (languages.isEmpty())
         {
-            languages = "11";
+            languages = "11";       // English
+        }
+        else
+        {
+            languages = languages.append(",11");
         }
 
         QString languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
@@ -357,7 +361,11 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         languages.replace(" ","");
         if (languages.isEmpty())
         {
-            languages = "11";
+            languages = "11";   // English
+        }
+        else
+        {
+            languages = languages.append(",11");
         }
 
         QString languages_text = xlsxR.cellAt(row, 11)->readValue().toString();

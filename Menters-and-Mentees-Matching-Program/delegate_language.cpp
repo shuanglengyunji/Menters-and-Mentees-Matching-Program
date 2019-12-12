@@ -10,20 +10,23 @@ Delegate_Language::Delegate_Language(QObject *parent) : QStyledItemDelegate(pare
 
 void Delegate_Language::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QString str = index.data().toString();
-    str.replace("0","Hindi");
-    str.replace("1","Vietnamese");
-    str.replace("2","German");
-    str.replace("3","Korean");
-    str.replace("4","Tamil");
-    str.replace("5","Mandarin (Chinese)");
-    str.replace("6","Spanish");
-    str.replace("7","Cantonese");
-    str.replace("8","Indonesian");
-    str.replace("9","Japanese");
-    str.replace("10","Urdu");
-    str.replace(",",";\n");
-    painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, str);
+    QStringList list = index.data().toString().split(",");
+    list.sort();
+
+    list.replaceInStrings("10","Urdu");
+    list.replaceInStrings("11","English");
+    list.replaceInStrings("0","Hindi");
+    list.replaceInStrings("1","Vietnamese");
+    list.replaceInStrings("2","German");
+    list.replaceInStrings("3","Korean");
+    list.replaceInStrings("4","Tamil");
+    list.replaceInStrings("5","Mandarin (Chinese)");
+    list.replaceInStrings("6","Spanish");
+    list.replaceInStrings("7","Cantonese");
+    list.replaceInStrings("8","Indonesian");
+    list.replaceInStrings("9","Japanese");
+
+    painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
 }
 
 //! [1]
@@ -31,7 +34,7 @@ QSize Delegate_Language::sizeHint(const QStyleOptionViewItem &option, const QMod
 {
     int size = index.data().toString().split(",").size();
     QSize t = QStyledItemDelegate::sizeHint(option, index);
-    t.setWidth(5*t.width());
+    t.setWidth(3*t.width());
     t.setHeight(size*t.height());
 
     return t;

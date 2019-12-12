@@ -35,7 +35,7 @@ void MainWindow::load_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->reset();
-    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(400);
+    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(300);
 
     // hide group id
     //ui->tableView_mentors->hideColumn(0);
@@ -284,22 +284,6 @@ void MainWindow::on_pushButton_mentors_add_clicked()
 //    model_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
 //    model_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
 //    model_mentors->setHeaderData(15, Qt::Horizontal, "Role");
-
-//    delegate_model_mentor_training_1 = new Delegate_Training(this);
-//    delegate_model_mentor_training_2 = new Delegate_Training(this);
-//    delegate_model_mentor_training_3 = new Delegate_Training(this);
-//    delegate_model_mentor_WWVP = new Delegate_WWVP(this);
-//    delegate_model_mentor_confirm = new Delegate_confirm(this);
-//    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_model_mentor_training_1);
-//    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_model_mentor_training_2);
-//    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_model_mentor_training_3);
-//    ui->tableView_mentors->setItemDelegateForColumn(13,delegate_model_mentor_WWVP);
-//    ui->tableView_mentors->setItemDelegateForColumn(14,delegate_model_mentor_confirm);
-//    ui->tableView_mentors->hideColumn(15);
-//    connect(ui->tableView_mentors->itemDelegateForColumn(10),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-//    connect(ui->tableView_mentors->itemDelegateForColumn(11),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-//    connect(ui->tableView_mentors->itemDelegateForColumn(12),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
-//    connect(ui->tableView_mentors->itemDelegateForColumn(13),SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),this,SLOT(edit_finished()));
 
 /*
 

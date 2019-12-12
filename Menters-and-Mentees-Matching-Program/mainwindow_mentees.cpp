@@ -41,6 +41,7 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->setItemDelegateForColumn(5,delegate_academic_level);
     ui->tableView_mentees->setItemDelegateForColumn(8,delegate_type);
     ui->tableView_mentees->setItemDelegateForColumn(9,delegate_gender);
+    ui->tableView_mentees->setItemDelegateForColumn(10,delegate_language);
 
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();
