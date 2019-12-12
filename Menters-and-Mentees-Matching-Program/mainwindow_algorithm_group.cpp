@@ -92,69 +92,80 @@ void MainWindow::algorithm_mentors_group()
     // ------------------------------------------------------
 
     // get mentors
-    QSqlQueryModel mentor;
+    //QSqlQueryModel mentor;
     QSqlQuery query(db);
+
+    QSqlTableModel mentor(this,db);
+    mentor.setTable("mentor");
+    mentor.setSort(4,Qt::AscendingOrder);
+
 
     while(1)
     {
-        mentor.setQuery("SELECT * FROM mentor WHERE group_id = 0",db);
+//        mentor.setQuery("SELECT * FROM mentor WHERE group_id=0  AND is_confirmed='y' AND wwvp!='n' AND wwvp!='' AND train_complete='y'",db);
+//        qDebug()<<mentor.rowCount();
+
+        mentor.setFilter("group_id=0  AND is_confirmed='y' AND wwvp!='n' AND wwvp!='' AND train_complete='y'");
+        mentor.select();
+
         if (mentor.rowCount() == 0)
             break;
-
         if (mentor.rowCount() == 1){
             QString uid=mentor.record(0).value(4).toString();
-            query.exec(QString("UPDATE mentor WHERE uid='%1' SET group_id=(SELECT MAX(group_id)+1 FROM mentor)").arg(uid));
+            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(uid));
+            break;
         }
 
         // start group
         QSqlRecord mentor1=mentor.record(0);
 
-        QString mentor1id;
+        QString mentor1id=mentor1.value(4).toString();
+        QString mentor1round=mentor1.value(6).toString();
+        QString mentor1level=mentor1.value(7).toString();
+        QString mentor1college=mentor1.value(8).toString();
+        QString mentor1type=mentor1.value(10).toString();
+        QString mentor1gender=mentor1.value(11).toString();
+        QString mentor1languages=mentor1.value(12).toString();
+        QString mentor1special=mentor1.value(15).toString();
+
+
         QString group_mentor_id;
         int maxscore=0;
         bool enable=true;
+
+
 
         for (int k=1;k<mentor.rowCount();k++) {
             // mentor2: the k mentor(score for each mentors except the current one
             QSqlRecord mentor2=mentor.record(k);
 
             // get mentors' id
-            mentor1id=mentor1.value(4).toString();
+
             QString mentor2id=mentor2.value(4).toString();
 
             // get mentors' round
-            QString mentor1round=mentor1.value(6).toString();
             QString mentor2round=mentor2.value(6).toString();
 
             // get mentors' level
-            QString mentor1level=mentor1.value(7).toString();
             QString mentor2level=mentor2.value(7).toString();
 
             // get mentors' college
-            QString mentor1college=mentor1.value(8).toString();
-
-            QString collegementor2=mentor1.value(8).toString();
+            QString collegementor2=mentor2.value(8).toString();
             collegementor2.remove(" ");
             QStringList mentor2college=collegementor2.split(',');
 
             // get mentors' type
-            QString mentor1type=mentor1.value(10).toString();
             QString mentor2type=mentor2.value(10).toString();
 
             // get mentors' gender
-            QString mentor1gender=mentor1.value(11).toString();
             QString mentor2gender=mentor2.value(11).toString();
 
             // get mentors' language
-            QString mentor1languages=mentor1.value(12).toString();
-
             QString languagesmentor2=mentor2.value(12).toString();
             languagesmentor2.remove(" ");
             QStringList mentor2languages=languagesmentor2.split(',');
 
             // get mentors' special categories
-            QString mentor1special=mentor1.value(15).toString();
-
             QString specialmentor2=mentor2.value(15).toString();
             specialmentor2.remove(" ");
             QStringList mentor2special=specialmentor2.split(',');
@@ -165,18 +176,6 @@ void MainWindow::algorithm_mentors_group()
             bool collegeCheck = false;
             bool typeCheck = false;
             bool genderCheck = false;
-            bool languageCheck = false;
-            bool specialCheck = false;
-
-            // if reave out, status are true
-            if (round == 0){roundCheck = true;}
-            if (level == 0){levelCheck = true;}
-            if (college == 0){collegeCheck = true;}
-            if (type == 0){typeCheck = true;}
-            if (gender == 0){genderCheck = true;}
-            if (language == 0){languageCheck = true;}
-            if (special == 0){specialCheck = true;}
-
 
 
             // score for each mentor2
@@ -213,7 +212,6 @@ void MainWindow::algorithm_mentors_group()
                     }
                 }
             }
-
             // type
             if(mentor1type == mentor2type){
                 if(type!=1){
@@ -260,18 +258,18 @@ void MainWindow::algorithm_mentors_group()
             if (enable)
             {
                 if (cscore>=maxscore){
-                    // update minimum score
+                    // update maximum score
                     maxscore=cscore;
-
-                    //record the mentor with minimum score
+                    //record the mentor with maximum score
                     group_mentor_id=mentor2id;
-
                 }
             }
 
         }
+
+
         // insert result into database
-        if (group_mentor_id != nullptr){
+        if (!group_mentor_id.isEmpty()){
             query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1' OR uid='%2'").arg(mentor1id).arg(group_mentor_id));
         }
         else{
@@ -279,33 +277,6 @@ void MainWindow::algorithm_mentors_group()
 
         }
     }
-
-
-
-
-
-
-    // Example:
-
-//    QSqlQuery query(db);
-//    if ( !query.exec("your sql sentence goes here") )
-//    {
-//        qDebug() << query.lastQuery();
-//        qDebug() << query.lastError();
-//    }
-
-//    QSqlQueryModel querymodel;
-//    querymodel.setQuery("your sql sentence goes here",db);
-//    querymodel.record(23333).value(6666).toString();            // how to read a data
-
-
-
-
-
-
-
-
-    // ------------------------------------------------------
 
     delete model_mentors;
     delete model_mentees;
