@@ -91,8 +91,6 @@ void MainWindow::algorithm_mentors_group()
 
     // ------------------------------------------------------
 
-    // get mentors
-    //QSqlQueryModel mentor;
     QSqlQuery query(db);
 
     QSqlTableModel mentor(this,db);
@@ -102,9 +100,6 @@ void MainWindow::algorithm_mentors_group()
 
     while(1)
     {
-//        mentor.setQuery("SELECT * FROM mentor WHERE group_id=0  AND is_confirmed='y' AND wwvp!='n' AND wwvp!='' AND train_complete='y'",db);
-//        qDebug()<<mentor.rowCount();
-
         mentor.setFilter("group_id=0  AND is_confirmed='y' AND wwvp!='n' AND wwvp!='' AND train_complete='y'");
         mentor.select();
 
@@ -128,55 +123,29 @@ void MainWindow::algorithm_mentors_group()
         QString mentor1languages=mentor1.value(12).toString();
         QString mentor1special=mentor1.value(15).toString();
 
-
         QString group_mentor_id;
         int maxscore=0;
-        bool enable=true;
 
-
-
-        for (int k=1;k<mentor.rowCount();k++) {
+        for (int k=1;k<mentor.rowCount();k++)
+        {
             // mentor2: the k mentor(score for each mentors except the current one
             QSqlRecord mentor2=mentor.record(k);
+            bool enable=true;
 
-            // get mentors' id
-
-            QString mentor2id=mentor2.value(4).toString();
-
-            // get mentors' round
-            QString mentor2round=mentor2.value(6).toString();
-
-            // get mentors' level
-            QString mentor2level=mentor2.value(7).toString();
-
-            // get mentors' college
-            QString collegementor2=mentor2.value(8).toString();
-            collegementor2.remove(" ");
-            QStringList mentor2college=collegementor2.split(',');
-
-            // get mentors' type
-            QString mentor2type=mentor2.value(10).toString();
-
-            // get mentors' gender
-            QString mentor2gender=mentor2.value(11).toString();
-
-            // get mentors' language
-            QString languagesmentor2=mentor2.value(12).toString();
-            languagesmentor2.remove(" ");
-            QStringList mentor2languages=languagesmentor2.split(',');
-
-            // get mentors' special categories
-            QString specialmentor2=mentor2.value(15).toString();
-            specialmentor2.remove(" ");
-            QStringList mentor2special=specialmentor2.split(',');
-
+            QString mentor2id=mentor2.value(4).toString();      // get mentors' id
+            QString mentor2round=mentor2.value(6).toString();   // get mentors' round
+            QString mentor2level=mentor2.value(7).toString();   // get mentors' level
+            QStringList mentor2college=mentor2.value(8).toString().simplified().split(",");     // get mentors' college
+            QString mentor2type=mentor2.value(10).toString();   // get mentors' type
+            QString mentor2gender=mentor2.value(11).toString(); // get mentors' gender
+            QStringList mentor2languages=mentor2.value(12).toString().simplified().split(",");  // get mentors' language
+            QStringList mentor2special=mentor2.value(15).toString().simplified().split(",");        // get mentors' special categories
 
             bool roundCheck = false;
             bool levelCheck = false;
             bool collegeCheck = false;
             bool typeCheck = false;
             bool genderCheck = false;
-
 
             // score for each mentor2
             int cscore=0;
@@ -212,6 +181,7 @@ void MainWindow::algorithm_mentors_group()
                     }
                 }
             }
+
             // type
             if(mentor1type == mentor2type){
                 if(type!=1){
@@ -246,14 +216,13 @@ void MainWindow::algorithm_mentors_group()
                 }
             }
 
-
             // final check
-
             if(round==1 && roundCheck==false){enable=false;}
             if(level==1 && levelCheck==false){enable=false;}
             if(college==1 && collegeCheck==false){enable=false;}
             if(type==1 && typeCheck==false){enable=false;}
             if(gender==1 && genderCheck==false){enable=false;}
+
             // store the maximum score
             if (enable)
             {
@@ -264,9 +233,7 @@ void MainWindow::algorithm_mentors_group()
                     group_mentor_id=mentor2id;
                 }
             }
-
         }
-
 
         // insert result into database
         if (!group_mentor_id.isEmpty()){
@@ -274,7 +241,6 @@ void MainWindow::algorithm_mentors_group()
         }
         else{
             query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(mentor1id));
-
         }
     }
 
