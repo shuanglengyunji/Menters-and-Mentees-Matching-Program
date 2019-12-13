@@ -26,6 +26,8 @@
 #include <delegate_special_mentors.h>
 #include <delegate_special_mentees.h>
 
+#include <my_qsqltablemodel_grouping.h>
+
 # define MY_DATA_BASE_NAME "database.db"
 
 namespace Ui {
@@ -160,7 +162,7 @@ private:
     // Group
 
     QSqlTableModel * model_group_mentors_to_be_grouped = nullptr;
-    QSqlTableModel * model_group_mentors_grouped = nullptr;
+    my_QSqlTableModel_Grouping * model_group_mentors_grouped = nullptr;
 
     void load_group_mentors();
 
@@ -170,7 +172,7 @@ private:
 
     // Match
 
-    QSqlTableModel * model_match_mentors = nullptr;
+    my_QSqlTableModel_Grouping * model_match_mentors = nullptr;
     QSqlTableModel * model_match_mentees_matched = nullptr;
     QSqlTableModel * model_match_mentees_to_be_match = nullptr;
 

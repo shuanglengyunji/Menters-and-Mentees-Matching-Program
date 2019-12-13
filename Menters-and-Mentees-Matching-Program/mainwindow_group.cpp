@@ -62,6 +62,7 @@ void MainWindow::load_group_mentors()
             ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
     // hide columns
+    ui->tableView_group_mentor_to_be_group->hideColumn(0);
     ui->tableView_group_mentor_to_be_group->hideColumn(1);
     ui->tableView_group_mentor_to_be_group->hideColumn(5);
     ui->tableView_group_mentor_to_be_group->hideColumn(17);
@@ -82,7 +83,7 @@ void MainWindow::load_group_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_group_mentors_grouped = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_group_mentors_grouped = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_grouped->setTable("mentor");
     model_group_mentors_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_group_mentors_grouped->setFilter("group_id<>0 AND is_confirmed='y' AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
@@ -122,6 +123,7 @@ void MainWindow::load_group_mentors()
             ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
     // hide columns
+    ui->tableView_group_mentor_grouped->hideColumn(0);
     ui->tableView_group_mentor_grouped->hideColumn(1);
     ui->tableView_group_mentor_grouped->hideColumn(5);
     ui->tableView_group_mentor_grouped->hideColumn(17);
@@ -161,7 +163,11 @@ void MainWindow::on_lineEdit_group_mentor_grouped_search_editingFinished()
         //qDebug() << argument;
     }
     model_group_mentors_grouped->setFilter(argument);
+
+
 }
+
+
 
 // To be grouped mentor search
 void MainWindow::on_lineEdit_group_mentor_to_be_group_search_editingFinished()

@@ -13,7 +13,7 @@ void MainWindow::load_match_mentees()
     }
 
     // link db to mentors QSqlTableModel
-    model_match_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_match_mentors = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentors->setTable("mentor");
     model_match_mentors->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_match_mentors->setFilter("group_id<>0");
@@ -52,6 +52,7 @@ void MainWindow::load_match_mentees()
     connect(ui->tableView_match_mentors->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_match_mentors,&QTableView::resizeRowsToContents);
 
+    ui->tableView_match_mentors->hideColumn(0);
     ui->tableView_match_mentors->hideColumn(1);
     ui->tableView_match_mentors->hideColumn(5);
     ui->tableView_match_mentors->hideColumn(17);

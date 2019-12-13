@@ -43,7 +43,8 @@ SOURCES += \
         mainwindow_manage.cpp \
         mainwindow_match.cpp \
         mainwindow_mentees.cpp \
-        mainwindow_mentors.cpp
+        mainwindow_mentors.cpp \
+        my_qsqltablemodel_grouping.cpp
 
 HEADERS += \
         delegate_academic_level.h \
@@ -55,7 +56,8 @@ HEADERS += \
         delegate_special_mentors.h \
         delegate_type.h \
         delegate_yes_no.h \
-        mainwindow.h
+        mainwindow.h \
+        my_qsqltablemodel_grouping.h
 
 FORMS += \
         mainwindow.ui
