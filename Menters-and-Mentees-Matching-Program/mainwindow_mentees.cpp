@@ -34,7 +34,7 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(400);
 
     // hide group id
-    //ui->tableView_mentees->hideColumn(0);
+    ui->tableView_mentees->hideColumn(0);
 
     // delegate
     ui->tableView_mentees->setItemDelegateForColumn(4,delegate_round);
@@ -42,6 +42,8 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->setItemDelegateForColumn(8,delegate_type);
     ui->tableView_mentees->setItemDelegateForColumn(9,delegate_gender);
     ui->tableView_mentees->setItemDelegateForColumn(10,delegate_language);
+    ui->tableView_mentees->setItemDelegateForColumn(6,delegate_college);
+    ui->tableView_mentees->setItemDelegateForColumn(12,delegate_special_mentees);
 
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();

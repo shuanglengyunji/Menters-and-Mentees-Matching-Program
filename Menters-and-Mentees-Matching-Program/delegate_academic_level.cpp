@@ -23,7 +23,6 @@ void Delegate_Academic_Level::paint(QPainter *painter, const QStyleOptionViewIte
     }
 }
 
-//! [1]
 QSize Delegate_Academic_Level::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     return QStyledItemDelegate::sizeHint(option, index);

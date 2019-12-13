@@ -35,15 +35,29 @@ void MainWindow::load_group_mentors()
     ui->tableView_group_mentor_to_be_group->setModel(model_group_mentors_to_be_grouped);
     ui->tableView_group_mentor_to_be_group->reset();
     ui->tableView_group_mentor_to_be_group->horizontalHeader()->setMaximumSectionSize(700);
-    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
-    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
     ui->tableView_group_mentor_to_be_group->setSortingEnabled(true);
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
     //ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_to_be_group->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    // delegate
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(1,delegate_yes_no);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(17,delegate_yes_no);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(18,delegate_yes_no);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(19,delegate_yes_no);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(20,delegate_yes_no);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(6,delegate_round);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(7,delegate_academic_level);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(10,delegate_type);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(11,delegate_gender);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(12,delegate_language);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(8,delegate_college);
+    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(15,delegate_special_mentors);
+
     // resize row height according to column width
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
     connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
@@ -81,15 +95,29 @@ void MainWindow::load_group_mentors()
     ui->tableView_group_mentor_grouped->setModel(model_group_mentors_grouped);
     ui->tableView_group_mentor_grouped->reset();
     ui->tableView_group_mentor_grouped->horizontalHeader()->setMaximumSectionSize(700);
-    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
-    ui->tableView_group_mentor_grouped->resizeRowsToContents();
     ui->tableView_group_mentor_grouped->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_group_mentor_grouped->setSelectionBehavior(QAbstractItemView::SelectRows);
     //ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    // delegate
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(1,delegate_yes_no);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(17,delegate_yes_no);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(18,delegate_yes_no);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(19,delegate_yes_no);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(20,delegate_yes_no);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(6,delegate_round);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(7,delegate_academic_level);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(10,delegate_type);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(11,delegate_gender);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(12,delegate_language);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(8,delegate_college);
+    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(15,delegate_special_mentors);
+
     // resize row height according to column width
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
     connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
@@ -181,10 +209,16 @@ void MainWindow::on_toolButton_left_clicked()
         r.setValue("group_id",group_id);
         model_group_mentors_to_be_grouped->setRecord(row,r);
     }
+
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
-}
 
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
+}
 
 // Remove from group
 void MainWindow::on_toolButton_right_clicked()
@@ -227,6 +261,12 @@ void MainWindow::on_toolButton_right_clicked()
     }
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_mentor_auto_clicked()
@@ -234,6 +274,12 @@ void MainWindow::on_pushButton_mentor_auto_clicked()
     algorithm_mentors_group();
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_mentor_clear_clicked()
@@ -243,6 +289,12 @@ void MainWindow::on_pushButton_mentor_clear_clicked()
     query.exec("UPDATE mentee SET group_id=0");
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
 }
 
 void MainWindow::display_group_column()
@@ -355,4 +407,5 @@ void MainWindow::display_group_column()
         ui->tableView_group_mentor_to_be_group->hideColumn(16);
     }
 }
+
 

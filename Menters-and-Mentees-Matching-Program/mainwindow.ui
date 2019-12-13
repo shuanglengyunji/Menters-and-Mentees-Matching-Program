@@ -672,101 +672,6 @@
           </item>
           <item row="0" column="8">
            <layout class="QGridLayout" name="gridLayout_mentor_control">
-            <item row="19" column="0">
-             <widget class="QPushButton" name="pushButton_mentor_auto">
-              <property name="text">
-               <string>AUTO</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_language">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_mentor_type">
-              <property name="text">
-               <string>Dom/Int:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_mentor_round">
-              <property name="text">
-               <string>Round:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_mentor_college">
-              <property name="text">
-               <string>College:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_academic_level">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="label_mentor_special">
-              <property name="text">
-               <string>Special:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_mentor_academic_level">
-              <property name="text">
-               <string>Academic Level</string>
-              </property>
-             </widget>
-            </item>
             <item row="9" column="0">
              <widget class="QComboBox" name="comboBox_mentor_type">
               <item>
@@ -803,6 +708,20 @@
               </property>
              </widget>
             </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_mentor_round">
+              <property name="text">
+               <string>Round:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_mentor_max_num">
+              <property name="text">
+               <string>Max Mentors Num:</string>
+              </property>
+             </widget>
+            </item>
             <item row="7" column="0">
              <widget class="QComboBox" name="comboBox_mentor_college">
               <item>
@@ -830,57 +749,6 @@
                 <string>Low Priority</string>
                </property>
               </item>
-             </widget>
-            </item>
-            <item row="15" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_special">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="17" column="0">
-             <widget class="QLabel" name="label_mentor_max_num">
-              <property name="text">
-               <string>Max Mentors Num:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="18" column="0">
-             <widget class="QSpinBox" name="spinBox_mentors_num">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>2</number>
-              </property>
-              <property name="value">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="0">
-             <widget class="QPushButton" name="pushButton_mentor_clear">
-              <property name="text">
-               <string>Clear</string>
-              </property>
              </widget>
             </item>
             <item row="21" column="0">
@@ -925,10 +793,92 @@
               </item>
              </widget>
             </item>
-            <item row="12" column="0">
-             <widget class="QLabel" name="label_mentor_language">
+            <item row="20" column="0">
+             <widget class="QPushButton" name="pushButton_mentor_clear">
               <property name="text">
-               <string>Language:</string>
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="0">
+             <widget class="QSpinBox" name="spinBox_mentors_num">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>2</number>
+              </property>
+              <property name="value">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_mentor_college">
+              <property name="text">
+               <string>College:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_special">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_mentor_academic_level">
+              <property name="text">
+               <string>Academic Level</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_language">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="19" column="0">
+             <widget class="QPushButton" name="pushButton_mentor_auto">
+              <property name="text">
+               <string>AUTO</string>
               </property>
              </widget>
             </item>
@@ -936,6 +886,56 @@
              <widget class="Line" name="line_mentor_group">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_mentor_type">
+              <property name="text">
+               <string>Dom/Int:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_mentor_special">
+              <property name="text">
+               <string>Special:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QComboBox" name="comboBox_mentor_academic_level">
+              <item>
+               <property name="text">
+                <string>Leave Out</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Must Be Same</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>High Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium Priority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Low Priority</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_mentor_language">
+              <property name="text">
+               <string>Language:</string>
               </property>
              </widget>
             </item>
@@ -1399,7 +1399,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">

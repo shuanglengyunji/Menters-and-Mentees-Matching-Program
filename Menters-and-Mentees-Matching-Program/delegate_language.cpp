@@ -29,12 +29,11 @@ void Delegate_Language::paint(QPainter *painter, const QStyleOptionViewItem &opt
     painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
 }
 
-//! [1]
 QSize Delegate_Language::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     int size = index.data().toString().split(",").size();
     QSize t = QStyledItemDelegate::sizeHint(option, index);
-    t.setWidth(3*t.width());
+    t.setWidth(120);
     t.setHeight(size*t.height());
 
     return t;

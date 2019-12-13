@@ -23,7 +23,6 @@ void Delegate_Round::paint(QPainter *painter, const QStyleOptionViewItem &option
     }
 }
 
-//! [1]
 QSize Delegate_Round::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QSize t = QStyledItemDelegate::sizeHint(option, index);

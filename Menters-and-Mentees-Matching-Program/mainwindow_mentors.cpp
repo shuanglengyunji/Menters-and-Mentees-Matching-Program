@@ -35,10 +35,10 @@ void MainWindow::load_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->reset();
-    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(300);
+    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(600);
 
     // hide group id
-    //ui->tableView_mentors->hideColumn(0);
+    ui->tableView_mentors->hideColumn(0);
 
     // delegate
     ui->tableView_mentors->setItemDelegateForColumn(1,delegate_yes_no);
@@ -51,6 +51,8 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->setItemDelegateForColumn(10,delegate_type);
     ui->tableView_mentors->setItemDelegateForColumn(11,delegate_gender);
     ui->tableView_mentors->setItemDelegateForColumn(12,delegate_language);
+    ui->tableView_mentors->setItemDelegateForColumn(8,delegate_college);
+    ui->tableView_mentors->setItemDelegateForColumn(15,delegate_special_mentors);
 
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();

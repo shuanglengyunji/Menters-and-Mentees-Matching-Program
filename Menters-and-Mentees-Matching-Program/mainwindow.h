@@ -22,6 +22,9 @@
 #include <delegate_type.h>
 #include <delegate_gender.h>
 #include <delegate_language.h>
+#include <delegate_college.h>
+#include <delegate_special_mentors.h>
+#include <delegate_special_mentees.h>
 
 # define MY_DATA_BASE_NAME "database.db"
 
@@ -185,6 +188,9 @@ private:
     Delegate_Type * delegate_type = nullptr;
     Delegate_Gender * delegate_gender = nullptr;
     Delegate_Language * delegate_language = nullptr;
+    Delegate_College * delegate_college = nullptr;
+    Delegate_Special_Mentors * delegate_special_mentors = nullptr;
+    Delegate_Special_Mentees * delegate_special_mentees = nullptr;
 };
 
 #endif // MAINWINDOW_H
