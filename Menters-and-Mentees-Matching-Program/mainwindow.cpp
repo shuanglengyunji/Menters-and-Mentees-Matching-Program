@@ -191,4 +191,3 @@ str = "DROP TABLE IF EXISTS 'mentee'";
 query.exec(str);
 
 */
-

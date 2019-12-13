@@ -209,10 +209,16 @@ void MainWindow::on_toolButton_left_clicked()
         r.setValue("group_id",group_id);
         model_group_mentors_to_be_grouped->setRecord(row,r);
     }
+
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
-}
 
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
+}
 
 // Remove from group
 void MainWindow::on_toolButton_right_clicked()
@@ -255,6 +261,12 @@ void MainWindow::on_toolButton_right_clicked()
     }
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_mentor_auto_clicked()
@@ -262,6 +274,12 @@ void MainWindow::on_pushButton_mentor_auto_clicked()
     algorithm_mentors_group();
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_mentor_clear_clicked()
@@ -271,6 +289,12 @@ void MainWindow::on_pushButton_mentor_clear_clicked()
     query.exec("UPDATE mentee SET group_id=0");
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
+
+    ui->tableView_group_mentor_grouped->resizeColumnsToContents();
+    ui->tableView_group_mentor_grouped->resizeRowsToContents();
+
+    ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
+    ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
 }
 
 void MainWindow::display_group_column()
@@ -383,4 +407,5 @@ void MainWindow::display_group_column()
         ui->tableView_group_mentor_to_be_group->hideColumn(16);
     }
 }
+
 

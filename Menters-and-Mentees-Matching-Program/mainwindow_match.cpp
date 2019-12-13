@@ -159,6 +159,9 @@ void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
 
     // Mentees Matched
     model_match_mentees_matched->setFilter(QString("group_id=%1").arg(group_id));
+
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_Up_clicked()
@@ -177,6 +180,12 @@ void MainWindow::on_pushButton_Up_clicked()
     }
     model_match_mentees_matched->select();
     model_match_mentees_to_be_match->select();
+
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
+
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+    ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_Down_clicked()
@@ -192,6 +201,12 @@ void MainWindow::on_pushButton_Down_clicked()
     }
     model_match_mentees_matched->select();
     model_match_mentees_to_be_match->select();
+
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
+
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+    ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_Clear_clicked()
@@ -200,6 +215,12 @@ void MainWindow::on_pushButton_Clear_clicked()
     query.exec("UPDATE mentee SET group_id=0");
     model_match_mentees_to_be_match->select();
     model_match_mentees_matched->select();
+
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
+
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+    ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
 
 void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
@@ -245,5 +266,11 @@ void MainWindow::on_pushButton_Auto_clicked()
     algorithm_mentees_match();
     model_match_mentees_matched->select();
     model_match_mentees_to_be_match->select();
+
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
+
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+    ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
 
