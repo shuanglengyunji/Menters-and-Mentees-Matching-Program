@@ -26,9 +26,12 @@ CONFIG += c++11
 
 SOURCES += \
         delegate_academic_level.cpp \
+        delegate_college.cpp \
         delegate_gender.cpp \
         delegate_language.cpp \
         delegate_round.cpp \
+        delegate_special_mentees.cpp \
+        delegate_special_mentors.cpp \
         delegate_type.cpp \
         delegate_yes_no.cpp \
         main.cpp \
@@ -44,9 +47,12 @@ SOURCES += \
 
 HEADERS += \
         delegate_academic_level.h \
+        delegate_college.h \
         delegate_gender.h \
         delegate_language.h \
         delegate_round.h \
+        delegate_special_mentees.h \
+        delegate_special_mentors.h \
         delegate_type.h \
         delegate_yes_no.h \
         mainwindow.h

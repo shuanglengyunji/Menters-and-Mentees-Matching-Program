@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     delegate_type = new Delegate_Type(this);
     delegate_gender = new Delegate_Gender(this);
     delegate_language = new Delegate_Language(this);
+    delegate_college = new Delegate_College(this);
+    delegate_special_mentors = new Delegate_Special_Mentors(this);
+    delegate_special_mentees = new Delegate_Special_Mentees(this);
 }
 
 MainWindow::~MainWindow()

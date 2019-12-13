@@ -26,15 +26,29 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentors->setModel(model_match_mentors);
     ui->tableView_match_mentors->reset();
     ui->tableView_match_mentors->horizontalHeader()->setMaximumSectionSize(700);
-    ui->tableView_match_mentors->resizeColumnsToContents();
-    ui->tableView_match_mentors->resizeRowsToContents();
     ui->tableView_match_mentors->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_match_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    // delegate
+    ui->tableView_match_mentors->setItemDelegateForColumn(1,delegate_yes_no);
+    ui->tableView_match_mentors->setItemDelegateForColumn(17,delegate_yes_no);
+    ui->tableView_match_mentors->setItemDelegateForColumn(18,delegate_yes_no);
+    ui->tableView_match_mentors->setItemDelegateForColumn(19,delegate_yes_no);
+    ui->tableView_match_mentors->setItemDelegateForColumn(20,delegate_yes_no);
+    ui->tableView_match_mentors->setItemDelegateForColumn(6,delegate_round);
+    ui->tableView_match_mentors->setItemDelegateForColumn(7,delegate_academic_level);
+    ui->tableView_match_mentors->setItemDelegateForColumn(10,delegate_type);
+    ui->tableView_match_mentors->setItemDelegateForColumn(11,delegate_gender);
+    ui->tableView_match_mentors->setItemDelegateForColumn(12,delegate_language);
+    ui->tableView_match_mentors->setItemDelegateForColumn(8,delegate_college);
+    ui->tableView_match_mentors->setItemDelegateForColumn(15,delegate_special_mentors);
+
     // resize row height according to column width
+    ui->tableView_match_mentors->resizeColumnsToContents();
+    ui->tableView_match_mentors->resizeRowsToContents();
     connect(ui->tableView_match_mentors->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_match_mentors,&QTableView::resizeRowsToContents);
 
@@ -69,8 +83,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setModel(model_match_mentees_matched);
     ui->tableView_match_mentees_matched->reset();
     ui->tableView_match_mentees_matched->horizontalHeader()->setMaximumSectionSize(700);
-    ui->tableView_match_mentees_matched->resizeColumnsToContents();
-    ui->tableView_match_mentees_matched->resizeRowsToContents();
     ui->tableView_match_mentees_matched->sortByColumn(0,Qt::AscendingOrder);
     ui->tableView_match_mentees_matched->setSortingEnabled(true);
 
@@ -78,7 +90,17 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(4,delegate_round);
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(5,delegate_academic_level);
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(8,delegate_type);
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(9,delegate_gender);
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(10,delegate_language);
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(6,delegate_college);
+    ui->tableView_match_mentees_matched->setItemDelegateForColumn(12,delegate_special_mentees);
+
     // resize row height according to column width
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
     connect(ui->tableView_match_mentees_matched->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_match_mentees_matched,&QTableView::resizeRowsToContents);
 
@@ -106,15 +128,24 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_to_be_match->setModel(model_match_mentees_to_be_match);
     ui->tableView_match_mentees_to_be_match->reset();
     ui->tableView_match_mentees_to_be_match->horizontalHeader()->setMaximumSectionSize(700);
-    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
-    ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
     ui->tableView_match_mentees_to_be_match->setSortingEnabled(true);
 
     ui->tableView_match_mentees_to_be_match->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentees_to_be_match->setSelectionMode(QAbstractItemView::MultiSelection);
     //ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    // delegate
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(4,delegate_round);
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(5,delegate_academic_level);
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(8,delegate_type);
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(9,delegate_gender);
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(10,delegate_language);
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(6,delegate_college);
+    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(12,delegate_special_mentees);
+
     // resize row height according to column width
+    ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
+    ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
     connect(ui->tableView_match_mentees_to_be_match->horizontalHeader(),&QHeaderView::sectionResized,
             ui->tableView_match_mentees_to_be_match,&QTableView::resizeRowsToContents);
 

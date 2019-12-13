@@ -23,7 +23,6 @@ void Delegate_Yes_No::paint(QPainter *painter, const QStyleOptionViewItem &optio
     }
 }
 
-//! [1]
 QSize Delegate_Yes_No::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     return QStyledItemDelegate::sizeHint(option, index);

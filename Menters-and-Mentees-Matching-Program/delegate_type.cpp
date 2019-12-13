@@ -24,7 +24,6 @@ void Delegate_Type::paint(QPainter *painter, const QStyleOptionViewItem &option,
     }
 }
 
-//! [1]
 QSize Delegate_Type::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QSize t = QStyledItemDelegate::sizeHint(option, index);
