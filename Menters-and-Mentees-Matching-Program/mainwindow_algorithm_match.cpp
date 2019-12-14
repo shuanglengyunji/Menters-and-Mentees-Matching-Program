@@ -100,21 +100,26 @@ void MainWindow::MainWindow::algorithm_mentees_match()
     mentee.setSort(4,Qt::AscendingOrder); // use uid as order
 
     int group_count;
-    mentor.setFilter("MAX(group_id)");
-    mentor.select();
-    group_count = mentor.record(0).value(0).toInt(); // find the total group numbers
-
+    QSqlQueryModel querymodel;
+    querymodel.setQuery("SELECT MAX(group_id) FROM mentor",db);
+    group_count = querymodel.record(0).value(0).toInt(); // find the total group numbers
 
     for (int k=0;k<max_mentees_num;k++)  // each loop assign each group 1 mentee
     {
         for (int k=0;k<group_count;k++)  // loop each group's mentors
         {
             QString search_mentor = "group_id=";
-            search_mentor.append(group_count+1);
-            mentor.setFilter(search_mentor);
-            mentor.select();   // find mentors of each group
-            QString mentorsgroup = mentor.record(0).value(0).toString(); // record mentor's group id for update the mentee group id
+            search_mentor.append(QVariant(k+1).toString());
 
+            mentor.setFilter(search_mentor);
+            mentor.select();
+            while(mentor.canFetchMore()){// find mentors of each group
+                mentor.fetchMore();
+            }
+
+
+            QString mentorsgroup = mentor.record(0).value(0).toString(); // record mentor's group id for update the mentee group id
+            qDebug()<<mentorsgroup;
             QString mentorsround = mentor.record(0).value(6).toString(); // record mentor's details
             QString mentorslevel = mentor.record(0).value(7).toString();
             QString mentorscollege = mentor.record(0).value(8).toString();
@@ -122,6 +127,7 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             QString mentorsgender = mentor.record(0).value(11).toString();
             QString mentorslanguages = mentor.record(0).value(12).toString();
             QString mentorsspecial = mentor.record(0).value(15).toString();
+
             if (mentor.rowCount() == 2){    // if only one mentor, just record his info, else, merge two mentors info
                 mentorsround.append(",").append(mentor.record(1).value(6).toString());
                 mentorslevel.append(",").append(mentor.record(1).value(7).toString());
@@ -131,16 +137,20 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                 mentorslanguages.append(",").append(mentor.record(1).value(12).toString());
                 mentorsspecial.append(",").append(mentor.record(1).value(15).toString());
             }
+
             // loop each mentees and find the closest one
             mentee.setFilter("group_id=0");
             mentee.select();
+            while(mentee.canFetchMore()){
+                mentee.fetchMore();
+            }
             if (mentee.rowCount() == 0)
                 break;
 
             QString match_mentee_id;
             int maxscore = 0;
 
-            for (k=0;k<mentee.rowCount();k++) {             // get each mentee's info
+            for (int k=0;k<mentee.rowCount();k++) {             // get each mentee's info
                 QString menteeid = mentee.record(k).value(3).toString();
                 QString menteeround = mentee.record(k).value(4).toString();
                 QString menteelevel = mentee.record(k).value(5).toString();
