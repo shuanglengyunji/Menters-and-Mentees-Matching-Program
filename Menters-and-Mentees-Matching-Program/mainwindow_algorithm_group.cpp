@@ -147,8 +147,7 @@ void MainWindow::algorithm_mentors_group()
             bool typeCheck = false;
             bool genderCheck = false;
 
-            // score for each mentor2
-            int cscore=0;
+            int cscore=0;   // score for each mentor2
 
             // round
             if(mentor1round == mentor2round){
