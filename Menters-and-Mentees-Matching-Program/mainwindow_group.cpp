@@ -198,7 +198,13 @@ void MainWindow::on_toolButton_left_clicked()
     int group_id = -1;
     if ( selected_grouped.isEmpty() )
     {
-        group_id = model_group_mentors_grouped->record(model_group_mentors_grouped->rowCount()-1).value("group_id").toInt()+1;
+        QSqlQueryModel querymodel;
+        querymodel.setQuery("SELECT MAX(group_id) FROM mentor",db);
+        while(querymodel.canFetchMore()){
+            querymodel.fetchMore();
+        }
+        int max_group_id = querymodel.record(0).value(0).toInt();
+        group_id = max_group_id+1;
     }
     else
     {
@@ -245,15 +251,24 @@ void MainWindow::on_toolButton_right_clicked()
     QSqlQueryModel querymodel;
     QSqlQuery query(db);
 
-    int max_row = model_group_mentors_grouped->rowCount();
-    if (max_row == 0)
+    // get max group_id
+    querymodel.setQuery("SELECT MAX(group_id) FROM mentor",db);
+    while(querymodel.canFetchMore()){
+        querymodel.fetchMore();
+    }
+    int max_group_id = querymodel.record(0).value(0).toInt();
+
+    if (max_group_id == 0)
         return;
 
-    int max_group_id = model_group_mentors_grouped->record(max_row-1).value("group_id").toInt();
     int minus_num = 0;
     for (int current_id = 1; current_id <= max_group_id; current_id++)
     {
         querymodel.setQuery(QString("SELECT uid from mentor WHERE group_id=%1").arg(current_id),db);
+        while(querymodel.canFetchMore()){
+            querymodel.fetchMore();
+        }
+
         if ( querymodel.rowCount()==0 )     // a group doesn't have any menber
         {
             minus_num++;
@@ -265,6 +280,7 @@ void MainWindow::on_toolButton_right_clicked()
             query.exec(QString("UPDATE mentor SET group_id=%1 WHERE uid=\'%2\'").arg(QVariant(current_id-minus_num).toString()).arg(uid.toString()));
         }
     }
+
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
 
