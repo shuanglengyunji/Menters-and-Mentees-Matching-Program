@@ -34,6 +34,7 @@ SOURCES += \
         delegate_special_mentors.cpp \
         delegate_type.cpp \
         delegate_yes_no.cpp \
+        delegate_yes_no_disp.cpp \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm_group.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
         delegate_special_mentors.h \
         delegate_type.h \
         delegate_yes_no.h \
+        delegate_yes_no_disp.h \
         mainwindow.h \
         my_qsqltablemodel_grouping.h
 

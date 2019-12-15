@@ -25,6 +25,7 @@
 #include <delegate_college.h>
 #include <delegate_special_mentors.h>
 #include <delegate_special_mentees.h>
+#include <delegate_yes_no_disp.h>
 
 #include <my_qsqltablemodel_grouping.h>
 
@@ -52,7 +53,7 @@ private slots:
 
     void display_mentors_column();
 
-    // void edit_finished();
+    void edit_finished();
 
     // Mentees
 
@@ -185,6 +186,7 @@ private:
     // Delegrate
 
     Delegate_Yes_No * delegate_yes_no = nullptr;
+    Delegate_Yes_No_Disp * delegate_yes_no_disp = nullptr;
     Delegate_Round * delegate_round = nullptr;
     Delegate_Academic_Level * delegate_academic_level = nullptr;
     Delegate_Type * delegate_type = nullptr;

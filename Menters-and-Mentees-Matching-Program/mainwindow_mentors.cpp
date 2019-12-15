@@ -46,7 +46,7 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->setItemDelegateForColumn(17,delegate_yes_no);
     ui->tableView_mentors->setItemDelegateForColumn(18,delegate_yes_no);
     ui->tableView_mentors->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_mentors->setItemDelegateForColumn(20,delegate_yes_no);
+    ui->tableView_mentors->setItemDelegateForColumn(20,delegate_yes_no_disp);
     ui->tableView_mentors->setItemDelegateForColumn(6,delegate_round);
     ui->tableView_mentors->setItemDelegateForColumn(7,delegate_academic_level);
     ui->tableView_mentors->setItemDelegateForColumn(10,delegate_type);
@@ -74,6 +74,8 @@ void MainWindow::load_mentors()
     connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
     connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
     connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
+
+    connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
 }
 
 // search
@@ -253,59 +255,18 @@ void MainWindow::display_mentors_column()
 
 }
 
-/*
-// add
-void MainWindow::on_pushButton_mentors_add_clicked()
+void MainWindow::edit_finished()
 {
-    QSqlTableModel *tm = model_mentors;
-    if (tm == nullptr)
-        return;
-
-    QModelIndex insertIndex = ui->tableView_mentors->currentIndex();
-    int row = insertIndex.row() == -1 ? 0 : insertIndex.row();
-    tm->insertRow(row);
-    insertIndex = tm->index(row, 0);
-
-    ui->tableView_mentors->setCurrentIndex(insertIndex);
-    ui->tableView_mentors->edit(insertIndex);
-}
-*/
-
-//    model_mentors->setHeaderData(0, Qt::Horizontal, "Uni ID");
-//    model_mentors->setHeaderData(1, Qt::Horizontal, "First Name");
-//    model_mentors->setHeaderData(2, Qt::Horizontal, "Last Name");
-//    model_mentors->setHeaderData(3, Qt::Horizontal, "Gender");
-//    model_mentors->setHeaderData(4, Qt::Horizontal, "Email");
-//    model_mentors->setHeaderData(5, Qt::Horizontal, "Mobile");
-//    model_mentors->setHeaderData(6, Qt::Horizontal, "Addtional information");
-//    model_mentors->setHeaderData(7, Qt::Horizontal, "Academic Level");
-//    model_mentors->setHeaderData(8, Qt::Horizontal, "College");
-//    model_mentors->setHeaderData(9, Qt::Horizontal, "Language");
-//    model_mentors->setHeaderData(10, Qt::Horizontal, "Training 1");
-//    model_mentors->setHeaderData(11, Qt::Horizontal, "Training 2");
-//    model_mentors->setHeaderData(12, Qt::Horizontal, "Training 3");
-//    model_mentors->setHeaderData(13, Qt::Horizontal, "WWVP Card Num");
-//    model_mentors->setHeaderData(14, Qt::Horizontal, "Confirm");
-//    model_mentors->setHeaderData(15, Qt::Horizontal, "Role");
-
-/*
-
-void MainWindow::training_Auto_confirm()
-{
-    qDebug() << "auto confirmed";
-
     while(model_mentors->canFetchMore())
     {
         model_mentors->fetchMore();
     }
-    int row = model_mentors->rowCount();
 
-    for(int i=0; i<row; i++)
+    for(int i=0; i<model_mentors->rowCount(); i++)
     {
-        QString train_1 = model_mentors->index(i,10).data().toString();
-        QString train_2 = model_mentors->index(i,11).data().toString();
-        QString train_3 = model_mentors->index(i,12).data().toString();
-        QString WWVP = model_mentors->index(i,13).data().toString();
+        QString train_1 = model_mentors->index(i,17).data().toString();
+        QString train_2 = model_mentors->index(i,18).data().toString();
+        QString train_3 = model_mentors->index(i,19).data().toString();
 
         if(train_1 != "y")
         {
@@ -322,55 +283,18 @@ void MainWindow::training_Auto_confirm()
             model_mentors->setData(model_mentors->index(i,12),"n");
         }
 
-        if(train_1 == "y" && train_2 == "y" && train_3 == "y" && !WWVP.isEmpty())
+        if(train_1 == "y" && train_2 == "y" && train_3 == "y")
         {
-            model_mentors->setData(model_mentors->index(i,14),"y");
+            model_mentors->setData(model_mentors->index(i,20),"y");
         }
         else
         {
-            model_mentors->setData(model_mentors->index(i,14),"n");
+            model_mentors->setData(model_mentors->index(i,20),"n");
         }
     }
-    model_mentors->submitAll();
+
 }
 
-*/
-
-/*
-
-void MainWindow::edit_finished()
-{
-    qDebug() << "edit finished, auto confirm";
-    int row = ui->tableView_mentors->currentIndex().row();
-
-    QString train_1 = model_mentors->index(row,10).data().toString();
-    QString train_2 = model_mentors->index(row,11).data().toString();
-    QString train_3 = model_mentors->index(row,12).data().toString();
-    QString WWVP = model_mentors->index(row,13).data().toString();
-    QString confirm = model_mentors->index(row,14).data().toString();
-
-    if(train_1 == "y" && train_2 == "y" && train_3 == "y" && !WWVP.isEmpty())
-    {
-        model_mentors->setData(model_mentors->index(row,14),"y");
-    }
-    else
-    {
-        if (confirm == "y")
-        {
-            QSqlQuery query(db);
-            QString str = "";
-
-            str = "DELETE FROM match";
-            query.exec(str);
-
-            refresh_match();
-        }
-        model_mentors->setData(model_mentors->index(row,14),"n");
-    }
-    model_mentors->submit();
-}
-
-*/
 
 
 
