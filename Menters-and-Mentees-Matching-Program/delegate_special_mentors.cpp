@@ -25,8 +25,18 @@ void Delegate_Special_Mentors::paint(QPainter *painter, const QStyleOptionViewIt
     list.replaceInStrings("8","A mentee who is under the age of 18");
     list.replaceInStrings("9","A mentee who is particularly uncomfortable speaking in English (but wants to improve)");
 
-    painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
+    painter->save();
+
+    if (option.state & QStyle::State_Selected)
+    {
+        painter->fillRect(option.rect, option.palette.highlight());
+        painter->setPen(Qt::white);
+    }
+
+    painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter|Qt::TextWordWrap, list.join("\n"));
     // QStyledItemDelegate::paint(painter, option, index);
+
+    painter->restore();
 }
 
 QSize Delegate_Special_Mentors::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

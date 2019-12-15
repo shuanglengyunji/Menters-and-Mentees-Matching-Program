@@ -9,18 +9,34 @@ Delegate_Yes_No::Delegate_Yes_No(QObject *parent)
 
 void Delegate_Yes_No::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->save();
+
     if (index.data() == "y")
     {
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(Qt::white);
+        }
+
         painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Yes");
     }
     else if (index.data() == "n")
     {
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(Qt::white);
+        }
+
         painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "No");
     }
     else
     {
         QStyledItemDelegate::paint(painter, option, index);
     }
+
+    painter->restore();
 }
 
 QSize Delegate_Yes_No::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

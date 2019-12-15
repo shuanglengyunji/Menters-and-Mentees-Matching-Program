@@ -10,18 +10,34 @@ Delegate_Type::Delegate_Type(QObject *parent) : QStyledItemDelegate(parent)
 
 void Delegate_Type::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->save();
+
     if (index.data().toInt() == 0)
     {
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(Qt::white);
+        }
+
         painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Domestic");
     }
     else if (index.data().toInt() == 1)
     {
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(Qt::white);
+        }
+
         painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "International");
     }
     else
     {
         QStyledItemDelegate::paint(painter, option, index);
     }
+
+    painter->restore();
 }
 
 QSize Delegate_Type::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

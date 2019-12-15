@@ -32,6 +32,7 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->setModel(model_mentees);
     ui->tableView_mentees->reset();
     ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(400);
+    ui->tableView_mentees->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
     ui->tableView_mentees->hideColumn(0);
@@ -48,8 +49,8 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();
 
-    connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_mentees,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_mentees,&QTableView::resizeRowsToContents);
 
     // connect
     connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);

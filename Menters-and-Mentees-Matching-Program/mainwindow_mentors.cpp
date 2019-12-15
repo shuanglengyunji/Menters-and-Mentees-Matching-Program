@@ -35,7 +35,8 @@ void MainWindow::load_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->reset();
-    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(600);
+    ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(400);
+    ui->tableView_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
     ui->tableView_mentors->hideColumn(0);
@@ -58,8 +59,8 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->resizeRowsToContents();
 
     // resize row height according to column width
-    connect(ui->tableView_mentors->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_mentors,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_mentors->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_mentors,&QTableView::resizeRowsToContents);
 
     // connect
     connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);

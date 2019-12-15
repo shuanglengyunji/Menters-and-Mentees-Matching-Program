@@ -34,7 +34,7 @@ void MainWindow::load_group_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_group_mentor_to_be_group->setModel(model_group_mentors_to_be_grouped);
     ui->tableView_group_mentor_to_be_group->reset();
-    ui->tableView_group_mentor_to_be_group->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_group_mentor_to_be_group->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_group_mentor_to_be_group->setSortingEnabled(true);
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -58,8 +58,8 @@ void MainWindow::load_group_mentors()
     // resize row height according to column width
     ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
     ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
-    connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
     // hide columns
     ui->tableView_group_mentor_to_be_group->hideColumn(0);
@@ -95,7 +95,7 @@ void MainWindow::load_group_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_group_mentor_grouped->setModel(model_group_mentors_grouped);
     ui->tableView_group_mentor_grouped->reset();
-    ui->tableView_group_mentor_grouped->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_group_mentor_grouped->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_group_mentor_grouped->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_group_mentor_grouped->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -119,8 +119,8 @@ void MainWindow::load_group_mentors()
     // resize row height according to column width
     ui->tableView_group_mentor_grouped->resizeColumnsToContents();
     ui->tableView_group_mentor_grouped->resizeRowsToContents();
-    connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
     // hide columns
     ui->tableView_group_mentor_grouped->hideColumn(0);
@@ -163,8 +163,6 @@ void MainWindow::on_lineEdit_group_mentor_grouped_search_editingFinished()
         //qDebug() << argument;
     }
     model_group_mentors_grouped->setFilter(argument);
-
-
 }
 
 
