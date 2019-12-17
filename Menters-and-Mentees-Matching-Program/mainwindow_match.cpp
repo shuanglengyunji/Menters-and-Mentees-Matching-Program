@@ -13,7 +13,7 @@ void MainWindow::load_match_mentees()
     }
 
     // link db to mentors QSqlTableModel
-    model_match_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_match_mentors = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentors->setTable("mentor");
     model_match_mentors->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_match_mentors->setFilter("group_id<>0");
@@ -25,7 +25,7 @@ void MainWindow::load_match_mentees()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_match_mentors->setModel(model_match_mentors);
     ui->tableView_match_mentors->reset();
-    ui->tableView_match_mentors->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_match_mentors->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_match_mentors->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_match_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -49,9 +49,10 @@ void MainWindow::load_match_mentees()
     // resize row height according to column width
     ui->tableView_match_mentors->resizeColumnsToContents();
     ui->tableView_match_mentors->resizeRowsToContents();
-    connect(ui->tableView_match_mentors->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_match_mentors,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_match_mentors->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_match_mentors,&QTableView::resizeRowsToContents);
 
+    ui->tableView_match_mentors->hideColumn(0);
     ui->tableView_match_mentors->hideColumn(1);
     ui->tableView_match_mentors->hideColumn(5);
     ui->tableView_match_mentors->hideColumn(17);
@@ -82,7 +83,7 @@ void MainWindow::load_match_mentees()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_match_mentees_matched->setModel(model_match_mentees_matched);
     ui->tableView_match_mentees_matched->reset();
-    ui->tableView_match_mentees_matched->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_match_mentees_matched->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_match_mentees_matched->sortByColumn(0,Qt::AscendingOrder);
     ui->tableView_match_mentees_matched->setSortingEnabled(true);
 
@@ -101,8 +102,8 @@ void MainWindow::load_match_mentees()
     // resize row height according to column width
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
-    connect(ui->tableView_match_mentees_matched->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_match_mentees_matched,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_match_mentees_matched->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_match_mentees_matched,&QTableView::resizeRowsToContents);
 
     // -----------------------------------------------------------------------------------
     // [3] mentees to be match
@@ -127,7 +128,7 @@ void MainWindow::load_match_mentees()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_match_mentees_to_be_match->setModel(model_match_mentees_to_be_match);
     ui->tableView_match_mentees_to_be_match->reset();
-    ui->tableView_match_mentees_to_be_match->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_match_mentees_to_be_match->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_match_mentees_to_be_match->setSortingEnabled(true);
 
     ui->tableView_match_mentees_to_be_match->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -146,8 +147,8 @@ void MainWindow::load_match_mentees()
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
-    connect(ui->tableView_match_mentees_to_be_match->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_match_mentees_to_be_match,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_match_mentees_to_be_match->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_match_mentees_to_be_match,&QTableView::resizeRowsToContents);
 
 }
 

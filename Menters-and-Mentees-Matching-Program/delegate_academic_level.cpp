@@ -9,18 +9,35 @@ Delegate_Academic_Level::Delegate_Academic_Level(QObject *parent) : QStyledItemD
 
 void Delegate_Academic_Level::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->save();
+
     if (index.data().toInt() == 0)
     {
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(Qt::white);
+        }
+
         painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Undergraduate");
+
     }
     else if (index.data().toInt() == 1)
     {
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(Qt::white);
+        }
+
         painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Postgraduate");
     }
     else
     {
         QStyledItemDelegate::paint(painter, option, index);
     }
+
+    painter->restore();
 }
 
 QSize Delegate_Academic_Level::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

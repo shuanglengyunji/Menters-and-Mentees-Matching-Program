@@ -34,7 +34,7 @@ void MainWindow::load_group_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_group_mentor_to_be_group->setModel(model_group_mentors_to_be_grouped);
     ui->tableView_group_mentor_to_be_group->reset();
-    ui->tableView_group_mentor_to_be_group->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_group_mentor_to_be_group->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_group_mentor_to_be_group->setSortingEnabled(true);
 
     ui->tableView_group_mentor_to_be_group->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -58,10 +58,11 @@ void MainWindow::load_group_mentors()
     // resize row height according to column width
     ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
     ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
-    connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
     // hide columns
+    ui->tableView_group_mentor_to_be_group->hideColumn(0);
     ui->tableView_group_mentor_to_be_group->hideColumn(1);
     ui->tableView_group_mentor_to_be_group->hideColumn(5);
     ui->tableView_group_mentor_to_be_group->hideColumn(17);
@@ -82,7 +83,7 @@ void MainWindow::load_group_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_group_mentors_grouped = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_group_mentors_grouped = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_grouped->setTable("mentor");
     model_group_mentors_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_group_mentors_grouped->setFilter("group_id<>0 AND is_confirmed='y' AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
@@ -94,7 +95,7 @@ void MainWindow::load_group_mentors()
     // link mentors QSqlTableModel to QTableView
     ui->tableView_group_mentor_grouped->setModel(model_group_mentors_grouped);
     ui->tableView_group_mentor_grouped->reset();
-    ui->tableView_group_mentor_grouped->horizontalHeader()->setMaximumSectionSize(700);
+    ui->tableView_group_mentor_grouped->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_group_mentor_grouped->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_group_mentor_grouped->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -118,10 +119,11 @@ void MainWindow::load_group_mentors()
     // resize row height according to column width
     ui->tableView_group_mentor_grouped->resizeColumnsToContents();
     ui->tableView_group_mentor_grouped->resizeRowsToContents();
-    connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
-            ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
+    //connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
+    //        ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
     // hide columns
+    ui->tableView_group_mentor_grouped->hideColumn(0);
     ui->tableView_group_mentor_grouped->hideColumn(1);
     ui->tableView_group_mentor_grouped->hideColumn(5);
     ui->tableView_group_mentor_grouped->hideColumn(17);
@@ -163,6 +165,8 @@ void MainWindow::on_lineEdit_group_mentor_grouped_search_editingFinished()
     model_group_mentors_grouped->setFilter(argument);
 }
 
+
+
 // To be grouped mentor search
 void MainWindow::on_lineEdit_group_mentor_to_be_group_search_editingFinished()
 {
@@ -192,7 +196,13 @@ void MainWindow::on_toolButton_left_clicked()
     int group_id = -1;
     if ( selected_grouped.isEmpty() )
     {
-        group_id = model_group_mentors_grouped->record(model_group_mentors_grouped->rowCount()-1).value("group_id").toInt()+1;
+        QSqlQueryModel querymodel;
+        querymodel.setQuery("SELECT MAX(group_id) FROM mentor",db);
+        while(querymodel.canFetchMore()){
+            querymodel.fetchMore();
+        }
+        int max_group_id = querymodel.record(0).value(0).toInt();
+        group_id = max_group_id+1;
     }
     else
     {
@@ -239,15 +249,24 @@ void MainWindow::on_toolButton_right_clicked()
     QSqlQueryModel querymodel;
     QSqlQuery query(db);
 
-    int max_row = model_group_mentors_grouped->rowCount();
-    if (max_row == 0)
+    // get max group_id
+    querymodel.setQuery("SELECT MAX(group_id) FROM mentor",db);
+    while(querymodel.canFetchMore()){
+        querymodel.fetchMore();
+    }
+    int max_group_id = querymodel.record(0).value(0).toInt();
+
+    if (max_group_id == 0)
         return;
 
-    int max_group_id = model_group_mentors_grouped->record(max_row-1).value("group_id").toInt();
     int minus_num = 0;
     for (int current_id = 1; current_id <= max_group_id; current_id++)
     {
         querymodel.setQuery(QString("SELECT uid from mentor WHERE group_id=%1").arg(current_id),db);
+        while(querymodel.canFetchMore()){
+            querymodel.fetchMore();
+        }
+
         if ( querymodel.rowCount()==0 )     // a group doesn't have any menber
         {
             minus_num++;
@@ -259,6 +278,7 @@ void MainWindow::on_toolButton_right_clicked()
             query.exec(QString("UPDATE mentor SET group_id=%1 WHERE uid=\'%2\'").arg(QVariant(current_id-minus_num).toString()).arg(uid.toString()));
         }
     }
+
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
 

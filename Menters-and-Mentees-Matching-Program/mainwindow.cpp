@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // delegate
     delegate_yes_no = new Delegate_Yes_No(this);
+    delegate_yes_no_disp = new Delegate_Yes_No_Disp(this);
     delegate_round = new Delegate_Round(this);
     delegate_academic_level = new Delegate_Academic_Level(this);
     delegate_type = new Delegate_Type(this);

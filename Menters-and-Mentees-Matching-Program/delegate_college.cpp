@@ -21,7 +21,17 @@ void Delegate_College::paint(QPainter *painter, const QStyleOptionViewItem &opti
     list.replaceInStrings("5","College of Science");
     list.replaceInStrings("6","College of Health and Medicine");
 
+    painter->save();
+
+    if (option.state & QStyle::State_Selected)
+    {
+        painter->fillRect(option.rect, option.palette.highlight());
+        painter->setPen(Qt::white);
+    }
+
     painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
+
+    painter->restore();
 }
 
 QSize Delegate_College::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

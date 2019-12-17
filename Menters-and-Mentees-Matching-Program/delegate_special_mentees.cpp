@@ -22,8 +22,18 @@ void Delegate_Special_Mentees::paint(QPainter *painter, const QStyleOptionViewIt
     list.replaceInStrings("6","Being the parent, guardian, or carer of children or another person");
     list.replaceInStrings("7","Living in a rural or regional area");
 
-    painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
+    painter->save();
+
+    if (option.state & QStyle::State_Selected)
+    {
+        painter->fillRect(option.rect, option.palette.highlight());
+        painter->setPen(Qt::white);
+    }
+
+    painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter|Qt::TextWordWrap, list.join("\n"));
     // QStyledItemDelegate::paint(painter, option, index);
+
+    painter->restore();
 }
 
 QSize Delegate_Special_Mentees::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

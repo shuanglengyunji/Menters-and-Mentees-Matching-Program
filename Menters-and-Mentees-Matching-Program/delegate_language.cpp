@@ -26,7 +26,17 @@ void Delegate_Language::paint(QPainter *painter, const QStyleOptionViewItem &opt
     list.replaceInStrings("8","Indonesian");
     list.replaceInStrings("9","Japanese");
 
+    painter->save();
+
+    if (option.state & QStyle::State_Selected)
+    {
+        painter->fillRect(option.rect, option.palette.highlight());
+        painter->setPen(Qt::white);
+    }
+
     painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
+
+    painter->restore();
 }
 
 QSize Delegate_Language::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
