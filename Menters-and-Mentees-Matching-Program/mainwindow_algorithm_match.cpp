@@ -10,6 +10,7 @@ void MainWindow::MainWindow::algorithm_mentees_match()
     int gender = ui->comboBox_gender->currentIndex();
     int language = ui->comboBox_language->currentIndex();
     int special = ui->comboBox_special->currentIndex();
+    int request = ui->comboBox_request->currentIndex();     // 0 - Leave Out    1 - Manual Match
 
     int max_mentees_num = ui->spinBox_mentees_num->value();
 
