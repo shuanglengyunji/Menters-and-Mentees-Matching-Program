@@ -100,7 +100,7 @@ void MainWindow::algorithm_mentors_group()
 
     while(1)
     {
-        mentor.setFilter("group_id=0  AND is_confirmed='y' AND wwvp!='n' AND wwvp!='' AND train_complete='y'");
+        mentor.setFilter("group_id=0  AND wwvp!='n' AND wwvp!='' AND train_complete='y'"); // update: remove 'is_confirmed' restriction
         mentor.select();
 
         if (mentor.rowCount() == 0)
@@ -238,6 +238,7 @@ void MainWindow::algorithm_mentors_group()
         if (!group_mentor_id.isEmpty()){
             query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1' OR uid='%2'").arg(mentor1id).arg(group_mentor_id));
         }
+        // leave single mentor alone (wait for manual matching)
         else{
             query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(mentor1id));
         }
