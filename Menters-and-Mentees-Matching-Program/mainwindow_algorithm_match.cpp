@@ -149,7 +149,14 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             }
 
             // loop each mentees and find the closest one
-            mentee.setFilter("group_id=0");
+            // leave request
+            if (request == 1){
+                mentee.setFilter("group_id=0 AND requests=''");
+            }
+            else{
+                mentee.setFilter("group_id=0");
+            }
+
             mentee.select();
             while(mentee.canFetchMore()){
                 mentee.fetchMore();
