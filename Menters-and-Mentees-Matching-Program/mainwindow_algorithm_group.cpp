@@ -107,7 +107,7 @@ void MainWindow::algorithm_mentors_group()
             break;
         if (mentor.rowCount() == 1){
             QString uid=mentor.record(0).value(4).toString();
-            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(uid));
+            query.exec(QString("UPDATE mentor SET group_id=-1 WHERE uid='%1'").arg(uid));
             break;
         }
 
@@ -240,9 +240,14 @@ void MainWindow::algorithm_mentors_group()
         }
         // leave single mentor alone (wait for manual matching)
         else{
-            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(mentor1id));
+            query.exec(QString("UPDATE mentor SET group_id=-1 WHERE uid='%1'").arg(mentor1id));
         }
+//        qDebug()<<"mentor1"+mentor1id+"mentor2"+group_mentor_id;
     }
+
+//    // change all -1 group into 0 back
+    query.exec(QString("UPDATE mentor SET group_id=0 WHERE group_id='-1'"));
+
 
     delete model_mentors;
     delete model_mentees;

@@ -124,7 +124,7 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             count_mentee_group.append(group_id);
             mentee_count_model.setQuery(count_mentee_group,db);
             int current_group_mentee_count = mentee_count_model.record(0).value(0).toInt();
-            if (current_group_mentee_count == max_mentees_num)
+            if (current_group_mentee_count >= max_mentees_num)
                 continue;
 
             QString mentorsgroup = mentor.record(0).value(0).toString(); // record mentor's group id for update the mentee group id
