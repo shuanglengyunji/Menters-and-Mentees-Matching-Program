@@ -110,7 +110,8 @@ void MainWindow::MainWindow::algorithm_mentees_match()
         for (int k=0;k<group_count;k++)  // loop each group's mentors
         {
             QString search_mentor = "group_id=";
-            search_mentor.append(QVariant(k+1).toString());
+            QString group_id = QVariant(k+1).toString();
+            search_mentor.append(group_id);
 
             mentor.setFilter(search_mentor);
             mentor.select();
@@ -118,6 +119,14 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                 mentor.fetchMore();
             }
 
+            // if current group has already maximum mentees, skip current group
+            QSqlQueryModel mentee_count_model;
+            QString count_mentee_group = "SELECT COUNT(uid) FROM mentee WHERE group_id=";
+            count_mentee_group.append(group_id);
+            mentee_count_model.setQuery(count_mentee_group,db);
+            int current_group_mentee_count = mentee_count_model.record(0).value(0).toInt();
+            if (current_group_mentee_count >= max_mentees_num)
+                continue;
 
             QString mentorsgroup = mentor.record(0).value(0).toString(); // record mentor's group id for update the mentee group id
             qDebug()<<mentorsgroup;

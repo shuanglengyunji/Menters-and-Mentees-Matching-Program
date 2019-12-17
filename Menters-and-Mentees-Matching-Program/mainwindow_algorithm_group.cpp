@@ -100,14 +100,14 @@ void MainWindow::algorithm_mentors_group()
 
     while(1)
     {
-        mentor.setFilter("group_id=0  AND is_confirmed='y' AND wwvp!='n' AND wwvp!='' AND train_complete='y'");
+        mentor.setFilter("group_id=0  AND wwvp!='n' AND wwvp!='' AND train_complete='y'"); // update: remove 'is_confirmed' restriction
         mentor.select();
 
         if (mentor.rowCount() == 0)
             break;
         if (mentor.rowCount() == 1){
             QString uid=mentor.record(0).value(4).toString();
-            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(uid));
+            query.exec(QString("UPDATE mentor SET group_id=-1 WHERE uid='%1'").arg(uid));
             break;
         }
 
@@ -238,10 +238,16 @@ void MainWindow::algorithm_mentors_group()
         if (!group_mentor_id.isEmpty()){
             query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1' OR uid='%2'").arg(mentor1id).arg(group_mentor_id));
         }
+        // leave single mentor alone (wait for manual matching)
         else{
-            query.exec(QString("UPDATE mentor SET group_id=(SELECT MAX(group_id)+1 FROM mentor) WHERE uid='%1'").arg(mentor1id));
+            query.exec(QString("UPDATE mentor SET group_id=-1 WHERE uid='%1'").arg(mentor1id));
         }
+//        qDebug()<<"mentor1"+mentor1id+"mentor2"+group_mentor_id;
     }
+
+//    // change all -1 group into 0 back
+    query.exec(QString("UPDATE mentor SET group_id=0 WHERE group_id='-1'"));
+
 
     delete model_mentors;
     delete model_mentees;
