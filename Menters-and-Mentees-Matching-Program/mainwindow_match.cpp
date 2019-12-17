@@ -99,6 +99,8 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setItemDelegateForColumn(6,delegate_college);
     ui->tableView_match_mentees_matched->setItemDelegateForColumn(12,delegate_special_mentees);
 
+    ui->tableView_match_mentees_matched->hideColumn(0);
+
     // resize row height according to column width
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
@@ -143,6 +145,8 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(10,delegate_language);
     ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(6,delegate_college);
     ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(12,delegate_special_mentees);
+
+    ui->tableView_match_mentees_to_be_match->hideColumn(0);
 
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
