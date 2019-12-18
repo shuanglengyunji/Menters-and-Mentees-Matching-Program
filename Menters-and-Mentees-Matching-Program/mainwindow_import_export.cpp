@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "../CSVWriter/include/CSVWriter.h"
+
 #include "xlsxdocument.h"
 #include "xlsxchartsheet.h"
 #include "xlsxcellrange.h"
@@ -857,13 +859,78 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
 // ---------------------------------------
 
-void MainWindow::export_wattle_file(QString addr)
+void MainWindow::export_wattle_file(QString addr, int type)
 {
+    // type: 0 - mentor/mentee label in group     1 - group_id in group
+
     if(addr.isEmpty())
     {
         return;
     }
 
+    // csv object
+    CSVWriter csv(",");
+    csv.newRow() << "user" << "group";  // header
+
+    // mentors data
+
+    QSqlTableModel * exwattle_mentors = new QSqlTableModel(this,db);
+    exwattle_mentors->setTable("mentor");
+    exwattle_mentors->setSort(0,Qt::AscendingOrder);
+    exwattle_mentors->select();
+    while(exwattle_mentors->canFetchMore()){
+        exwattle_mentors->fetchMore();
+    }
+
+    for (int row = 0; row < exwattle_mentors->rowCount(); row++)
+    {
+        QSqlRecord r = exwattle_mentors->record(row);
+
+        QVariant group_id = r.value(0);
+        QVariant uid = r.value(4);
+
+        if (group_id != "0")
+        {
+            if (type)
+                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
+            else
+                csv.newRow() << uid.toString().toStdString() << "mentor";
+        }
+    }
+
+    delete exwattle_mentors;
+
+    // mentees data
+
+    QSqlTableModel * exwattle_mentees = new QSqlTableModel(this,db);
+    exwattle_mentees->setTable("mentee");
+    exwattle_mentees->setSort(0,Qt::AscendingOrder);
+    exwattle_mentees->select();
+    while(exwattle_mentees->canFetchMore())
+    {
+        exwattle_mentees->fetchMore();
+    }
+
+    for (int row = 0; row < exwattle_mentees->rowCount(); row++)
+    {
+        QSqlRecord r = exwattle_mentees->record(row);
+
+        QVariant group_id = r.value(0);
+        QVariant uid = r.value(3);
+
+        if (group_id != "0")
+        {
+            if (type)
+                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
+            else
+                csv.newRow() << uid.toString().toStdString() << "mentee";
+        }
+    }
+
+    delete exwattle_mentees;
+
+    // write to file
+    csv.writeToFile(addr.toStdString());
 }
 
 
@@ -909,77 +976,5 @@ xlsxW.write("J1","Languages");
 xlsxW.write("K1","Language - Text");
 xlsxW.write("L1","Special Categories");
 xlsxW.write("M1","Requests");
-
-*/
-
-
-/*
-
-void MainWindow::export_wattle_file()
-{
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle", tr("*.csv")); //选择路径
-        if(addr.isEmpty())
-        {
-            return;
-        }
-        QSqlTableModel * exmodel_mentees = new QSqlTableModel(this,db);
-        exmodel_mentees->setTable("mentee");
-        exmodel_mentees->select();
-        while(exmodel_mentees->canFetchMore())
-        {
-            exmodel_mentees->fetchMore();
-        }
-        QSqlTableModel * exmodel_mentors = new QSqlTableModel(this,db);
-        exmodel_mentors->setTable("mentor");
-        exmodel_mentors->select();
-        while(exmodel_mentors->canFetchMore()){
-            exmodel_mentors->fetchMore();
-        }
-        int fl=1;
-        if(QFile().exists(addr)){
-            QFile().remove(addr);
-        }
-        QFile file(addr);
-        QString datain;
-        if(file.open(QIODevice::WriteOnly)){
-            qDebug()<<addr<<endl;
-            QTextStream in(&file);
-            if(fl){
-                datain.clear();
-                datain="userid,course1,role1,group1\r\n";
-                in<<datain;
-                fl=0;
-            }
-            for(int i=0;i<exmodel_mentors->rowCount();i++){
-                datain.clear();
-                QSqlRecord data=exmodel_mentors->record(i);
-                datain.append(data.value(0).toString());
-                datain.append(",");
-                datain.append("Set4_ANU,Student,");
-                datain.append(data.value(15).toString());
-                datain.append("\r\n");
-
-                qDebug()<<datain<<endl;
-
-                in<<datain;
-            }
-            for(int i=0;i<exmodel_mentees->rowCount();i++){
-                datain.clear();
-                QSqlRecord data=exmodel_mentees->record(i);
-                datain.append(data.value(0).toString());
-                datain.append(",");
-                datain.append("Set4_ANU,Student,");
-                datain.append(data.value(10).toString());
-                datain.append("\r\n");
-
-                qDebug()<<datain<<endl;
-
-                in<<datain;
-            }
-        }
-        file.close();
-        delete exmodel_mentees;
-        delete exmodel_mentors;
-}
 
 */

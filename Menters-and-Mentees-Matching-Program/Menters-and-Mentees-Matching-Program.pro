@@ -70,6 +70,11 @@ QXLSX_HEADERPATH=../QXlsx/QXlsx/header/  # current QXlsx header path is ./header
 QXLSX_SOURCEPATH=../QXlsx/QXlsx/source/  # current QXlsx source path is ./source/
 include(../QXlsx/QXlsx/QXlsx.pri)
 
+# CSVWriter
+CSVWriter_HEADERPATH = ../CSVWriter/include/
+INCLUDEPATH += CSVWriter_HEADERPATH
+HEADERS += $${CSVWriter_HEADERPATH}CSVWriter.h
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -77,7 +82,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-VERSION = 2.4.1
+VERSION = 3.0
 
 RESOURCES += \
     icon.qrc

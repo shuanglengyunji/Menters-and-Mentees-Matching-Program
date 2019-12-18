@@ -121,6 +121,8 @@ private slots:
 
     void on_lineEdit_group_mentor_to_be_group_search_editingFinished();
 
+    void on_pushButton_manage_export_wattle_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -140,7 +142,7 @@ private:
 
     void export_data(QString addr, bool include_match_result);
 
-    void export_wattle_file(QString addr);
+    void export_wattle_file(QString addr, int type);
 
     // ------------------------------------
 

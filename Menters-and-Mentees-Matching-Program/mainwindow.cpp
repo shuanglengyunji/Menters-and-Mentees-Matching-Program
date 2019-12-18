@@ -184,11 +184,11 @@ void MainWindow::on_actionMentees_Grouping_triggered()
 /*
 
 // Drop all the tables
-str = "DROP TABLE IF EXISTS 'match'";
-query.exec(str);
 str = "DROP TABLE IF EXISTS 'mentor'";
 query.exec(str);
 str = "DROP TABLE IF EXISTS 'mentee'";
 query.exec(str);
 
 */
+
+
