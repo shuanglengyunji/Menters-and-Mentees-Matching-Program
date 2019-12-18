@@ -31,6 +31,9 @@ void MainWindow::load_mentors()
     model_mentors->setTable("mentor");
     model_mentors->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_mentors->select();
+    while(model_mentors->canFetchMore()){
+        model_mentors->fetchMore();
+    }
 
     // link mentors QSqlTableModel to QTableView
     ui->tableView_mentors->setModel(model_mentors);

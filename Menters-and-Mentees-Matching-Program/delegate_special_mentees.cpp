@@ -38,7 +38,13 @@ void Delegate_Special_Mentees::paint(QPainter *painter, const QStyleOptionViewIt
 
 QSize Delegate_Special_Mentees::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    int size = index.data().toString().split(",").size();
+    QStringList list = index.data().toString().split(",");
+    int size = list.size();
+    for (int i=0;i<list.size();i++)
+    {
+        if (list.at(i).toInt() == 2 || list.at(i).toInt() == 6)
+            size ++;
+    }
     QSize t = QStyledItemDelegate::sizeHint(option, index);
     t.setWidth(600);
     t.setHeight(size*t.height());

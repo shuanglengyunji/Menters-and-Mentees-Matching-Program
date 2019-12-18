@@ -27,6 +27,9 @@ void MainWindow::load_mentees()
     model_mentees->setTable("mentee");
     model_mentees->setEditStrategy(QSqlTableModel::OnFieldChange);
     model_mentees->select();
+    while(model_mentees->canFetchMore()){
+        model_mentees->fetchMore();
+    }
 
     // link mentees QSqlTableModel to QTableView
     ui->tableView_mentees->setModel(model_mentees);
