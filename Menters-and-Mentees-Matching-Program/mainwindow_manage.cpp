@@ -56,13 +56,24 @@ void MainWindow::on_pushButton_manage_export_match_clicked()
 
 void MainWindow::on_pushButton_manage_export_wattle_clicked()
 {
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle", tr("*.xlsx"));
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle_Label", tr("*.csv"));
     if(addr.isEmpty())
     {
        return;
     }
 
-    export_wattle_file(addr);
+    export_wattle_file(addr,0);     // label
+}
+
+void MainWindow::on_pushButton_manage_export_wattle_2_clicked()
+{
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle_Group_ID", tr("*.csv"));
+    if(addr.isEmpty())
+    {
+       return;
+    }
+
+    export_wattle_file(addr,1);     // group id
 }
 
 // Clear

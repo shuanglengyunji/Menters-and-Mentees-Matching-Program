@@ -1,3 +1,6 @@
 [submodule "QXlsx"]
 	path = QXlsx
 	url = https://github.com/QtExcel/QXlsx.git
+[submodule "CSVWriter"]
+	path = CSVWriter
+	url = https://github.com/al-eax/CSVWriter.git
