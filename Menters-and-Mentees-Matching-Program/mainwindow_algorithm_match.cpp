@@ -129,7 +129,6 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                 continue;
 
             QString mentorsgroup = mentor.record(0).value(0).toString(); // record mentor's group id for update the mentee group id
-            qDebug()<<mentorsgroup;
             QString mentorsround = mentor.record(0).value(6).toString(); // record mentor's details
             QString mentorslevel = mentor.record(0).value(7).toString();
             QString mentorscollege = mentor.record(0).value(8).toString();
@@ -149,7 +148,14 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             }
 
             // loop each mentees and find the closest one
-            mentee.setFilter("group_id=0");
+            // leave request
+            if (request == 1){
+                mentee.setFilter("group_id=0 AND requests=''");
+            }
+            else{
+                mentee.setFilter("group_id=0");
+            }
+
             mentee.select();
             while(mentee.canFetchMore()){
                 mentee.fetchMore();
