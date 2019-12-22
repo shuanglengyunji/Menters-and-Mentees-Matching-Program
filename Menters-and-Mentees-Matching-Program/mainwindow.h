@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QTableView>
 #include <QFileDialog>
+#include <qversionnumber.h>
 
 #include <QSqlDatabase>
 #include <QSqlError>

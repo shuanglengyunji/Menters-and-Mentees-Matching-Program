@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QVersionNumber version(1, 2, 3);
+
     // app apth
     QString tmp_path = qApp->applicationDirPath() + "/tmp";
     QDir().mkdir(tmp_path);  //qDebug() << "tmp Path" << tmp_path;

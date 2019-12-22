@@ -11,45 +11,38 @@ void Delegate_Gender::paint(QPainter *painter, const QStyleOptionViewItem &optio
 {
     painter->save();
 
-    if (index.data().toInt() == 0)
+    if (index.data().toInt() == 0 || index.data().toInt() == 1 || index.data().toInt() == 2 || index.data().toInt() == 3)
     {
         if (option.state & QStyle::State_Selected)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
-            painter->setPen(Qt::white);
+            if (option.state & QStyle::State_Active)
+            {
+                painter->fillRect(option.rect, option.palette.highlight());
+                painter->setPen(option.palette.highlightedText().color());
+            }
+            else
+            {
+                painter->fillRect(option.rect, option.palette.alternateBase());
+                painter->setPen(Qt::black);
+            }
         }
 
-        painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Female");
-    }
-    else if (index.data().toInt() == 1)
-    {
-        if (option.state & QStyle::State_Selected)
+        if (index.data().toInt() == 0)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
-            painter->setPen(Qt::white);
+            painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Female");
         }
-
-        painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Male");
-    }
-    else if (index.data().toInt() == 2)
-    {
-        if (option.state & QStyle::State_Selected)
+        else if (index.data().toInt() == 1)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
-            painter->setPen(Qt::white);
+            painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Male");
         }
-
-        painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Other");
-    }
-    else if (index.data().toInt() == 3)
-    {
-        if (option.state & QStyle::State_Selected)
+        else if (index.data().toInt() == 2)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
-            painter->setPen(Qt::white);
+            painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Other");
         }
-
-        painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Prefer not to say");
+        else if (index.data().toInt() == 3)
+        {
+            painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Prefer not to say");
+        }
     }
     else
     {

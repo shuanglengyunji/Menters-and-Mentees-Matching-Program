@@ -29,7 +29,7 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentors->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_match_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // delegate
@@ -161,6 +161,15 @@ void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
     // Selected Row
     int row = index.row();
     int group_id = model_match_mentors->record(row).value("group_id").toInt();
+
+    ui->tableView_match_mentors->clearSelection();
+    for (int i=0; i < model_match_mentors->rowCount(); i++)
+    {
+        if (model_match_mentors->record(i).value("group_id").toInt()==group_id)
+        {
+            ui->tableView_match_mentors->selectRow(i);
+        }
+    }
 
     // Mentees Matched
     model_match_mentees_matched->setFilter(QString("group_id=%1").arg(group_id));

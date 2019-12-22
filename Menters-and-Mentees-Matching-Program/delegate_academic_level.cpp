@@ -11,26 +11,31 @@ void Delegate_Academic_Level::paint(QPainter *painter, const QStyleOptionViewIte
 {
     painter->save();
 
-    if (index.data().toInt() == 0)
+    if (index.data().toInt() == 0 || index.data().toInt() == 1)
     {
         if (option.state & QStyle::State_Selected)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
-            painter->setPen(Qt::white);
+            if (option.state & QStyle::State_Active)
+            {
+                painter->fillRect(option.rect, option.palette.highlight());
+                painter->setPen(option.palette.highlightedText().color());
+            }
+            else
+            {
+                painter->fillRect(option.rect, option.palette.alternateBase());
+                painter->setPen(Qt::black);
+            }
         }
 
-        painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Undergraduate");
-
-    }
-    else if (index.data().toInt() == 1)
-    {
-        if (option.state & QStyle::State_Selected)
+        if (index.data().toInt() == 0)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
-            painter->setPen(Qt::white);
-        }
+            painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Undergraduate");
 
-        painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Postgraduate");
+        }
+        else if (index.data().toInt() == 1)
+        {
+            painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, "Postgraduate");
+        }
     }
     else
     {

@@ -25,8 +25,16 @@ void Delegate_College::paint(QPainter *painter, const QStyleOptionViewItem &opti
 
     if (option.state & QStyle::State_Selected)
     {
-        painter->fillRect(option.rect, option.palette.highlight());
-        painter->setPen(Qt::white);
+        if (option.state & QStyle::State_Active)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+            painter->setPen(option.palette.highlightedText().color());
+        }
+        else
+        {
+            painter->fillRect(option.rect, option.palette.alternateBase());
+            painter->setPen(Qt::black);
+        }
     }
 
     painter->drawText(option.rect, Qt::AlignLeft|Qt::AlignVCenter, list.join("\n"));
