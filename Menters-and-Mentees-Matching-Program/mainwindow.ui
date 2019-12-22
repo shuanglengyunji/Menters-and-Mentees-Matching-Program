@@ -42,122 +42,86 @@
          <number>0</number>
         </property>
         <widget class="QWidget" name="page_manage">
-         <widget class="QPushButton" name="pushButton_manage_import">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>10</y>
-            <width>181</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Mentors and Mentees</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_2">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>40</y>
-            <width>36</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Export:</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_export">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>40</y>
-            <width>181</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Mentors and Mentees</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_export_match">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>40</y>
-            <width>181</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Mentors, Mentees and Grouping</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_export_wattle">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>70</y>
-            <width>181</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Export Wattle - Label</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label">
+         <widget class="QWidget" name="gridLayoutWidget">
           <property name="geometry">
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>36</width>
-            <height>16</height>
+            <width>432</width>
+            <height>205</height>
            </rect>
           </property>
-          <property name="text">
-           <string>Import:</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_import_match">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>10</y>
-            <width>181</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Mentors, Mentees and Grouping</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_clear">
-          <property name="geometry">
-           <rect>
-            <x>440</x>
-            <y>10</y>
-            <width>75</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Clear All</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_manage_export_wattle_2">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>70</y>
-            <width>181</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Export Wattle - Group ID</string>
-          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButton_manage_import_match">
+             <property name="text">
+              <string>Mentors, Mentees and Grouping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export_wattle">
+             <property name="text">
+              <string>Export Wattle - Label</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButton_manage_import">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Mentors and Mentees</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export_match">
+             <property name="text">
+              <string>Mentors, Mentees and Grouping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export_wattle_2">
+             <property name="text">
+              <string>Export Wattle - Group ID</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="pushButton_manage_clear">
+             <property name="text">
+              <string>Clear All</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export">
+             <property name="text">
+              <string>Mentors and Mentees</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Import:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Export:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
         <widget class="QWidget" name="page_mentors">
@@ -1443,7 +1407,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">

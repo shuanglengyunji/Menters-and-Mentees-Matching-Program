@@ -206,7 +206,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             train_3 = "n";
 
         QString train_complete = "n";
-        if (train_1=="y" && train_1=="y" && train_1=="y")
+        if (train_1=="y" && train_2=="y" && train_3=="y")
             train_complete = "y";
 
         // create sql
