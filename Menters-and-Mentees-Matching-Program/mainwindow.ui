@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QWidget" name="gridLayoutWidget">
@@ -987,435 +987,543 @@
         </widget>
         <widget class="QWidget" name="page_matching">
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="1">
-           <layout class="QGridLayout" name="gridLayout_match_mentees">
+          <item row="1" column="1">
+           <layout class="QGridLayout" name="gridLayout_8">
             <item row="0" column="0">
-             <widget class="QTableView" name="tableView_match_mentees_matched">
-              <property name="sortingEnabled">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <layout class="QGridLayout" name="gridLayout_match_mentees_search">
-              <item row="0" column="0">
-               <widget class="QLineEdit" name="lineEdit_match_search_mentees"/>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_match_search_mentees">
-                <property name="text">
-                 <string>Search</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_match_mentees_manual">
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_Up">
-                <property name="text">
-                 <string>↑</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QPushButton" name="pushButton_Down">
-                <property name="text">
-                 <string>↓</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="0">
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item row="3" column="0">
-             <widget class="QTableView" name="tableView_match_mentees_to_be_match">
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_match_mentors">
-            <item row="0" column="0">
-             <widget class="QTableView" name="tableView_match_mentors">
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_match_mentors_search">
+             <layout class="QGridLayout" name="gridLayout_match_mentors">
               <item row="1" column="0">
-               <widget class="QLineEdit" name="lineEdit_match_search_mentors"/>
+               <layout class="QGridLayout" name="gridLayout_match_mentors_search">
+                <item row="1" column="0">
+                 <widget class="QLineEdit" name="lineEdit_match_search_mentors"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="pushButton_match_search_mentors">
+                  <property name="text">
+                   <string>Search</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
-              <item row="1" column="1">
-               <widget class="QPushButton" name="pushButton_match_search_mentors">
-                <property name="text">
-                 <string>Search</string>
+              <item row="0" column="0">
+               <widget class="QTableView" name="tableView_match_mentors">
+                <property name="sortingEnabled">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
              </layout>
             </item>
+            <item row="0" column="1">
+             <layout class="QGridLayout" name="gridLayout_match_mentees">
+              <item row="3" column="0">
+               <widget class="QTableView" name="tableView_match_mentees_to_be_match">
+                <property name="sortingEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <layout class="QGridLayout" name="gridLayout_match_mentees_search">
+                <item row="0" column="0">
+                 <widget class="QLineEdit" name="lineEdit_match_search_mentees"/>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="pushButton_match_search_mentees">
+                  <property name="text">
+                   <string>Search</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <layout class="QGridLayout" name="gridLayout_match_mentees_manual">
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="pushButton_Up">
+                  <property name="text">
+                   <string>↑</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QPushButton" name="pushButton_Down">
+                  <property name="text">
+                   <string>↓</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4">
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="0">
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <widget class="QTableView" name="tableView_match_mentees_matched">
+                <property name="sortingEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="2">
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QLabel" name="label_round">
+                <property name="text">
+                 <string>Round:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_round">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Must Be Same</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_academic_level">
+                <property name="text">
+                 <string>Academic Level:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_academic_level">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Must Be Same</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_college">
+                <property name="text">
+                 <string>College:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_college">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Must Be Same</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_type">
+                <property name="text">
+                 <string>Dom/Int</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_type">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Must Be Same</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_gender">
+                <property name="text">
+                 <string>Gender:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_gender">
+                <property name="accessibleName">
+                 <string/>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Must Be Same</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_language">
+                <property name="text">
+                 <string>Language:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_language">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_special">
+                <property name="text">
+                 <string>Special:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_special">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>High Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Medium Priority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Low Priority</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_request">
+                <property name="text">
+                 <string>Request:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_request">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Manual Match</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_mentees_num">
+                <property name="text">
+                 <string>Max Mentees Num:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_mentees_num">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>20</number>
+                </property>
+                <property name="value">
+                 <number>5</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_1">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_Auto">
+                <property name="text">
+                 <string>AUTO</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_Clear">
+                <property name="text">
+                 <string>Clear</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
            </layout>
           </item>
-          <item row="0" column="2">
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QLabel" name="label_round">
+          <item row="0" column="1">
+           <layout class="QGridLayout" name="gridLayout_11">
+            <item row="0" column="2">
+             <widget class="QCheckBox" name="checkBox_match_academic_info">
               <property name="text">
-               <string>Round:</string>
+               <string>Academic Info</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_round">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_academic_level">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_match_mentees">
               <property name="text">
-               <string>Academic Level:</string>
+               <string>Mentees Matching:</string>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_academic_level">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_college">
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="checkBox_match_round">
               <property name="text">
-               <string>College:</string>
+               <string>Round</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_college">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
+            <item row="0" column="4">
+             <widget class="QCheckBox" name="checkBox_match_gender">
+              <property name="text">
+               <string>Gender</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
-            <item>
-             <widget class="QLabel" name="label_type">
+            <item row="0" column="5">
+             <widget class="QCheckBox" name="checkBox_match_language">
+              <property name="text">
+               <string>Language</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QCheckBox" name="checkBox_match_type">
               <property name="text">
                <string>Dom/Int</string>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_type">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_gender">
-              <property name="text">
-               <string>Gender:</string>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_gender">
-              <property name="accessibleName">
-               <string/>
-              </property>
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Must Be Same</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_language">
-              <property name="text">
-               <string>Language:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_language">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_special">
-              <property name="text">
-               <string>Special:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_special">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>High Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Medium Priority</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Low Priority</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_request">
-              <property name="text">
-               <string>Request:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_request">
-              <item>
-               <property name="text">
-                <string>Leave Out</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Manual Match</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_2">
+            <item row="0" column="9">
+             <spacer name="horizontalSpacer_match">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_mentees_num">
-              <property name="text">
-               <string>Max Mentees Num:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinBox_mentees_num">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>20</number>
-              </property>
-              <property name="value">
-               <number>5</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_1">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_Auto">
-              <property name="text">
-               <string>AUTO</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_Clear">
-              <property name="text">
-               <string>Clear</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>20</width>
-                <height>40</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
              </spacer>
+            </item>
+            <item row="0" column="7">
+             <widget class="QCheckBox" name="checkBox_match_special">
+              <property name="text">
+               <string>Special</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="6">
+             <widget class="QCheckBox" name="checkBox_match_hall">
+              <property name="text">
+               <string>Hall</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="8">
+             <widget class="QCheckBox" name="checkBox_match_interests">
+              <property name="text">
+               <string>Interests / Requests</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -1469,7 +1577,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Mentees Grouping</string>
+    <string>Mentees Matching</string>
    </property>
   </action>
   <action name="actionMentors_Grouping">

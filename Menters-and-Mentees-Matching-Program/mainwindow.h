@@ -74,6 +74,10 @@ private slots:
 
     void on_pushButton_mentor_clear_clicked();
 
+    void on_lineEdit_group_mentor_grouped_search_editingFinished();
+
+    void on_lineEdit_group_mentor_to_be_group_search_editingFinished();
+
     void display_group_column();
 
     // Matching
@@ -92,6 +96,8 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
+    void display_match_column();
+
     // Manage
 
     void on_pushButton_manage_import_clicked();
@@ -103,6 +109,8 @@ private slots:
     void on_pushButton_manage_export_match_clicked();
 
     void on_pushButton_manage_export_wattle_clicked();
+
+    void on_pushButton_manage_export_wattle_2_clicked();
 
     void on_pushButton_manage_clear_clicked();
 
@@ -117,12 +125,6 @@ private slots:
     void on_actionMentees_Grouping_triggered();
 
     void on_actionMentors_Grouping_triggered();
-
-    void on_lineEdit_group_mentor_grouped_search_editingFinished();
-
-    void on_lineEdit_group_mentor_to_be_group_search_editingFinished();
-
-    void on_pushButton_manage_export_wattle_2_clicked();
 
 private:
     Ui::MainWindow *ui;
