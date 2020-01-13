@@ -7,7 +7,6 @@
 
 void MainWindow::on_pushButton_manage_import_clicked()
 {
-
     QString addr = QFileDialog::getOpenFileName(this,tr("Import Data"),"",tr("Data file (*.xlsx)"));   // qDebug() << file_path;
     if(addr.isEmpty())
     {
