@@ -205,21 +205,41 @@ void MainWindow::import_data(QString addr,bool include_match_result)
 
         QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
 
-        QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString();
-        if (train_1 != "y")
+        QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString().toLower();
+        if (train_1 == "y" || train_1 == "yes" )
+        {
+            train_1 = "y";
+        }
+        else
+        {
             train_1 = "n";
+        }
 
-        QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString();
-        if (train_2 != "y")
+        QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString().toLower();
+        if (train_2 == "y" || train_2 == "yes" )
+        {
+            train_2 = "y";
+        }
+        else
+        {
             train_2 = "n";
+        }
 
-        QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString();
-        if (train_3 != "y")
+        QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString().toLower();
+        if (train_3 == "y" || train_3 == "yes" )
+        {
+            train_3 = "y";
+        }
+        else
+        {
             train_3 = "n";
+        }
 
         QString train_complete = "n";
         if (train_1=="y" && train_2=="y" && train_3=="y")
+        {
             train_complete = "y";
+        }
 
         // create sql
 
