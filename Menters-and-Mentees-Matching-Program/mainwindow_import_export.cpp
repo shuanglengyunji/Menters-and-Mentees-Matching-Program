@@ -47,6 +47,18 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     // [3] Import Mentors Sheet
     xlsxR.selectSheet("Mentors");
     int mentors_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
+    int mentors_max_col = xlsxR.dimension().lastColumn();
+
+    for (int row = 2;row <= mentors_max; row = row + 1)
+    {
+        for (int col = 1; col <= mentors_max_col; col = col + 1)
+        {
+            if ( (int)xlsxR.cellAt(row, col) == 0)
+            {
+                xlsxR.write(row,col,QVariant(""));
+            }
+        }
+    }
 
     for (int row = 2;row <= mentors_max; row = row + 1)
     {
@@ -251,6 +263,18 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     // [4] Import Mentees Sheet
     xlsxR.selectSheet("Mentees");
     int mentees_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
+    int mentees_max_col = xlsxR.dimension().lastColumn();
+
+    for (int row = 2;row <= mentees_max; row = row + 1)
+    {
+        for (int col = 1; col <= mentees_max_col; col = col + 1)
+        {
+            if ( (int)xlsxR.cellAt(row, col) == 0)
+            {
+                xlsxR.write(row,col,QVariant(""));
+            }
+        }
+    }
 
     for (int row = 2;row <= mentees_max; row = row + 1)
     {
