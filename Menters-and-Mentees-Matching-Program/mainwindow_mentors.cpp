@@ -42,21 +42,7 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
-    ui->tableView_mentors->hideColumn(0);
-
-    // delegate
-    ui->tableView_mentors->setItemDelegateForColumn(1,delegate_yes_no);
-    ui->tableView_mentors->setItemDelegateForColumn(17,delegate_yes_no);
-    ui->tableView_mentors->setItemDelegateForColumn(18,delegate_yes_no);
-    ui->tableView_mentors->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_mentors->setItemDelegateForColumn(20,delegate_yes_no_disp);
-    ui->tableView_mentors->setItemDelegateForColumn(6,delegate_round);
-    ui->tableView_mentors->setItemDelegateForColumn(7,delegate_academic_level);
-    ui->tableView_mentors->setItemDelegateForColumn(10,delegate_type);
-    ui->tableView_mentors->setItemDelegateForColumn(11,delegate_gender);
-    ui->tableView_mentors->setItemDelegateForColumn(12,delegate_language);
-    ui->tableView_mentors->setItemDelegateForColumn(8,delegate_college);
-    ui->tableView_mentors->setItemDelegateForColumn(15,delegate_special_mentors);
+    //ui->tableView_mentors->hideColumn(0);
 
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
@@ -78,7 +64,7 @@ void MainWindow::load_mentors()
     connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
     connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
 
-    connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
+    // connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
 }
 
 // search

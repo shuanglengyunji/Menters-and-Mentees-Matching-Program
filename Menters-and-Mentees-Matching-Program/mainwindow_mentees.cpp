@@ -38,22 +38,10 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
-    ui->tableView_mentees->hideColumn(0);
+    //ui->tableView_mentees->hideColumn(0);
 
-    // delegate
-    ui->tableView_mentees->setItemDelegateForColumn(4,delegate_round);
-    ui->tableView_mentees->setItemDelegateForColumn(5,delegate_academic_level);
-    ui->tableView_mentees->setItemDelegateForColumn(8,delegate_type);
-    ui->tableView_mentees->setItemDelegateForColumn(9,delegate_gender);
-    ui->tableView_mentees->setItemDelegateForColumn(10,delegate_language);
-    ui->tableView_mentees->setItemDelegateForColumn(6,delegate_college);
-    ui->tableView_mentees->setItemDelegateForColumn(12,delegate_special_mentees);
-
-    ui->tableView_mentees->resizeColumnsToContents();
-    ui->tableView_mentees->resizeRowsToContents();
-
-    //connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_mentees,&QTableView::resizeRowsToContents);
+    ui->tableView_mentors->resizeColumnsToContents();
+    ui->tableView_mentors->resizeRowsToContents();
 
     // connect
     connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);

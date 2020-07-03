@@ -17,16 +17,6 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
-#include <delegate_yes_no.h>
-#include <delegate_round.h>
-#include <delegate_academic_level.h>
-#include <delegate_type.h>
-#include <delegate_gender.h>
-#include <delegate_language.h>
-#include <delegate_college.h>
-#include <delegate_special_mentors.h>
-#include <delegate_special_mentees.h>
-#include <delegate_yes_no_disp.h>
 
 #include <my_qsqltablemodel_grouping.h>
 
@@ -190,16 +180,7 @@ private:
 
     // Delegrate
 
-    Delegate_Yes_No * delegate_yes_no = nullptr;
-    Delegate_Yes_No_Disp * delegate_yes_no_disp = nullptr;
-    Delegate_Round * delegate_round = nullptr;
-    Delegate_Academic_Level * delegate_academic_level = nullptr;
-    Delegate_Type * delegate_type = nullptr;
-    Delegate_Gender * delegate_gender = nullptr;
-    Delegate_Language * delegate_language = nullptr;
-    Delegate_College * delegate_college = nullptr;
-    Delegate_Special_Mentors * delegate_special_mentors = nullptr;
-    Delegate_Special_Mentees * delegate_special_mentees = nullptr;
+
 };
 
 #endif // MAINWINDOW_H
