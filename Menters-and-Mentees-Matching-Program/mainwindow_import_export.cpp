@@ -63,7 +63,6 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     for (int row = 2;row <= mentors_max; row = row + 1)
     {
         // read data
-
         QString group_id = "0";
 
         QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
