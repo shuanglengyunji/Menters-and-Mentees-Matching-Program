@@ -42,20 +42,19 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-
     // resize row height according to column width
     ui->tableView_match_mentors->resizeColumnsToContents();
     ui->tableView_match_mentors->resizeRowsToContents();
     //connect(ui->tableView_match_mentors->horizontalHeader(),&QHeaderView::sectionResized,
     //        ui->tableView_match_mentors,&QTableView::resizeRowsToContents);
 
-    ui->tableView_match_mentors->hideColumn(0);
-    ui->tableView_match_mentors->hideColumn(1);
-    ui->tableView_match_mentors->hideColumn(5);
-    ui->tableView_match_mentors->hideColumn(17);
-    ui->tableView_match_mentors->hideColumn(18);
-    ui->tableView_match_mentors->hideColumn(19);
-    ui->tableView_match_mentors->hideColumn(20);
+//    ui->tableView_match_mentors->hideColumn(0);
+//    ui->tableView_match_mentors->hideColumn(1);
+//    ui->tableView_match_mentors->hideColumn(5);
+//    ui->tableView_match_mentors->hideColumn(17);
+//    ui->tableView_match_mentors->hideColumn(18);
+//    ui->tableView_match_mentors->hideColumn(19);
+//    ui->tableView_match_mentors->hideColumn(20);
 
     // -----------------------------------------------------------------------------------
     // [2] matched mentees
@@ -89,7 +88,7 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    ui->tableView_match_mentees_matched->hideColumn(0);
+    //ui->tableView_match_mentees_matched->hideColumn(0);
 
     // resize row height according to column width
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
@@ -128,7 +127,7 @@ void MainWindow::load_match_mentees()
     //ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    ui->tableView_match_mentees_to_be_match->hideColumn(0);
+    //ui->tableView_match_mentees_to_be_match->hideColumn(0);
 
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();

@@ -38,14 +38,11 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
-    ui->tableView_mentees->hideColumn(0);
 
+    //ui->tableView_mentees->hideColumn(0);
 
-    ui->tableView_mentees->resizeColumnsToContents();
-    ui->tableView_mentees->resizeRowsToContents();
-
-    //connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_mentees,&QTableView::resizeRowsToContents);
+    ui->tableView_mentors->resizeColumnsToContents();
+    ui->tableView_mentors->resizeRowsToContents();
 
     // connect
     connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);

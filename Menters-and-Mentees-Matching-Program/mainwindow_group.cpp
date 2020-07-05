@@ -49,13 +49,13 @@ void MainWindow::load_group_mentors()
     //        ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
     // hide columns
-    ui->tableView_group_mentor_to_be_group->hideColumn(0);
-    ui->tableView_group_mentor_to_be_group->hideColumn(1);
-    ui->tableView_group_mentor_to_be_group->hideColumn(5);
-    ui->tableView_group_mentor_to_be_group->hideColumn(17);
-    ui->tableView_group_mentor_to_be_group->hideColumn(18);
-    ui->tableView_group_mentor_to_be_group->hideColumn(19);
-    ui->tableView_group_mentor_to_be_group->hideColumn(20);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(0);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(1);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(5);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(17);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(18);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(19);
+//    ui->tableView_group_mentor_to_be_group->hideColumn(20);
 
     //--------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------
@@ -89,7 +89,6 @@ void MainWindow::load_group_mentors()
     //ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-
     // resize row height according to column width
     ui->tableView_group_mentor_grouped->resizeColumnsToContents();
     ui->tableView_group_mentor_grouped->resizeRowsToContents();
@@ -97,13 +96,13 @@ void MainWindow::load_group_mentors()
     //        ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
     // hide columns
-    ui->tableView_group_mentor_grouped->hideColumn(0);
-    ui->tableView_group_mentor_grouped->hideColumn(1);
-    ui->tableView_group_mentor_grouped->hideColumn(5);
-    ui->tableView_group_mentor_grouped->hideColumn(17);
-    ui->tableView_group_mentor_grouped->hideColumn(18);
-    ui->tableView_group_mentor_grouped->hideColumn(19);
-    ui->tableView_group_mentor_grouped->hideColumn(20);
+//    ui->tableView_group_mentor_grouped->hideColumn(0);
+//    ui->tableView_group_mentor_grouped->hideColumn(1);
+//    ui->tableView_group_mentor_grouped->hideColumn(5);
+//    ui->tableView_group_mentor_grouped->hideColumn(17);
+//    ui->tableView_group_mentor_grouped->hideColumn(18);
+//    ui->tableView_group_mentor_grouped->hideColumn(19);
+//    ui->tableView_group_mentor_grouped->hideColumn(20);
 
     /*
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -167,7 +166,7 @@ void MainWindow::on_toolButton_left_clicked()
     QItemSelectionModel * selections_grouped = ui->tableView_group_mentor_grouped->selectionModel();
     QModelIndexList selected_grouped = selections_grouped->selectedRows();
 
-    int group_id = -1;
+    int group_id ;//why -1 not 0
     if ( selected_grouped.isEmpty() )
     {
         QSqlQueryModel querymodel;

@@ -42,8 +42,7 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
-    ui->tableView_mentors->hideColumn(0);
-
+    //ui->tableView_mentors->hideColumn(0);
 
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
@@ -254,33 +253,36 @@ void MainWindow::edit_finished()
 
     for(int i=0; i<model_mentors->rowCount(); i++)
     {
-        QString train_1 = model_mentors->index(i,17).data().toString();
-        QString train_2 = model_mentors->index(i,18).data().toString();
-        QString train_3 = model_mentors->index(i,19).data().toString();
+        QString train_1 = model_mentors->index(i,18).data().toString();
+        QString train_2 = model_mentors->index(i,19).data().toString();
+        QString train_3 = model_mentors->index(i,20).data().toString();
 
         if(train_1 != "y")
         {
-            model_mentors->setData(model_mentors->index(i,10),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
         }
 
         if(train_2 != "y")
         {
-            model_mentors->setData(model_mentors->index(i,11),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
         }
 
         if(train_3 != "y")
         {
-            model_mentors->setData(model_mentors->index(i,12),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
         }
 
         if(train_1 == "y" && train_2 == "y" && train_3 == "y")
         {
-            model_mentors->setData(model_mentors->index(i,20),"y");
+            model_mentors->setData(model_mentors->index(i,21),"y");
+            qDebug() << "Yes";
         }
         else
         {
-            model_mentors->setData(model_mentors->index(i,20),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
+            qDebug() << "No";
         }
+
     }
 
 }
