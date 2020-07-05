@@ -27,16 +27,6 @@ Release:DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 CONFIG += c++11
 
 SOURCES += \
-        delegate_academic_level.cpp \
-        delegate_college.cpp \
-        delegate_gender.cpp \
-        delegate_language.cpp \
-        delegate_round.cpp \
-        delegate_special_mentees.cpp \
-        delegate_special_mentors.cpp \
-        delegate_type.cpp \
-        delegate_yes_no.cpp \
-        delegate_yes_no_disp.cpp \
         main.cpp \
         mainwindow.cpp \
         mainwindow_algorithm_group.cpp \
@@ -50,16 +40,6 @@ SOURCES += \
         my_qsqltablemodel_grouping.cpp
 
 HEADERS += \
-        delegate_academic_level.h \
-        delegate_college.h \
-        delegate_gender.h \
-        delegate_language.h \
-        delegate_round.h \
-        delegate_special_mentees.h \
-        delegate_special_mentors.h \
-        delegate_type.h \
-        delegate_yes_no.h \
-        delegate_yes_no_disp.h \
         mainwindow.h \
         my_qsqltablemodel_grouping.h
 
@@ -84,7 +64,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-VERSION = 3.3
+VERSION = 4.0
 
 RESOURCES += \
     icon.qrc
