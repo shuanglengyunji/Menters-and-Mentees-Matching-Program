@@ -42,19 +42,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // delegate
-    ui->tableView_match_mentors->setItemDelegateForColumn(1,delegate_yes_no);
-    ui->tableView_match_mentors->setItemDelegateForColumn(17,delegate_yes_no);
-    ui->tableView_match_mentors->setItemDelegateForColumn(18,delegate_yes_no);
-    ui->tableView_match_mentors->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_match_mentors->setItemDelegateForColumn(20,delegate_yes_no);
-    ui->tableView_match_mentors->setItemDelegateForColumn(6,delegate_round);
-    ui->tableView_match_mentors->setItemDelegateForColumn(7,delegate_academic_level);
-    ui->tableView_match_mentors->setItemDelegateForColumn(10,delegate_type);
-    ui->tableView_match_mentors->setItemDelegateForColumn(11,delegate_gender);
-    ui->tableView_match_mentors->setItemDelegateForColumn(12,delegate_language);
-    ui->tableView_match_mentors->setItemDelegateForColumn(8,delegate_college);
-    ui->tableView_match_mentors->setItemDelegateForColumn(15,delegate_special_mentors);
 
     // resize row height according to column width
     ui->tableView_match_mentors->resizeColumnsToContents();
@@ -101,13 +88,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(4,delegate_round);
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(5,delegate_academic_level);
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(8,delegate_type);
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(9,delegate_gender);
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(10,delegate_language);
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(6,delegate_college);
-    ui->tableView_match_mentees_matched->setItemDelegateForColumn(12,delegate_special_mentees);
 
     ui->tableView_match_mentees_matched->hideColumn(0);
 
@@ -147,14 +127,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_to_be_match->setSelectionMode(QAbstractItemView::MultiSelection);
     //ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // delegate
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(4,delegate_round);
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(5,delegate_academic_level);
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(8,delegate_type);
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(9,delegate_gender);
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(10,delegate_language);
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(6,delegate_college);
-    ui->tableView_match_mentees_to_be_match->setItemDelegateForColumn(12,delegate_special_mentees);
 
     ui->tableView_match_mentees_to_be_match->hideColumn(0);
 

@@ -40,14 +40,6 @@ void MainWindow::load_mentees()
     // hide group id
     ui->tableView_mentees->hideColumn(0);
 
-    // delegate
-    ui->tableView_mentees->setItemDelegateForColumn(4,delegate_round);
-    ui->tableView_mentees->setItemDelegateForColumn(5,delegate_academic_level);
-    ui->tableView_mentees->setItemDelegateForColumn(8,delegate_type);
-    ui->tableView_mentees->setItemDelegateForColumn(9,delegate_gender);
-    ui->tableView_mentees->setItemDelegateForColumn(10,delegate_language);
-    ui->tableView_mentees->setItemDelegateForColumn(6,delegate_college);
-    ui->tableView_mentees->setItemDelegateForColumn(12,delegate_special_mentees);
 
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();

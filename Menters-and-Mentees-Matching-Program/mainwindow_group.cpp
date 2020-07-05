@@ -41,19 +41,6 @@ void MainWindow::load_group_mentors()
     //ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_to_be_group->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // delegate
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(1,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(17,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(18,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(20,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(6,delegate_round);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(7,delegate_academic_level);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(10,delegate_type);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(11,delegate_gender);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(12,delegate_language);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(8,delegate_college);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(15,delegate_special_mentors);
 
     // resize row height according to column width
     ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
@@ -102,19 +89,6 @@ void MainWindow::load_group_mentors()
     //ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // delegate
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(1,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(17,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(18,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(20,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(6,delegate_round);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(7,delegate_academic_level);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(10,delegate_type);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(11,delegate_gender);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(12,delegate_language);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(8,delegate_college);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(15,delegate_special_mentors);
 
     // resize row height according to column width
     ui->tableView_group_mentor_grouped->resizeColumnsToContents();

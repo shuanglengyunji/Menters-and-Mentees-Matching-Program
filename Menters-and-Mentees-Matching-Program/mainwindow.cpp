@@ -24,17 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
-    // delegate
-    delegate_yes_no = new Delegate_Yes_No(this);
-    delegate_yes_no_disp = new Delegate_Yes_No_Disp(this);
-    delegate_round = new Delegate_Round(this);
-    delegate_academic_level = new Delegate_Academic_Level(this);
-    delegate_type = new Delegate_Type(this);
-    delegate_gender = new Delegate_Gender(this);
-    delegate_language = new Delegate_Language(this);
-    delegate_college = new Delegate_College(this);
-    delegate_special_mentors = new Delegate_Special_Mentors(this);
-    delegate_special_mentees = new Delegate_Special_Mentees(this);
+
 }
 
 MainWindow::~MainWindow()
