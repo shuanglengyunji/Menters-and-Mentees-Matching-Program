@@ -17,3 +17,13 @@ This program is created on Qt 5.12.3 platform and SQLite 3 database.
 | -------------  |:-------------:|
 | Henry (Han) Liu| <Han.Liu1@anu.edu.au> |
 | Suikei Wong    | <suikei.wong@anu.edu.au>      |
+
+
+## Version >= 4.0
+
+| Author         | Email         |
+| -------------  |:-------------:|
+| Henry (Han) Liu| <Han.Liu1@anu.edu.au> |
+| Suikei Wong    | <suikei.wong@anu.edu.au>      |
+| Zhiyuan Li     | <zhiyuan.li@anu.edu.au>       |
+| Zhiyuan Li     | <zhiyuan.li1@anu.edu.au>      |
