@@ -615,22 +615,23 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     xlsxW.write("B1","First Name");
     xlsxW.write("C1","Last Name");
     xlsxW.write("D1","Uni ID");
-    xlsxW.write("E1","WWVP");
-    xlsxW.write("F1","O-Week");
-    xlsxW.write("G1","UG/PG");
-    xlsxW.write("H1","Academic College");
-    xlsxW.write("I1","Degree");
-    xlsxW.write("J1","Dom/Int");
-    xlsxW.write("K1","Gender");
-    xlsxW.write("L1","Languages");
-    xlsxW.write("M1","Language - Text");
-    xlsxW.write("N1","Residential Hall");
-    xlsxW.write("O1","Special Categories");
+    xlsxW.write("E1","Phone");
+    xlsxW.write("F1","WWVP");
+    xlsxW.write("G1","Round");
+    xlsxW.write("H1","UG/PG");
+    xlsxW.write("I1","Academic College");
+    xlsxW.write("J1","Degree");
+    xlsxW.write("K1","Dom/Int");
+    xlsxW.write("L1","Gender");
+    xlsxW.write("M1","Languages");
+    xlsxW.write("N1","Language - Text");
+    xlsxW.write("O1","Residential Hall");
     xlsxW.write("P1","Interests");
-    xlsxW.write("Q1","Training 1");
-    xlsxW.write("R1","Training 2");
-    xlsxW.write("S1","Training 3");
-    xlsxW.write("T1","Training Complete");
+    xlsxW.write("Q1","Requests");
+    xlsxW.write("R1","Training 1");
+    xlsxW.write("S1","Training 2");
+    xlsxW.write("T1","Training 3");
+    xlsxW.write("U1","Training Complete");
 
     // Mentees
     xlsxW.addSheet("Mentees");
@@ -638,16 +639,18 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     xlsxW.write("A1","First Name");
     xlsxW.write("B1","Last Name");
     xlsxW.write("C1","Uni ID");
-    xlsxW.write("D1","Round");
-    xlsxW.write("E1","UG/PG");
-    xlsxW.write("F1","Academic College");
-    xlsxW.write("G1","u18");
-    xlsxW.write("H1","Dom/Int");
-    xlsxW.write("I1","Gender");
-    xlsxW.write("J1","Languages");
-    xlsxW.write("K1","Language - Text");
-    xlsxW.write("L1","Special Categories");
-    xlsxW.write("M1","Requests");
+    xlsxW.write("D1","Alternate email");
+    xlsxW.write("E1","Round");
+    xlsxW.write("F1","UG/PG");
+    xlsxW.write("G1","Academic College");
+    xlsxW.write("H1","u18");
+    xlsxW.write("I1","Dom/Int");
+    xlsxW.write("J1","Gender");
+    xlsxW.write("K1","Languages");
+    xlsxW.write("L1","Language - Text");
+    xlsxW.write("M1","Interests");
+    xlsxW.write("N1","Requests");
+    xlsxW.write("O1","Importance");
 
     // [3] Fill data into xlsx file
 
@@ -681,8 +684,9 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         xlsxW.write("B"+QVariant(row+2).toString(),r.value(2));     // First Name
         xlsxW.write("C"+QVariant(row+2).toString(),r.value(3));     // Last Name
         xlsxW.write("D"+QVariant(row+2).toString(),r.value(4));     // Uni ID
+        xlsxW.write("E"+QVariant(row+2).toString(),r.value(5));     // Phone
 
-        if (r.value(5) == "y")
+        if (r.value(6) == "y")
         {
             tmp = "Yes";
         }
@@ -690,21 +694,21 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "No";
         }
-        xlsxW.write("E"+QVariant(row+2).toString(),tmp);     // WWVP
+        xlsxW.write("F"+QVariant(row+2).toString(),tmp);     // WWVP
 
-        // O-Week
-        if (r.value(6) == "0")
+        // Round
+        if (r.value(7) == "0")
         {
-            tmp = QVariant("Yes - I will be here");
+            tmp = QVariant("Round 1");
         }
         else
         {
-            tmp = QVariant("No - I won't be here during that time");
+            tmp = QVariant("Round 2");
         }
-        xlsxW.write("F"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("G"+QVariant(row+2).toString(),tmp);
 
         // UG/PG
-        if (r.value(7) == "0")
+        if (r.value(8) == "0")
         {
             tmp = "Undergraduate";
         }
@@ -712,10 +716,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "Postgraduate (coursework)";
         }
-        xlsxW.write("G"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("H"+QVariant(row+2).toString(),tmp);
 
         // Academic College
-        tmp_str = r.value(8).toString().simplified();
+        tmp_str = r.value(9).toString().simplified();
         tmp_str.replace("0","College of Asia and the Pacific");
         tmp_str.replace("1","College of Arts and Social Sciences");
         tmp_str.replace("2","College of Business and Economics");
@@ -723,12 +727,12 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         tmp_str.replace("4","ANU College of Law");
         tmp_str.replace("5","College of Science");
         tmp_str.replace("6","College of Health and Medicine");
-        xlsxW.write("H"+QVariant(row+2).toString(),QVariant(tmp_str));
+        xlsxW.write("I"+QVariant(row+2).toString(),QVariant(tmp_str));
 
-        xlsxW.write("I"+QVariant(row+2).toString(),r.value(9));     // Degree
+        xlsxW.write("J"+QVariant(row+2).toString(),r.value(10));     // Degree
 
         // Dom/Int
-        if (r.value(10) == "0")
+        if (r.value(11) == "0")
         {
             tmp = "Domestic";
         }
@@ -736,22 +740,22 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "International";
         }
-        xlsxW.write("J"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("K"+QVariant(row+2).toString(),tmp);
 
         // Gender
-        if (r.value(11) == "0")
+        if (r.value(12) == "0")
         {
             tmp = "Female";
         }
-        else if (r.value(11) == "1")
+        else if (r.value(12) == "1")
         {
             tmp = "Male";
         }
-        else if (r.value(11) == "2")
+        else if (r.value(12) == "2")
         {
             tmp = "Other";
         }
-        else if (r.value(11) == "3")
+        else if (r.value(12) == "3")
         {
             tmp = "Prefer not to say";
         }
@@ -759,10 +763,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "Prefer not to say";
         }
-        xlsxW.write("K"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("L"+QVariant(row+2).toString(),tmp);
 
         // Languages
-        tmp_str = r.value(12).toString().simplified();
+        tmp_str = r.value(13).toString().simplified();
         tmp_str.replace("0","Hindi");
         tmp_str.replace("1","Vietnamese");
         tmp_str.replace("2","German");
@@ -774,30 +778,33 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         tmp_str.replace("8","Indonesian");
         tmp_str.replace("9","Japanese");
         tmp_str.replace("10","Urdu");
-        xlsxW.write("L"+QVariant(row+2).toString(),QVariant(tmp_str));
+        xlsxW.write("M"+QVariant(row+2).toString(),QVariant(tmp_str));
 
-        xlsxW.write("M"+QVariant(row+2).toString(),r.value(13));    // Languages - Text
-        xlsxW.write("N"+QVariant(row+2).toString(),r.value(14));    // Residential Hall
+        xlsxW.write("N"+QVariant(row+2).toString(),r.value(14));    // Languages - Text
+        xlsxW.write("O"+QVariant(row+2).toString(),r.value(15));    // Residential Hall
 
-        tmp_str = r.value(15).toString().simplified();
-        tmp_str.replace("0","An international student wanting to learn about Australian culture");
-        tmp_str.replace("1","An exchange student (rather than a student new to university)");
-        tmp_str.replace("2","Being a mature age student (greater than three years between school/uni or degrees)");
-        tmp_str.replace("3","A mentee who lives with disability or mental illness");
-        tmp_str.replace("4","A mentee who works more than 20hrs/wk while studying");
-        tmp_str.replace("5","A mentee who identifies as LGBTIQ+");
-        tmp_str.replace("6","A mentee who is the parent, guardian, or carer of children or another person");
-        tmp_str.replace("7","A mentee from a rural area");
-        tmp_str.replace("8","A mentee who is under the age of 18");
-        tmp_str.replace("9","A mentee who is particularly uncomfortable speaking in English (but wants to improve)");
-        tmp_str.replace("10","A mentee who is particularly shy or lacks confidence and wants someone patient (yes this is a request we get)");
-        xlsxW.write("O"+QVariant(row+2).toString(),tmp_str);    // Special Categories
+        tmp_str = r.value(16).toString().simplified();
+        tmp_str.replace("0","Playing sport");
+        tmp_str.replace("1","Playing or creating music");
+        tmp_str.replace("2","Visual arts – drawing, painting, craft, etc.");
+        tmp_str.replace("3","Performing arts – theatre, dance, etc.");
+        tmp_str.replace("4","Watching movies");
+        tmp_str.replace("5","Cooking or food");
+        tmp_str.replace("6","Hiking, nature, and outdoor recreation");
+        tmp_str.replace("7","Gardening");
+        tmp_str.replace("8","Science fiction and fantasy");
+        tmp_str.replace("9","Learning languages");
+        tmp_str.replace("10","Comics, manga, and anime");
+        tmp_str.replace("11","Travel");
+        xlsxW.write("P"+QVariant(row+2).toString(),tmp_str);    // Interests
 
-        xlsxW.write("P"+QVariant(row+2).toString(),r.value(16));    // Interests
-        xlsxW.write("Q"+QVariant(row+2).toString(),r.value(17));    // Training 1
-        xlsxW.write("R"+QVariant(row+2).toString(),r.value(18));    // Training 2
-        xlsxW.write("S"+QVariant(row+2).toString(),r.value(19));    // Training 3
-        xlsxW.write("T"+QVariant(row+2).toString(),r.value(20));    // Training Complete
+
+        xlsxW.write("Q"+QVariant(row+2).toString(),r.value(17)); // Requests
+
+        xlsxW.write("R"+QVariant(row+2).toString(),r.value(18));    // Training 1
+        xlsxW.write("S"+QVariant(row+2).toString(),r.value(19));    // Training 2
+        xlsxW.write("T"+QVariant(row+2).toString(),r.value(20));    // Training 3
+        xlsxW.write("U"+QVariant(row+2).toString(),r.value(21));    // Training Complete
     }
 
     delete exmodel_mentors;
@@ -821,9 +828,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         xlsxW.write("A"+QVariant(row+2).toString(),r.value(1));     // First Name
         xlsxW.write("B"+QVariant(row+2).toString(),r.value(2));     // Last Name
         xlsxW.write("C"+QVariant(row+2).toString(),r.value(3));     // Uni ID
+        xlsxW.write("D"+QVariant(row+2).toString(),r.value(4));     // Alternate email
 
         // Round
-        if (r.value(4) == "0")
+        if (r.value(5) == "0")
         {
             tmp = "Round 1";
         }
@@ -831,21 +839,21 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "Round 2";
         }
-        xlsxW.write("D"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("E"+QVariant(row+2).toString(),tmp);
 
         // UG/PG
-        if (r.value(5) == "0")
+        if (r.value(6) == "0")
         {
             tmp = "Undergraduate";
         }
         else
         {
-            tmp = "Postgraduate Coursework";
+            tmp = "Postgraduate (coursework)";
         }
-        xlsxW.write("E"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("F"+QVariant(row+2).toString(),tmp);
 
         // Academic College
-        tmp_str = r.value(6).toString().simplified();
+        tmp_str = r.value(7).toString().simplified();
         tmp_str.replace("0","College of Asia and the Pacific");
         tmp_str.replace("1","College of Arts and Social Sciences");
         tmp_str.replace("2","College of Business and Economics");
@@ -853,12 +861,21 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         tmp_str.replace("4","College of Law");
         tmp_str.replace("5","College of Science");
         tmp_str.replace("6","College of Health and Medicine");
-        xlsxW.write("F"+QVariant(row+2).toString(),tmp_str);
+        xlsxW.write("G"+QVariant(row+2).toString(),tmp_str);
 
-        xlsxW.write("G"+QVariant(row+2).toString(),r.value(7));     // u18(Degree)
+        // u18
+        if (r.value(8) == "0")
+        {
+            tmp = "No";
+        }
+        else
+        {
+            tmp = "Yes";
+        }
+        xlsxW.write("H"+QVariant(row+2).toString(),tmp);
 
         // Dom/Int
-        if (r.value(8) == "0")
+        if (r.value(9) == "0")
         {
             tmp = "Domestic";
         }
@@ -866,22 +883,22 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "International";
         }
-        xlsxW.write("H"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("I"+QVariant(row+2).toString(),tmp);
 
         // Gender
-        if (r.value(9) == "0")
+        if (r.value(10) == "0")
         {
             tmp = "Female";
         }
-        else if (r.value(9) == "1")
+        else if (r.value(10) == "1")
         {
             tmp = "Male";
         }
-        else if (r.value(9) == "2")
+        else if (r.value(10) == "2")
         {
             tmp = "Other";
         }
-        else if (r.value(9) == "3")
+        else if (r.value(10) == "3")
         {
             tmp = "Prefer not to say";
         }
@@ -889,10 +906,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         {
             tmp = "Prefer not to say";
         }
-        xlsxW.write("I"+QVariant(row+2).toString(),tmp);
+        xlsxW.write("J"+QVariant(row+2).toString(),tmp);
 
         // Languages
-        tmp_str = r.value(10).toString().simplified();
+        tmp_str = r.value(11).toString().simplified();
         tmp_str.replace("0","Hindi");
         tmp_str.replace("1","Vietnamese");
         tmp_str.replace("2","German");
@@ -904,22 +921,37 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         tmp_str.replace("8","Indonesian");
         tmp_str.replace("9","Japanese");
         tmp_str.replace("10","Urdu");
-        xlsxW.write("J"+QVariant(row+2).toString(),QVariant(tmp_str));
+        xlsxW.write("K"+QVariant(row+2).toString(),QVariant(tmp_str));
 
-        xlsxW.write("K"+QVariant(row+2).toString(),r.value(11));    // Language - Text
+        xlsxW.write("L"+QVariant(row+2).toString(),r.value(12));    // Language - Text
 
-        tmp_str = r.value(12).toString().simplified();
-        tmp_str.replace("0","Australian culture");
-        tmp_str.replace("1","Going on exchange");
-        tmp_str.replace("2","Being a mature age student (greater than three years between school/uni or degrees)");
-        tmp_str.replace("3","Living with disability or mental illness");
-        tmp_str.replace("4","Working full or part time while studying");
-        tmp_str.replace("5","Identifying as LGBTIQ+");
-        tmp_str.replace("6","Being the parent, guardian, or carer of children or another person");
-        tmp_str.replace("7","Living in a rural or regional area");
-        xlsxW.write("L"+QVariant(row+2).toString(),tmp_str);    // Special Categories
+        tmp_str = r.value(13).toString().simplified();
+        tmp_str.replace("0","Playing sport");
+        tmp_str.replace("1","Playing or creating music");
+        tmp_str.replace("2","Visual arts – drawing, painting, craft, etc.");
+        tmp_str.replace("3","Performing arts – theatre, dance, etc.");
+        tmp_str.replace("4","Watching movies");
+        tmp_str.replace("5","Cooking or food");
+        tmp_str.replace("6","Hiking, nature, and outdoor recreation");
+        tmp_str.replace("7","Gardening");
+        tmp_str.replace("8","Science fiction and fantasy");
+        tmp_str.replace("9","Learning languages");
+        tmp_str.replace("10","Comics, manga, and anime");
+        tmp_str.replace("11","Travel");
+        xlsxW.write("M"+QVariant(row+2).toString(),tmp_str);    // Interests
 
-        xlsxW.write("M"+QVariant(row+2).toString(),r.value(13));    // Requests
+        xlsxW.write("N"+QVariant(row+2).toString(),r.value(14));    // Requests
+
+        // Importance
+        if (r.value(15) == "0")
+        {
+            tmp = "No";
+        }
+        else
+        {
+            tmp = "Yes";
+        }
+        xlsxW.write("O"+QVariant(row+2).toString(),tmp);
     }
 
     delete exmodel_mentees;
@@ -1033,7 +1065,7 @@ void MainWindow::export_wattle_file(QString addr, int type)
         QSqlRecord r = exwattle_mentors->record(row);
 
         QVariant group_id = r.value(0);
-        QVariant uid = r.value(4);
+        QVariant uid = r.value(4);// change from r.value(4) to r.value(3)
 
         if (group_id != "0")
         {

@@ -64,7 +64,7 @@ void MainWindow::load_mentors()
     connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
     connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
 
-    // connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
+    connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
 }
 
 // search
@@ -253,33 +253,36 @@ void MainWindow::edit_finished()
 
     for(int i=0; i<model_mentors->rowCount(); i++)
     {
-        QString train_1 = model_mentors->index(i,17).data().toString();
-        QString train_2 = model_mentors->index(i,18).data().toString();
-        QString train_3 = model_mentors->index(i,19).data().toString();
+        QString train_1 = model_mentors->index(i,18).data().toString();
+        QString train_2 = model_mentors->index(i,19).data().toString();
+        QString train_3 = model_mentors->index(i,20).data().toString();
 
         if(train_1 != "y")
         {
-            model_mentors->setData(model_mentors->index(i,10),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
         }
 
         if(train_2 != "y")
         {
-            model_mentors->setData(model_mentors->index(i,11),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
         }
 
         if(train_3 != "y")
         {
-            model_mentors->setData(model_mentors->index(i,12),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
         }
 
         if(train_1 == "y" && train_2 == "y" && train_3 == "y")
         {
-            model_mentors->setData(model_mentors->index(i,20),"y");
+            model_mentors->setData(model_mentors->index(i,21),"y");
+            qDebug() << "Yes";
         }
         else
         {
-            model_mentors->setData(model_mentors->index(i,20),"n");
+            model_mentors->setData(model_mentors->index(i,21),"n");
+            qDebug() << "No";
         }
+
     }
 
 }
