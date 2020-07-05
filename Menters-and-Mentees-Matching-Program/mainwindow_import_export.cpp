@@ -78,8 +78,8 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QString first_name = xlsxR.cellAt(row, 2)->readValue().toString();
         QString last_name = xlsxR.cellAt(row, 3)->readValue().toString();
         QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
-
-        QString wwvp = xlsxR.cellAt(row, 5)->readValue().toString();
+        QString phone = xlsxR.cellAt(row, 5)->readValue().toString();
+        QString wwvp = xlsxR.cellAt(row, 6)->readValue().toString();
         if ( wwvp.toUpper() == "NO" || wwvp.isEmpty() ) {
             wwvp = "n";
         }
@@ -87,50 +87,59 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             wwvp = "y";
         }
 
-        QString round = xlsxR.cellAt(row, 6)->readValue().toString();
-        if (round == "Yes - I will be here")
+        QString round = xlsxR.cellAt(row, 7)->readValue().toString();
+        if (round == "Round 1")
         {
             round = "0";
         }
-        else if (round == "Likely - I plan to be here, but can't be certain at this stage" || round == "No - I won't be here during that time")
+        else if (round == "Round 2")
         {
             round = "1";
         }
         else
         {
             qDebug() << "[Import] Unexpected round!";
+            round = "0";
         }
 
-        QString academic_level = xlsxR.cellAt(row, 7)->readValue().toString();
-        if (academic_level == "Postgraduate (coursework)")
-        {
-            academic_level = "1";
-        }
-        else if (academic_level == "Undergraduate")
-        {
-            academic_level = "0";
-        }
-        else
-        {
-            qDebug() << "[Import] Unexpected academic level!";
-            academic_level = "0";
-        }
+        QStringList academic_level_tmp_list;
+        QString academic_level = xlsxR.cellAt(row, 8)->readValue().toString();
+        if (academic_level.contains("Postgraduate",Qt::CaseInsensitive)) {
+                   academic_level_tmp_list.append("1");
+               }
+        if (academic_level.contains("Undergraduate",Qt::CaseInsensitive)) {
+                   academic_level_tmp_list.append("0");
+               }
+        academic_level = academic_level_tmp_list.join(",");
 
-        QString college = xlsxR.cellAt(row, 8)->readValue().toString();
-        college = college.simplified();
-        college.replace("ANU ","");
-        college.replace("&","and");
-        college.replace("College of Asia and the Pacific","0");
-        college.replace("College of Arts and Social Sciences","1");
-        college.replace("College of Business and Economics","2");
-        college.replace("College of Engineering and Computer Science","3");
-        college.replace("College of Law","4");
-        college.replace("College of Science","5");
-        college.replace("College of Health and Medicine","6");
+        QStringList college_tmp_list;
+        QString college = xlsxR.cellAt(row, 9)->readValue().toString();
+        if (college.contains("Asia",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("0");
+               }
+        if (college.contains("Arts",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("1");
+               }
+        if (college.contains("Business",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("2");
+               }
+        if (college.contains("Engineering",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("3");
+               }
+        if (college.contains("Law",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("4");
+               }
+        if (college.contains("of Science",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("5");
+               }
+        if (college.contains("Health",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("6");
+               }
+        college = college_tmp_list.join(",");
 
-        QString degree = xlsxR.cellAt(row, 9)->readValue().toString();
+        QString degree = xlsxR.cellAt(row, 10)->readValue().toString();
 
-        QString type = xlsxR.cellAt(row, 10)->readValue().toString();
+        QString type = xlsxR.cellAt(row, 11)->readValue().toString();
         if (type == "International")
             type = "1";
         else if (type == "Domestic")
@@ -138,7 +147,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         else
             qDebug() << "[Import] Unexpected type!";
 
-        QString gender = xlsxR.cellAt(row, 11)->readValue().toString();
+        QString gender = xlsxR.cellAt(row, 12)->readValue().toString();
         if (gender == "Female")
         {
             gender = "0";
@@ -158,9 +167,10 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         else
         {
             qDebug() << "[Import] Unexpected gender!";
+            gender = "3";
         }
 
-        QString languages = xlsxR.cellAt(row, 12)->readValue().toString();
+        QString languages = xlsxR.cellAt(row, 13)->readValue().toString();
         languages = languages.simplified();
         languages.replace("Hindi","0");
         languages.replace("Vietnamese","1");
@@ -185,26 +195,52 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             languages = languages.append(",11");
         }
 
-        QString languages_text = xlsxR.cellAt(row, 13)->readValue().toString();
-        QString hall = xlsxR.cellAt(row, 14)->readValue().toString();
+        QString languages_text = xlsxR.cellAt(row, 14)->readValue().toString();
+        QString hall = xlsxR.cellAt(row, 15)->readValue().toString();
 
-        QString special = xlsxR.cellAt(row, 15)->readValue().toString();
-        special = special.simplified();
-        special.replace("An international student wanting to learn about Australian culture","0");
-        special.replace("An exchange student (rather than a student new to university)","1");
-        special.replace("Being a mature age student (greater than three years between school/uni or degrees)","2");
-        special.replace("A mentee who lives with disability or mental illness","3");
-        special.replace("A mentee who works more than 20hrs/wk while studying","4");
-        special.replace("A mentee who identifies as LGBTIQ+","5");
-        special.replace("A mentee who is the parent, guardian, or carer of children or another person","6");
-        special.replace("A mentee from a rural area","7");
-        special.replace("A mentee who is under the age of 18","8");
-        special.replace("A mentee who is particularly uncomfortable speaking in English (but wants to improve)","9");
-        special.replace("A mentee who is particularly shy or lacks confidence and wants someone patient (yes this is a request we get)","10");
-
+        QStringList interests_tmp_list;
         QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
+        if (interests.contains("sport",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("0");
+               }
+        if (interests.contains("music",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("1");
+               }
+        if (interests.contains("Visual",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("2");
+               }
+        if (interests.contains("Performing",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("3");
+               }
+        if (interests.contains("movies",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("4");
+               }
+        if (interests.contains("food",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("5");
+               }
+        if (interests.contains("nature",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("6");
+               }
+        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("7");
+               }
+        if (interests.contains("fiction",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("8");
+               }
+        if (interests.contains("languages",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("9");
+               }
+        if (interests.contains("Comics",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("10");
+               }
+        if (interests.contains("Travel",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("11");
+               }
+        interests = interests_tmp_list.join(",");
+        QString requests = xlsxR.cellAt(row, 17)->readValue().toString();
 
-        QString train_1 = xlsxR.cellAt(row, 17)->readValue().toString().toLower();
+
+        QString train_1 = xlsxR.cellAt(row, 18)->readValue().toString().toLower();
         if (train_1 == "y" || train_1 == "yes" )
         {
             train_1 = "y";
@@ -214,7 +250,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             train_1 = "n";
         }
 
-        QString train_2 = xlsxR.cellAt(row, 18)->readValue().toString().toLower();
+        QString train_2 = xlsxR.cellAt(row, 19)->readValue().toString().toLower();
         if (train_2 == "y" || train_2 == "yes" )
         {
             train_2 = "y";
@@ -224,7 +260,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             train_2 = "n";
         }
 
-        QString train_3 = xlsxR.cellAt(row, 19)->readValue().toString().toLower();
+        QString train_3 = xlsxR.cellAt(row, 20)->readValue().toString().toLower();
         if (train_3 == "y" || train_3 == "yes" )
         {
             train_3 = "y";
@@ -248,6 +284,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 QString("\"%1\",").arg(first_name) +
                 QString("\"%1\",").arg(last_name) +
                 QString("\"%1\",").arg(uid) +
+                QString("\"%1\",").arg(phone) +
                 QString("\"%1\",").arg(wwvp) +
                 QString("%1,").arg(round) +
                 QString("%1,").arg(academic_level) +
@@ -258,8 +295,8 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 QString("\"%1\",").arg(languages) +
                 QString("\"%1\",").arg(languages_text) +
                 QString("\"%1\",").arg(hall) +
-                QString("\"%1\",").arg(special) +
                 QString("\"%1\",").arg(interests) +
+                QString("\"%1\",").arg(requests) +
                 QString("\"%1\",").arg(train_1) +
                 QString("\"%1\",").arg(train_2) +
                 QString("\"%1\",").arg(train_3) +
@@ -268,7 +305,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
 
         //qDebug() << sql;
 
-        // execute sql
+        //execute sql
         if ( !query.exec(sql) )
         {
             //qDebug() << "Failed to Import Row " << row;
@@ -304,8 +341,8 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QString first_name = xlsxR.cellAt(row, 1)->readValue().toString();
         QString last_name = xlsxR.cellAt(row, 2)->readValue().toString();
         QString uid = xlsxR.cellAt(row, 3)->readValue().toString();
-
-        QString round = xlsxR.cellAt(row, 4)->readValue().toString();
+        QString email = xlsxR.cellAt(row, 4)->readValue().toString();
+        QString round = xlsxR.cellAt(row, 5)->readValue().toString();
         if (round == "Round 1")
         {
             round = "0";
@@ -320,37 +357,57 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             qDebug() << "[Import] Unexpected round!";
         }
 
-        QString academic_level = xlsxR.cellAt(row, 5)->readValue().toString();
-        if (academic_level == "Postgraduate Coursework")
+        QStringList academic_level_tmp_list;
+        QString academic_level = xlsxR.cellAt(row, 6)->readValue().toString();
+        if (academic_level.contains("Postgraduate",Qt::CaseInsensitive)) {
+                   academic_level_tmp_list.append("1");
+               }
+        if (academic_level.contains("Undergraduate",Qt::CaseInsensitive)) {
+                   academic_level_tmp_list.append("0");
+               }
+        academic_level = academic_level_tmp_list.join(",");
+
+        QStringList college_tmp_list;
+        QString college = xlsxR.cellAt(row, 7)->readValue().toString();
+        if (college.contains("Asia",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("0");
+               }
+        if (college.contains("Arts",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("1");
+               }
+        if (college.contains("Business",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("2");
+               }
+        if (college.contains("Engineering",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("3");
+               }
+        if (college.contains("Law",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("4");
+               }
+        if (college.contains("of Science",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("5");
+               }
+        if (college.contains("Health",Qt::CaseInsensitive)) {
+                   college_tmp_list.append("6");
+               }
+        college = college_tmp_list.join(",");
+
+        QString u18 = xlsxR.cellAt(row, 8)->readValue().toString();
+        if (u18 == "Yes")
         {
-            academic_level = "1";
+            u18 = "1";
         }
-        else if (academic_level == "Undergraduate")
+        else if (u18 == "No")
         {
-            academic_level = "0";
+            u18 = "0";
         }
         else
         {
-            academic_level = "0";
-            qDebug() << "[Import] Unexpected academic level!";
+            qDebug() << "[Import] Unexpected u18!";
+            u18 = "0";
         }
 
-        QString college = xlsxR.cellAt(row, 6)->readValue().toString();
-        college = college.simplified();
-        college.replace(",School of Art and Design (as part of the College of Arts and Social Sciences)","");
-        college.replace("ANU ","");
-        college.replace("&","and");
-        college.replace("College of Asia and the Pacific","0");
-        college.replace("College of Arts and Social Sciences","1");
-        college.replace("College of Business and Economics","2");
-        college.replace("College of Engineering and Computer Science","3");
-        college.replace("College of Law","4");
-        college.replace("College of Science","5");
-        college.replace("College of Health and Medicine","6");
-
-        QString degree = xlsxR.cellAt(row, 7)->readValue().toString();
-
-        QString type = xlsxR.cellAt(row, 8)->readValue().toString();
+        QString type = xlsxR.cellAt(row, 9)->readValue().toString();
         if (type == "International")
         {
             type = "1";
@@ -365,7 +422,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             qDebug() << "[Import] Unexpected type!";
         }
 
-        QString gender = xlsxR.cellAt(row, 9)->readValue().toString();
+        QString gender = xlsxR.cellAt(row, 10)->readValue().toString();
         if (gender == "Female")
         {
             gender = "0";
@@ -388,7 +445,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             qDebug() << "[Import] Unexpected gender!";
         }
 
-        QString languages = xlsxR.cellAt(row, 10)->readValue().toString();
+        QString languages = xlsxR.cellAt(row, 11)->readValue().toString();
         languages = languages.simplified();
         languages.replace("Hindi","0");
         languages.replace("Vietnamese","1");
@@ -413,20 +470,64 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             languages = languages.append(",11");
         }
 
-        QString languages_text = xlsxR.cellAt(row, 11)->readValue().toString();
+        QString languages_text = xlsxR.cellAt(row, 12)->readValue().toString();
 
-        QString special_categories = xlsxR.cellAt(row, 12)->readValue().toString();
-        special_categories = special_categories.simplified();
-        special_categories.replace("Australian culture","0");
-        special_categories.replace("Going on exchange","1");
-        special_categories.replace("Being a mature age student (greater than three years between school/uni or degrees)","2");
-        special_categories.replace("Living with disability or mental illness","3");
-        special_categories.replace("Working full or part time while studying","4");
-        special_categories.replace("Identifying as LGBTIQ+","5");
-        special_categories.replace("Being the parent, guardian, or carer of children or another person","6");
-        special_categories.replace("Living in a rural or regional area","7");
+        QStringList interests_tmp_list;
+        QString interests = xlsxR.cellAt(row, 13)->readValue().toString();
+        if (interests.contains("sport",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("0");
+               }
+        if (interests.contains("music",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("1");
+               }
+        if (interests.contains("Visual",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("2");
+               }
+        if (interests.contains("Performing",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("3");
+               }
+        if (interests.contains("movies",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("4");
+               }
+        if (interests.contains("food",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("5");
+               }
+        if (interests.contains("nature",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("6");
+               }
+        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("7");
+               }
+        if (interests.contains("fiction",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("8");
+               }
+        if (interests.contains("languages",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("9");
+               }
+        if (interests.contains("Comics",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("10");
+               }
+        if (interests.contains("Travel",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("11");
+               }
+        interests = interests_tmp_list.join(",");
 
-        QString requests = xlsxR.cellAt(row, 13)->readValue().toString();
+        QString requests = xlsxR.cellAt(row, 14)->readValue().toString();
+        QString importance = xlsxR.cellAt(row, 15)->readValue().toString();
+        if (importance == "Yes")
+        {
+            importance = "1";
+        }
+        else if (importance == "No")
+        {
+            importance = "0";
+        }
+        else
+        {
+            qDebug() << "[Import] Unexpected importance!";
+            importance = "0";
+        }
+
 
         // create sql
         QString sql = "INSERT INTO mentee VALUES (" +
@@ -434,16 +535,18 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 QString("\"%1\",").arg(first_name) +
                 QString("\"%1\",").arg(last_name) +
                 QString("\"%1\",").arg(uid) +
+                QString("\"%1\",").arg(email) +
                 QString("%1,").arg(round) +
                 QString("\"%1\",").arg(academic_level) +
                 QString("\"%1\",").arg(college) +
-                QString("\"%1\",").arg(degree) +
+                QString("\"%1\",").arg(u18) +
                 QString("%1,").arg(type) +
                 QString("%1,").arg(gender) +
                 QString("\"%1\",").arg(languages) +
                 QString("\"%1\",").arg(languages_text) +
-                QString("\"%1\",").arg(special_categories) +
-                QString("\"%1\"").arg(requests) +
+                QString("\"%1\",").arg(interests) +
+                QString("\"%1\",").arg(requests) +
+                QString("\"%1\"").arg(importance) +
                 ")";
 
         // execute sql
