@@ -2,21 +2,21 @@
 #include <qsqlrecord.h>
 #include <QDebug>
 
-myMentorsTableModel::myMentorsTableModel(QObject *parent, QSqlDatabase db)
+myMentorsTableModel::myMentorsTableModel(QObject *parent, QSqlDatabase db, bool use_group_id_as_row_number)
 {
-
+    this->use_group_id_as_row_number = use_group_id_as_row_number;
 }
 
 QVariant myMentorsTableModel::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
 {
-    //if( orientation == Qt::Vertical && role == Qt::DisplayRole )
-    //{
-    //    return this->record(section).value("group_id");
-    //}
-    //else
-    //{
+    if( this->use_group_id_as_row_number && orientation == Qt::Vertical && role == Qt::DisplayRole)
+    {
+        return this->record(section).value("group_id");
+    }
+    else
+    {
         return QSqlTableModel::headerData( section, orientation, role );
-    //}
+    }
 }
 
 QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::DisplayRole) const
@@ -63,7 +63,7 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "Postgraduate (coursework)";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -105,7 +105,7 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "International";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -124,7 +124,7 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "Prefer not to say";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -162,20 +162,17 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data.replace("1","Comics, manga, and anime");
         data.replace("0","Hindi");
         return QVariant(data);
-    }
-
-
-    else {
+    } else {
         return QSqlTableModel::data(index,role);
     }
 }
 
 Qt::ItemFlags myMentorsTableModel::flags(const QModelIndex &index) const
 {
-      Qt::ItemFlags result = QSqlTableModel::flags(index);
+    Qt::ItemFlags result = QSqlTableModel::flags(index);
     if (index.column() >= 1 && index.column() <= 17 )
     {
        result &= ~Qt::ItemIsEditable;
     }
-      return result;
+    return result;
 }

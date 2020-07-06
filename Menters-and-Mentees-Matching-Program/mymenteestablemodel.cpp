@@ -41,7 +41,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "Postgraduate (coursework)";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -82,7 +82,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "Yes";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -95,7 +95,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "International";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -114,7 +114,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "Prefer not to say";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
@@ -163,7 +163,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         else{
             data = "Yes";
         }
-        qDebug() << data;
+        //qDebug() << data;
         return QVariant(data);
     }
 
