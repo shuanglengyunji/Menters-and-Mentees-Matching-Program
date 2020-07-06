@@ -41,6 +41,7 @@ void MainWindow::load_mentees()
     ui->tableView_mentees->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
+
     //ui->tableView_mentees->hideColumn(0);
 
     ui->tableView_mentors->resizeColumnsToContents();

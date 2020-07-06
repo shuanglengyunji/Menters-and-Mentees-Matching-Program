@@ -17,7 +17,6 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
-
 #include <my_qsqltablemodel_grouping.h>
 
 # define MY_DATA_BASE_NAME "database.db"
@@ -177,9 +176,6 @@ private:
     void algorithm_mentees_match();
 
     // ------------------------------------
-
-    // Delegrate
-
 
 };
 
