@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>4</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QWidget" name="gridLayoutWidget">
