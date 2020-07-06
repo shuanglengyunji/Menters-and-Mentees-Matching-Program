@@ -42,7 +42,7 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // hide group id
-    //ui->tableView_mentors->hideColumn(0);
+    ui->tableView_mentors->hideColumn(0);
 
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();

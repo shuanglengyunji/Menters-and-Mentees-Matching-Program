@@ -32,17 +32,6 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         }
         return QVariant(data);
     }
-    //wwvp
-    if (index.column() == 6 && role == Qt::DisplayRole) {
-        QString data = QSqlTableModel::data(index,role).toString();
-        if(data == "y"){
-            data = "Yes";
-        }
-        else{
-            data = "No";
-        }
-        return QVariant(data);
-    }
     //round
     if (index.column() == 7 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
@@ -66,7 +55,6 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         //qDebug() << data;
         return QVariant(data);
     }
-
     //college
     QStringList college_tmp_list;
     if (index.column() == 9 && role == Qt::DisplayRole) {
@@ -95,7 +83,6 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data = college_tmp_list.join(",");
         return QVariant(data);
     }
-
     //type
     if (index.column() == 11 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
@@ -108,7 +95,6 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         //qDebug() << data;
         return QVariant(data);
     }
-
     //gender
     if (index.column() == 12 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
@@ -127,7 +113,6 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         //qDebug() << data;
         return QVariant(data);
     }
-
     //language
     if (index.column() == 13 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
@@ -145,7 +130,6 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data.replace("0","Hindi");
         return QVariant(data);
     }
-
     //interests
     if (index.column() == 16 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
@@ -162,15 +146,15 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data.replace("1","Comics, manga, and anime");
         data.replace("0","Hindi");
         return QVariant(data);
-    } else {
-        return QSqlTableModel::data(index,role);
     }
+
+    return QSqlTableModel::data(index,role);
 }
 
 Qt::ItemFlags myMentorsTableModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result = QSqlTableModel::flags(index);
-    if (index.column() >= 1 && index.column() <= 17 )
+    if ((index.column() >= 1 && index.column() <= 4) || (index.column() >= 7 && index.column() <= 17))
     {
        result &= ~Qt::ItemIsEditable;
     }

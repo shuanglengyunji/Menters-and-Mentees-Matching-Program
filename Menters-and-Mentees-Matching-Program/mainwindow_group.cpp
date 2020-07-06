@@ -45,17 +45,15 @@ void MainWindow::load_group_mentors()
     // resize row height according to column width
     ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
     ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
-    //connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
     // hide columns
-//    ui->tableView_group_mentor_to_be_group->hideColumn(0);
-//    ui->tableView_group_mentor_to_be_group->hideColumn(1);
-//    ui->tableView_group_mentor_to_be_group->hideColumn(5);
-//    ui->tableView_group_mentor_to_be_group->hideColumn(17);
-//    ui->tableView_group_mentor_to_be_group->hideColumn(18);
-//    ui->tableView_group_mentor_to_be_group->hideColumn(19);
-//    ui->tableView_group_mentor_to_be_group->hideColumn(20);
+    ui->tableView_group_mentor_to_be_group->hideColumn(0);
+    ui->tableView_group_mentor_to_be_group->hideColumn(1);
+    ui->tableView_group_mentor_to_be_group->hideColumn(6);
+    ui->tableView_group_mentor_to_be_group->hideColumn(18);
+    ui->tableView_group_mentor_to_be_group->hideColumn(19);
+    ui->tableView_group_mentor_to_be_group->hideColumn(20);
+    ui->tableView_group_mentor_to_be_group->hideColumn(21);
 
     //--------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------
@@ -92,21 +90,15 @@ void MainWindow::load_group_mentors()
     // resize row height according to column width
     ui->tableView_group_mentor_grouped->resizeColumnsToContents();
     ui->tableView_group_mentor_grouped->resizeRowsToContents();
-    //connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
     // hide columns
-//    ui->tableView_group_mentor_grouped->hideColumn(0);
-//    ui->tableView_group_mentor_grouped->hideColumn(1);
-//    ui->tableView_group_mentor_grouped->hideColumn(5);
-//    ui->tableView_group_mentor_grouped->hideColumn(17);
-//    ui->tableView_group_mentor_grouped->hideColumn(18);
-//    ui->tableView_group_mentor_grouped->hideColumn(19);
-//    ui->tableView_group_mentor_grouped->hideColumn(20);
-
-    /*
-    ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    */
+    ui->tableView_group_mentor_grouped->hideColumn(0);
+    ui->tableView_group_mentor_grouped->hideColumn(1);
+    ui->tableView_group_mentor_grouped->hideColumn(6);
+    ui->tableView_group_mentor_grouped->hideColumn(18);
+    ui->tableView_group_mentor_grouped->hideColumn(19);
+    ui->tableView_group_mentor_grouped->hideColumn(20);
+    ui->tableView_group_mentor_grouped->hideColumn(21);
 
     connect(ui->checkBox_group_mentor_hall,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     connect(ui->checkBox_group_mentor_type,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
@@ -251,6 +243,8 @@ void MainWindow::on_toolButton_right_clicked()
             query.exec(QString("UPDATE mentor SET group_id=%1 WHERE uid=\'%2\'").arg(QVariant(current_id-minus_num).toString()).arg(uid.toString()));
         }
     }
+
+    query.exec("UPDATE mentee SET group_id=0");
 
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();

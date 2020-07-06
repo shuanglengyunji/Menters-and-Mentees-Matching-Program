@@ -7,17 +7,6 @@ myMenteesTableModel::myMenteesTableModel(QObject *parent, QSqlDatabase db)
 
 }
 
-QVariant myMenteesTableModel::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
-{
-    //if( orientation == Qt::Vertical && role == Qt::DisplayRole )
-    //{
-    //    return this->record(section).value("group_id");
-    //}
-    //else
-    //{
-        return QSqlTableModel::headerData( section, orientation, role );
-    //}
-}
 QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::DisplayRole) const
 {
 
@@ -73,6 +62,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data = college_tmp_list.join(",");
         return QVariant(data);
     }
+
     //u18
     if (index.column() == 8 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
@@ -167,10 +157,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         return QVariant(data);
     }
 
-
-    else {
-        return QSqlTableModel::data(index,role);
-    }
+    return QSqlTableModel::data(index,role);
 }
 
 Qt::ItemFlags myMenteesTableModel::flags(const QModelIndex &index) const
