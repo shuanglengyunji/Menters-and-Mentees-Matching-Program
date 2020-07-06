@@ -12,8 +12,11 @@ void MainWindow::load_mentees()
     disconnect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     disconnect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     disconnect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    disconnect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentees_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     disconnect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentees_email,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentees_u18,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentess_importance,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 
     // clear exist data
     if ( model_mentees != nullptr )
@@ -50,8 +53,11 @@ void MainWindow::load_mentees()
     connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_email,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_u18,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentess_importance,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 }
 
 // search
@@ -107,8 +113,8 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
 
 void MainWindow::display_mentees_column()
 {
-    // round
-    if (ui->checkBox_mentees_round->isChecked())
+    // email
+    if (ui->checkBox_mentees_email->isChecked())
     {
         ui->tableView_mentees->showColumn(4);
     }
@@ -117,22 +123,30 @@ void MainWindow::display_mentees_column()
         ui->tableView_mentees->hideColumn(4);
     }
 
+    // round
+    if (ui->checkBox_mentees_round->isChecked())
+    {
+        ui->tableView_mentees->showColumn(5);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(5);
+    }
+
     // academic info
     if (ui->checkBox_mentees_academic_info->isChecked())
     {
-        ui->tableView_mentees->showColumn(5);
         ui->tableView_mentees->showColumn(6);
         ui->tableView_mentees->showColumn(7);
     }
     else
     {
-        ui->tableView_mentees->hideColumn(5);
         ui->tableView_mentees->hideColumn(6);
         ui->tableView_mentees->hideColumn(7);
     }
 
-    // type
-    if (ui->checkBox_mentees_type->isChecked())
+    // u18
+    if (ui->checkBox_mentees_u18->isChecked())
     {
         ui->tableView_mentees->showColumn(8);
     }
@@ -141,8 +155,8 @@ void MainWindow::display_mentees_column()
         ui->tableView_mentees->hideColumn(8);
     }
 
-    // gender
-    if (ui->checkBox_mentees_gender->isChecked())
+    // type
+    if (ui->checkBox_mentees_type->isChecked())
     {
         ui->tableView_mentees->showColumn(9);
     }
@@ -151,36 +165,56 @@ void MainWindow::display_mentees_column()
         ui->tableView_mentees->hideColumn(9);
     }
 
-    // language
-    if (ui->checkBox_mentees_language->isChecked())
+    // gender
+    if (ui->checkBox_mentees_gender->isChecked())
     {
         ui->tableView_mentees->showColumn(10);
-        ui->tableView_mentees->showColumn(11);
     }
     else
     {
         ui->tableView_mentees->hideColumn(10);
-        ui->tableView_mentees->hideColumn(11);
     }
 
-    // special categories
-    if (ui->checkBox_mentees_special_categories->isChecked())
+    // language
+    if (ui->checkBox_mentees_language->isChecked())
     {
+        ui->tableView_mentees->showColumn(11);
         ui->tableView_mentees->showColumn(12);
     }
     else
     {
+        ui->tableView_mentees->hideColumn(11);
         ui->tableView_mentees->hideColumn(12);
     }
 
-    // requests
-    if (ui->checkBox_mentees_requests->isChecked())
+    // interests
+    if (ui->checkBox_mentees_interests->isChecked())
     {
         ui->tableView_mentees->showColumn(13);
     }
     else
     {
         ui->tableView_mentees->hideColumn(13);
+    }
+
+    // requests
+    if (ui->checkBox_mentees_requests->isChecked())
+    {
+        ui->tableView_mentees->showColumn(14);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(14);
+    }
+
+    // importance
+    if (ui->checkBox_mentess_importance->isChecked())
+    {
+        ui->tableView_mentees->showColumn(15);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(15);
     }
 
 }

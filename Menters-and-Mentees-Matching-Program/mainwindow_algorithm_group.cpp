@@ -10,7 +10,7 @@ void MainWindow::algorithm_mentors_group()
     int type = ui->comboBox_mentor_type->currentIndex();            // 0 - reave out; 1 - must be same; 2 - high priority; 3 - medium priority; 4 - low priority
     int gender = ui->comboBox_mentor_gender->currentIndex();        // 0 - reave out; 1 - must be same; 2 - high priority; 3 - medium priority; 4 - low priority
     int language = ui->comboBox_mentor_language->currentIndex();    // 0 - reave out; 1 - high priority; 2 - medium priority; 3 - low priority
-    int special = ui->comboBox_mentor_special->currentIndex();      // 0 - reave out; 1 - high priority; 2 - medium priority; 3 - low priority
+    int interests = ui->comboBox_mentor_interests->currentIndex();      // 0 - reave out; 1 - high priority; 2 - medium priority; 3 - low priority
 
     switch (round) {
     case 0: round = 0; break;
@@ -65,12 +65,12 @@ void MainWindow::algorithm_mentors_group()
     default: language = 0; break;
     }
 
-    switch (special) {
-    case 0: special = 0; break;
-    case 1: special = 3; break;
-    case 2: special = 2; break;
-    case 3: special = 1; break;
-    default: special = 0; break;
+    switch (interests) {
+    case 0: interests = 0; break;
+    case 1: interests = 3; break;
+    case 2: interests = 2; break;
+    case 3: interests = 1; break;
+    default: interests = 0; break;
     }
 
 
@@ -121,7 +121,7 @@ void MainWindow::algorithm_mentors_group()
             QString mentor1type=mentor1.value(10).toString();
             QString mentor1gender=mentor1.value(11).toString();
             QString mentor1languages=mentor1.value(12).toString();
-            QString mentor1special=mentor1.value(15).toString();
+            QString mentor1interests=mentor1.value(15).toString();
 
             QString group_mentor_id;
             int maxscore=0;
@@ -139,7 +139,7 @@ void MainWindow::algorithm_mentors_group()
                 QString mentor2type=mentor2.value(10).toString();   // get mentors' type
                 QString mentor2gender=mentor2.value(11).toString(); // get mentors' gender
                 QStringList mentor2languages=mentor2.value(12).toString().simplified().split(",");  // get mentors' language
-                QStringList mentor2special=mentor2.value(15).toString().simplified().split(",");        // get mentors' special categories
+                QStringList mentor2interests=mentor2.value(15).toString().simplified().split(",");        // get mentors' interests
 
                 bool roundCheck = false;
                 bool levelCheck = false;
@@ -208,10 +208,10 @@ void MainWindow::algorithm_mentors_group()
                     }
                 }
 
-                // special categories
-                for(int h=0;h<mentor2special.count(); h++){
-                    if(mentor1special.contains(mentor2special.value(h))){
-                        cscore+=1*special;
+                // interests
+                for(int h=0;h<mentor2interests.count(); h++){
+                    if(mentor1interests.contains(mentor2interests.value(h))){
+                        cscore+=1*interests;
                     }
                 }
 
