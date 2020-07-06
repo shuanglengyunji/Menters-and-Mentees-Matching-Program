@@ -17,7 +17,8 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
-#include <my_qsqltablemodel_grouping.h>
+#include <mymentorstablemodel.h>
+#include <mymenteestablemodel.h>
 
 # define MY_DATA_BASE_NAME "database.db"
 
@@ -140,7 +141,7 @@ private:
 
     // Mentors
 
-    QSqlTableModel * model_mentors = nullptr;
+    myMentorsTableModel * model_mentors = nullptr;
 
     void load_mentors();
 
@@ -148,7 +149,7 @@ private:
 
     // Mentees
 
-    QSqlTableModel * model_mentees = nullptr;
+    myMenteesTableModel * model_mentees = nullptr;
 
     void load_mentees();
 
@@ -156,8 +157,8 @@ private:
 
     // Group
 
-    QSqlTableModel * model_group_mentors_to_be_grouped = nullptr;
-    my_QSqlTableModel_Grouping * model_group_mentors_grouped = nullptr;
+    myMentorsTableModel * model_group_mentors_to_be_grouped = nullptr;
+    myMentorsTableModel * model_group_mentors_grouped = nullptr;
 
     void load_group_mentors();
 
@@ -167,9 +168,9 @@ private:
 
     // Match
 
-    my_QSqlTableModel_Grouping * model_match_mentors = nullptr;
-    QSqlTableModel * model_match_mentees_matched = nullptr;
-    QSqlTableModel * model_match_mentees_to_be_match = nullptr;
+    myMentorsTableModel * model_match_mentors = nullptr;
+    myMenteesTableModel * model_match_mentees_matched = nullptr;
+    myMenteesTableModel * model_match_mentees_to_be_match = nullptr;
 
     void load_match_mentees();
 

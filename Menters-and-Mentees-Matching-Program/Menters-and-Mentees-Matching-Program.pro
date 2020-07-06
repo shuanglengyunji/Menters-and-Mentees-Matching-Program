@@ -37,11 +37,13 @@ SOURCES += \
         mainwindow_match.cpp \
         mainwindow_mentees.cpp \
         mainwindow_mentors.cpp \
-        my_qsqltablemodel_grouping.cpp
+        mymenteestablemodel.cpp \
+        mymentorstablemodel.cpp
 
 HEADERS += \
         mainwindow.h \
-        my_qsqltablemodel_grouping.h
+        mymenteestablemodel.h \
+        mymentorstablemodel.h
 
 FORMS += \
         mainwindow.ui

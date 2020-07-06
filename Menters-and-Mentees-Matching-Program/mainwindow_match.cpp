@@ -22,17 +22,17 @@ void MainWindow::load_match_mentees()
         model_match_mentors = nullptr;
     }
 
-    // link db to mentors QSqlTableModel
-    model_match_mentors = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
+    // link db to mentors myMenteesTableModel
+    model_match_mentors = new myMentorsTableModel(this,db,true);    // model_mentors is a private pointer defined in header file
     model_match_mentors->setTable("mentor");
-    model_match_mentors->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_match_mentors->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_match_mentors->setFilter("group_id<>0");
     model_match_mentors->select();
     while(model_match_mentors->canFetchMore()){
         model_match_mentors->fetchMore();
     }
 
-    // link mentors QSqlTableModel to QTableView
+    // link mentors myMenteesTableModel to QTableView
     ui->tableView_match_mentors->setModel(model_match_mentors);
     ui->tableView_match_mentors->reset();
     ui->tableView_match_mentors->horizontalHeader()->setMaximumSectionSize(400);
@@ -66,17 +66,17 @@ void MainWindow::load_match_mentees()
         model_match_mentees_matched = nullptr;
     }
 
-    // link db to mentors QSqlTableModel
-    model_match_mentees_matched = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    // link db to mentors myMenteesTableModel
+    model_match_mentees_matched = new myMenteesTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentees_matched->setTable("mentee");
-    model_match_mentees_matched->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_match_mentees_matched->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_match_mentees_matched->setFilter("group_id<>0");
     model_match_mentees_matched->select();
     while(model_match_mentees_matched->canFetchMore()){
         model_match_mentees_matched->fetchMore();
     }
 
-    // link mentors QSqlTableModel to QTableView
+    // link mentors myMenteesTableModel to QTableView
     ui->tableView_match_mentees_matched->setModel(model_match_mentees_matched);
     ui->tableView_match_mentees_matched->reset();
     ui->tableView_match_mentees_matched->horizontalHeader()->setMaximumSectionSize(400);
@@ -87,14 +87,11 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-
-    //ui->tableView_match_mentees_matched->hideColumn(0);
+    ui->tableView_match_mentees_matched->hideColumn(0);
 
     // resize row height according to column width
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
-    //connect(ui->tableView_match_mentees_matched->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_match_mentees_matched,&QTableView::resizeRowsToContents);
 
     // -----------------------------------------------------------------------------------
     // [3] mentees to be match
@@ -106,17 +103,17 @@ void MainWindow::load_match_mentees()
         model_match_mentees_to_be_match = nullptr;
     }
 
-    // link db to mentors QSqlTableModel
-    model_match_mentees_to_be_match = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    // link db to mentors myMenteesTableModel
+    model_match_mentees_to_be_match = new myMenteesTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentees_to_be_match->setTable("mentee");
-    model_match_mentees_to_be_match->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_match_mentees_to_be_match->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_match_mentees_to_be_match->setFilter("group_id=0");
     model_match_mentees_to_be_match->select();
     while(model_match_mentees_to_be_match->canFetchMore()){
         model_match_mentees_to_be_match->fetchMore();
     }
 
-    // link mentors QSqlTableModel to QTableView
+    // link mentors myMenteesTableModel to QTableView
     ui->tableView_match_mentees_to_be_match->setModel(model_match_mentees_to_be_match);
     ui->tableView_match_mentees_to_be_match->reset();
     ui->tableView_match_mentees_to_be_match->horizontalHeader()->setMaximumSectionSize(400);
@@ -124,16 +121,13 @@ void MainWindow::load_match_mentees()
 
     ui->tableView_match_mentees_to_be_match->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentees_to_be_match->setSelectionMode(QAbstractItemView::MultiSelection);
-    //ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-
-    //ui->tableView_match_mentees_to_be_match->hideColumn(0);
+    ui->tableView_match_mentees_to_be_match->hideColumn(0);
 
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
-    //connect(ui->tableView_match_mentees_to_be_match->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_match_mentees_to_be_match,&QTableView::resizeRowsToContents);
 
     connect(ui->checkBox_match_gender,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
     connect(ui->checkBox_match_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
