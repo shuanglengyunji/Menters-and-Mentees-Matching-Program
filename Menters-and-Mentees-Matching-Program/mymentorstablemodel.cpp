@@ -1,25 +1,25 @@
-#include "my_qsqltablemodel_grouping.h"
+#include "mymentorstablemodel.h"
 #include <qsqlrecord.h>
 #include <QDebug>
 
-my_QSqlTableModel_Grouping::my_QSqlTableModel_Grouping(QObject *parent, QSqlDatabase db)
+myMentorsTableModel::myMentorsTableModel(QObject *parent, QSqlDatabase db)
 {
 
 }
 
-QVariant my_QSqlTableModel_Grouping::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
+QVariant myMentorsTableModel::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
 {
-    if( orientation == Qt::Vertical && role == Qt::DisplayRole )
-    {
-        return this->record(section).value("group_id");
-    }
-    else
-    {
+    //if( orientation == Qt::Vertical && role == Qt::DisplayRole )
+    //{
+    //    return this->record(section).value("group_id");
+    //}
+    //else
+    //{
         return QSqlTableModel::headerData( section, orientation, role );
-    }
+    //}
 }
 
-QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Qt::DisplayRole) const
+QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::DisplayRole) const
 {
     //confirmation
     if (index.column() == 1 && role == Qt::DisplayRole) {
@@ -128,7 +128,7 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
         return QVariant(data);
     }
 
-    //college
+    //language
     if (index.column() == 13 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         data.replace("11","Other (please specify)");
@@ -170,7 +170,7 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
     }
 }
 
-Qt::ItemFlags my_QSqlTableModel_Grouping::flags(const QModelIndex &index) const
+Qt::ItemFlags myMentorsTableModel::flags(const QModelIndex &index) const
 {
       Qt::ItemFlags result = QSqlTableModel::flags(index);
     if (index.column() >= 1 && index.column() <= 17 )

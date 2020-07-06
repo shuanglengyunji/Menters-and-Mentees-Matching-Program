@@ -170,30 +170,51 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             gender = "3";
         }
 
+        QStringList language_tmp_list;
         QString languages = xlsxR.cellAt(row, 13)->readValue().toString();
-        languages = languages.simplified();
-        languages.replace("Hindi","0");
-        languages.replace("Vietnamese","1");
-        languages.replace("German","2");
-        languages.replace("Korean","3");
-        languages.replace("Tamil","4");
-        languages.replace("Mandarin (Chinese)","5");
-        languages.replace("Spanish","6");
-        languages.replace("Cantonese","7");
-        languages.replace("Indonesian","8");
-        languages.replace("Japanese","9");
-        languages.replace("Urdu","10");
-        languages.replace(",Other (please specify)","");
-        languages.replace("Other (please specify)","");
-        languages.replace(" ","");
-        if (languages.isEmpty())
-        {
-            languages = "11";       // English
+        if (languages.contains("Hindi",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("0");
+               }
+        if (languages.contains("Vietnamese",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("1");
+               }
+        if (languages.contains("German",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("2");
+               }
+        if (languages.contains("Korean",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("3");
+               }
+        if (languages.contains("Tamil",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("4");
+               }
+        if (languages.contains("Mandarin",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("5");
+               }
+        if (languages.contains("Spanish",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("6");
+               }
+        if (languages.contains("Cantonese",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("7");
+               }
+        if (languages.contains("Indonesian",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("8");
+               }
+        if (languages.contains("Japanese",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("9");
+               }
+        if (languages.contains("Urdu",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("10");
+               }
+        if (languages.contains("Other",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("11");
+               }
+        if (languages.isEmpty()){
+            language_tmp_list.append("11");
         }
-        else
-        {
-            languages = languages.append(",11");
-        }
+        languages = language_tmp_list.join(",");
+
+
+
 
         QString languages_text = xlsxR.cellAt(row, 14)->readValue().toString();
         QString hall = xlsxR.cellAt(row, 15)->readValue().toString();
@@ -445,30 +466,74 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             qDebug() << "[Import] Unexpected gender!";
         }
 
+
+        QStringList language_tmp_list;
         QString languages = xlsxR.cellAt(row, 11)->readValue().toString();
-        languages = languages.simplified();
-        languages.replace("Hindi","0");
-        languages.replace("Vietnamese","1");
-        languages.replace("German","2");
-        languages.replace("Korean","3");
-        languages.replace("Tamil","4");
-        languages.replace("Mandarin (Chinese)","5");
-        languages.replace("Spanish","6");
-        languages.replace("Cantonese","7");
-        languages.replace("Indonesian","8");
-        languages.replace("Japanese","9");
-        languages.replace("Urdu","10");
-        languages.replace(",Other (please specify)","");
-        languages.replace("Other (please specify)","");
-        languages.replace(" ","");
-        if (languages.isEmpty())
-        {
-            languages = "11";   // English
+        if (languages.contains("Hindi",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("0");
+               }
+        if (languages.contains("Vietnamese",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("1");
+               }
+        if (languages.contains("German",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("2");
+               }
+        if (languages.contains("Korean",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("3");
+               }
+        if (languages.contains("Tamil",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("4");
+               }
+        if (languages.contains("Mandarin",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("5");
+               }
+        if (languages.contains("Spanish",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("6");
+               }
+        if (languages.contains("Cantonese",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("7");
+               }
+        if (languages.contains("Indonesian",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("8");
+               }
+        if (languages.contains("Japanese",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("9");
+               }
+        if (languages.contains("Urdu",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("10");
+               }
+        if (languages.contains("Other",Qt::CaseInsensitive)) {
+                   language_tmp_list.append("11");
+               }
+        if (languages.isEmpty()){
+            language_tmp_list.append("11");
         }
-        else
-        {
-            languages = languages.append(",11");
-        }
+        languages = language_tmp_list.join(",");
+
+//        QString languages = xlsxR.cellAt(row, 11)->readValue().toString();
+//        languages = languages.simplified();
+//        languages.replace("Hindi","0");
+//        languages.replace("Vietnamese","1");
+//        languages.replace("German","2");
+//        languages.replace("Korean","3");
+//        languages.replace("Tamil","4");
+//        languages.replace("Mandarin (Chinese)","5");
+//        languages.replace("Spanish","6");
+//        languages.replace("Cantonese","7");
+//        languages.replace("Indonesian","8");
+//        languages.replace("Japanese","9");
+//        languages.replace("Urdu","10");
+//        languages.replace(",Other (please specify)","");
+//        languages.replace("Other (please specify)","");
+//        languages.replace(" ","");
+//        if (languages.isEmpty())
+//        {
+//            languages = "11";   // English
+//        }
+//        else
+//        {
+//            languages = languages.append(",11");
+//        }
 
         QString languages_text = xlsxR.cellAt(row, 12)->readValue().toString();
 

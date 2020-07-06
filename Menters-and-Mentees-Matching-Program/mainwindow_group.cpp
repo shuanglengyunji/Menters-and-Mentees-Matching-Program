@@ -22,9 +22,9 @@ void MainWindow::load_group_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_group_mentors_to_be_grouped = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_group_mentors_to_be_grouped = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_to_be_grouped->setTable("mentor");
-    model_group_mentors_to_be_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_group_mentors_to_be_grouped->setEditStrategy(myMentorsTableModel::OnFieldChange);
     model_group_mentors_to_be_grouped->setFilter("group_id=0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
     model_group_mentors_to_be_grouped->select();
     while(model_group_mentors_to_be_grouped->canFetchMore()){
@@ -72,7 +72,7 @@ void MainWindow::load_group_mentors()
     // link db to mentors QSqlTableModel
     model_group_mentors_grouped = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_grouped->setTable("mentor");
-    model_group_mentors_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_group_mentors_grouped->setEditStrategy(myMentorsTableModel::OnFieldChange);
     model_group_mentors_grouped->setFilter("group_id<>0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
     model_group_mentors_grouped->select();
     while(model_group_mentors_grouped->canFetchMore()){
@@ -176,11 +176,13 @@ void MainWindow::on_toolButton_left_clicked()
         }
         int max_group_id = querymodel.record(0).value(0).toInt();
         group_id = max_group_id+1;
+        qDebug() << "Failed to select left" ;
     }
     else
     {
         int row = selected_grouped.at(0).row();
         group_id = model_group_mentors_grouped->record(row).value("group_id").toInt();
+        qDebug() << "Success to select left" ;
     }
 
     QItemSelectionModel * selections = ui->tableView_group_mentor_to_be_group->selectionModel();
@@ -191,6 +193,7 @@ void MainWindow::on_toolButton_left_clicked()
         QSqlRecord r = model_group_mentors_to_be_grouped->record(row);
         r.setValue("group_id",group_id);
         model_group_mentors_to_be_grouped->setRecord(row,r);
+        qDebug() << "Success to select right" ;
     }
 
     model_group_mentors_to_be_grouped->select();

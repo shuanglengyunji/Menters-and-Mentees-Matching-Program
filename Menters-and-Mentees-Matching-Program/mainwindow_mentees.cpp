@@ -25,16 +25,16 @@ void MainWindow::load_mentees()
         model_mentees = nullptr;
     }
 
-    // link db to mentees QSqlTableModel
-    model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
+    // link db to mentees myMenteesTableModel
+    model_mentees = new myMenteesTableModel(this,db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("mentee");
-    model_mentees->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_mentees->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_mentees->select();
     while(model_mentees->canFetchMore()){
         model_mentees->fetchMore();
     }
 
-    // link mentees QSqlTableModel to QTableView
+    // link mentees myMenteesTableModel to QTableView
     ui->tableView_mentees->setModel(model_mentees);
     ui->tableView_mentees->reset();
     ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(400);
@@ -43,8 +43,8 @@ void MainWindow::load_mentees()
     // hide group id
     //ui->tableView_mentees->hideColumn(0);
 
-    ui->tableView_mentors->resizeColumnsToContents();
-    ui->tableView_mentors->resizeRowsToContents();
+    ui->tableView_mentees->resizeColumnsToContents();
+    ui->tableView_mentees->resizeRowsToContents();
 
     // connect
     connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
@@ -57,6 +57,7 @@ void MainWindow::load_mentees()
     connect(ui->checkBox_mentees_email,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_u18,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentess_importance,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+
 }
 
 // search
@@ -90,7 +91,7 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
         model_mentees->fetchMore();
     }
 
-    QSqlTableModel *tm = model_mentees;
+    myMenteesTableModel *tm = model_mentees;
     if (!tm)
         return;
 
@@ -215,6 +216,7 @@ void MainWindow::display_mentees_column()
     {
         ui->tableView_mentees->hideColumn(15);
     }
+
 
 }
 

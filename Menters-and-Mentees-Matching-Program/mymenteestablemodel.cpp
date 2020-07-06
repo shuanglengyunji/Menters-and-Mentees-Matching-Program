@@ -1,50 +1,28 @@
-#include "my_qsqltablemodel_grouping.h"
+#include "mymenteestablemodel.h"
 #include <qsqlrecord.h>
 #include <QDebug>
 
-my_QSqlTableModel_Grouping::my_QSqlTableModel_Grouping(QObject *parent, QSqlDatabase db)
+myMenteesTableModel::myMenteesTableModel(QObject *parent, QSqlDatabase db)
 {
 
 }
 
-QVariant my_QSqlTableModel_Grouping::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
+QVariant myMenteesTableModel::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
 {
-    if( orientation == Qt::Vertical && role == Qt::DisplayRole )
-    {
-        return this->record(section).value("group_id");
-    }
-    else
-    {
+    //if( orientation == Qt::Vertical && role == Qt::DisplayRole )
+    //{
+    //    return this->record(section).value("group_id");
+    //}
+    //else
+    //{
         return QSqlTableModel::headerData( section, orientation, role );
-    }
+    //}
 }
-
-QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Qt::DisplayRole) const
+QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::DisplayRole) const
 {
-    //confirmation
-    if (index.column() == 1 && role == Qt::DisplayRole) {
-        QString data = QSqlTableModel::data(index,role).toString();
-        if(data == "y"){
-            data = "I have read and understood the above text";
-        }
-        else{
-            data = " ";
-        }
-        return QVariant(data);
-    }
-    //wwvp
-    if (index.column() == 6 && role == Qt::DisplayRole) {
-        QString data = QSqlTableModel::data(index,role).toString();
-        if(data == "y"){
-            data = "Yes";
-        }
-        else{
-            data = "No";
-        }
-        return QVariant(data);
-    }
+
     //round
-    if (index.column() == 7 && role == Qt::DisplayRole) {
+    if (index.column() == 5 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         if(data == "0"){
             data = "Round 1";
@@ -55,7 +33,7 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
         return QVariant(data);
     }
     //academic level
-    if (index.column() == 8 && role == Qt::DisplayRole) {
+    if (index.column() == 6 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         if(data == "0"){
             data = "Undergraduate";
@@ -69,7 +47,7 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
 
     //college
     QStringList college_tmp_list;
-    if (index.column() == 9 && role == Qt::DisplayRole) {
+    if (index.column() == 7 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         if (data.contains("0",Qt::CaseInsensitive)) {
                    college_tmp_list.append("College of Asia and the Pacific");
@@ -95,9 +73,21 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
         data = college_tmp_list.join(",");
         return QVariant(data);
     }
+    //u18
+    if (index.column() == 8 && role == Qt::DisplayRole) {
+        QString data = QSqlTableModel::data(index,role).toString();
+        if(data == "0"){
+            data = "No";
+        }
+        else{
+            data = "Yes";
+        }
+        qDebug() << data;
+        return QVariant(data);
+    }
 
     //type
-    if (index.column() == 11 && role == Qt::DisplayRole) {
+    if (index.column() == 9 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         if(data == "0"){
             data = "Domestic";
@@ -110,7 +100,7 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
     }
 
     //gender
-    if (index.column() == 12 && role == Qt::DisplayRole) {
+    if (index.column() == 10 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         if(data == "0"){
             data = "Female";
@@ -128,8 +118,8 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
         return QVariant(data);
     }
 
-    //college
-    if (index.column() == 13 && role == Qt::DisplayRole) {
+    //language
+    if (index.column() == 11 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         data.replace("11","Other (please specify)");
         data.replace("10","Urdu");
@@ -147,7 +137,7 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
     }
 
     //interests
-    if (index.column() == 16 && role == Qt::DisplayRole) {
+    if (index.column() == 13 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
         data.replace("11","Playing sport");
         data.replace("10","Playing or creating music");
@@ -164,13 +154,26 @@ QVariant my_QSqlTableModel_Grouping::data(const QModelIndex &index, int role = Q
         return QVariant(data);
     }
 
+    //importance
+    if (index.column() == 15 && role == Qt::DisplayRole) {
+        QString data = QSqlTableModel::data(index,role).toString();
+        if(data == "0"){
+            data = "No";
+        }
+        else{
+            data = "Yes";
+        }
+        qDebug() << data;
+        return QVariant(data);
+    }
+
 
     else {
         return QSqlTableModel::data(index,role);
     }
 }
 
-Qt::ItemFlags my_QSqlTableModel_Grouping::flags(const QModelIndex &index) const
+Qt::ItemFlags myMenteesTableModel::flags(const QModelIndex &index) const
 {
       Qt::ItemFlags result = QSqlTableModel::flags(index);
     if (index.column() >= 1 && index.column() <= 17 )

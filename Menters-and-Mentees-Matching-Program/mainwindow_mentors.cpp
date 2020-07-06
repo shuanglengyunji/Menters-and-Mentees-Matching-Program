@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 // mentors
 
 // load
@@ -28,9 +27,9 @@ void MainWindow::load_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_mentors = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_mentors = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_mentors->setTable("mentor");
-    model_mentors->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_mentors->setEditStrategy(myMentorsTableModel::OnFieldChange);
     model_mentors->select();
     while(model_mentors->canFetchMore()){
         model_mentors->fetchMore();
