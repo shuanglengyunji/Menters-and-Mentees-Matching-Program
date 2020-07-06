@@ -9,8 +9,9 @@ void MainWindow::MainWindow::algorithm_mentees_match()
     int type = ui->comboBox_type->currentIndex();
     int gender = ui->comboBox_gender->currentIndex();
     int language = ui->comboBox_language->currentIndex();
-    int special = ui->comboBox_special->currentIndex();
-    int request = ui->comboBox_request->currentIndex();     // 0 - Leave Out    1 - Manual Match
+    int interests = ui->comboBox_interests->currentIndex();
+    int importance = ui->comboBox_importance->currentIndex();     //importance 0 - Leave Out    1 - Manual Match
+    int u18 = ui->comboBox_u18->currentIndex();     //u18   0 - Leave Out    1 - Manual Match
 
     int max_mentees_num = ui->spinBox_mentees_num->value();
 
@@ -67,12 +68,12 @@ void MainWindow::MainWindow::algorithm_mentees_match()
     default: language = 0; break;
     }
 
-    switch (special) {
-    case 0: special = 0; break;
-    case 1: special = 3; break;
-    case 2: special = 2; break;
-    case 3: special = 1; break;
-    default: special = 0; break;
+    switch (interests) {
+    case 0: interests = 0; break;
+    case 1: interests = 3; break;
+    case 2: interests = 2; break;
+    case 3: interests = 1; break;
+    default: interests = 0; break;
     }
 
     QSqlTableModel * model_mentors = new QSqlTableModel(this,db);
@@ -135,7 +136,7 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             QString mentorstype = mentor.record(0).value(10).toString();
             QString mentorsgender = mentor.record(0).value(11).toString();
             QString mentorslanguages = mentor.record(0).value(12).toString();
-            QString mentorsspecial = mentor.record(0).value(15).toString();
+            QString mentorsinterests = mentor.record(0).value(15).toString();
 
             if (mentor.rowCount() == 2){    // if only one mentor, just record his info, else, merge two mentors info
                 mentorsround.append(",").append(mentor.record(1).value(6).toString());
@@ -144,17 +145,17 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                 mentorstype.append(",").append(mentor.record(1).value(10).toString());
                 mentorsgender.append(",").append(mentor.record(1).value(11).toString());
                 mentorslanguages.append(",").append(mentor.record(1).value(12).toString());
-                mentorsspecial.append(",").append(mentor.record(1).value(15).toString());
+                mentorsinterests.append(",").append(mentor.record(1).value(15).toString());
             }
 
             // loop each mentees and find the closest one
             // leave request
-            if (request == 1){
-                mentee.setFilter("group_id=0 AND requests=''");
-            }
-            else{
-                mentee.setFilter("group_id=0");
-            }
+            //if (request == 1){
+            //    mentee.setFilter("group_id=0 AND requests=''");
+            //}
+            //else{
+            //    mentee.setFilter("group_id=0");
+            //}
 
             mentee.select();
             while(mentee.canFetchMore()){
@@ -174,7 +175,7 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                 QString menteetype = mentee.record(k).value(8).toString();
                 QString menteegender = mentee.record(k).value(9).toString();
                 QStringList menteelanguages = mentee.record(k).value(10).toString().simplified().split(",");
-                QStringList menteespecial = mentee.record(k).value(12).toString().simplified().split(",");
+                QStringList menteeinterests = mentee.record(k).value(12).toString().simplified().split(",");
 
                 bool enable=true;       // initial judge parameters
                 bool roundCheck = false;
@@ -232,9 +233,9 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                         cscore+=1*language;
                     }
                 }
-                for(int h=0;h<menteespecial.count(); h++){          // special categories
-                    if(mentorsspecial.contains(menteespecial.value(h))){
-                        cscore+=1*special;
+                for(int h=0;h<menteeinterests.count(); h++){          // interests
+                    if(mentorsinterests.contains(menteeinterests.value(h))){
+                        cscore+=1*interests;
                     }
                 }
 

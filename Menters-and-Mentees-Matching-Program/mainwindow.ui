@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1077</width>
+    <width>1082</width>
     <height>649</height>
    </rect>
   </property>
@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QWidget" name="gridLayoutWidget">
@@ -246,6 +246,16 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="checkBox_mentors_phone">
+              <property name="text">
+               <string>Phone</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="checkBox_mentors_wwvp">
               <property name="text">
                <string>WWVP</string>
@@ -316,9 +326,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentors_special">
+             <widget class="QCheckBox" name="checkBox_mentors_interests">
               <property name="text">
-               <string>Special</string>
+               <string>Interests</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -326,9 +336,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentors_interests">
+             <widget class="QCheckBox" name="checkBox_mentors_requests">
               <property name="text">
-               <string>Interests</string>
+               <string>Requests</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -419,6 +429,16 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="checkBox_mentees_email">
+              <property name="text">
+               <string>Email</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="checkBox_mentees_round">
               <property name="text">
                <string>Round</string>
@@ -432,6 +452,16 @@
              <widget class="QCheckBox" name="checkBox_mentees_academic_info">
               <property name="text">
                <string>Academic Info</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentees_u18">
+              <property name="text">
+               <string>u18</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -469,9 +499,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mentees_special_categories">
+             <widget class="QCheckBox" name="checkBox_mentees_interests">
               <property name="text">
-               <string>Special Categories</string>
+               <string>Interests</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -482,6 +512,16 @@
              <widget class="QCheckBox" name="checkBox_mentees_requests">
               <property name="text">
                <string>Requests</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mentess_importance">
+              <property name="text">
+               <string>Importance</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -542,9 +582,9 @@
                </widget>
               </item>
               <item row="1" column="7">
-               <widget class="QCheckBox" name="checkBox_group_mentor_special">
+               <widget class="QCheckBox" name="checkBox_group_mentor_interests">
                 <property name="text">
-                 <string>Special</string>
+                 <string>Interests</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -582,9 +622,9 @@
                </widget>
               </item>
               <item row="1" column="8">
-               <widget class="QCheckBox" name="checkBox_group_mentor_interests">
+               <widget class="QCheckBox" name="checkBox_group_mentor_requests">
                 <property name="text">
-                 <string>Interests</string>
+                 <string>Requests</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -863,7 +903,7 @@
              </widget>
             </item>
             <item row="15" column="0">
-             <widget class="QComboBox" name="comboBox_mentor_special">
+             <widget class="QComboBox" name="comboBox_mentor_interests">
               <item>
                <property name="text">
                 <string>Leave Out</string>
@@ -939,9 +979,9 @@
              </widget>
             </item>
             <item row="14" column="0">
-             <widget class="QLabel" name="label_mentor_special">
+             <widget class="QLabel" name="label_mentor_interests">
               <property name="text">
-               <string>Special:</string>
+               <string>Interests:</string>
               </property>
              </widget>
             </item>
@@ -1121,6 +1161,27 @@
             </item>
             <item row="0" column="2">
              <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QLabel" name="label_u18">
+                <property name="text">
+                 <string>u18:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_u18">
+                <item>
+                 <property name="text">
+                  <string>Leave Out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Manual Match</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
               <item>
                <widget class="QLabel" name="label_round">
                 <property name="text">
@@ -1336,14 +1397,14 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_special">
+               <widget class="QLabel" name="label_interests">
                 <property name="text">
-                 <string>Special:</string>
+                 <string>Interests:</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_special">
+               <widget class="QComboBox" name="comboBox_interests">
                 <item>
                  <property name="text">
                   <string>Leave Out</string>
@@ -1367,14 +1428,14 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_request">
+               <widget class="QLabel" name="label_importance">
                 <property name="text">
-                 <string>Request:</string>
+                 <string>Importance:</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_request">
+               <widget class="QComboBox" name="comboBox_importance">
                 <item>
                  <property name="text">
                   <string>Leave Out</string>
@@ -1525,9 +1586,9 @@
              </spacer>
             </item>
             <item row="0" column="7">
-             <widget class="QCheckBox" name="checkBox_match_special">
+             <widget class="QCheckBox" name="checkBox_match_interests">
               <property name="text">
-               <string>Special</string>
+               <string>Interests</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -1545,9 +1606,9 @@
              </widget>
             </item>
             <item row="0" column="8">
-             <widget class="QCheckBox" name="checkBox_match_interests">
+             <widget class="QCheckBox" name="checkBox_match_requests">
               <property name="text">
-               <string>Interests / Requests</string>
+               <string>Requests</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -1569,7 +1630,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1077</width>
+     <width>1082</width>
      <height>26</height>
     </rect>
    </property>
