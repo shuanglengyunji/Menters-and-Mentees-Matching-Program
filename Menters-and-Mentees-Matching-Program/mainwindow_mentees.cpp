@@ -19,7 +19,7 @@ void MainWindow::load_mentees()
     disconnect(ui->checkBox_mentess_importance,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 
     // clear exist data
-    if ( model_mentees != nullptr )
+    if ( model_mentees != nullptr )https://github.com/shuanglengyunji/Menters-and-Mentees-Matching-Program/pull/17/conflict?name=Menters-and-Mentees-Matching-Program%252Fmainwindow_mentees.cpp&ancestor_oid=4d697b1a55eb4b386261817beeea948ae5c7fb00&base_oid=6cf69a9fd25734df0f6aca0df79988718e73e35b&head_oid=7cbe60c7b6e7db866bc4373fe4490028bc9a9892
     {
         delete model_mentees;
         model_mentees = nullptr;

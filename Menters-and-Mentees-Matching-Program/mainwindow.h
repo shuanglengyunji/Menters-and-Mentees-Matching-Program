@@ -178,9 +178,6 @@ private:
 
     // ------------------------------------
 
-    // Delegrate
-
-
 };
 
 #endif // MAINWINDOW_H

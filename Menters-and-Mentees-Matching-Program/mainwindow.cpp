@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
+
 }
 
 MainWindow::~MainWindow()
