@@ -10,6 +10,7 @@ void MainWindow::algorithm_mentors_group()
     int type = ui->comboBox_mentor_type->currentIndex();            // 0 - reave out; 1 - must be same; 2 - high priority; 3 - medium priority; 4 - low priority
     int gender = ui->comboBox_mentor_gender->currentIndex();        // 0 - reave out; 1 - must be same; 2 - high priority; 3 - medium priority; 4 - low priority
     int language = ui->comboBox_mentor_language->currentIndex();    // 0 - reave out; 1 - high priority; 2 - medium priority; 3 - low priority
+    // Suikei 02/07/2020 changed special into interests
     int interests = ui->comboBox_mentor_interests->currentIndex();      // 0 - reave out; 1 - high priority; 2 - medium priority; 3 - low priority
 
     switch (round) {
@@ -65,6 +66,7 @@ void MainWindow::algorithm_mentors_group()
     default: language = 0; break;
     }
 
+    // Suikei 02/07/2020 changed speical into interests
     switch (interests) {
     case 0: interests = 0; break;
     case 1: interests = 3; break;
@@ -114,14 +116,16 @@ void MainWindow::algorithm_mentors_group()
             // start group
             QSqlRecord mentor1=mentor.record(0);
 
+            // Suikei 02/07/2020 change index number since add phone to mentors
             QString mentor1id=mentor1.value(4).toString();
-            QString mentor1round=mentor1.value(6).toString();
-            QString mentor1level=mentor1.value(7).toString();
-            QString mentor1college=mentor1.value(8).toString();
-            QString mentor1type=mentor1.value(10).toString();
-            QString mentor1gender=mentor1.value(11).toString();
-            QString mentor1languages=mentor1.value(12).toString();
-            QString mentor1interests=mentor1.value(15).toString();
+            QString mentor1round=mentor1.value(7).toString();
+            QString mentor1level=mentor1.value(8).toString();
+            QString mentor1college=mentor1.value(9).toString();
+            QString mentor1type=mentor1.value(11).toString();
+            QString mentor1gender=mentor1.value(12).toString();
+            QString mentor1languages=mentor1.value(13).toString();
+            QString mentor1interest=mentor1.value(16).toString();	// Suikei 02/07/2020 change special into interest
+
 
             QString group_mentor_id;
             int maxscore=0;
@@ -132,14 +136,15 @@ void MainWindow::algorithm_mentors_group()
                 QSqlRecord mentor2=mentor.record(k);
                 bool enable=true;
 
+                // Suikei 02/07/2020 change index number since add phone to mentors
                 QString mentor2id=mentor2.value(4).toString();      // get mentors' id
-                QString mentor2round=mentor2.value(6).toString();   // get mentors' round
-                QString mentor2level=mentor2.value(7).toString();   // get mentors' level
-                QStringList mentor2college=mentor2.value(8).toString().simplified().split(",");     // get mentors' college
-                QString mentor2type=mentor2.value(10).toString();   // get mentors' type
-                QString mentor2gender=mentor2.value(11).toString(); // get mentors' gender
-                QStringList mentor2languages=mentor2.value(12).toString().simplified().split(",");  // get mentors' language
-                QStringList mentor2interests=mentor2.value(15).toString().simplified().split(",");        // get mentors' interests
+                QString mentor2round=mentor2.value(7).toString();   // get mentors' round
+                QString mentor2level=mentor2.value(8).toString();   // get mentors' level
+                QStringList mentor2college=mentor2.value(9).toString().simplified().split(",");     // get mentors' college
+                QString mentor2type=mentor2.value(11).toString();   // get mentors' type
+                QString mentor2gender=mentor2.value(12).toString(); // get mentors' gender
+                QStringList mentor2languages=mentor2.value(13).toString().simplified().split(",");  // get mentors' language
+                QStringList mentor2interest=mentor2.value(16).toString().simplified().split(",");        // Suikei 02/07/2020 change special into interest
 
                 bool roundCheck = false;
                 bool levelCheck = false;
@@ -209,8 +214,8 @@ void MainWindow::algorithm_mentors_group()
                 }
 
                 // interests
-                for(int h=0;h<mentor2interests.count(); h++){
-                    if(mentor1interests.contains(mentor2interests.value(h))){
+                for(int h=0;h<mentor2interest.count(); h++){
+                    if(mentor1interest.contains(mentor2interest.value(h))){
                         cscore+=1*interests;
                     }
                 }
@@ -274,5 +279,6 @@ void MainWindow::algorithm_mentors_group()
 
     delete model_mentors;
     delete model_mentees;
+
 
 }

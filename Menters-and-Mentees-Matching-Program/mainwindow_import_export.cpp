@@ -510,30 +510,6 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         }
         languages = language_tmp_list.join(",");
 
-//        QString languages = xlsxR.cellAt(row, 11)->readValue().toString();
-//        languages = languages.simplified();
-//        languages.replace("Hindi","0");
-//        languages.replace("Vietnamese","1");
-//        languages.replace("German","2");
-//        languages.replace("Korean","3");
-//        languages.replace("Tamil","4");
-//        languages.replace("Mandarin (Chinese)","5");
-//        languages.replace("Spanish","6");
-//        languages.replace("Cantonese","7");
-//        languages.replace("Indonesian","8");
-//        languages.replace("Japanese","9");
-//        languages.replace("Urdu","10");
-//        languages.replace(",Other (please specify)","");
-//        languages.replace("Other (please specify)","");
-//        languages.replace(" ","");
-//        if (languages.isEmpty())
-//        {
-//            languages = "11";   // English
-//        }
-//        else
-//        {
-//            languages = languages.append(",11");
-//        }
 
         QString languages_text = xlsxR.cellAt(row, 12)->readValue().toString();
 
