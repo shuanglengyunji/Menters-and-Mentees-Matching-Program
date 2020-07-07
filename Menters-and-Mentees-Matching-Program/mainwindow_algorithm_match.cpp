@@ -9,9 +9,13 @@ void MainWindow::MainWindow::algorithm_mentees_match()
     int type = ui->comboBox_type->currentIndex();
     int gender = ui->comboBox_gender->currentIndex();
     int language = ui->comboBox_language->currentIndex();
-    int special = ui->comboBox_special->currentIndex();
-    int request = ui->comboBox_request->currentIndex();     // 0 - Leave Out    1 - Manual Match
-
+    // Suikei 02/07/2020 change spcial into interest
+    int interest = ui->comboBox_interests->currentIndex();
+    // Suikei 03/07/2020 add under 18 option
+    int u18 = ui->comboBox_u18->currentIndex();     // 0 - Leave Out    1 - Manual Match
+    // int request = ui->comboBox_request->currentIndex();     // 0 - Leave Out    1 - Manual Match
+    // Suikei -3/07/2020 add importance
+    int importance = ui->comboBox_importance->currentIndex();      // 0 - Leave Out    1 - Manual Match
     int max_mentees_num = ui->spinBox_mentees_num->value();
 
     switch (round) {
@@ -67,12 +71,13 @@ void MainWindow::MainWindow::algorithm_mentees_match()
     default: language = 0; break;
     }
 
-    switch (special) {
-    case 0: special = 0; break;
-    case 1: special = 3; break;
-    case 2: special = 2; break;
-    case 3: special = 1; break;
-    default: special = 0; break;
+    // Suikei 02/07/2020 change spcial into interest
+    switch (interest) {
+    case 0: interest = 0; break;
+    case 1: interest = 3; break;
+    case 2: interest = 2; break;
+    case 3: interest = 1; break;
+    default: interest = 0; break;
     }
 
     QSqlTableModel * model_mentors = new QSqlTableModel(this,db);
@@ -128,31 +133,37 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             if (current_group_mentee_count >= max_mentees_num)
                 continue;
 
+            // Suikei 02/07/2020 change index number
             QString mentorsgroup = mentor.record(0).value(0).toString(); // record mentor's group id for update the mentee group id
-            QString mentorsround = mentor.record(0).value(6).toString(); // record mentor's details
-            QString mentorslevel = mentor.record(0).value(7).toString();
-            QString mentorscollege = mentor.record(0).value(8).toString();
-            QString mentorstype = mentor.record(0).value(10).toString();
-            QString mentorsgender = mentor.record(0).value(11).toString();
-            QString mentorslanguages = mentor.record(0).value(12).toString();
-            QString mentorsspecial = mentor.record(0).value(15).toString();
+            QString mentorsround = mentor.record(0).value(7).toString(); // record mentor's details
+            QString mentorslevel = mentor.record(0).value(8).toString();
+            QString mentorscollege = mentor.record(0).value(9).toString();
+            QString mentorstype = mentor.record(0).value(11).toString();
+            QString mentorsgender = mentor.record(0).value(12).toString();
+            QString mentorslanguages = mentor.record(0).value(13).toString();
+            QString mentorsinterest = mentor.record(0).value(16).toString();
 
             if (mentor.rowCount() == 2){    // if only one mentor, just record his info, else, merge two mentors info
-                mentorsround.append(",").append(mentor.record(1).value(6).toString());
-                mentorslevel.append(",").append(mentor.record(1).value(7).toString());
-                mentorscollege.append(",").append(mentor.record(1).value(8).toString());
-                mentorstype.append(",").append(mentor.record(1).value(10).toString());
-                mentorsgender.append(",").append(mentor.record(1).value(11).toString());
-                mentorslanguages.append(",").append(mentor.record(1).value(12).toString());
-                mentorsspecial.append(",").append(mentor.record(1).value(15).toString());
+                // Suikei 02/07/2020 change index number
+                mentorsround.append(",").append(mentor.record(1).value(7).toString());
+                mentorslevel.append(",").append(mentor.record(1).value(8).toString());
+                mentorscollege.append(",").append(mentor.record(1).value(9).toString());
+                mentorstype.append(",").append(mentor.record(1).value(11).toString());
+                mentorsgender.append(",").append(mentor.record(1).value(12).toString());
+                mentorslanguages.append(",").append(mentor.record(1).value(13).toString());
+                mentorsinterest.append(",").append(mentor.record(1).value(16).toString());
             }
 
             // loop each mentees and find the closest one
             // leave request
-            if (request == 1){
-                mentee.setFilter("group_id=0 AND requests=''");
-            }
-            else{
+            // Suikei 03/07/2020 leave request and u18 or not
+            if (u18 == 1 && importance == 1){ // leave both u18=true and importance=true(manually match u18 and request)
+                mentee.setFilter("group_id=0 AND u18=0 AND importance=0");// only auto match 18+ and not important
+            } else if (u18 == 1 && importance == 0){ // only leave u18=true(manually match u18)
+                mentee.setFilter("group_id=0 AND u18=0");// auto match all 18+
+            } else if (u18 == 0 && importance == 1){ // only leave importance=true(manualy match request)
+                mentee.setFilter("group_id=0 AND importance=0");// auto match all not important
+            } else{ // auto match all (u18==0, importance==0)
                 mentee.setFilter("group_id=0");
             }
 
@@ -167,14 +178,15 @@ void MainWindow::MainWindow::algorithm_mentees_match()
             int maxscore = 0;
 
             for (int k=0;k<mentee.rowCount();k++) {             // get each mentee's info
+                // Suikei 02/07/2020 change index number
                 QString menteeid = mentee.record(k).value(3).toString();
-                QString menteeround = mentee.record(k).value(4).toString();
-                QString menteelevel = mentee.record(k).value(5).toString();
-                QStringList menteecollege = mentee.record(k).value(6).toString().simplified().split(",");
-                QString menteetype = mentee.record(k).value(8).toString();
-                QString menteegender = mentee.record(k).value(9).toString();
-                QStringList menteelanguages = mentee.record(k).value(10).toString().simplified().split(",");
-                QStringList menteespecial = mentee.record(k).value(12).toString().simplified().split(",");
+                QString menteeround = mentee.record(k).value(5).toString();
+                QString menteelevel = mentee.record(k).value(6).toString();
+                QStringList menteecollege = mentee.record(k).value(7).toString().simplified().split(",");
+                QString menteetype = mentee.record(k).value(9).toString();
+                QString menteegender = mentee.record(k).value(10).toString();
+                QStringList menteelanguages = mentee.record(k).value(11).toString().simplified().split(",");
+                QStringList menteeinterest = mentee.record(k).value(13).toString().simplified().split(",");
 
                 bool enable=true;       // initial judge parameters
                 bool roundCheck = false;
@@ -232,9 +244,10 @@ void MainWindow::MainWindow::algorithm_mentees_match()
                         cscore+=1*language;
                     }
                 }
-                for(int h=0;h<menteespecial.count(); h++){          // special categories
-                    if(mentorsspecial.contains(menteespecial.value(h))){
-                        cscore+=1*special;
+                // Suikei 06/07/2020 change special to interest
+                for(int h=0;h<menteeinterest.count(); h++){          // special categories
+                    if(mentorsinterest.contains(menteeinterest.value(h))){
+                        cscore+=1*interest;
                     }
                 }
 

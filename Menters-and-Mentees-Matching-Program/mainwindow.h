@@ -17,18 +17,8 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
-#include <delegate_yes_no.h>
-#include <delegate_round.h>
-#include <delegate_academic_level.h>
-#include <delegate_type.h>
-#include <delegate_gender.h>
-#include <delegate_language.h>
-#include <delegate_college.h>
-#include <delegate_special_mentors.h>
-#include <delegate_special_mentees.h>
-#include <delegate_yes_no_disp.h>
-
-#include <my_qsqltablemodel_grouping.h>
+#include <mymentorstablemodel.h>
+#include <mymenteestablemodel.h>
 
 # define MY_DATA_BASE_NAME "database.db"
 
@@ -151,7 +141,7 @@ private:
 
     // Mentors
 
-    QSqlTableModel * model_mentors = nullptr;
+    myMentorsTableModel * model_mentors = nullptr;
 
     void load_mentors();
 
@@ -159,7 +149,7 @@ private:
 
     // Mentees
 
-    QSqlTableModel * model_mentees = nullptr;
+    myMenteesTableModel * model_mentees = nullptr;
 
     void load_mentees();
 
@@ -167,8 +157,8 @@ private:
 
     // Group
 
-    QSqlTableModel * model_group_mentors_to_be_grouped = nullptr;
-    my_QSqlTableModel_Grouping * model_group_mentors_grouped = nullptr;
+    myMentorsTableModel * model_group_mentors_to_be_grouped = nullptr;
+    myMentorsTableModel * model_group_mentors_grouped = nullptr;
 
     void load_group_mentors();
 
@@ -178,9 +168,9 @@ private:
 
     // Match
 
-    my_QSqlTableModel_Grouping * model_match_mentors = nullptr;
-    QSqlTableModel * model_match_mentees_matched = nullptr;
-    QSqlTableModel * model_match_mentees_to_be_match = nullptr;
+    myMentorsTableModel * model_match_mentors = nullptr;
+    myMenteesTableModel * model_match_mentees_matched = nullptr;
+    myMenteesTableModel * model_match_mentees_to_be_match = nullptr;
 
     void load_match_mentees();
 
@@ -188,18 +178,6 @@ private:
 
     // ------------------------------------
 
-    // Delegrate
-
-    Delegate_Yes_No * delegate_yes_no = nullptr;
-    Delegate_Yes_No_Disp * delegate_yes_no_disp = nullptr;
-    Delegate_Round * delegate_round = nullptr;
-    Delegate_Academic_Level * delegate_academic_level = nullptr;
-    Delegate_Type * delegate_type = nullptr;
-    Delegate_Gender * delegate_gender = nullptr;
-    Delegate_Language * delegate_language = nullptr;
-    Delegate_College * delegate_college = nullptr;
-    Delegate_Special_Mentors * delegate_special_mentors = nullptr;
-    Delegate_Special_Mentees * delegate_special_mentees = nullptr;
 };
 
 #endif // MAINWINDOW_H

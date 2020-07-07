@@ -7,9 +7,9 @@ void MainWindow::load_group_mentors()
     disconnect(ui->checkBox_group_mentor_type,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     disconnect(ui->checkBox_group_mentor_round,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     disconnect(ui->checkBox_group_mentor_gender,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
-    disconnect(ui->checkBox_group_mentor_special,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
-    disconnect(ui->checkBox_group_mentor_language,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     disconnect(ui->checkBox_group_mentor_interests,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_language,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    disconnect(ui->checkBox_group_mentor_requests,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     disconnect(ui->checkBox_group_mentor_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
 
     // mentors to be grouped
@@ -22,9 +22,9 @@ void MainWindow::load_group_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_group_mentors_to_be_grouped = new QSqlTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_group_mentors_to_be_grouped = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_group_mentors_to_be_grouped->setTable("mentor");
-    model_group_mentors_to_be_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_group_mentors_to_be_grouped->setEditStrategy(myMentorsTableModel::OnFieldChange);
     model_group_mentors_to_be_grouped->setFilter("group_id=0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
     model_group_mentors_to_be_grouped->select();
     while(model_group_mentors_to_be_grouped->canFetchMore()){
@@ -41,34 +41,19 @@ void MainWindow::load_group_mentors()
     //ui->tableView_group_mentor_to_be_group->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_to_be_group->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // delegate
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(1,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(17,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(18,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(20,delegate_yes_no);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(6,delegate_round);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(7,delegate_academic_level);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(10,delegate_type);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(11,delegate_gender);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(12,delegate_language);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(8,delegate_college);
-    ui->tableView_group_mentor_to_be_group->setItemDelegateForColumn(15,delegate_special_mentors);
 
     // resize row height according to column width
     ui->tableView_group_mentor_to_be_group->resizeColumnsToContents();
     ui->tableView_group_mentor_to_be_group->resizeRowsToContents();
-    //connect(ui->tableView_group_mentor_to_be_group->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_group_mentor_to_be_group,&QTableView::resizeRowsToContents);
 
     // hide columns
     ui->tableView_group_mentor_to_be_group->hideColumn(0);
     ui->tableView_group_mentor_to_be_group->hideColumn(1);
-    ui->tableView_group_mentor_to_be_group->hideColumn(5);
-    ui->tableView_group_mentor_to_be_group->hideColumn(17);
+    ui->tableView_group_mentor_to_be_group->hideColumn(6);
     ui->tableView_group_mentor_to_be_group->hideColumn(18);
     ui->tableView_group_mentor_to_be_group->hideColumn(19);
     ui->tableView_group_mentor_to_be_group->hideColumn(20);
+    ui->tableView_group_mentor_to_be_group->hideColumn(21);
 
     //--------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------
@@ -83,9 +68,9 @@ void MainWindow::load_group_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_group_mentors_grouped = new my_QSqlTableModel_Grouping(this,db);    // model_mentors is a private pointer defined in header file
+    model_group_mentors_grouped = new myMentorsTableModel(this,db,true);    // model_mentors is a private pointer defined in header file
     model_group_mentors_grouped->setTable("mentor");
-    model_group_mentors_grouped->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_group_mentors_grouped->setEditStrategy(myMentorsTableModel::OnFieldChange);
     model_group_mentors_grouped->setFilter("group_id<>0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
     model_group_mentors_grouped->select();
     while(model_group_mentors_grouped->canFetchMore()){
@@ -102,46 +87,26 @@ void MainWindow::load_group_mentors()
     //ui->tableView_group_mentor_grouped->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // delegate
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(1,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(17,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(18,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(19,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(20,delegate_yes_no);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(6,delegate_round);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(7,delegate_academic_level);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(10,delegate_type);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(11,delegate_gender);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(12,delegate_language);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(8,delegate_college);
-    ui->tableView_group_mentor_grouped->setItemDelegateForColumn(15,delegate_special_mentors);
-
     // resize row height according to column width
     ui->tableView_group_mentor_grouped->resizeColumnsToContents();
     ui->tableView_group_mentor_grouped->resizeRowsToContents();
-    //connect(ui->tableView_group_mentor_grouped->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_group_mentor_grouped,&QTableView::resizeRowsToContents);
 
     // hide columns
     ui->tableView_group_mentor_grouped->hideColumn(0);
     ui->tableView_group_mentor_grouped->hideColumn(1);
-    ui->tableView_group_mentor_grouped->hideColumn(5);
-    ui->tableView_group_mentor_grouped->hideColumn(17);
+    ui->tableView_group_mentor_grouped->hideColumn(6);
     ui->tableView_group_mentor_grouped->hideColumn(18);
     ui->tableView_group_mentor_grouped->hideColumn(19);
     ui->tableView_group_mentor_grouped->hideColumn(20);
-
-    /*
-    ui->tableView_group_mentor_grouped->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    */
+    ui->tableView_group_mentor_grouped->hideColumn(21);
 
     connect(ui->checkBox_group_mentor_hall,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     connect(ui->checkBox_group_mentor_type,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     connect(ui->checkBox_group_mentor_round,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     connect(ui->checkBox_group_mentor_gender,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
-    connect(ui->checkBox_group_mentor_special,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
-    connect(ui->checkBox_group_mentor_language,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     connect(ui->checkBox_group_mentor_interests,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_language,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
+    connect(ui->checkBox_group_mentor_requests,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
     connect(ui->checkBox_group_mentor_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_group_column);
 }
 
@@ -193,7 +158,7 @@ void MainWindow::on_toolButton_left_clicked()
     QItemSelectionModel * selections_grouped = ui->tableView_group_mentor_grouped->selectionModel();
     QModelIndexList selected_grouped = selections_grouped->selectedRows();
 
-    int group_id = -1;
+    int group_id = -1;//why -1 not 0
     if ( selected_grouped.isEmpty() )
     {
         QSqlQueryModel querymodel;
@@ -279,6 +244,8 @@ void MainWindow::on_toolButton_right_clicked()
         }
     }
 
+    query.exec("UPDATE mentee SET group_id=0");
+
     model_group_mentors_to_be_grouped->select();
     model_group_mentors_grouped->select();
 
@@ -322,49 +289,37 @@ void MainWindow::display_group_column()
     // round
     if (ui->checkBox_group_mentor_round->isChecked())
     {
-        ui->tableView_group_mentor_grouped->showColumn(6);
-        ui->tableView_group_mentor_to_be_group->showColumn(6);
+        ui->tableView_group_mentor_grouped->showColumn(7);
+        ui->tableView_group_mentor_to_be_group->showColumn(7);
     }
     else
     {
-        ui->tableView_group_mentor_grouped->hideColumn(6);
-        ui->tableView_group_mentor_to_be_group->hideColumn(6);
+        ui->tableView_group_mentor_grouped->hideColumn(7);
+        ui->tableView_group_mentor_to_be_group->hideColumn(7);
     }
 
     // academic info
     if (ui->checkBox_group_mentor_academic_info->isChecked())
     {
-        ui->tableView_group_mentor_grouped->showColumn(7);
         ui->tableView_group_mentor_grouped->showColumn(8);
         ui->tableView_group_mentor_grouped->showColumn(9);
-        ui->tableView_group_mentor_to_be_group->showColumn(7);
+        ui->tableView_group_mentor_grouped->showColumn(10);
         ui->tableView_group_mentor_to_be_group->showColumn(8);
         ui->tableView_group_mentor_to_be_group->showColumn(9);
-    }
-    else
-    {
-        ui->tableView_group_mentor_grouped->hideColumn(7);
-        ui->tableView_group_mentor_grouped->hideColumn(8);
-        ui->tableView_group_mentor_grouped->hideColumn(9);
-        ui->tableView_group_mentor_to_be_group->hideColumn(7);
-        ui->tableView_group_mentor_to_be_group->hideColumn(8);
-        ui->tableView_group_mentor_to_be_group->hideColumn(9);
-    }
-
-    // type
-    if (ui->checkBox_group_mentor_type->isChecked())
-    {
-        ui->tableView_group_mentor_grouped->showColumn(10);
         ui->tableView_group_mentor_to_be_group->showColumn(10);
     }
     else
     {
+        ui->tableView_group_mentor_grouped->hideColumn(8);
+        ui->tableView_group_mentor_grouped->hideColumn(9);
         ui->tableView_group_mentor_grouped->hideColumn(10);
+        ui->tableView_group_mentor_to_be_group->hideColumn(8);
+        ui->tableView_group_mentor_to_be_group->hideColumn(9);
         ui->tableView_group_mentor_to_be_group->hideColumn(10);
     }
 
-    // gender
-    if (ui->checkBox_group_mentor_gender->isChecked())
+    // type
+    if (ui->checkBox_group_mentor_type->isChecked())
     {
         ui->tableView_group_mentor_grouped->showColumn(11);
         ui->tableView_group_mentor_to_be_group->showColumn(11);
@@ -375,36 +330,36 @@ void MainWindow::display_group_column()
         ui->tableView_group_mentor_to_be_group->hideColumn(11);
     }
 
-    // language
-    if (ui->checkBox_group_mentor_language->isChecked())
+    // gender
+    if (ui->checkBox_group_mentor_gender->isChecked())
     {
         ui->tableView_group_mentor_grouped->showColumn(12);
-        ui->tableView_group_mentor_grouped->showColumn(13);
         ui->tableView_group_mentor_to_be_group->showColumn(12);
-        ui->tableView_group_mentor_to_be_group->showColumn(13);
     }
     else
     {
         ui->tableView_group_mentor_grouped->hideColumn(12);
-        ui->tableView_group_mentor_grouped->hideColumn(13);
         ui->tableView_group_mentor_to_be_group->hideColumn(12);
-        ui->tableView_group_mentor_to_be_group->hideColumn(13);
     }
 
-    // hall
-    if (ui->checkBox_group_mentor_hall->isChecked())
+    // language
+    if (ui->checkBox_group_mentor_language->isChecked())
     {
+        ui->tableView_group_mentor_grouped->showColumn(13);
         ui->tableView_group_mentor_grouped->showColumn(14);
+        ui->tableView_group_mentor_to_be_group->showColumn(13);
         ui->tableView_group_mentor_to_be_group->showColumn(14);
     }
     else
     {
+        ui->tableView_group_mentor_grouped->hideColumn(13);
         ui->tableView_group_mentor_grouped->hideColumn(14);
+        ui->tableView_group_mentor_to_be_group->hideColumn(13);
         ui->tableView_group_mentor_to_be_group->hideColumn(14);
     }
 
-    // special
-    if (ui->checkBox_group_mentor_special->isChecked())
+    // hall
+    if (ui->checkBox_group_mentor_hall->isChecked())
     {
         ui->tableView_group_mentor_grouped->showColumn(15);
         ui->tableView_group_mentor_to_be_group->showColumn(15);
@@ -425,6 +380,18 @@ void MainWindow::display_group_column()
     {
         ui->tableView_group_mentor_grouped->hideColumn(16);
         ui->tableView_group_mentor_to_be_group->hideColumn(16);
+    }
+
+    // requests
+    if (ui->checkBox_group_mentor_requests->isChecked())
+    {
+        ui->tableView_group_mentor_grouped->showColumn(17);
+        ui->tableView_group_mentor_to_be_group->showColumn(17);
+    }
+    else
+    {
+        ui->tableView_group_mentor_grouped->hideColumn(17);
+        ui->tableView_group_mentor_to_be_group->hideColumn(17);
     }
 }
 

@@ -12,26 +12,29 @@ void MainWindow::load_mentees()
     disconnect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     disconnect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     disconnect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    disconnect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentees_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     disconnect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentees_email,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentees_u18,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    disconnect(ui->checkBox_mentess_importance,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
 
     // clear exist data
-    if ( model_mentees != nullptr )
+    if ( model_mentees != nullptr )https://github.com/shuanglengyunji/Menters-and-Mentees-Matching-Program/pull/17/conflict?name=Menters-and-Mentees-Matching-Program%252Fmainwindow_mentees.cpp&ancestor_oid=4d697b1a55eb4b386261817beeea948ae5c7fb00&base_oid=6cf69a9fd25734df0f6aca0df79988718e73e35b&head_oid=7cbe60c7b6e7db866bc4373fe4490028bc9a9892
     {
         delete model_mentees;
         model_mentees = nullptr;
     }
 
-    // link db to mentees QSqlTableModel
-    model_mentees = new QSqlTableModel(this,db);    // model_mentees is a private pointer defined in header file
+    // link db to mentees myMenteesTableModel
+    model_mentees = new myMenteesTableModel(this,db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("mentee");
-    model_mentees->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_mentees->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_mentees->select();
     while(model_mentees->canFetchMore()){
         model_mentees->fetchMore();
     }
 
-    // link mentees QSqlTableModel to QTableView
+    // link mentees myMenteesTableModel to QTableView
     ui->tableView_mentees->setModel(model_mentees);
     ui->tableView_mentees->reset();
     ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(400);
@@ -40,20 +43,8 @@ void MainWindow::load_mentees()
     // hide group id
     ui->tableView_mentees->hideColumn(0);
 
-    // delegate
-    ui->tableView_mentees->setItemDelegateForColumn(4,delegate_round);
-    ui->tableView_mentees->setItemDelegateForColumn(5,delegate_academic_level);
-    ui->tableView_mentees->setItemDelegateForColumn(8,delegate_type);
-    ui->tableView_mentees->setItemDelegateForColumn(9,delegate_gender);
-    ui->tableView_mentees->setItemDelegateForColumn(10,delegate_language);
-    ui->tableView_mentees->setItemDelegateForColumn(6,delegate_college);
-    ui->tableView_mentees->setItemDelegateForColumn(12,delegate_special_mentees);
-
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();
-
-    //connect(ui->tableView_mentees->horizontalHeader(),&QHeaderView::sectionResized,
-    //        ui->tableView_mentees,&QTableView::resizeRowsToContents);
 
     // connect
     connect(ui->checkBox_mentees_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
@@ -61,8 +52,12 @@ void MainWindow::load_mentees()
     connect(ui->checkBox_mentees_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
-    connect(ui->checkBox_mentees_special_categories,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
     connect(ui->checkBox_mentees_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_email,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentees_u18,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+    connect(ui->checkBox_mentess_importance,&QCheckBox::stateChanged,this,&MainWindow::display_mentees_column);
+
 }
 
 // search
@@ -96,7 +91,7 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
         model_mentees->fetchMore();
     }
 
-    QSqlTableModel *tm = model_mentees;
+    myMenteesTableModel *tm = model_mentees;
     if (!tm)
         return;
 
@@ -118,8 +113,8 @@ void MainWindow::on_pushButton_mentees_delete_clicked()
 
 void MainWindow::display_mentees_column()
 {
-    // round
-    if (ui->checkBox_mentees_round->isChecked())
+    // email
+    if (ui->checkBox_mentees_email->isChecked())
     {
         ui->tableView_mentees->showColumn(4);
     }
@@ -128,22 +123,30 @@ void MainWindow::display_mentees_column()
         ui->tableView_mentees->hideColumn(4);
     }
 
+    // round
+    if (ui->checkBox_mentees_round->isChecked())
+    {
+        ui->tableView_mentees->showColumn(5);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(5);
+    }
+
     // academic info
     if (ui->checkBox_mentees_academic_info->isChecked())
     {
-        ui->tableView_mentees->showColumn(5);
         ui->tableView_mentees->showColumn(6);
         ui->tableView_mentees->showColumn(7);
     }
     else
     {
-        ui->tableView_mentees->hideColumn(5);
         ui->tableView_mentees->hideColumn(6);
         ui->tableView_mentees->hideColumn(7);
     }
 
-    // type
-    if (ui->checkBox_mentees_type->isChecked())
+    // u18
+    if (ui->checkBox_mentees_u18->isChecked())
     {
         ui->tableView_mentees->showColumn(8);
     }
@@ -152,8 +155,8 @@ void MainWindow::display_mentees_column()
         ui->tableView_mentees->hideColumn(8);
     }
 
-    // gender
-    if (ui->checkBox_mentees_gender->isChecked())
+    // type
+    if (ui->checkBox_mentees_type->isChecked())
     {
         ui->tableView_mentees->showColumn(9);
     }
@@ -162,30 +165,30 @@ void MainWindow::display_mentees_column()
         ui->tableView_mentees->hideColumn(9);
     }
 
-    // language
-    if (ui->checkBox_mentees_language->isChecked())
+    // gender
+    if (ui->checkBox_mentees_gender->isChecked())
     {
         ui->tableView_mentees->showColumn(10);
-        ui->tableView_mentees->showColumn(11);
     }
     else
     {
         ui->tableView_mentees->hideColumn(10);
-        ui->tableView_mentees->hideColumn(11);
     }
 
-    // special categories
-    if (ui->checkBox_mentees_special_categories->isChecked())
+    // language
+    if (ui->checkBox_mentees_language->isChecked())
     {
+        ui->tableView_mentees->showColumn(11);
         ui->tableView_mentees->showColumn(12);
     }
     else
     {
+        ui->tableView_mentees->hideColumn(11);
         ui->tableView_mentees->hideColumn(12);
     }
 
-    // requests
-    if (ui->checkBox_mentees_requests->isChecked())
+    // interests
+    if (ui->checkBox_mentees_interests->isChecked())
     {
         ui->tableView_mentees->showColumn(13);
     }
@@ -193,6 +196,27 @@ void MainWindow::display_mentees_column()
     {
         ui->tableView_mentees->hideColumn(13);
     }
+
+    // requests
+    if (ui->checkBox_mentees_requests->isChecked())
+    {
+        ui->tableView_mentees->showColumn(14);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(14);
+    }
+
+    // importance
+    if (ui->checkBox_mentess_importance->isChecked())
+    {
+        ui->tableView_mentees->showColumn(15);
+    }
+    else
+    {
+        ui->tableView_mentees->hideColumn(15);
+    }
+
 
 }
 
