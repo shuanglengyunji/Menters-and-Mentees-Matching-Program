@@ -158,7 +158,7 @@ void MainWindow::on_toolButton_left_clicked()
     QItemSelectionModel * selections_grouped = ui->tableView_group_mentor_grouped->selectionModel();
     QModelIndexList selected_grouped = selections_grouped->selectedRows();
 
-    int group_id ;//why -1 not 0
+    int group_id = -1;//why -1 not 0
     if ( selected_grouped.isEmpty() )
     {
         QSqlQueryModel querymodel;

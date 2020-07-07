@@ -270,27 +270,28 @@ void MainWindow::edit_finished()
         if(train_1 != "y")
         {
             model_mentors->setData(model_mentors->index(i,21),"n");
+            model_mentors->setData(model_mentors->index(i,18),"n");
         }
 
         if(train_2 != "y")
         {
             model_mentors->setData(model_mentors->index(i,21),"n");
+            model_mentors->setData(model_mentors->index(i,19),"n");
         }
 
         if(train_3 != "y")
         {
             model_mentors->setData(model_mentors->index(i,21),"n");
+            model_mentors->setData(model_mentors->index(i,20),"n");
         }
 
         if(train_1 == "y" && train_2 == "y" && train_3 == "y")
         {
             model_mentors->setData(model_mentors->index(i,21),"y");
-            //qDebug() << "Yes";
         }
         else
         {
             model_mentors->setData(model_mentors->index(i,21),"n");
-            //qDebug() << "No";
         }
 
     }
