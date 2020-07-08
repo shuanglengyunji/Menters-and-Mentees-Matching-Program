@@ -98,7 +98,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         }
         else
         {
-            qDebug() << "[Import] Unexpected round!";
+            qDebug() << "[Import] Mentor Unexpected round!";
             round = "0";
         }
 
@@ -166,7 +166,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         }
         else
         {
-            qDebug() << "[Import] Unexpected gender!";
+            qDebug() << "[Import] Mentor Unexpected gender!";
             gender = "3";
         }
 
@@ -208,11 +208,11 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         if (languages.contains("Other",Qt::CaseInsensitive)) {
                    language_tmp_list.append("11");
                }
-        if (languages.isEmpty()){
+        if (language_tmp_list.length()==0){
             language_tmp_list.append("11");
+            qDebug() << "The mentor lack languages";
         }
         languages = language_tmp_list.join(",");
-
 
 
 
@@ -222,40 +222,40 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QStringList interests_tmp_list;
         QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
         if (interests.contains("sport",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("0");
+                   interests_tmp_list.append("11");
                }
         if (interests.contains("music",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("1");
-               }
-        if (interests.contains("Visual",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("2");
-               }
-        if (interests.contains("Performing",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("3");
-               }
-        if (interests.contains("movies",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("4");
-               }
-        if (interests.contains("food",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("5");
-               }
-        if (interests.contains("nature",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("6");
-               }
-        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("7");
-               }
-        if (interests.contains("fiction",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("8");
-               }
-        if (interests.contains("languages",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("9");
-               }
-        if (interests.contains("Comics",Qt::CaseInsensitive)) {
                    interests_tmp_list.append("10");
                }
+        if (interests.contains("Visual",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("9");
+               }
+        if (interests.contains("Performing",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("8");
+               }
+        if (interests.contains("movies",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("7");
+               }
+        if (interests.contains("food",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("6");
+               }
+        if (interests.contains("nature",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("5");
+               }
+        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("4");
+               }
+        if (interests.contains("fiction",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("3");
+               }
+        if (interests.contains("languages",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("2");
+               }
+        if (interests.contains("Comics",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("1");
+               }
         if (interests.contains("Travel",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("11");
+                   interests_tmp_list.append("0");
                }
         interests = interests_tmp_list.join(",");
         QString requests = xlsxR.cellAt(row, 17)->readValue().toString();
@@ -375,7 +375,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         else
         {
             round = "0";
-            qDebug() << "[Import] Unexpected round!";
+            qDebug() << "[Import] Mentee Unexpected round!";
         }
 
         QStringList academic_level_tmp_list;
@@ -424,7 +424,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         }
         else
         {
-            qDebug() << "[Import] Unexpected u18!";
+            qDebug() << "[Import] Mentee Unexpected u18!";
             u18 = "0";
         }
 
@@ -440,7 +440,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         else
         {
             type = "0";
-            qDebug() << "[Import] Unexpected type!";
+            qDebug() << "[Import] Mentee Unexpected type!";
         }
 
         QString gender = xlsxR.cellAt(row, 10)->readValue().toString();
@@ -463,7 +463,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         else
         {
             gender = "3";
-            qDebug() << "[Import] Unexpected gender!";
+            qDebug() << "[Import] Mentee Unexpected gender!";
         }
 
 
@@ -505,8 +505,9 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         if (languages.contains("Other",Qt::CaseInsensitive)) {
                    language_tmp_list.append("11");
                }
-        if (languages.isEmpty()){
+        if (language_tmp_list.length() == 0){
             language_tmp_list.append("11");
+            qDebug() << "Mentee lack of language";
         }
         languages = language_tmp_list.join(",");
 
@@ -516,40 +517,40 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QStringList interests_tmp_list;
         QString interests = xlsxR.cellAt(row, 13)->readValue().toString();
         if (interests.contains("sport",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("0");
+                   interests_tmp_list.append("11");
                }
         if (interests.contains("music",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("1");
-               }
-        if (interests.contains("Visual",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("2");
-               }
-        if (interests.contains("Performing",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("3");
-               }
-        if (interests.contains("movies",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("4");
-               }
-        if (interests.contains("food",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("5");
-               }
-        if (interests.contains("nature",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("6");
-               }
-        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("7");
-               }
-        if (interests.contains("fiction",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("8");
-               }
-        if (interests.contains("languages",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("9");
-               }
-        if (interests.contains("Comics",Qt::CaseInsensitive)) {
                    interests_tmp_list.append("10");
                }
+        if (interests.contains("Visual",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("9");
+               }
+        if (interests.contains("Performing",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("8");
+               }
+        if (interests.contains("movies",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("7");
+               }
+        if (interests.contains("food",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("6");
+               }
+        if (interests.contains("nature",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("5");
+               }
+        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("4");
+               }
+        if (interests.contains("fiction",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("3");
+               }
+        if (interests.contains("languages",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("2");
+               }
+        if (interests.contains("Comics",Qt::CaseInsensitive)) {
+                   interests_tmp_list.append("1");
+               }
         if (interests.contains("Travel",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("11");
+                   interests_tmp_list.append("0");
                }
         interests = interests_tmp_list.join(",");
 

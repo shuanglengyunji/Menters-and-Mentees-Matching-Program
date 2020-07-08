@@ -131,8 +131,8 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         QString data = QSqlTableModel::data(index,role).toString();
         data.replace("11","Playing sport");
         data.replace("10","Playing or creating music");
-        data.replace("9","Visual arts – drawing, painting, craft, etc.");
-        data.replace("8","Performing arts – theatre, dance, etc.");
+        data.replace("9","Visual arts - drawing, painting, craft, etc.");
+        data.replace("8","Performing arts - theatre, dance, etc.");
         data.replace("7","Watching movies");
         data.replace("6","Cooking or food");
         data.replace("5","Hiking, nature, and outdoor recreation");
@@ -140,7 +140,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data.replace("3","Science fiction and fantasy");
         data.replace("2","Learning languages");
         data.replace("1","Comics, manga, and anime");
-        data.replace("0","Hindi");
+        data.replace("0","Travel");
         return QVariant(data);
     }
 
