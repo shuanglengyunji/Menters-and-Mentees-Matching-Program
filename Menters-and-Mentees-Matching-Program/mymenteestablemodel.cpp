@@ -140,7 +140,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         data.replace("3","Science fiction and fantasy");
         data.replace("2","Learning languages");
         data.replace("1","Comics, manga, and anime");
-        data.replace("0","Hindi");
+        data.replace("0","Travel");
         return QVariant(data);
     }
 
