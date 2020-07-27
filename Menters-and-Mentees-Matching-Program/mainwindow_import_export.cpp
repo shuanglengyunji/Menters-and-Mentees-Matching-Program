@@ -809,35 +809,36 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
         // Languages
         tmp_str = r.value(13).toString().simplified();
-        tmp_str.replace("0","Hindi");
-        tmp_str.replace("1","Vietnamese");
-        tmp_str.replace("2","German");
-        tmp_str.replace("3","Korean");
-        tmp_str.replace("4","Tamil");
-        tmp_str.replace("5","Mandarin (Chinese)");
-        tmp_str.replace("6","Spanish");
-        tmp_str.replace("7","Cantonese");
-        tmp_str.replace("8","Indonesian");
-        tmp_str.replace("9","Japanese");
+        tmp_str.replace("11","Other (please specify)");
         tmp_str.replace("10","Urdu");
+        tmp_str.replace("9","Japanese");
+        tmp_str.replace("8","Indonesian");
+        tmp_str.replace("7","Cantonese");
+        tmp_str.replace("6","Spanish");
+        tmp_str.replace("5","Mandarin (Chinese)");
+        tmp_str.replace("4","Tamil");
+        tmp_str.replace("3","Korean");
+        tmp_str.replace("2","German");
+        tmp_str.replace("1","Vietnamese");
+        tmp_str.replace("0","Hindi");
         xlsxW.write("M"+QVariant(row+2).toString(),QVariant(tmp_str));
 
         xlsxW.write("N"+QVariant(row+2).toString(),r.value(14));    // Languages - Text
         xlsxW.write("O"+QVariant(row+2).toString(),r.value(15));    // Residential Hall
 
         tmp_str = r.value(16).toString().simplified();
-        tmp_str.replace("0","Playing sport");
-        tmp_str.replace("1","Playing or creating music");
-        tmp_str.replace("2","Visual arts – drawing, painting, craft, etc.");
-        tmp_str.replace("3","Performing arts – theatre, dance, etc.");
-        tmp_str.replace("4","Watching movies");
-        tmp_str.replace("5","Cooking or food");
-        tmp_str.replace("6","Hiking, nature, and outdoor recreation");
-        tmp_str.replace("7","Gardening");
-        tmp_str.replace("8","Science fiction and fantasy");
-        tmp_str.replace("9","Learning languages");
-        tmp_str.replace("10","Comics, manga, and anime");
-        tmp_str.replace("11","Travel");
+        tmp_str.replace("11","Playing sport");
+        tmp_str.replace("10","Playing or creating music");
+        tmp_str.replace("9","Visual arts - drawing, painting, craft, etc.");
+        tmp_str.replace("8","Performing arts - theatre, dance, etc.");
+        tmp_str.replace("7","Watching movies");
+        tmp_str.replace("6","Cooking or food");
+        tmp_str.replace("5","Hiking, nature, and outdoor recreation");
+        tmp_str.replace("4","Gardening");
+        tmp_str.replace("3","Science fiction and fantasy");
+        tmp_str.replace("2","Learning languages");
+        tmp_str.replace("1","Comics, manga, and anime");
+        tmp_str.replace("0","Travel");
         xlsxW.write("P"+QVariant(row+2).toString(),tmp_str);    // Interests
 
 
@@ -952,34 +953,35 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
         // Languages
         tmp_str = r.value(11).toString().simplified();
-        tmp_str.replace("0","Hindi");
-        tmp_str.replace("1","Vietnamese");
-        tmp_str.replace("2","German");
-        tmp_str.replace("3","Korean");
-        tmp_str.replace("4","Tamil");
-        tmp_str.replace("5","Mandarin (Chinese)");
-        tmp_str.replace("6","Spanish");
-        tmp_str.replace("7","Cantonese");
-        tmp_str.replace("8","Indonesian");
-        tmp_str.replace("9","Japanese");
+        tmp_str.replace("11","Other (please specify)");
         tmp_str.replace("10","Urdu");
+        tmp_str.replace("9","Japanese");
+        tmp_str.replace("8","Indonesian");
+        tmp_str.replace("7","Cantonese");
+        tmp_str.replace("6","Spanish");
+        tmp_str.replace("5","Mandarin (Chinese)");
+        tmp_str.replace("4","Tamil");
+        tmp_str.replace("3","Korean");
+        tmp_str.replace("2","German");
+        tmp_str.replace("1","Vietnamese");
+        tmp_str.replace("0","Hindi");
         xlsxW.write("K"+QVariant(row+2).toString(),QVariant(tmp_str));
 
         xlsxW.write("L"+QVariant(row+2).toString(),r.value(12));    // Language - Text
 
         tmp_str = r.value(13).toString().simplified();
-        tmp_str.replace("0","Playing sport");
-        tmp_str.replace("1","Playing or creating music");
-        tmp_str.replace("2","Visual arts – drawing, painting, craft, etc.");
-        tmp_str.replace("3","Performing arts – theatre, dance, etc.");
-        tmp_str.replace("4","Watching movies");
-        tmp_str.replace("5","Cooking or food");
-        tmp_str.replace("6","Hiking, nature, and outdoor recreation");
-        tmp_str.replace("7","Gardening");
-        tmp_str.replace("8","Science fiction and fantasy");
-        tmp_str.replace("9","Learning languages");
-        tmp_str.replace("10","Comics, manga, and anime");
-        tmp_str.replace("11","Travel");
+        tmp_str.replace("11","Playing sport");
+        tmp_str.replace("10","Playing or creating music");
+        tmp_str.replace("9","Visual arts - drawing, painting, craft, etc.");
+        tmp_str.replace("8","Performing arts - theatre, dance, etc.");
+        tmp_str.replace("7","Watching movies");
+        tmp_str.replace("6","Cooking or food");
+        tmp_str.replace("5","Hiking, nature, and outdoor recreation");
+        tmp_str.replace("4","Gardening");
+        tmp_str.replace("3","Science fiction and fantasy");
+        tmp_str.replace("2","Learning languages");
+        tmp_str.replace("1","Comics, manga, and anime");
+        tmp_str.replace("0","Travel");
         xlsxW.write("M"+QVariant(row+2).toString(),tmp_str);    // Interests
 
         xlsxW.write("N"+QVariant(row+2).toString(),r.value(14));    // Requests
