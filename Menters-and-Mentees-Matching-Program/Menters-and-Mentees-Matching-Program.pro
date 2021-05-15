@@ -38,12 +38,14 @@ SOURCES += \
         mainwindow_mentees.cpp \
         mainwindow_mentors.cpp \
         mymenteestablemodel.cpp \
-        mymentorstablemodel.cpp
+        mymentorstablemodel.cpp \
+        parser.cpp
 
 HEADERS += \
         mainwindow.h \
         mymenteestablemodel.h \
-        mymentorstablemodel.h
+        mymentorstablemodel.h \
+        parser.h
 
 FORMS += \
         mainwindow.ui

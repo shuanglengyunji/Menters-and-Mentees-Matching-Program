@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "parser.h"
+
 #include "../CSVWriter/include/CSVWriter.h"
 
 #include "xlsxdocument.h"
@@ -10,6 +12,9 @@
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 using namespace QXlsx;
+
+#define MENTORS_COLUMN_NUM 21;
+#define MENTEES_COLUMN_NUM 15;
 
 void MainWindow::import_data(QString addr,bool include_match_result)
 {
@@ -42,297 +47,102 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     {
         QMessageBox::warning(this, tr("Mentees Sheet Missing"), tr("Please make sure there is a sheet named \"Mentees\" in the data file."));
         return;
-    }
+    }    
 
     // [3] Import Mentors Sheet
     xlsxR.selectSheet("Mentors");
     int mentors_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
-    int mentors_max_col = xlsxR.dimension().lastColumn();
+    int mentors_max_col = MENTORS_COLUMN_NUM;
+    qDebug() << "Mentor";
+    qDebug() << "row max:" << mentors_max;
+    qDebug() << "row max:" << mentors_max_col;
 
-    for (int row = 2;row <= mentors_max; row = row + 1)
+    QList<parser> mentor_parser_list;
+    mentor_parser_list.append(parser("Confirmation", QStringList("I have read and understood the above text")));
+    mentor_parser_list.append(parser("WWVP", QStringList(), parser::Mode::yes_or_no));
+    mentor_parser_list.append(parser("Round", QStringList(QList<QString>() << "Round 1" << "Round 2")));
+    mentor_parser_list.append(parser("UG/PG", QStringList(QList<QString>() << "Postgraduate (coursework)" << "Undergraduate")));
+    mentor_parser_list.append(parser("Academic College", QStringList(QList<QString>() << "College of Asia and the Pacific"
+        << "College of Arts and Social Sciences" << "College of Business and Economics"
+        << "College of Engineering and Computer Science" << "College of Law"
+        << "College of Science" << "College of Health and Medicine"
+    )));
+    mentor_parser_list.append(parser("Dom/Int", QStringList(QList<QString>() << "Domestic" << "International")));
+    mentor_parser_list.append(parser("Gender", QStringList(QList<QString>() << "Female" << "Male" << "Other" << "Prefer not to say")));
+    mentor_parser_list.append(parser("Languages", QStringList(QList<QString>() << "Hindi" << "Vietnamese" << "German" << "Korean"
+        << "Tamil" << "Mandarin (Chinese)" << "Spanish" << "Cantonese" << "Indonesian" << "Japanese" << "Urdu" << "Other (please specify)"
+        << "I only speak English"
+    )));
+    mentor_parser_list.append(parser("Interests", QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
+        << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
+        << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
+        << "Playing or creating music" << "Playing sport"
+    )));
+    mentor_parser_list.append(parser("Training 1", QStringList(), parser::Mode::yes_or_no));
+    mentor_parser_list.append(parser("Training 2", QStringList(), parser::Mode::yes_or_no));
+    mentor_parser_list.append(parser("Training 3", QStringList(), parser::Mode::yes_or_no));
+    mentor_parser_list.append(parser("Training Complete", QStringList(), parser::Mode::yes_or_no));
+
+    QList<parser> mentee_parser_list;
+    mentee_parser_list.append(parser("Round", QStringList(QList<QString>() << "Round 1" << "Round 2")));
+    mentee_parser_list.append(parser("UG/PG", QStringList(QList<QString>() << "Postgraduate (coursework)" << "Undergraduate")));
+    mentee_parser_list.append(parser("Academic College", QStringList(QList<QString>() << "College of Asia and the Pacific"
+        << "College of Arts and Social Sciences" << "College of Business and Economics"
+        << "College of Engineering and Computer Science" << "College of Law"
+        << "College of Science" << "College of Health and Medicine"
+    )));
+    mentee_parser_list.append(parser("u18", QStringList(), parser::Mode::yes_or_no));
+    mentee_parser_list.append(parser("Dom/Int", QStringList(QList<QString>() << "Domestic student not living on campus" << "International student")));
+    mentee_parser_list.append(parser("Gender", QStringList(QList<QString>() << "Female" << "Male" << "Other" << "Prefer not to say")));
+    mentee_parser_list.append(parser("Languages", QStringList(QList<QString>() << "Hindi" << "Vietnamese" << "German" << "Korean"
+        << "Tamil" << "Mandarin (Chinese)" << "Spanish" << "Cantonese" << "Indonesian" << "Japanese" << "Urdu" << "Other (please specify)"
+        << "I only speak English"
+    )));
+    mentee_parser_list.append(parser("Interests", QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
+        << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
+        << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
+        << "Playing or creating music" << "Playing sport"
+    )));
+    mentee_parser_list.append(parser("Importance", QStringList(), parser::Mode::yes_or_no));
+
+    for (int row = 2; row <= mentors_max; row = row + 1)
     {
-        for (int col = 1; col <= mentors_max_col; col = col + 1)
-        {
-            if ( (int)xlsxR.cellAt(row, col) == 0)
-            {
-                xlsxR.write(row,col,QVariant(""));
+        QStringList content_list;
+        content_list.append(QString::number(0));
+        for (int col = 1; col <= mentors_max_col; col = col + 1) {
+            // get header
+            QString header = xlsxR.cellAt(1, col)->readValue().toString();
+            // get data
+            QString data;
+            if ( (int)xlsxR.cellAt(row, col) == 0) {
+                data = QString();
+            } else {
+                data = xlsxR.cellAt(row, col)->readValue().toString();
             }
+            // parse data
+            QString out;
+            for(int i = 0; i < mentor_parser_list.size(); i++) {
+                if (mentor_parser_list[i].get_header() == header) {
+                    out = mentor_parser_list[i].to_idx(data);
+                    break;
+                }
+            }
+            if (out.isEmpty()) {
+                // no parser found
+                out = data;
+            }
+            content_list.append("\"" + out + "\"");
         }
-    }
-
-    for (int row = 2;row <= mentors_max; row = row + 1)
-    {
-        // read data
-        QString group_id = "0";
-
-        QString is_confirmed = xlsxR.cellAt(row, 1)->readValue().toString();
-        if (is_confirmed == "I have read and understood the above text")
-        {
-            is_confirmed = "y";
-        }
-        else
-        {
-            is_confirmed = "n";
-        }
-
-        QString first_name = xlsxR.cellAt(row, 2)->readValue().toString();
-        QString last_name = xlsxR.cellAt(row, 3)->readValue().toString();
-        QString uid = xlsxR.cellAt(row, 4)->readValue().toString();
-        QString phone = xlsxR.cellAt(row, 5)->readValue().toString();
-        QString wwvp = xlsxR.cellAt(row, 6)->readValue().toString();
-        if ( wwvp.toUpper() == "NO" || wwvp.isEmpty() ) {
-            wwvp = "n";
-        }
-        else if ( wwvp.toUpper() == "YES" || wwvp.toUpper() == "Y") {
-            wwvp = "y";
-        }
-
-        QString round = xlsxR.cellAt(row, 7)->readValue().toString();
-        if (round == "Round 1")
-        {
-            round = "0";
-        }
-        else if (round == "Round 2")
-        {
-            round = "1";
-        }
-        else
-        {
-            qDebug() << "[Import] Mentor Unexpected round!";
-            round = "0";
-        }
-
-        QStringList academic_level_tmp_list;
-        QString academic_level = xlsxR.cellAt(row, 8)->readValue().toString();
-        if (academic_level.contains("Postgraduate",Qt::CaseInsensitive)) {
-                   academic_level_tmp_list.append("1");
-               }
-        if (academic_level.contains("Undergraduate",Qt::CaseInsensitive)) {
-                   academic_level_tmp_list.append("0");
-               }
-        academic_level = academic_level_tmp_list.join(",");
-
-        QStringList college_tmp_list;
-        QString college = xlsxR.cellAt(row, 9)->readValue().toString();
-        if (college.contains("Asia",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("0");
-               }
-        if (college.contains("Arts",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("1");
-               }
-        if (college.contains("Business",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("2");
-               }
-        if (college.contains("Engineering",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("3");
-               }
-        if (college.contains("Law",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("4");
-               }
-        if (college.contains("of Science",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("5");
-               }
-        if (college.contains("Health",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("6");
-               }
-        college = college_tmp_list.join(",");
-
-        QString degree = xlsxR.cellAt(row, 10)->readValue().toString();
-
-        QString type = xlsxR.cellAt(row, 11)->readValue().toString();
-        if (type == "International")
-            type = "1";
-        else if (type == "Domestic")
-            type = "0";
-        else
-            qDebug() << "[Import] Unexpected type!";
-
-        QString gender = xlsxR.cellAt(row, 12)->readValue().toString();
-        if (gender == "Female")
-        {
-            gender = "0";
-        }
-        else if (gender == "Male")
-        {
-            gender = "1";
-        }
-        else if (gender == "Other")
-        {
-            gender = "2";
-        }
-        else if (gender == "Prefer not to say")
-        {
-            gender = "3";
-        }
-        else
-        {
-            qDebug() << "[Import] Mentor Unexpected gender!";
-            gender = "3";
-        }
-
-        QStringList language_tmp_list;
-        QString languages = xlsxR.cellAt(row, 13)->readValue().toString();
-        if (languages.contains("Hindi",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("0");
-               }
-        if (languages.contains("Vietnamese",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("1");
-               }
-        if (languages.contains("German",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("2");
-               }
-        if (languages.contains("Korean",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("3");
-               }
-        if (languages.contains("Tamil",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("4");
-               }
-        if (languages.contains("Mandarin",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("5");
-               }
-        if (languages.contains("Spanish",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("6");
-               }
-        if (languages.contains("Cantonese",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("7");
-               }
-        if (languages.contains("Indonesian",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("8");
-               }
-        if (languages.contains("Japanese",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("9");
-               }
-        if (languages.contains("Urdu",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("10");
-               }
-        if (languages.contains("Other",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("11");
-               }
-        if (language_tmp_list.length()==0){
-            language_tmp_list.append("11");
-            qDebug() << "The mentor lack languages";
-        }
-        languages = language_tmp_list.join(",");
-
-
-
-        QString languages_text = xlsxR.cellAt(row, 14)->readValue().toString();
-        QString hall = xlsxR.cellAt(row, 15)->readValue().toString();
-
-        QStringList interests_tmp_list;
-        QString interests = xlsxR.cellAt(row, 16)->readValue().toString();
-        if (interests.contains("sport",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("11");
-               }
-        if (interests.contains("music",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("10");
-               }
-        if (interests.contains("Visual",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("9");
-               }
-        if (interests.contains("Performing",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("8");
-               }
-        if (interests.contains("movies",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("7");
-               }
-        if (interests.contains("food",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("6");
-               }
-        if (interests.contains("nature",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("5");
-               }
-        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("4");
-               }
-        if (interests.contains("fiction",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("3");
-               }
-        if (interests.contains("languages",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("2");
-               }
-        if (interests.contains("Comics",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("1");
-               }
-        if (interests.contains("Travel",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("0");
-               }
-        interests = interests_tmp_list.join(",");
-        QString requests = xlsxR.cellAt(row, 17)->readValue().toString();
-
-
-        QString train_1 = xlsxR.cellAt(row, 18)->readValue().toString().toLower();
-        if (train_1 == "y" || train_1 == "yes" )
-        {
-            train_1 = "y";
-        }
-        else
-        {
-            train_1 = "n";
-        }
-
-        QString train_2 = xlsxR.cellAt(row, 19)->readValue().toString().toLower();
-        if (train_2 == "y" || train_2 == "yes" )
-        {
-            train_2 = "y";
-        }
-        else
-        {
-            train_2 = "n";
-        }
-
-        QString train_3 = xlsxR.cellAt(row, 20)->readValue().toString().toLower();
-        if (train_3 == "y" || train_3 == "yes" )
-        {
-            train_3 = "y";
-        }
-        else
-        {
-            train_3 = "n";
-        }
-
-        QString train_complete = "n";
-        if (train_1=="y" && train_2=="y" && train_3=="y")
-        {
-            train_complete = "y";
-        }
-
-        // create sql
-
-        QString sql = "INSERT INTO mentor VALUES (" +
-                QString("%1,").arg(group_id) +
-                QString("\"%1\",").arg(is_confirmed) +
-                QString("\"%1\",").arg(first_name) +
-                QString("\"%1\",").arg(last_name) +
-                QString("\"%1\",").arg(uid) +
-                QString("\"%1\",").arg(phone) +
-                QString("\"%1\",").arg(wwvp) +
-                QString("%1,").arg(round) +
-                QString("%1,").arg(academic_level) +
-                QString("\"%1\",").arg(college) +
-                QString("\"%1\",").arg(degree) +
-                QString("%1,").arg(type) +
-                QString("%1,").arg(gender) +
-                QString("\"%1\",").arg(languages) +
-                QString("\"%1\",").arg(languages_text) +
-                QString("\"%1\",").arg(hall) +
-                QString("\"%1\",").arg(interests) +
-                QString("\"%1\",").arg(requests) +
-                QString("\"%1\",").arg(train_1) +
-                QString("\"%1\",").arg(train_2) +
-                QString("\"%1\",").arg(train_3) +
-                QString("\"%1\"").arg(train_complete) +
-                ")";
-
-        //qDebug() << sql;
 
         //execute sql
+        QString sql = "INSERT INTO mentor VALUES (" + content_list.join(",") + ")";     // qDebug() << sql;
         if ( !query.exec(sql) )
         {
-            //qDebug() << "Failed to Import Row " << row;
-            QMessageBox::warning(this, tr("Mentor Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
-            //qDebug() << sql;
-            //qDebug() << query.lastError();
+            qDebug() << "Failed to Import Row " << row;
+            // QMessageBox::warning(this, tr("Mentor Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
+            qDebug() << sql;
+            qDebug() << query.lastError();
+            qDebug() << "\n";
         }
 
     }
@@ -340,265 +150,50 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     // [4] Import Mentees Sheet
     xlsxR.selectSheet("Mentees");
     int mentees_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
-    int mentees_max_col = xlsxR.dimension().lastColumn();
+    int mentees_max_col = MENTEES_COLUMN_NUM;
 
-    for (int row = 2;row <= mentees_max; row = row + 1)
+    qDebug() << "Mentee";
+    qDebug() << "row max:" << mentees_max;
+    qDebug() << "row max:" << mentees_max_col;
+
+    for (int row = 2; row <= mentees_max; row = row + 1)
     {
-        for (int col = 1; col <= mentees_max_col; col = col + 1)
-        {
-            if ( (int)xlsxR.cellAt(row, col) == 0)
-            {
-                xlsxR.write(row,col,QVariant(""));
+        QStringList content_list;
+        content_list.append(QString::number(0));
+        for (int col = 1; col <= mentees_max_col; col = col + 1) {
+            // get header
+            QString header = xlsxR.cellAt(1, col)->readValue().toString();
+            // get data
+            QString data;
+            if ( (int)xlsxR.cellAt(row, col) == 0) {
+                data = QString();
+            } else {
+                data = xlsxR.cellAt(row, col)->readValue().toString();
             }
+            // parse data
+            QString out;
+            for(int i = 0; i < mentee_parser_list.size(); i++) {
+                if (mentee_parser_list[i].get_header() == header) {
+                    out = mentee_parser_list[i].to_idx(data);
+                    break;
+                }
+            }
+            if (out.isEmpty()) {
+                // no parser found
+                out = data;
+            }
+            content_list.append("\"" + out + "\"");
         }
-    }
-
-    for (int row = 2;row <= mentees_max; row = row + 1)
-    {
-        // read data
-
-        QString group_id = "0";
-
-        QString first_name = xlsxR.cellAt(row, 1)->readValue().toString();
-        QString last_name = xlsxR.cellAt(row, 2)->readValue().toString();
-        QString uid = xlsxR.cellAt(row, 3)->readValue().toString();
-        QString email = xlsxR.cellAt(row, 4)->readValue().toString();
-        QString round = xlsxR.cellAt(row, 5)->readValue().toString();
-        if (round == "Round 1")
-        {
-            round = "0";
-        }
-        else if (round == "Round 2")
-        {
-            round = "1";
-        }
-        else
-        {
-            round = "0";
-            qDebug() << "[Import] Mentee Unexpected round!";
-        }
-
-        QStringList academic_level_tmp_list;
-        QString academic_level = xlsxR.cellAt(row, 6)->readValue().toString();
-        if (academic_level.contains("Postgraduate",Qt::CaseInsensitive)) {
-                   academic_level_tmp_list.append("1");
-               }
-        if (academic_level.contains("Undergraduate",Qt::CaseInsensitive)) {
-                   academic_level_tmp_list.append("0");
-               }
-        academic_level = academic_level_tmp_list.join(",");
-
-        QStringList college_tmp_list;
-        QString college = xlsxR.cellAt(row, 7)->readValue().toString();
-        if (college.contains("Asia",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("0");
-               }
-        if (college.contains("Arts",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("1");
-               }
-        if (college.contains("Business",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("2");
-               }
-        if (college.contains("Engineering",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("3");
-               }
-        if (college.contains("Law",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("4");
-               }
-        if (college.contains("of Science",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("5");
-               }
-        if (college.contains("Health",Qt::CaseInsensitive)) {
-                   college_tmp_list.append("6");
-               }
-        college = college_tmp_list.join(",");
-
-        QString u18 = xlsxR.cellAt(row, 8)->readValue().toString();
-        if (u18 == "Yes")
-        {
-            u18 = "1";
-        }
-        else if (u18 == "No")
-        {
-            u18 = "0";
-        }
-        else
-        {
-            qDebug() << "[Import] Mentee Unexpected u18!";
-            u18 = "0";
-        }
-
-        QString type = xlsxR.cellAt(row, 9)->readValue().toString();
-        if (type == "International")
-        {
-            type = "1";
-        }
-        else if (type == "Domestic")
-        {
-            type = "0";
-        }
-        else
-        {
-            type = "0";
-            qDebug() << "[Import] Mentee Unexpected type!";
-        }
-
-        QString gender = xlsxR.cellAt(row, 10)->readValue().toString();
-        if (gender == "Female")
-        {
-            gender = "0";
-        }
-        else if (gender == "Male")
-        {
-            gender = "1";
-        }
-        else if (gender == "Other")
-        {
-            gender = "2";
-        }
-        else if (gender == "Prefer not to say")
-        {
-            gender = "3";
-        }
-        else
-        {
-            gender = "3";
-            qDebug() << "[Import] Mentee Unexpected gender!";
-        }
-
-
-        QStringList language_tmp_list;
-        QString languages = xlsxR.cellAt(row, 11)->readValue().toString();
-        if (languages.contains("Hindi",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("0");
-               }
-        if (languages.contains("Vietnamese",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("1");
-               }
-        if (languages.contains("German",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("2");
-               }
-        if (languages.contains("Korean",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("3");
-               }
-        if (languages.contains("Tamil",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("4");
-               }
-        if (languages.contains("Mandarin",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("5");
-               }
-        if (languages.contains("Spanish",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("6");
-               }
-        if (languages.contains("Cantonese",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("7");
-               }
-        if (languages.contains("Indonesian",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("8");
-               }
-        if (languages.contains("Japanese",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("9");
-               }
-        if (languages.contains("Urdu",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("10");
-               }
-        if (languages.contains("Other",Qt::CaseInsensitive)) {
-                   language_tmp_list.append("11");
-               }
-        if (language_tmp_list.length() == 0){
-            language_tmp_list.append("11");
-            qDebug() << "Mentee lack of language";
-        }
-        languages = language_tmp_list.join(",");
-
-
-        QString languages_text = xlsxR.cellAt(row, 12)->readValue().toString();
-
-        QStringList interests_tmp_list;
-        QString interests = xlsxR.cellAt(row, 13)->readValue().toString();
-        if (interests.contains("sport",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("11");
-               }
-        if (interests.contains("music",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("10");
-               }
-        if (interests.contains("Visual",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("9");
-               }
-        if (interests.contains("Performing",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("8");
-               }
-        if (interests.contains("movies",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("7");
-               }
-        if (interests.contains("food",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("6");
-               }
-        if (interests.contains("nature",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("5");
-               }
-        if (interests.contains("Gardening",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("4");
-               }
-        if (interests.contains("fiction",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("3");
-               }
-        if (interests.contains("languages",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("2");
-               }
-        if (interests.contains("Comics",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("1");
-               }
-        if (interests.contains("Travel",Qt::CaseInsensitive)) {
-                   interests_tmp_list.append("0");
-               }
-        interests = interests_tmp_list.join(",");
-
-        QString requests = xlsxR.cellAt(row, 14)->readValue().toString();
-        QString importance = xlsxR.cellAt(row, 15)->readValue().toString();
-        if (importance == "Yes")
-        {
-            importance = "1";
-        }
-        else if (importance == "No")
-        {
-            importance = "0";
-        }
-        else
-        {
-            qDebug() << "[Import] Unexpected importance!";
-            importance = "0";
-        }
-
-
-        // create sql
-        QString sql = "INSERT INTO mentee VALUES (" +
-                QString("%1,").arg(group_id) +
-                QString("\"%1\",").arg(first_name) +
-                QString("\"%1\",").arg(last_name) +
-                QString("\"%1\",").arg(uid) +
-                QString("\"%1\",").arg(email) +
-                QString("%1,").arg(round) +
-                QString("\"%1\",").arg(academic_level) +
-                QString("\"%1\",").arg(college) +
-                QString("\"%1\",").arg(u18) +
-                QString("%1,").arg(type) +
-                QString("%1,").arg(gender) +
-                QString("\"%1\",").arg(languages) +
-                QString("\"%1\",").arg(languages_text) +
-                QString("\"%1\",").arg(interests) +
-                QString("\"%1\",").arg(requests) +
-                QString("\"%1\"").arg(importance) +
-                ")";
 
         // execute sql
+        QString sql = "INSERT INTO mentee VALUES (" + content_list.join(",") + ")";     // qDebug() << sql;
         if ( !query.exec(sql) )
         {
-            //qDebug() << "Failed to Import Row " << row;
-            //qDebug() << sql;
-            //qDebug() << query.lastError();
-            QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
-            //qDebug() << sql;
+            qDebug() << "Failed to Import Row " << row;
+            qDebug() << sql;
+            qDebug() << query.lastError();
+            // QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
+            qDebug() << sql;
         }
     }
 

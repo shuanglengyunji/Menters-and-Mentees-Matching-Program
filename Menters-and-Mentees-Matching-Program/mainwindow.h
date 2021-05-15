@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QMessageBox>
+#include <QList>
 #include <QString>
 #include <QDir>
 #include <QTableView>

@@ -67,7 +67,7 @@ void MainWindow::init_database(QString work_path)
     // Create New Tables
     query.exec("CREATE TABLE IF NOT EXISTS [mentor] (           \
                group_id         INTEGER NOT NULL DEFAULT 0,         \
-               is_confirmed 	CHAR(1) NOT NULL DEFAULT 'n',                     \
+               is_confirmed 	CHAR(1) NOT NULL DEFAULT 0,                     \
                first_name		VARCHAR(20) NOT NULL,           \
                last_name		VARCHAR(20) NOT NULL,           \
                uid				VARCHAR(10) NOT NULL UNIQUE,    \
@@ -84,10 +84,10 @@ void MainWindow::init_database(QString work_path)
                hall             VARCHAR(50),                        \
                interests		VARCHAR(50),                     \
                requests		    TEXT(1000),                     \
-               train_1			CHAR(1) NOT NULL DEFAULT 'n',   \
-               train_2			CHAR(1) NOT NULL DEFAULT 'n',   \
-               train_3			CHAR(1) NOT NULL DEFAULT 'n',   \
-               train_complete	CHAR(1) NOT NULL DEFAULT 'n',   \
+               train_1			CHAR(1) NOT NULL DEFAULT 0,   \
+               train_2			CHAR(1) NOT NULL DEFAULT 0,   \
+               train_3			CHAR(1) NOT NULL DEFAULT 0,   \
+               train_complete	CHAR(1) NOT NULL DEFAULT 0,   \
                PRIMARY KEY(uid)                                 \
            )");
 
@@ -106,7 +106,7 @@ void MainWindow::init_database(QString work_path)
                languages			VARCHAR(50),                \
                languages_text		TEXT(500),                \
                interests			VARCHAR(50),                \
-               requests			TEXT(1000),                \
+               capacity			INTEGER(4),                \
                importance		INTEGER(1),                \
                PRIMARY KEY(uid)                               \
            )");
