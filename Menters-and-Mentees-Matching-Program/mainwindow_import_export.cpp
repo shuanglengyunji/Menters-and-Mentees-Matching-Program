@@ -65,11 +65,9 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         content_list.append(QString::number(0));
         for (int col = 1; col <= mentors_max_col; col = col + 1) {
             // get data
-            QString data;
-            if ( (int)xlsxR.cellAt(row, col) == 0) {
-                data = QString();
-            } else {
-                data = xlsxR.cellAt(row, col)->readValue().toString();
+            QString data = QString();
+            if ( (int)xlsxR.cellAt(row, col) != 0) {
+                data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
             content_list.append("\"" + mentorsTable.get_parser(col).to_idx(data) + "\"");
@@ -104,11 +102,9 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         content_list.append(QString::number(0));
         for (int col = 1; col <= mentees_max_col; col = col + 1) {
             // get data
-            QString data;
-            if ( (int)xlsxR.cellAt(row, col) == 0) {
-                data = QString();
-            } else {
-                data = xlsxR.cellAt(row, col)->readValue().toString();
+            QString data = QString();
+            if ( (int)xlsxR.cellAt(row, col) != 0) {
+                data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
             content_list.append("\"" + menteesTable.get_parser(col).to_idx(data) + "\"");

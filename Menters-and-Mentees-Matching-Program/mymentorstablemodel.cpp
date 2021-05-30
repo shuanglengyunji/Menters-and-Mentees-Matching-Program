@@ -43,8 +43,7 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
 Qt::ItemFlags myMentorsTableModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result = QSqlTableModel::flags(index);
-    if ((index.column() >= 1 && index.column() <= 4) || (index.column() >= 7 && index.column() <= 17))
-    {
+    if (index.column() >= 1 && index.column() <= 17) {
        result &= ~Qt::ItemIsEditable;
     }
     return result;
