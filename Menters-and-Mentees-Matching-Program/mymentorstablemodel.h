@@ -9,7 +9,15 @@
 class myMentorsTableModel : public QSqlTableModel
 {
 public:
-    myMentorsTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase(), bool use_group_id_as_row_number = false) {this->use_group_id_as_row_number = use_group_id_as_row_number;};
+    myMentorsTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase(), bool use_group_id_as_row_number = false) {
+        this->setTable("mentor");
+        this->setEditStrategy(QSqlTableModel::OnFieldChange);
+        this->select();
+        while(this->canFetchMore()){
+            this->fetchMore();
+        }
+        this->use_group_id_as_row_number = use_group_id_as_row_number;
+    };
     QVariant headerData(int section,  Qt::Orientation orientation, int role) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;

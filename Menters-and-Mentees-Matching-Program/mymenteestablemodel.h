@@ -9,7 +9,14 @@
 class myMenteesTableModel : public QSqlTableModel
 {
 public:
-    myMenteesTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase()) {};
+    myMenteesTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase()) {
+        this->setTable("mentee");
+        this->setEditStrategy(QSqlTableModel::OnFieldChange);
+        this->select();
+        while(this->canFetchMore()){
+            this->fetchMore();
+        }
+    };
     QVariant headerData(int section,  Qt::Orientation orientation, int role) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
@@ -28,8 +35,8 @@ public:
 private:
     QString table_init_query = "CREATE TABLE IF NOT EXISTS [mentee] (           \
         group_id			INTEGER NOT NULL DEFAULT 0,    \
-        first_name			VARCHAR(20) NOT NULL,      \
-        last_name			VARCHAR(20) NOT NULL,      \
+        first_name			VARCHAR(50),      \
+        last_name			VARCHAR(50),      \
         uid					VARCHAR(10) NOT NULL UNIQUE,  \
         email				VARCHAR(70),              \
         round			INTEGER(1),                     \
