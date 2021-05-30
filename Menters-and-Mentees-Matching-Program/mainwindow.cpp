@@ -14,7 +14,21 @@ MainWindow::MainWindow(QWidget *parent) :
     QDir().mkdir(tmp_path);  //qDebug() << "tmp Path" << tmp_path;
 
     // init database
-    init_database(tmp_path);
+
+    // get database path and database demo path
+    QString db_path = tmp_path + "/" + MY_DATA_BASE_NAME;
+    // init database
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
+    db.setDatabaseName(db_path);
+    if (!db.open()) {
+        qDebug() << "Cannot open database";
+        QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
+            QObject::tr("Unable to establish a database connection.\n"), QMessageBox::Cancel);
+        return;
+    }
+    myMentorsTableModel(this, db).init_table();
+    myMenteesTableModel(this, db).init_table();
 
     // switch to mentors' page
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
@@ -23,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
-
 }
 
 MainWindow::~MainWindow()
@@ -44,72 +57,6 @@ MainWindow::~MainWindow()
     delete model_match_mentees_to_be_match;
 
     delete ui;
-}
-
-void MainWindow::init_database(QString work_path)
-{
-    // get database path and database demo path
-    QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
-
-    // init database
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
-    db.setDatabaseName(db_path);
-    if (!db.open()) {
-        qDebug() << "Cannot open database";
-        QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
-            QObject::tr("Unable to establish a database connection.\n"), QMessageBox::Cancel);
-        return;
-    }
-
-    QSqlQuery query(db);
-
-    // Create New Tables
-    query.exec("CREATE TABLE IF NOT EXISTS [mentor] (           \
-               group_id         INTEGER NOT NULL DEFAULT 0,         \
-               is_confirmed 	CHAR(1) NOT NULL DEFAULT 0,                     \
-               first_name		VARCHAR(20) NOT NULL,           \
-               last_name		VARCHAR(20) NOT NULL,           \
-               uid				VARCHAR(10) NOT NULL UNIQUE,    \
-               phone			VARCHAR(50),                    \
-               wwvp             VARCHAR(10),                        \
-               round			INTEGER(1),                     \
-               academic_level	INTEGER(1),                     \
-               college			INTEGER(1),                     \
-               degree			VARCHAR(100),                   \
-               type             INTEGER(1),                         \
-               gender			INTEGER(1),                     \
-               languages		VARCHAR(50),                    \
-               languages_text	TEXT(500),                      \
-               hall             VARCHAR(50),                        \
-               interests		VARCHAR(50),                     \
-               requests		    TEXT(1000),                     \
-               train_1			CHAR(1) NOT NULL DEFAULT 0,   \
-               train_2			CHAR(1) NOT NULL DEFAULT 0,   \
-               train_3			CHAR(1) NOT NULL DEFAULT 0,   \
-               train_complete	CHAR(1) NOT NULL DEFAULT 0,   \
-               PRIMARY KEY(uid)                                 \
-           )");
-
-    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
-               group_id			INTEGER NOT NULL DEFAULT 0,    \
-               first_name			VARCHAR(20) NOT NULL,      \
-               last_name			VARCHAR(20) NOT NULL,      \
-               uid					VARCHAR(10) NOT NULL UNIQUE,  \
-               email				VARCHAR(70),              \
-               round			INTEGER(1),                     \
-               academic_level		INTEGER(1),               \
-               college				INTEGER(1),                \
-               u18					INTEGER(1),                \
-               type				INTEGER(1),                \
-               gender				INTEGER(1),                \
-               languages			VARCHAR(50),                \
-               languages_text		TEXT(500),                \
-               interests			VARCHAR(50),                \
-               capacity			INTEGER(4),                \
-               importance		INTEGER(1),                \
-               PRIMARY KEY(uid)                               \
-           )");
 }
 
 void MainWindow::on_actionManage_triggered()

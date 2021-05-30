@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "parser.h"
+#include "mymenteestablemodel.h"
+#include "mymentorstablemodel.h"
 
 #include "../CSVWriter/include/CSVWriter.h"
 
@@ -15,10 +16,6 @@ using namespace QXlsx;
 
 #define MENTORS_COLUMN_NUM 21;
 #define MENTEES_COLUMN_NUM 15;
-
-QString get_header(Document* xlsx, int col) {
-    return xlsx->cellAt(1, col)->readValue().toString();
-}
 
 void MainWindow::import_data(QString addr,bool include_match_result)
 {
@@ -61,54 +58,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     qDebug() << "row max:" << mentors_max;
     qDebug() << "row max:" << mentors_max_col;
 
-    QList<parser> mentor_parser_list;
-    mentor_parser_list.append(parser("Confirmation", QStringList("I have read and understood the above text")));
-    mentor_parser_list.append(parser("WWVP", QStringList(), parser::Mode::yes_or_no));
-    mentor_parser_list.append(parser("Round", QStringList(QList<QString>() << "Round 1" << "Round 2")));
-    mentor_parser_list.append(parser("UG/PG", QStringList(QList<QString>() << "Postgraduate (coursework)" << "Undergraduate")));
-    mentor_parser_list.append(parser("Academic College", QStringList(QList<QString>() << "College of Asia and the Pacific"
-        << "College of Arts and Social Sciences" << "College of Business and Economics"
-        << "College of Engineering and Computer Science" << "College of Law"
-        << "College of Science" << "College of Health and Medicine"
-    )));
-    mentor_parser_list.append(parser("Dom/Int", QStringList(QList<QString>() << "Domestic" << "International")));
-    mentor_parser_list.append(parser("Gender", QStringList(QList<QString>() << "Female" << "Male" << "Other" << "Prefer not to say")));
-    mentor_parser_list.append(parser("Languages", QStringList(QList<QString>() << "Hindi" << "Vietnamese" << "German" << "Korean"
-        << "Tamil" << "Mandarin (Chinese)" << "Spanish" << "Cantonese" << "Indonesian" << "Japanese" << "Urdu" << "Other (please specify)"
-        << "I only speak English"
-    )));
-    mentor_parser_list.append(parser("Interests", QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
-        << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
-        << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
-        << "Playing or creating music" << "Playing sport"
-    )));
-    mentor_parser_list.append(parser("Training 1", QStringList(), parser::Mode::yes_or_no));
-    mentor_parser_list.append(parser("Training 2", QStringList(), parser::Mode::yes_or_no));
-    mentor_parser_list.append(parser("Training 3", QStringList(), parser::Mode::yes_or_no));
-    mentor_parser_list.append(parser("Training Complete", QStringList(), parser::Mode::yes_or_no));
-
-    QList<parser> mentee_parser_list;
-    mentee_parser_list.append(parser("Round", QStringList(QList<QString>() << "Round 1" << "Round 2")));
-    mentee_parser_list.append(parser("UG/PG", QStringList(QList<QString>() << "Postgraduate (coursework)" << "Undergraduate")));
-    mentee_parser_list.append(parser("Academic College", QStringList(QList<QString>() << "College of Asia and the Pacific"
-        << "College of Arts and Social Sciences" << "College of Business and Economics"
-        << "College of Engineering and Computer Science" << "College of Law"
-        << "College of Science" << "College of Health and Medicine"
-    )));
-    mentee_parser_list.append(parser("u18", QStringList(), parser::Mode::yes_or_no));
-    mentee_parser_list.append(parser("Dom/Int", QStringList(QList<QString>() << "Domestic student not living on campus" << "International student")));
-    mentee_parser_list.append(parser("Gender", QStringList(QList<QString>() << "Female" << "Male" << "Other" << "Prefer not to say")));
-    mentee_parser_list.append(parser("Languages", QStringList(QList<QString>() << "Hindi" << "Vietnamese" << "German" << "Korean"
-        << "Tamil" << "Mandarin (Chinese)" << "Spanish" << "Cantonese" << "Indonesian" << "Japanese" << "Urdu" << "Other (please specify)"
-        << "I only speak English"
-    )));
-    mentee_parser_list.append(parser("Interests", QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
-        << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
-        << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
-        << "Playing or creating music" << "Playing sport"
-    )));
-    mentee_parser_list.append(parser("Importance", QStringList(), parser::Mode::yes_or_no));
-
+    myMentorsTableModel mentorsTable;
     for (int row = 2; row <= mentors_max; row = row + 1)
     {
         QStringList content_list;
@@ -122,18 +72,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 data = xlsxR.cellAt(row, col)->readValue().toString();
             }
             // parse data
-            QString out;
-            for(int i = 0; i < mentor_parser_list.size(); i++) {
-                if (mentor_parser_list[i].get_header() == get_header(&xlsxR, col)) {
-                    out = mentor_parser_list[i].to_idx(data);
-                    break;
-                }
-            }
-            if (out.isEmpty()) {
-                // no parser found
-                out = data;
-            }
-            content_list.append("\"" + out + "\"");
+            content_list.append("\"" + mentorsTable.get_parser(col).to_idx(data) + "\"");
         }
 
         //execute sql
@@ -158,6 +97,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     qDebug() << "row max:" << mentees_max;
     qDebug() << "row max:" << mentees_max_col;
 
+    myMenteesTableModel menteesTable;
     for (int row = 2; row <= mentees_max; row = row + 1)
     {
         QStringList content_list;
@@ -171,18 +111,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 data = xlsxR.cellAt(row, col)->readValue().toString();
             }
             // parse data
-            QString out;
-            for(int i = 0; i < mentee_parser_list.size(); i++) {
-                if (mentee_parser_list[i].get_header() == get_header(&xlsxR, col)) {
-                    out = mentee_parser_list[i].to_idx(data);
-                    break;
-                }
-            }
-            if (out.isEmpty()) {
-                // no parser found
-                out = data;
-            }
-            content_list.append("\"" + out + "\"");
+            content_list.append("\"" + menteesTable.get_parser(col).to_idx(data) + "\"");
         }
 
         // execute sql

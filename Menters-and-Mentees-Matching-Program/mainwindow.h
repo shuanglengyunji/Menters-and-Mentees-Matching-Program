@@ -126,8 +126,6 @@ private:
 
     QSqlDatabase db;
 
-    void init_database(QString work_path);
-
     // ------------------------------------
 
     // Manage

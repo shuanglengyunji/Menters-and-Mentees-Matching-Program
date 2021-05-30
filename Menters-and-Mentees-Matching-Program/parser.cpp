@@ -1,14 +1,19 @@
 #include "parser.h"
 #include <QtDebug>
 
-parser::parser(QString header,
-               QStringList str_list,
-               int mode,
-               QString sep
-               ) {
+parser::parser(
+        int index,
+        int mode,
+        QString header,
+        QString table_header,
+        QStringList str_list,
+        QString sep
+) {
+    this->index = index;
     this->header = header;
-    this->str_list = str_list;
+    this->table_header = table_header;
     this->mode = mode;
+    this->str_list = str_list;
     this->sep = sep;
 }
 
@@ -30,6 +35,8 @@ QString parser::to_idx(QString str) {
         } else {
             return QString::number(1);
         }
+    } else if (this->mode == Mode::pass_through) {
+        return str;
     } else {
         qDebug() << "[Parser] Unexpected parsing mode!";
         return str;
@@ -52,6 +59,8 @@ QString parser::to_str(QString idx) {
         } else {
             return "Yes";
         }
+    } else if (this->mode == Mode::pass_through) {
+        return idx;
     } else {
         qDebug() << "Unexpected parsing mode!";
         return idx;
