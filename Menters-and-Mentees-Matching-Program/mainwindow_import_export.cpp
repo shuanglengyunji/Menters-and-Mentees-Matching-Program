@@ -16,6 +16,10 @@ using namespace QXlsx;
 #define MENTORS_COLUMN_NUM 21;
 #define MENTEES_COLUMN_NUM 15;
 
+QString get_header(Document* xlsx, int col) {
+    return xlsx->cellAt(1, col)->readValue().toString();
+}
+
 void MainWindow::import_data(QString addr,bool include_match_result)
 {
     if(addr.isEmpty())
@@ -25,7 +29,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
 
     QSqlQuery query(db);
 
-    // [0] Drop exist tables
+    // [0] Remove recording from all tables
     query.exec("DELETE FROM 'mentor'");
     query.exec("DELETE FROM 'mentee'");
 
@@ -47,7 +51,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     {
         QMessageBox::warning(this, tr("Mentees Sheet Missing"), tr("Please make sure there is a sheet named \"Mentees\" in the data file."));
         return;
-    }    
+    }
 
     // [3] Import Mentors Sheet
     xlsxR.selectSheet("Mentors");
@@ -110,8 +114,6 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QStringList content_list;
         content_list.append(QString::number(0));
         for (int col = 1; col <= mentors_max_col; col = col + 1) {
-            // get header
-            QString header = xlsxR.cellAt(1, col)->readValue().toString();
             // get data
             QString data;
             if ( (int)xlsxR.cellAt(row, col) == 0) {
@@ -122,7 +124,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             // parse data
             QString out;
             for(int i = 0; i < mentor_parser_list.size(); i++) {
-                if (mentor_parser_list[i].get_header() == header) {
+                if (mentor_parser_list[i].get_header() == get_header(&xlsxR, col)) {
                     out = mentor_parser_list[i].to_idx(data);
                     break;
                 }
@@ -161,8 +163,6 @@ void MainWindow::import_data(QString addr,bool include_match_result)
         QStringList content_list;
         content_list.append(QString::number(0));
         for (int col = 1; col <= mentees_max_col; col = col + 1) {
-            // get header
-            QString header = xlsxR.cellAt(1, col)->readValue().toString();
             // get data
             QString data;
             if ( (int)xlsxR.cellAt(row, col) == 0) {
@@ -173,7 +173,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             // parse data
             QString out;
             for(int i = 0; i < mentee_parser_list.size(); i++) {
-                if (mentee_parser_list[i].get_header() == header) {
+                if (mentee_parser_list[i].get_header() == get_header(&xlsxR, col)) {
                     out = mentee_parser_list[i].to_idx(data);
                     break;
                 }

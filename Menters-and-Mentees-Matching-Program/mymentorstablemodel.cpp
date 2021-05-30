@@ -21,6 +21,11 @@ QVariant myMentorsTableModel::headerData(int section,  Qt::Orientation orientati
 
 QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::DisplayRole) const
 {
+    // if (index.row() == 1) {
+    //     QVariant header = this->headerData(index.column(), Qt::Horizontal);
+    //     qDebug() << "colomn " << index.column() << "header " << header.toString();
+    // }
+
     //confirmation
     if (index.column() == 1 && role == Qt::DisplayRole) {
         QString data = QSqlTableModel::data(index,role).toString();
