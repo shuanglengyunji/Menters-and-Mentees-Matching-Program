@@ -54,7 +54,7 @@ private:
     )";
     QList<parser> parser_list = {
         parser(1, parser::Mode::string_matching, "Confirmation", "is_confirmed",
-            QStringList(QList<QString>() << "" << "I have read and understood the above text")),
+            QStringList(QList<QString>() << "I have read and understood the above text")),
         parser(2, parser::Mode::pass_through, "First Name", "first_name"),
         parser(3, parser::Mode::pass_through, "Last Name", "last_name"),
         parser(4, parser::Mode::pass_through, "Uni ID", "uid"),

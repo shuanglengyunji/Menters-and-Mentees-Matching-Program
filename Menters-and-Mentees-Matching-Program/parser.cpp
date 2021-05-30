@@ -37,6 +37,12 @@ QString parser::to_idx(QString str) {
         }
     } else if (this->mode == Mode::pass_through) {
         return str;
+    } else if (this->mode == Mode::string_matched_or_ignored) {
+        if (str == this->str_list.at(0)) {
+            return QString::number(1);
+        } else {
+            return QString::number(0);
+        }
     } else {
         qDebug() << "[Parser] Unexpected parsing mode!";
         return str;
@@ -61,6 +67,12 @@ QString parser::to_str(QString idx) {
         }
     } else if (this->mode == Mode::pass_through) {
         return idx;
+    } else if (this->mode == Mode::string_matched_or_ignored) {
+        if (idx.toInt() == 1) {
+            return this->str_list.at(0);
+        } else {
+            return "";
+        }
     } else {
         qDebug() << "Unexpected parsing mode!";
         return idx;

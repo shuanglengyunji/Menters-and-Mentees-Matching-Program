@@ -23,6 +23,7 @@ public:
         string_matching,
         yes_or_no,
         pass_through,
+        string_matched_or_ignored,
     };
 private:
     int index;
