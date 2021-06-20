@@ -133,6 +133,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             QMessageBox::warning(this, tr("Group Sheet Missing"), tr("Unable to Import Matching Results."));
             return;
         }
+
         int group_max = xlsxR.dimension().lastRow();
 
         for (int row = 2;row <= group_max; row = row + 1)
@@ -178,11 +179,6 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     // mentors
 
     myMentorsTableModel * exmodel_mentors = new myMentorsTableModel(this,db);
-    exmodel_mentors->setTable("mentor");
-    exmodel_mentors->select();
-    while(exmodel_mentors->canFetchMore()){
-        exmodel_mentors->fetchMore();
-    }
 
     int mentors_max = exmodel_mentors->rowCount();      //qDebug() << "row max:" << row_max;
     int mentors_max_col = MENTORS_COLUMN_NUM;
@@ -205,12 +201,6 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     // mentees
 
     myMenteesTableModel * exmodel_mentees = new myMenteesTableModel(this,db);
-    exmodel_mentees->setTable("mentee");
-    exmodel_mentees->select();
-    while(exmodel_mentees->canFetchMore()){
-        exmodel_mentees->fetchMore();
-    }
-
 
     int mentees_max = exmodel_mentees->rowCount();      //qDebug() << "row max:" << row_max;
     int mentees_max_col = MENTEES_COLUMN_NUM;
@@ -230,77 +220,67 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     delete exmodel_mentees;
 
-//    // [4] matching
+    // [4] matching
 
-//    if (include_match_result)
-//    {
-//        // Add Sheet and Sheet Headers
-//        xlsxW.addSheet("Group");
+    if (include_match_result)
+    {
+        // Add Sheet and Sheet Headers
+        xlsxW.addSheet("Group");
 
-//        xlsxW.write("A1","group_id");
-//        xlsxW.write("B1","uid");
-//        xlsxW.write("C1","role");
+        xlsxW.write("A1","group_id");
+        xlsxW.write("B1","uid");
+        xlsxW.write("C1","role");
 
-//        // Export data
+        // Export data
 
-//        int row_count = 2;
+        int row_count = 2;
 
-//        // mentor
+        // mentor
 
-//        QSqlTableModel * exmodel_mentors_matching = new QSqlTableModel(this,db);
-//        exmodel_mentors_matching->setTable("mentor");
-//        exmodel_mentors_matching->select();
-//        while(exmodel_mentors_matching->canFetchMore()){
-//            exmodel_mentors_matching->fetchMore();
-//        }
+        myMentorsTableModel * exmodel_mentors_matching = new myMentorsTableModel(this,db);
 
-//        for (int row = 0; row < exmodel_mentors_matching->rowCount(); row++)
-//        {
-//            QSqlRecord r = exmodel_mentors_matching->record(row);
+        for (int row = 0; row < exmodel_mentors_matching->rowCount(); row++)
+        {
+            QSqlRecord r = exmodel_mentors_matching->record(row);
 
-//            QVariant group_id = r.value(0);
-//            QVariant uid = r.value(4);
+            QVariant group_id = r.value(0);
+            QVariant uid = r.value(4);
 
-//            if (group_id != "0")
-//            {
-//                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
-//                xlsxW.write("B"+QVariant(row_count).toString(),uid);
-//                xlsxW.write("C"+QVariant(row_count).toString(),"mentor");
+            if (group_id != "0")
+            {
+                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
+                xlsxW.write("B"+QVariant(row_count).toString(),uid);
+                xlsxW.write("C"+QVariant(row_count).toString(),"mentor");
 
-//                row_count++;
-//            }
-//        }
+                row_count++;
+            }
+        }
 
-//        delete exmodel_mentors_matching;
+        delete exmodel_mentors_matching;
 
-//        // mentee
+        // mentee
 
-//        QSqlTableModel * exmodel_mentees_matching = new QSqlTableModel(this,db);
-//        exmodel_mentees_matching->setTable("mentee");
-//        exmodel_mentees_matching->select();
-//        while(exmodel_mentees_matching->canFetchMore()){
-//            exmodel_mentees_matching->fetchMore();
-//        }
+        myMenteesTableModel * exmodel_mentees_matching = new myMenteesTableModel(this,db);
 
-//        for (int row = 0; row < exmodel_mentees_matching->rowCount(); row++)
-//        {
-//            QSqlRecord r = exmodel_mentees_matching->record(row);
+        for (int row = 0; row < exmodel_mentees_matching->rowCount(); row++)
+        {
+            QSqlRecord r = exmodel_mentees_matching->record(row);
 
-//            QVariant group_id = r.value(0);
-//            QVariant uid = r.value(3);
+            QVariant group_id = r.value(0);
+            QVariant uid = r.value(3);
 
-//            if (group_id != "0")
-//            {
-//                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
-//                xlsxW.write("B"+QVariant(row_count).toString(),uid);
-//                xlsxW.write("C"+QVariant(row_count).toString(),"mentee");
+            if (group_id != "0")
+            {
+                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
+                xlsxW.write("B"+QVariant(row_count).toString(),uid);
+                xlsxW.write("C"+QVariant(row_count).toString(),"mentee");
 
-//                row_count++;
-//            }
-//        }
+                row_count++;
+            }
+        }
 
-//        delete exmodel_mentees_matching;
-//    }
+        delete exmodel_mentees_matching;
+    }
 
     // [5]
     if ( !xlsxW.saveAs(addr) )

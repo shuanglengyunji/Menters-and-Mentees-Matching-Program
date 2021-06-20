@@ -23,9 +23,7 @@ void MainWindow::load_group_mentors()
 
     // link db to mentors QSqlTableModel
     model_group_mentors_to_be_grouped = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
-    model_group_mentors_to_be_grouped->setTable("mentor");
-    model_group_mentors_to_be_grouped->setEditStrategy(myMentorsTableModel::OnFieldChange);
-    model_group_mentors_to_be_grouped->setFilter("group_id=0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
+    model_group_mentors_to_be_grouped->setFilter("group_id=0 AND wwvp=1 AND train_complete=1");
     model_group_mentors_to_be_grouped->select();
     while(model_group_mentors_to_be_grouped->canFetchMore()){
         model_group_mentors_to_be_grouped->fetchMore();
@@ -69,9 +67,7 @@ void MainWindow::load_group_mentors()
 
     // link db to mentors QSqlTableModel
     model_group_mentors_grouped = new myMentorsTableModel(this,db,true);    // model_mentors is a private pointer defined in header file
-    model_group_mentors_grouped->setTable("mentor");
-    model_group_mentors_grouped->setEditStrategy(myMentorsTableModel::OnFieldChange);
-    model_group_mentors_grouped->setFilter("group_id<>0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'");
+    model_group_mentors_grouped->setFilter("group_id<>0 AND wwvp=1 AND train_complete=1");
     model_group_mentors_grouped->select();
     while(model_group_mentors_grouped->canFetchMore()){
         model_group_mentors_grouped->fetchMore();
@@ -114,7 +110,7 @@ void MainWindow::load_group_mentors()
 void MainWindow::on_lineEdit_group_mentor_grouped_search_editingFinished()
 {
     QString str = ui->lineEdit_group_mentor_grouped_search->text().simplified();    // Returns a string that has whitespace removed from the start and the end
-    QString argument = "group_id<>0 AND wwvp<>'' AND wwvp<>'n' AND train_complete='y'";
+    QString argument = "group_id<>0 AND wwvp=1 AND train_complete=1";
     if(str.isEmpty()) {
         model_group_mentors_grouped->setFilter(argument);
         return;
@@ -158,7 +154,7 @@ void MainWindow::on_toolButton_left_clicked()
     QItemSelectionModel * selections_grouped = ui->tableView_group_mentor_grouped->selectionModel();
     QModelIndexList selected_grouped = selections_grouped->selectedRows();
 
-    int group_id = -1;//why -1 not 0
+    int group_id;
     if ( selected_grouped.isEmpty() )
     {
         QSqlQueryModel querymodel;
