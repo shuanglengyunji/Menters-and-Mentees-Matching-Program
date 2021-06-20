@@ -193,10 +193,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         xlsxW.write(1, col, exmodel_mentors->get_parser(col).get_header());
     }
     // write data
-    for (int row = 2; row < mentors_max+2; row = row + 1) {
+    for (int row = 0; row < mentors_max; row = row + 1) {
         QSqlRecord r = exmodel_mentors->record(row);
         for (int col = 1; col <= mentors_max_col; col = col + 1) {
-            xlsxW.write(row, col, exmodel_mentors->get_parser(col).to_str(r.value(col).toString()));
+            xlsxW.write(row+2, col, exmodel_mentors->get_parser(col).to_str(r.value(col).toString()));
         }
     }
 
@@ -221,10 +221,10 @@ void MainWindow::export_data(QString addr,bool include_match_result)
         xlsxW.write(1, col, exmodel_mentees->get_parser(col).get_header());
     }
     // write data
-    for (int row = 2; row < mentees_max+2; row = row + 1) {
+    for (int row = 0; row < mentees_max; row = row + 1) {
         QSqlRecord r = exmodel_mentees->record(row);
         for (int col = 1; col <= mentees_max_col; col = col + 1) {
-            xlsxW.write(row, col, exmodel_mentees->get_parser(col).to_str(r.value(col).toString()));
+            xlsxW.write(row+2, col, exmodel_mentees->get_parser(col).to_str(r.value(col).toString()));
         }
     }
 
@@ -384,49 +384,3 @@ void MainWindow::export_wattle_file(QString addr, int type)
     // write to file
     csv.writeToFile(addr.toStdString());
 }
-
-
-
-/*
-// Mentors
-xlsxW.addSheet("Mentors");
-
-xlsxW.write("A1","Confirmation");
-xlsxW.write("B1","First Name");
-xlsxW.write("C1","Last Name");
-xlsxW.write("D1","Uni ID");
-xlsxW.write("E1","WWVP");
-xlsxW.write("F1","O-Week");
-xlsxW.write("G1","UG/PG");
-xlsxW.write("H1","Academic College");
-xlsxW.write("I1","Degree");
-xlsxW.write("J1","Dom/Int");
-xlsxW.write("K1","Gender");
-xlsxW.write("L1","Languages");
-xlsxW.write("M1","Language - Text");
-xlsxW.write("N1","Residential Hall");
-xlsxW.write("O1","Special Categories");
-xlsxW.write("P1","Interests");
-xlsxW.write("Q1","Training 1");
-xlsxW.write("R1","Training 2");
-xlsxW.write("S1","Training 3");
-xlsxW.write("T1","Training Complete");
-
-// Mentees
-xlsxW.addSheet("Mentees");
-
-xlsxW.write("A1","First Name");
-xlsxW.write("B1","Last Name");
-xlsxW.write("C1","Uni ID");
-xlsxW.write("D1","Round");
-xlsxW.write("E1","UG/PG");
-xlsxW.write("F1","Academic College");
-xlsxW.write("G1","u18");
-xlsxW.write("H1","Dom/Int");
-xlsxW.write("I1","Gender");
-xlsxW.write("J1","Languages");
-xlsxW.write("K1","Language - Text");
-xlsxW.write("L1","Special Categories");
-xlsxW.write("M1","Requests");
-
-*/
