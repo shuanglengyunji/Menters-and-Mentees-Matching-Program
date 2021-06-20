@@ -70,7 +70,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
-            content_list.append("\"" + mentorsTable.get_parser(col).to_idx(data) + "\"");
+            content_list.append(mentorsTable.get_parser(col).to_idx(data));
         }
 
         //execute sql
@@ -107,7 +107,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
-            content_list.append("\"" + menteesTable.get_parser(col).to_idx(data) + "\"");
+            content_list.append(menteesTable.get_parser(col).to_idx(data));
         }
 
         // execute sql

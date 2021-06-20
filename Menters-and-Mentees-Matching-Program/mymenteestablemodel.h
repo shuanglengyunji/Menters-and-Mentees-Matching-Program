@@ -81,8 +81,9 @@ private:
             QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
             << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
             << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
-            << "Playing or creating music" << "Playing sport"
-        )),
+            << "Playing or creating music" << "Playing sport"),
+               true
+               ),
         parser(14, parser::Mode::pass_through, "Requests", "requests"),
         parser(15, parser::Mode::yes_or_no, "Importance", "importance"),
     };

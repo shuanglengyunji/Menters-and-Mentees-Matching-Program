@@ -12,6 +12,7 @@ public:
         QString header,
         QString table_header,
         QStringList str_list = QStringList(),
+        bool allow_empty = false,
         QString sep = ","
     );
     int get_index() { return this->index; }
@@ -28,6 +29,7 @@ public:
 private:
     int index;
     int mode;
+    bool allow_empty;
     QString header;
     QString table_header;
     QStringList str_list;

@@ -89,8 +89,9 @@ private:
             QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
             << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
             << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
-            << "Playing or creating music" << "Playing sport"
-        )),
+            << "Playing or creating music" << "Playing sport"),
+               true
+               ),
         parser(16, parser::Mode::pass_through, "Capacity", "capacity"),
         parser(17, parser::Mode::yes_or_no, "Training 1", "train_1"),
         parser(18, parser::Mode::yes_or_no, "Training 2", "train_2"),
