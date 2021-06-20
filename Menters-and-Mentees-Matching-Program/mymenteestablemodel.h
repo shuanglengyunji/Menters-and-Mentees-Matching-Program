@@ -35,21 +35,21 @@ public:
 private:
     QString table_init_query = "CREATE TABLE IF NOT EXISTS [mentee] (           \
         group_id			INTEGER NOT NULL DEFAULT 0,    \
-        first_name			VARCHAR(50),      \
-        last_name			VARCHAR(50),      \
-        uid					VARCHAR(10) NOT NULL UNIQUE,  \
-        email				VARCHAR(70),              \
-        round			INTEGER(1),                     \
+        first_name			VARCHAR(1000),      \
+        last_name			VARCHAR(1000),      \
+        uid					VARCHAR(20) NOT NULL UNIQUE,  \
+        email				VARCHAR(1000),              \
+        round               INTEGER(1),                     \
         academic_level		INTEGER(1),               \
-        college				INTEGER(1),                \
+        college				VARCHAR(50),                \
         u18					INTEGER(1),                \
         type				INTEGER(1),                \
         gender				INTEGER(1),                \
         languages			VARCHAR(50),                \
-        languages_text		TEXT(500),                \
+        languages_text		TEXT(1000),                \
         interests			VARCHAR(50),                \
         requests			TEXT(1000),                \
-        importance		INTEGER(1),                \
+        importance          INTEGER(1),                \
         PRIMARY KEY(uid)                               \
     )";
     QList<parser> parser_list = {
@@ -60,7 +60,7 @@ private:
         parser(5, parser::Mode::string_matching, "Round", "round", QStringList(QList<QString>() << "Round 1" << "Round 2")),
         parser(6, parser::Mode::string_matching, "UG/PG", "academic_level",
             QStringList(QList<QString>() << "Postgraduate (coursework)" << "Undergraduate")),
-        parser(7, parser::Mode::string_matching, "Academic College", "college",
+        parser(7, parser::Mode::string_matching_multiple, "Academic College", "college",
             QStringList(QList<QString>() << "College of Asia and the Pacific"
             << "College of Arts and Social Sciences" << "College of Business and Economics"
             << "College of Engineering and Computer Science" << "College of Law"
@@ -71,13 +71,13 @@ private:
             QStringList(QList<QString>() << "Domestic student not living on campus" << "International student")),
         parser(10, parser::Mode::string_matching, "Gender", "gender",
             QStringList(QList<QString>() << "Female" << "Male" << "Other" << "Prefer not to say")),
-        parser(11, parser::Mode::string_matching, "Languages", "languages",
+        parser(11, parser::Mode::string_matching_multiple, "Languages", "languages",
             QStringList(QList<QString>() << "Hindi" << "Vietnamese" << "German" << "Korean"
             << "Tamil" << "Mandarin (Chinese)" << "Spanish" << "Cantonese" << "Indonesian" << "Japanese" << "Urdu" << "Other (please specify)"
             << "I only speak English"
         )),
         parser(12, parser::Mode::pass_through, "Language - Text", "languages_text"),
-        parser(13, parser::Mode::string_matching, "Interests", "interests",
+        parser(13, parser::Mode::string_matching_multiple, "Interests", "interests",
             QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
             << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
             << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."

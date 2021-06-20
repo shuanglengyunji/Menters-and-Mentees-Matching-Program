@@ -18,7 +18,16 @@ parser::parser(
 }
 
 QString parser::to_idx(QString str) {
+    str = str.simplified();     // remove white space
     if (this->mode == Mode::string_matching) {
+        for (int idx = 0; idx < this->str_list.size(); idx++) {
+            if (str.contains(this->str_list[idx])) {
+                return QString::number(idx);
+            }
+        }
+        qDebug() << "[Parser] Invalid data" << str << "from header " << header;
+        return "";
+    } else if (this->mode == Mode::string_matching_multiple) {
         QStringList out;
         for (int idx = 0; idx < this->str_list.size(); idx++) {
             if (str.contains(this->str_list[idx])) {
@@ -28,21 +37,18 @@ QString parser::to_idx(QString str) {
         if (out.isEmpty()) {
             qDebug() << "[Parser] Invalid data" << str << "from header " << header;
         }
-        return out.join(this->sep);
+        return out.join(this->sep);     // considering convert the comma seperated list to JSON string
     } else if (this->mode == Mode::yes_or_no) {
-        if (str.isEmpty() || str.toLower() == "n" || str.toLower() == "no") {
+        if (str.isEmpty()) {
+            qDebug() << "[Parser] Invalid data" << str << "from header " << header;
+        }
+        if (str.toLower() == "n" || str.toLower() == "no") {
             return QString::number(0);
         } else {
             return QString::number(1);
         }
     } else if (this->mode == Mode::pass_through) {
         return str;
-    } else if (this->mode == Mode::string_matched_or_ignored) {
-        if (str == this->str_list.at(0)) {
-            return QString::number(1);
-        } else {
-            return QString::number(0);
-        }
     } else {
         qDebug() << "[Parser] Unexpected parsing mode!";
         return str;
@@ -51,6 +57,14 @@ QString parser::to_idx(QString str) {
 
 QString parser::to_str(QString idx) {
     if (this->mode == Mode::string_matching) {
+        for (int i = 0; i < this->str_list.size(); i++) {
+            if (idx.contains(QString::number(i))) {
+                return this->str_list[i];
+            }
+        }
+        qDebug() << "[Parser] Invalid idx" << idx << "from header " << header;
+        return "";
+    } else if (this->mode == Mode::string_matching_multiple) {
         QStringList out;
         QStringList idx_list = idx.split(this->sep);
         for (int idx = 0; idx < this->str_list.size(); idx++) {
@@ -58,8 +72,14 @@ QString parser::to_str(QString idx) {
                 out.append(this->str_list[idx]);
             }
         }
+        if (out.isEmpty()) {
+            qDebug() << "[Parser] Invalid idx" << idx << "from header " << header;
+        }
         return out.join(this->sep);
     } else if (this->mode == Mode::yes_or_no) {
+        if (idx.isEmpty()) {
+            qDebug() << "[Parser] Invalid idx" << idx << "from header " << header;
+        }
         if (idx == QString::number(0)) {
             return "No";
         } else {
@@ -67,12 +87,6 @@ QString parser::to_str(QString idx) {
         }
     } else if (this->mode == Mode::pass_through) {
         return idx;
-    } else if (this->mode == Mode::string_matched_or_ignored) {
-        if (idx.toInt() == 1) {
-            return this->str_list.at(0);
-        } else {
-            return "";
-        }
     } else {
         qDebug() << "Unexpected parsing mode!";
         return idx;

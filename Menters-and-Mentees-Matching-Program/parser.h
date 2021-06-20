@@ -21,9 +21,9 @@ public:
     QString to_str(QString idx);
     enum Mode {
         string_matching,
+        string_matching_multiple,
         yes_or_no,
         pass_through,
-        string_matched_or_ignored,
     };
 private:
     int index;
