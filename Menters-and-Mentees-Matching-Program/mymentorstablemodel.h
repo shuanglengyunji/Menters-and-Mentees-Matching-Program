@@ -9,19 +9,18 @@
 class myMentorsTableModel : public QSqlTableModel
 {
 public:
-    myMentorsTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase(), bool use_group_id_as_row_number = false) {
+    myMentorsTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase()) : QSqlTableModel(parent, db) {
         this->setTable("mentor");
         this->setEditStrategy(QSqlTableModel::OnFieldChange);
         this->select();
         while(this->canFetchMore()){
             this->fetchMore();
         }
-        this->use_group_id_as_row_number = use_group_id_as_row_number;
     };
     QVariant headerData(int section,  Qt::Orientation orientation, int role) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-    void init_table();
+    void create_table();
     parser get_parser(int idx) {
         for(int i=0; i<this->parser_list.size(); i++) {
             parser p = parser_list[i];
@@ -34,7 +33,6 @@ public:
     }
 
 private:
-    bool use_group_id_as_row_number;
     QString table_init_query = "CREATE TABLE IF NOT EXISTS [mentor] (           \
         first_name		VARCHAR(1000),                    \
         last_name		VARCHAR(1000),                    \

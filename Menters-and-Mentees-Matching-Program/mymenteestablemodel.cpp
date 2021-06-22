@@ -3,7 +3,7 @@
 #include <QSqlQuery>
 #include <QDebug>
 
-void myMenteesTableModel::init_table() {
+void myMenteesTableModel::create_table() {
     QSqlQuery query(this->database());
     query.exec(this->table_init_query);
 }

@@ -3,16 +3,14 @@
 #include <qsqlrecord.h>
 #include <QDebug>
 
-void myMentorsTableModel::init_table() {
+void myMentorsTableModel::create_table() {
     QSqlQuery query(this->database());
     query.exec(this->table_init_query);
 }
 
 QVariant myMentorsTableModel::headerData(int section,  Qt::Orientation orientation, int role = Qt::DisplayRole) const
 {
-    if( this->use_group_id_as_row_number && orientation == Qt::Vertical && role == Qt::DisplayRole) {
-        return this->record(section).value("group_id");
-    } else if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         QList<parser> list = this->parser_list;
         for(int i=0; i<list.size(); i++) {
             parser p = list[i];

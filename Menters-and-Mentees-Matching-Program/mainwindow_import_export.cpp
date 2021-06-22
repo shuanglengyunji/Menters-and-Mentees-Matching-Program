@@ -216,74 +216,74 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
 void MainWindow::export_wattle_file(QString addr, int type)
 {
-    // type: 0 - mentor/mentee label in group     1 - group_id in group
+//    // type: 0 - mentor/mentee label in group     1 - group_id in group
 
-    if(addr.isEmpty())
-    {
-        return;
-    }
+//    if(addr.isEmpty())
+//    {
+//        return;
+//    }
 
-    // csv object
-    CSVWriter csv(",");
-    csv.newRow() << "user" << "group";  // header
+//    // csv object
+//    CSVWriter csv(",");
+//    csv.newRow() << "user" << "group";  // header
 
-    // mentors data
+//    // mentors data
 
-    QSqlTableModel * exwattle_mentors = new QSqlTableModel(this,db);
-    exwattle_mentors->setTable("mentor");
-    exwattle_mentors->setSort(0,Qt::AscendingOrder);
-    exwattle_mentors->select();
-    while(exwattle_mentors->canFetchMore()){
-        exwattle_mentors->fetchMore();
-    }
+//    QSqlTableModel * exwattle_mentors = new QSqlTableModel(this,db);
+//    exwattle_mentors->setTable("mentor");
+//    exwattle_mentors->setSort(0,Qt::AscendingOrder);
+//    exwattle_mentors->select();
+//    while(exwattle_mentors->canFetchMore()){
+//        exwattle_mentors->fetchMore();
+//    }
 
-    for (int row = 0; row < exwattle_mentors->rowCount(); row++)
-    {
-        QSqlRecord r = exwattle_mentors->record(row);
+//    for (int row = 0; row < exwattle_mentors->rowCount(); row++)
+//    {
+//        QSqlRecord r = exwattle_mentors->record(row);
 
-        QVariant group_id = r.value(0);
-        QVariant uid = r.value(4);// change from r.value(4) to r.value(3)
+//        QVariant group_id = r.value(0);
+//        QVariant uid = r.value(4);// change from r.value(4) to r.value(3)
 
-        if (group_id != "0")
-        {
-            if (type)
-                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
-            else
-                csv.newRow() << uid.toString().toStdString() << "mentor";
-        }
-    }
+//        if (group_id != "0")
+//        {
+//            if (type)
+//                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
+//            else
+//                csv.newRow() << uid.toString().toStdString() << "mentor";
+//        }
+//    }
 
-    delete exwattle_mentors;
+//    delete exwattle_mentors;
 
-    // mentees data
+//    // mentees data
 
-    QSqlTableModel * exwattle_mentees = new QSqlTableModel(this,db);
-    exwattle_mentees->setTable("mentee");
-    exwattle_mentees->setSort(0,Qt::AscendingOrder);
-    exwattle_mentees->select();
-    while(exwattle_mentees->canFetchMore())
-    {
-        exwattle_mentees->fetchMore();
-    }
+//    QSqlTableModel * exwattle_mentees = new QSqlTableModel(this,db);
+//    exwattle_mentees->setTable("mentee");
+//    exwattle_mentees->setSort(0,Qt::AscendingOrder);
+//    exwattle_mentees->select();
+//    while(exwattle_mentees->canFetchMore())
+//    {
+//        exwattle_mentees->fetchMore();
+//    }
 
-    for (int row = 0; row < exwattle_mentees->rowCount(); row++)
-    {
-        QSqlRecord r = exwattle_mentees->record(row);
+//    for (int row = 0; row < exwattle_mentees->rowCount(); row++)
+//    {
+//        QSqlRecord r = exwattle_mentees->record(row);
 
-        QVariant group_id = r.value(0);
-        QVariant uid = r.value(3);
+//        QVariant group_id = r.value(0);
+//        QVariant uid = r.value(3);
 
-        if (group_id != "0")
-        {
-            if (type)
-                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
-            else
-                csv.newRow() << uid.toString().toStdString() << "mentee";
-        }
-    }
+//        if (group_id != "0")
+//        {
+//            if (type)
+//                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
+//            else
+//                csv.newRow() << uid.toString().toStdString() << "mentee";
+//        }
+//    }
 
-    delete exwattle_mentees;
+//    delete exwattle_mentees;
 
-    // write to file
-    csv.writeToFile(addr.toStdString());
+//    // write to file
+//    csv.writeToFile(addr.toStdString());
 }

@@ -25,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
             QObject::tr("Unable to establish a database connection.\n"), QMessageBox::Cancel);
         return;
     }
-    myMentorsTableModel(this, db).init_table();
-    myMenteesTableModel(this, db).init_table();
+    myMentorsTableModel(this, db).create_table();
+    myMenteesTableModel(this, db).create_table();
 
     // switch to mentors' page
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";

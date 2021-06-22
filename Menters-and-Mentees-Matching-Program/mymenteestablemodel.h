@@ -9,7 +9,7 @@
 class myMenteesTableModel : public QSqlTableModel
 {
 public:
-    myMenteesTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase()) {
+    myMenteesTableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase()) : QSqlTableModel(parent, db) {
         this->setTable("mentee");
         this->setEditStrategy(QSqlTableModel::OnFieldChange);
         this->select();
@@ -20,7 +20,7 @@ public:
     QVariant headerData(int section,  Qt::Orientation orientation, int role) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-    void init_table();
+    void create_table();
     parser get_parser(int idx) {
         for(int i=0; i<this->parser_list.size(); i++) {
             parser p = parser_list[i];

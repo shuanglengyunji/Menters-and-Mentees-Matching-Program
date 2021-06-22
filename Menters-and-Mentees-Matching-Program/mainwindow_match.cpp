@@ -23,7 +23,7 @@ void MainWindow::load_match_mentees()
     }
 
     // link db to mentors myMenteesTableModel
-    model_match_mentors = new myMentorsTableModel(this,db,true);    // model_mentors is a private pointer defined in header file
+    model_match_mentors = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentors->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_match_mentors->select();
     while(model_match_mentors->canFetchMore()){
