@@ -158,7 +158,7 @@ void MainWindow::on_pushButton_Up_clicked()
         QString mentee_uid = model_match_mentees_to_be_match->record(selectedIndex.row())
                 .value("uid")
                 .toString();
-        query.exec(QString("UPDATE mentee SET mentor_uid = '%1' WHERE uid = '%2'").arg(uid).arg(mentee_uid));
+        query.exec(QString("UPDATE mentee SET mentor_uid = '%1' WHERE uid = '%2'").arg(uid, mentee_uid));
     }
     model_match_mentees_matched->select();
     model_match_mentees_to_be_match->select();
@@ -172,14 +172,14 @@ void MainWindow::on_pushButton_Up_clicked()
 
 void MainWindow::on_pushButton_Down_clicked()
 {
-    QItemSelectionModel * selections = ui->tableView_match_mentees_matched->selectionModel();
-    QModelIndexList selected = selections->selectedRows();
+    QSqlQuery query(db);
+    QModelIndexList selected = ui->tableView_match_mentees_matched->selectionModel()->selectedRows();
     foreach(QModelIndex selectedIndex, selected)
     {
-        int row = selectedIndex.row();
-        QSqlRecord r = model_match_mentees_matched->record(row);
-        r.setNull("mentor_uid");
-        model_match_mentees_matched->setRecord(row,r);
+        QString uid = model_match_mentees_matched->record(selectedIndex.row())
+                .value("uid")
+                .toString();
+        query.exec(QString("UPDATE mentee SET mentor_uid = NULL WHERE uid = '%1'").arg(uid));
     }
     model_match_mentees_matched->select();
     model_match_mentees_to_be_match->select();
@@ -223,7 +223,7 @@ void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
     for (int i=0; i < list.size() ; i++)
     {
         QString tmp = list.at(i);
-        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp).arg(tmp).arg(tmp);       // Uni ID + First Name + Last Name
+        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp, tmp, tmp);       // Uni ID + First Name + Last Name
         //qDebug() << argument;
     }
     model_match_mentors->setFilter(argument);
@@ -242,7 +242,7 @@ void MainWindow::on_lineEdit_match_search_mentees_editingFinished()
     for (int i=0; i < list.size() ; i++)
     {
         QString tmp = list.at(i);
-        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp).arg(tmp).arg(tmp);       // Uni ID + First Name + Last Name
+        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp, tmp, tmp);       // Uni ID + First Name + Last Name
         //qDebug() << argument;
     }
     model_match_mentees_to_be_match->setFilter(argument);
