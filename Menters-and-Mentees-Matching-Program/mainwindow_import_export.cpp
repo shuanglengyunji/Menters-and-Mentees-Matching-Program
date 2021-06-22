@@ -216,6 +216,15 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
 void MainWindow::export_wattle_file(QString addr, int type)
 {
+//    myMentorsTableModel * model = new myMentorsTableModel(this, db);
+//    model->setTable("mentor");
+//    QSqlRecord r = model->record();
+//    r.setValue("'uid'", "'u123'");
+//    r.setGenerated("'uid'", false);
+//    model->insertRecord(-1, r);
+//    model->submitAll();
+//    qDebug() << model->lastError();
+//    delete model;
 //    // type: 0 - mentor/mentee label in group     1 - group_id in group
 
 //    if(addr.isEmpty())
