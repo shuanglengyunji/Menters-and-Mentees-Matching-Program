@@ -55,22 +55,6 @@ private slots:
 
     void display_mentees_column();
 
-    // Grouping
-
-    void on_toolButton_left_clicked();
-
-    void on_toolButton_right_clicked();
-
-    void on_pushButton_mentor_auto_clicked();
-
-    void on_pushButton_mentor_clear_clicked();
-
-    void on_lineEdit_group_mentor_grouped_search_editingFinished();
-
-    void on_lineEdit_group_mentor_to_be_group_search_editingFinished();
-
-    void display_group_column();
-
     // Matching
 
     void on_pushButton_Auto_clicked();
@@ -115,8 +99,6 @@ private slots:
 
     void on_actionMentees_Grouping_triggered();
 
-    void on_actionMentors_Grouping_triggered();
-
 private:
     Ui::MainWindow *ui;
 
@@ -151,17 +133,6 @@ private:
     myMenteesTableModel * model_mentees = nullptr;
 
     void load_mentees();
-
-    // ------------------------------------
-
-    // Group
-
-    myMentorsTableModel * model_group_mentors_to_be_grouped = nullptr;
-    myMentorsTableModel * model_group_mentors_grouped = nullptr;
-
-    void load_group_mentors();
-
-    void algorithm_mentors_group();
 
     // ------------------------------------
 

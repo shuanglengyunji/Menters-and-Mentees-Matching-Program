@@ -34,7 +34,6 @@ public:
 
 private:
     QString table_init_query = "CREATE TABLE IF NOT EXISTS [mentee] (           \
-        group_id			INTEGER NOT NULL DEFAULT 0,    \
         first_name			VARCHAR(1000),      \
         last_name			VARCHAR(1000),      \
         uid					VARCHAR(20) NOT NULL UNIQUE,  \
@@ -47,9 +46,10 @@ private:
         gender				INTEGER(1),                \
         languages			VARCHAR(50),                \
         languages_text		TEXT(1000),                \
-        interests			VARCHAR(50),                \
+        interests			VARCHAR(50),               \
         requests			TEXT(1000),                \
         importance          INTEGER(1),                \
+        mentor_uid          VARCHAR(20),               \
         PRIMARY KEY(uid)                               \
     )";
     QList<parser> parser_list = {
@@ -86,6 +86,7 @@ private:
                ),
         parser(14, parser::Mode::pass_through, "Requests", "requests"),
         parser(15, parser::Mode::yes_or_no, "Importance", "importance"),
+        parser(16, parser::pass_through, "Mentor Uni ID", "mentor_uid"),
     };
 
 };

@@ -24,9 +24,7 @@ void MainWindow::load_match_mentees()
 
     // link db to mentors myMenteesTableModel
     model_match_mentors = new myMentorsTableModel(this,db,true);    // model_mentors is a private pointer defined in header file
-    model_match_mentors->setTable("mentor");
     model_match_mentors->setEditStrategy(myMenteesTableModel::OnFieldChange);
-    model_match_mentors->setFilter("group_id<>0");
     model_match_mentors->select();
     while(model_match_mentors->canFetchMore()){
         model_match_mentors->fetchMore();
@@ -70,7 +68,7 @@ void MainWindow::load_match_mentees()
     model_match_mentees_matched = new myMenteesTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentees_matched->setTable("mentee");
     model_match_mentees_matched->setEditStrategy(myMenteesTableModel::OnFieldChange);
-    model_match_mentees_matched->setFilter("group_id<>0");
+    model_match_mentees_matched->setFilter("wwvp=1 AND train_complete=1");
     model_match_mentees_matched->select();
     while(model_match_mentees_matched->canFetchMore()){
         model_match_mentees_matched->fetchMore();
@@ -145,15 +143,6 @@ void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
     int row = index.row();
     int group_id = model_match_mentors->record(row).value("group_id").toInt();
 
-    ui->tableView_match_mentors->clearSelection();
-    for (int i=0; i < model_match_mentors->rowCount(); i++)
-    {
-        if (model_match_mentors->record(i).value("group_id").toInt()==group_id)
-        {
-            ui->tableView_match_mentors->selectRow(i);
-        }
-    }
-
     // Mentees Matched
     model_match_mentees_matched->setFilter(QString("group_id=%1").arg(group_id));
 
@@ -210,20 +199,26 @@ void MainWindow::on_pushButton_Clear_clicked()
 {
     QSqlQuery query(db);
     query.exec("UPDATE mentee SET group_id=0");
+    query.exec("UPDATE mentor SET group_id=0");
     model_match_mentees_to_be_match->select();
     model_match_mentees_matched->select();
+    model_match_mentors->select();
 
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
 
+
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
+
+    ui->tableView_match_mentors->resizeColumnsToContents();
+    ui->tableView_match_mentors->resizeRowsToContents();
 }
 
 void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
 {
     QString str = ui->lineEdit_match_search_mentors->text().simplified();    // Returns a string that has whitespace removed from the start and the end
-    QString argument = "group_id<>0";
+    QString argument = "wwvp=1 AND train_complete=1";
     if(str.isEmpty()) {
         model_match_mentors->setFilter(argument);
         return;

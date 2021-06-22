@@ -36,7 +36,6 @@ public:
 private:
     bool use_group_id_as_row_number;
     QString table_init_query = "CREATE TABLE IF NOT EXISTS [mentor] (           \
-        group_id        INTEGER NOT NULL DEFAULT 0,         \
         first_name		VARCHAR(1000),                    \
         last_name		VARCHAR(1000),                    \
         uid				VARCHAR(20) NOT NULL UNIQUE,    \

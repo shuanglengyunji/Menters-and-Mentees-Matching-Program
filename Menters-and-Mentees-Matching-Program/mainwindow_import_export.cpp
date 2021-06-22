@@ -62,7 +62,6 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     for (int row = 2; row <= mentors_max; row = row + 1)
     {
         QStringList content_list;
-        content_list.append(QString::number(0));
         for (int col = 1; col <= mentors_max_col; col = col + 1) {
             // get data
             QString data = QString();
@@ -99,15 +98,25 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     for (int row = 2; row <= mentees_max; row = row + 1)
     {
         QStringList content_list;
-        content_list.append(QString::number(0));
         for (int col = 1; col <= mentees_max_col; col = col + 1) {
             // get data
-            QString data = QString();
+            QString data = "";
             if ( (int)xlsxR.cellAt(row, col) != 0) {
                 data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
             content_list.append(menteesTable.get_parser(col).to_idx(data));
+        }
+        if (include_match_result) {
+            // get data
+            QString data = "";
+            if ( (int)xlsxR.cellAt(row, mentees_max_col+1) != 0) {
+                data = xlsxR.cellAt(row, mentees_max_col+1)->readValue().toString().simplified();
+            }
+            // parse data
+            content_list.append(menteesTable.get_parser(mentees_max_col+1).to_idx(data));
+        } else {
+            content_list.append("NULL");
         }
 
         // execute sql
@@ -119,40 +128,6 @@ void MainWindow::import_data(QString addr,bool include_match_result)
             qDebug() << query.lastError();
             // QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
             qDebug() << sql;
-        }
-    }
-
-    // [5] Import Matching Results
-
-    if (include_match_result)
-    {
-        QSqlQuery query(db);
-
-        if ( !xlsxR.selectSheet("Group"))
-        {
-            QMessageBox::warning(this, tr("Group Sheet Missing"), tr("Unable to Import Matching Results."));
-            return;
-        }
-
-        int group_max = xlsxR.dimension().lastRow();
-
-        for (int row = 2;row <= group_max; row = row + 1)
-        {
-            QVariant group_id = xlsxR.cellAt(row, 1)->readValue().toString();
-            QVariant uid = xlsxR.cellAt(row, 2)->readValue().toString();
-            QVariant role = xlsxR.cellAt(row, 3)->readValue().toString();
-
-            if (role == "mentor")
-            {
-                query.exec(QString("UPDATE mentor SET group_id=%1 WHERE uid=\'%2\'").arg(group_id.toString()).arg(uid.toString()));
-                //qDebug() << query.lastError();
-            }
-
-            if (role == "mentee")
-            {
-                query.exec(QString("UPDATE mentee SET group_id=%1 WHERE uid=\'%2\'").arg(group_id.toString()).arg(uid.toString()));
-                //qDebug() << query.lastError();
-            }
         }
     }
 }
@@ -185,13 +160,13 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     xlsxW.selectSheet("Mentors");
     // write header
-    for (int col = 1; col <= mentors_max_col; col = col + 1) {
+    for (int col = 0; col < mentors_max_col; col = col + 1) {
         xlsxW.write(1, col, exmodel_mentors->get_parser(col).get_header());
     }
     // write data
     for (int row = 0; row < mentors_max; row = row + 1) {
         QSqlRecord r = exmodel_mentors->record(row);
-        for (int col = 1; col <= mentors_max_col; col = col + 1) {
+        for (int col = 0; col < mentors_max_col; col = col + 1) {
             xlsxW.write(row+2, col, exmodel_mentors->get_parser(col).to_str(r.value(col).toString()));
         }
     }
@@ -204,83 +179,24 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     int mentees_max = exmodel_mentees->rowCount();      //qDebug() << "row max:" << row_max;
     int mentees_max_col = MENTEES_COLUMN_NUM;
+    if (include_match_result) {
+        mentees_max_col++;
+    }
 
     xlsxW.selectSheet("Mentees");
     // write header
-    for (int col = 1; col <= mentees_max_col; col = col + 1) {
+    for (int col = 0; col < mentees_max_col; col = col + 1) {
         xlsxW.write(1, col, exmodel_mentees->get_parser(col).get_header());
     }
     // write data
     for (int row = 0; row < mentees_max; row = row + 1) {
         QSqlRecord r = exmodel_mentees->record(row);
-        for (int col = 1; col <= mentees_max_col; col = col + 1) {
+        for (int col = 0; col < mentees_max_col; col = col + 1) {
             xlsxW.write(row+2, col, exmodel_mentees->get_parser(col).to_str(r.value(col).toString()));
         }
     }
 
     delete exmodel_mentees;
-
-    // [4] matching
-
-    if (include_match_result)
-    {
-        // Add Sheet and Sheet Headers
-        xlsxW.addSheet("Group");
-
-        xlsxW.write("A1","group_id");
-        xlsxW.write("B1","uid");
-        xlsxW.write("C1","role");
-
-        // Export data
-
-        int row_count = 2;
-
-        // mentor
-
-        myMentorsTableModel * exmodel_mentors_matching = new myMentorsTableModel(this,db);
-
-        for (int row = 0; row < exmodel_mentors_matching->rowCount(); row++)
-        {
-            QSqlRecord r = exmodel_mentors_matching->record(row);
-
-            QVariant group_id = r.value(0);
-            QVariant uid = r.value(4);
-
-            if (group_id != "0")
-            {
-                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
-                xlsxW.write("B"+QVariant(row_count).toString(),uid);
-                xlsxW.write("C"+QVariant(row_count).toString(),"mentor");
-
-                row_count++;
-            }
-        }
-
-        delete exmodel_mentors_matching;
-
-        // mentee
-
-        myMenteesTableModel * exmodel_mentees_matching = new myMenteesTableModel(this,db);
-
-        for (int row = 0; row < exmodel_mentees_matching->rowCount(); row++)
-        {
-            QSqlRecord r = exmodel_mentees_matching->record(row);
-
-            QVariant group_id = r.value(0);
-            QVariant uid = r.value(3);
-
-            if (group_id != "0")
-            {
-                xlsxW.write("A"+QVariant(row_count).toString(),group_id);
-                xlsxW.write("B"+QVariant(row_count).toString(),uid);
-                xlsxW.write("C"+QVariant(row_count).toString(),"mentee");
-
-                row_count++;
-            }
-        }
-
-        delete exmodel_mentees_matching;
-    }
 
     // [5]
     if ( !xlsxW.saveAs(addr) )

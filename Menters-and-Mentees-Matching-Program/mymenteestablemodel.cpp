@@ -14,7 +14,7 @@ QVariant myMenteesTableModel::headerData(int section,  Qt::Orientation orientati
         QList<parser> list = this->parser_list;
         for(int i=0; i<list.size(); i++) {
             parser p = list[i];
-            if (p.get_index() == section) {
+            if (p.get_index() == section + 1) {
                 return p.get_header();
             }
         }
@@ -30,7 +30,7 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
         QList<parser> list = this->parser_list;
         for(int i=0; i<list.size(); i++) {
             parser p = list[i];
-            if (p.get_index() == index.column()) {
+            if (p.get_index() == index.column() + 1) {
                 return p.to_str(QSqlTableModel::data(index,role).toString());
             }
         }

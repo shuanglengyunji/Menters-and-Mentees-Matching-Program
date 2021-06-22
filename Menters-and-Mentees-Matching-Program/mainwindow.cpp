@@ -47,10 +47,6 @@ MainWindow::~MainWindow()
     // mentees
     delete model_mentees;
 
-    // group
-    delete model_group_mentors_grouped;
-    delete model_group_mentors_to_be_grouped;
-
     // match
     delete model_match_mentors;
     delete model_match_mentees_matched;
@@ -66,7 +62,6 @@ void MainWindow::on_actionManage_triggered()
     ui->actionManage->setChecked(true);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 }
 
@@ -77,7 +72,6 @@ void MainWindow::on_actionMentors_Editing_triggered()
     ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(true);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
     load_mentors();
@@ -90,33 +84,18 @@ void MainWindow::on_actionMentees_Editing_triggered()
     ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(true);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
     load_mentees();
 }
 
-void MainWindow::on_actionMentors_Grouping_triggered()
-{
-    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentors Grouping Page";
-
-    ui->actionManage->setChecked(false);
-    ui->actionMentors_Editing->setChecked(false);
-    ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(true);
-    ui->actionMentees_Grouping->setChecked(false);
-
-    load_group_mentors();
-}
-
 void MainWindow::on_actionMentees_Grouping_triggered()
 {
-    ui->stack->setCurrentIndex(4);      // qDebug() << "Switch to Mentees Grouping Page";
+    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentees Grouping Page";
 
     ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(true);
 
     load_match_mentees();
