@@ -9,7 +9,6 @@
 #include <QDir>
 #include <QTableView>
 #include <QFileDialog>
-#include <qversionnumber.h>
 
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -39,8 +38,6 @@ private slots:
 
     // Mentors
 
-    void on_pushButton_mentors_delete_clicked();
-
     void on_lineEdit_mentors_search_editingFinished();
 
     void display_mentors_column();
@@ -48,8 +45,6 @@ private slots:
     void edit_finished();
 
     // Mentees
-
-    void on_pushButton_mentees_delete_clicked();
 
     void on_lineEdit_mentees_search_editingFinished();
 

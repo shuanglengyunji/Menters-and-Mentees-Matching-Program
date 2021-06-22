@@ -7,8 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QVersionNumber version(1, 2, 3);
-
     // app apth
     QString tmp_path = qApp->applicationDirPath() + "/tmp";
     QDir().mkdir(tmp_path);  //qDebug() << "tmp Path" << tmp_path;
@@ -35,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionManage->setChecked(true);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 }
 

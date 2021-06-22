@@ -53,40 +53,40 @@ private:
         PRIMARY KEY(uid)                               \
     )";
     QList<parser> parser_list = {
-        parser(1, parser::Mode::pass_through, "First Name", "first_name"),
-        parser(2, parser::Mode::pass_through, "Last Name", "last_name"),
-        parser(3, parser::Mode::pass_through, "Uni ID", "uid"),
-        parser(4, parser::Mode::pass_through, "Alternate email", "email"),
-        parser(5, parser::Mode::string_matching, "Round", "round", QStringList(QList<QString>() << "Round 1" << "Round 2")),
-        parser(6, parser::Mode::string_matching, "UG/PG", "academic_level",
+        parser(0, parser::Mode::pass_through, "First Name", "first_name"),
+        parser(1, parser::Mode::pass_through, "Last Name", "last_name"),
+        parser(2, parser::Mode::pass_through, "Uni ID", "uid"),
+        parser(3, parser::Mode::pass_through, "Alternate email", "email"),
+        parser(4, parser::Mode::string_matching, "Round", "round", QStringList(QList<QString>() << "Round 1" << "Round 2")),
+        parser(5, parser::Mode::string_matching, "UG/PG", "academic_level",
             QStringList(QList<QString>() << "Postgraduate (coursework)" << "Undergraduate")),
-        parser(7, parser::Mode::string_matching_multiple, "Academic College", "college",
+        parser(6, parser::Mode::string_matching_multiple, "Academic College", "college",
             QStringList(QList<QString>() << "College of Asia and the Pacific"
             << "College of Arts and Social Sciences" << "College of Business and Economics"
             << "College of Engineering and Computer Science" << "College of Law"
             << "College of Science" << "College of Health and Medicine"
         )),
-        parser(8, parser::Mode::yes_or_no, "u18", "u18"),
-        parser(9, parser::Mode::string_matching, "Dom/Int", "type",
+        parser(7, parser::Mode::yes_or_no, "u18", "u18"),
+        parser(8, parser::Mode::string_matching, "Dom/Int", "type",
             QStringList(QList<QString>() << "Domestic student not living on campus" << "International student")),
-        parser(10, parser::Mode::string_matching, "Gender", "gender",
+        parser(9, parser::Mode::string_matching, "Gender", "gender",
             QStringList(QList<QString>() << "Female" << "Male" << "Other" << "Prefer not to say")),
-        parser(11, parser::Mode::string_matching_multiple, "Languages", "languages",
+        parser(10, parser::Mode::string_matching_multiple, "Languages", "languages",
             QStringList(QList<QString>() << "Hindi" << "Vietnamese" << "German" << "Korean"
             << "Tamil" << "Mandarin (Chinese)" << "Spanish" << "Cantonese" << "Indonesian" << "Japanese" << "Urdu" << "Other (please specify)"
             << "I only speak English"
         )),
-        parser(12, parser::Mode::pass_through, "Language - Text", "languages_text"),
-        parser(13, parser::Mode::string_matching_multiple, "Interests", "interests",
+        parser(11, parser::Mode::pass_through, "Language - Text", "languages_text"),
+        parser(12, parser::Mode::string_matching_multiple, "Interests", "interests",
             QStringList(QList<QString>() << "Travel" << "Comics, manga, and anime"
             << "Learning languages" << "Science fiction and fantasy" << "Gardening" << "Hiking, nature, and outdoor recreation"
             << "Cooking or food" << "Watching movies" << "Performing arts - theatre, dance, etc." << "Visual arts - drawing, painting, craft, etc."
             << "Playing or creating music" << "Playing sport"),
                true
                ),
-        parser(14, parser::Mode::pass_through, "Requests", "requests"),
-        parser(15, parser::Mode::yes_or_no, "Importance", "importance"),
-        parser(16, parser::pass_through, "Mentor Uni ID", "mentor_uid"),
+        parser(13, parser::Mode::pass_through, "Requests", "requests"),
+        parser(14, parser::Mode::yes_or_no, "Importance", "importance"),
+        parser(15, parser::pass_through, "Mentor Uni ID", "mentor_uid"),
     };
 
 };

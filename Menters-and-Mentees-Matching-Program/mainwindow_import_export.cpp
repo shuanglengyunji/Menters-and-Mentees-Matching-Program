@@ -15,7 +15,7 @@
 using namespace QXlsx;
 
 #define MENTORS_COLUMN_NUM 20;
-#define MENTEES_COLUMN_NUM 15;
+#define MENTEES_COLUMN_NUM 16;
 
 void MainWindow::import_data(QString addr,bool include_match_result)
 {
@@ -69,7 +69,7 @@ void MainWindow::import_data(QString addr,bool include_match_result)
                 data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
-            content_list.append(mentorsTable.get_parser(col).to_idx(data));
+            content_list.append(mentorsTable.get_parser(col-1).to_idx(data));
         }
 
         //execute sql
@@ -98,23 +98,26 @@ void MainWindow::import_data(QString addr,bool include_match_result)
     for (int row = 2; row <= mentees_max; row = row + 1)
     {
         QStringList content_list;
-        for (int col = 1; col <= mentees_max_col; col = col + 1) {
+        for (int col = 1; col <= mentees_max_col-1; col = col + 1) {    // the last column is mentor uid
             // get data
             QString data = "";
             if ( (int)xlsxR.cellAt(row, col) != 0) {
                 data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
             }
             // parse data
-            content_list.append(menteesTable.get_parser(col).to_idx(data));
+            content_list.append(menteesTable.get_parser(col-1).to_idx(data));
         }
+
+        // mentor uid column
         if (include_match_result) {
             // get data
-            QString data = "";
-            if ( (int)xlsxR.cellAt(row, mentees_max_col+1) != 0) {
-                data = xlsxR.cellAt(row, mentees_max_col+1)->readValue().toString().simplified();
+            if ( (int)xlsxR.cellAt(row, mentees_max_col) != 0) {
+                content_list.append(menteesTable.get_parser(mentees_max_col-1).to_idx(
+                    xlsxR.cellAt(row, mentees_max_col)->readValue().toString().simplified()
+                ));
+            } else {
+                content_list.append("NULL");
             }
-            // parse data
-            content_list.append(menteesTable.get_parser(mentees_max_col+1).to_idx(data));
         } else {
             content_list.append("NULL");
         }
@@ -161,13 +164,15 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     xlsxW.selectSheet("Mentors");
     // write header
     for (int col = 0; col < mentors_max_col; col = col + 1) {
-        xlsxW.write(1, col, exmodel_mentors->get_parser(col).get_header());
+        xlsxW.write(1, col+1, exmodel_mentors->get_parser(col).get_header());
     }
     // write data
     for (int row = 0; row < mentors_max; row = row + 1) {
         QSqlRecord r = exmodel_mentors->record(row);
         for (int col = 0; col < mentors_max_col; col = col + 1) {
-            xlsxW.write(row+2, col, exmodel_mentors->get_parser(col).to_str(r.value(col).toString()));
+            xlsxW.write(row+2, col+1, exmodel_mentors->get_parser(col).to_str(
+                r.value(col).toString()
+            ));
         }
     }
 
@@ -179,20 +184,22 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     int mentees_max = exmodel_mentees->rowCount();      //qDebug() << "row max:" << row_max;
     int mentees_max_col = MENTEES_COLUMN_NUM;
-    if (include_match_result) {
-        mentees_max_col++;
+    if (!include_match_result) { // ignore mentor uid column
+        mentees_max_col--;
     }
 
     xlsxW.selectSheet("Mentees");
     // write header
     for (int col = 0; col < mentees_max_col; col = col + 1) {
-        xlsxW.write(1, col, exmodel_mentees->get_parser(col).get_header());
+        xlsxW.write(1, col+1, exmodel_mentees->get_parser(col).get_header());
     }
     // write data
     for (int row = 0; row < mentees_max; row = row + 1) {
         QSqlRecord r = exmodel_mentees->record(row);
         for (int col = 0; col < mentees_max_col; col = col + 1) {
-            xlsxW.write(row+2, col, exmodel_mentees->get_parser(col).to_str(r.value(col).toString()));
+            xlsxW.write(row+2, col+1, exmodel_mentees->get_parser(col).to_str(
+                r.value(col).toString()
+            ));
         }
     }
 
