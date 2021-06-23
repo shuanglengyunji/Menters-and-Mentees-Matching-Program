@@ -229,79 +229,61 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     }
 }
 
-// ---------------------------------------
+void MainWindow::export_grouping(QString addr) {
+    if(addr.isEmpty())
+    {
+       return;
+    }
 
-void MainWindow::export_wattle_file(QString addr, int type)
-{
+    QSqlQueryModel model;
 
-    // type: 0 - mentor/mentee label in group     1 - group_id in group
+    QXlsx::Document xlsx;
+    xlsx.addSheet("Output - Groupings");
+    xlsx.write(1, 1, "groupID");
+    xlsx.write(1, 2, "uID");
+    xlsx.write(1, 3, "First Name");
+    xlsx.write(1, 4, "Role");
 
-//    if(addr.isEmpty())
-//    {
-//        return;
-//    }
+    model.setQuery("SELECT * FROM mentor WHERE mentor.uid IN (SELECT DISTINCT mentor_uid from mentee);", db);
+    while (model.canFetchMore()) {
+        model.fetchMore();
+    }
 
-//    // csv object
-//    CSVWriter csv(",");
-//    csv.newRow() << "user" << "group";  // header
+    int group_id = 0;
+    int row_count = 2;
+    for (int row=0; row < model.rowCount(); row++) {
+        QSqlRecord r = model.record(row);
+        group_id = group_id + 1;
+        xlsx.write(row_count, 1, QVariant(group_id));
+        xlsx.write(row_count, 2, r.value("uid"));
+        xlsx.write(row_count, 3, r.value("first_name"));
+        xlsx.write(row_count, 4, "mentor");
+        row_count++;
+        QSqlQueryModel mentee;
+        mentee.setQuery(QString("SELECT * FROM mentee WHERE mentee.mentor_uid = '%1';").arg(r.value("uid").toString()), db);
+        while(mentee.canFetchMore()) {
+            mentee.fetchMore();
+        }
+        for (int i=0; i<mentee.rowCount(); i++) {
+            QSqlRecord r = mentee.record(i);
+            xlsx.write(row_count, 1, QVariant(group_id));
+            xlsx.write(row_count, 2, r.value("uid"));
+            xlsx.write(row_count, 3, r.value("first_name"));
+            xlsx.write(row_count, 4, "mentee");
+            row_count++;
+        }
+    }
 
-//    // mentors data
+    if ( !xlsx.saveAs(addr) )
+    {
+        QMessageBox::warning(this, tr("File Saving failed"), tr("Failed to save data file."));
+    }
+}
 
-//    QSqlTableModel * exwattle_mentors = new QSqlTableModel(this,db);
-//    exwattle_mentors->setTable("mentor");
-//    exwattle_mentors->setSort(0,Qt::AscendingOrder);
-//    exwattle_mentors->select();
-//    while(exwattle_mentors->canFetchMore()){
-//        exwattle_mentors->fetchMore();
-//    }
+void MainWindow::export_mentor(QString addr) {
 
-//    for (int row = 0; row < exwattle_mentors->rowCount(); row++)
-//    {
-//        QSqlRecord r = exwattle_mentors->record(row);
+}
 
-//        QVariant group_id = r.value(0);
-//        QVariant uid = r.value(4);// change from r.value(4) to r.value(3)
+void MainWindow::export_mentee(QString addr) {
 
-//        if (group_id != "0")
-//        {
-//            if (type)
-//                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
-//            else
-//                csv.newRow() << uid.toString().toStdString() << "mentor";
-//        }
-//    }
-
-//    delete exwattle_mentors;
-
-//    // mentees data
-
-//    QSqlTableModel * exwattle_mentees = new QSqlTableModel(this,db);
-//    exwattle_mentees->setTable("mentee");
-//    exwattle_mentees->setSort(0,Qt::AscendingOrder);
-//    exwattle_mentees->select();
-//    while(exwattle_mentees->canFetchMore())
-//    {
-//        exwattle_mentees->fetchMore();
-//    }
-
-//    for (int row = 0; row < exwattle_mentees->rowCount(); row++)
-//    {
-//        QSqlRecord r = exwattle_mentees->record(row);
-
-//        QVariant group_id = r.value(0);
-//        QVariant uid = r.value(3);
-
-//        if (group_id != "0")
-//        {
-//            if (type)
-//                csv.newRow() << uid.toString().toStdString() << group_id.toString().toStdString();
-//            else
-//                csv.newRow() << uid.toString().toStdString() << "mentee";
-//        }
-//    }
-
-//    delete exwattle_mentees;
-
-//    // write to file
-//    csv.writeToFile(addr.toStdString());
 }

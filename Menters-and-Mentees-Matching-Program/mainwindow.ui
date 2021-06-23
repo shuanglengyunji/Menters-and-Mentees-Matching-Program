@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QWidget" name="gridLayoutWidget">
@@ -52,14 +52,44 @@
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="8" column="1">
+           <item row="4" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{text-align : left;}</string>
+             </property>
+             <property name="text">
+              <string> Mentors and Mentees </string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export_match">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{text-align : left;}</string>
+             </property>
+             <property name="text">
+              <string> Mentors, Mentees and Grouping </string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
             <widget class="QLabel" name="label_space_2">
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
-           <item row="9" column="1">
+           <item row="2" column="1">
+            <widget class="QPushButton" name="pushButton_manage_import_match">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{text-align : left;}</string>
+             </property>
+             <property name="text">
+              <string> Mentors, Mentees and Grouping </string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
             <widget class="QPushButton" name="pushButton_manage_clear">
              <property name="styleSheet">
               <string notr="true">QPushButton{text-align : left;}</string>
@@ -73,16 +103,6 @@
             <widget class="QLabel" name="label_export">
              <property name="text">
               <string>Export:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_manage_import_match">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Mentors, Mentees and Grouping </string>
              </property>
             </widget>
            </item>
@@ -102,16 +122,6 @@
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_match">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Mentors, Mentees and Grouping </string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="1">
             <widget class="QLabel" name="label_space_1">
              <property name="text">
@@ -119,33 +129,10 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Mentors and Mentees </string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_wattle">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Export Wattle - Label </string>
-             </property>
-            </widget>
-           </item>
            <item row="7" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_wattle_2">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
+            <widget class="QPushButton" name="pushButton_manage_export_mentor">
              <property name="text">
-              <string> Export Wattle - Group ID </string>
+              <string>Output mentor</string>
              </property>
             </widget>
            </item>
@@ -156,7 +143,7 @@
              </property>
             </widget>
            </item>
-           <item row="10" column="1">
+           <item row="11" column="1">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -169,10 +156,24 @@
              </property>
             </spacer>
            </item>
-           <item row="9" column="0">
+           <item row="10" column="0">
             <widget class="QLabel" name="label_clear">
              <property name="text">
               <string>Clear:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export_grouping">
+             <property name="text">
+              <string>Output grouping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QPushButton" name="pushButton_manage_export_mentee">
+             <property name="text">
+              <string>Output mentee</string>
              </property>
             </widget>
            </item>

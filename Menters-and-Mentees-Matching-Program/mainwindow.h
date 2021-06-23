@@ -78,9 +78,11 @@ private slots:
 
     void on_pushButton_manage_export_match_clicked();
 
-    void on_pushButton_manage_export_wattle_clicked();
+    void on_pushButton_manage_export_grouping_clicked();
 
-    void on_pushButton_manage_export_wattle_2_clicked();
+    void on_pushButton_manage_export_mentor_clicked();
+
+    void on_pushButton_manage_export_mentee_clicked();
 
     void on_pushButton_manage_clear_clicked();
 
@@ -111,7 +113,11 @@ private:
 
     void export_data(QString addr, bool include_match_result);
 
-    void export_wattle_file(QString addr, int type);
+    void export_grouping(QString addr);
+
+    void export_mentor(QString addr);
+
+    void export_mentee(QString addr);
 
     // ------------------------------------
 
