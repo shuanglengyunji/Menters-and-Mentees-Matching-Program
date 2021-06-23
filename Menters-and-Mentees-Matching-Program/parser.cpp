@@ -41,7 +41,7 @@ QString parser::to_idx(QString str) {
         if (out.isEmpty() && !this->allow_empty) {
             qDebug() << "[Parser] Invalid data" << str << "from header " << header;
         }
-        return '"' + out.join(this->sep) + '"';     // considering convert the comma seperated list to JSON string
+        return out.join(this->sep);     // considering convert the comma seperated list to JSON string
     } else if (this->mode == Mode::yes_or_no) {
         if (str.isEmpty() && !this->allow_empty) {
             qDebug() << "[Parser] Invalid data" << str << "from header " << header;
@@ -52,7 +52,7 @@ QString parser::to_idx(QString str) {
             return QString::number(1);
         }
     } else if (this->mode == Mode::pass_through) {
-        return '"' + str + '"';
+        return str;
     } else {
         qDebug() << "[Parser] Unexpected parsing mode!";
         return str;

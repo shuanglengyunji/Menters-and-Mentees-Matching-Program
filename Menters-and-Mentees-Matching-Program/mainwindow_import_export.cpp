@@ -14,21 +14,22 @@
 #include "xlsxworkbook.h"
 using namespace QXlsx;
 
-#define MENTORS_COLUMN_NUM 20;
-#define MENTEES_COLUMN_NUM 16;
+#define MENTORS_COLUMN_NUM 20
+#define MENTEES_COLUMN_NUM 15
+#define MENTEES_MENTOR_COL 16
 
-void MainWindow::import_data(QString addr,bool include_match_result)
+void MainWindow::import_data(QString addr, bool include_match_result)
 {
     if(addr.isEmpty())
     {
         return;
     }
 
-    QSqlQuery query(db);
+    myMentorsTableModel mentorsTable;
+    myMenteesTableModel menteesTable;
 
-    // [0] Remove recording from all tables
-    query.exec("DELETE FROM 'mentor'");
-    query.exec("DELETE FROM 'mentee'");
+    QSqlTableModel model(this, db);
+    model.setEditStrategy(QSqlTableModel::OnManualSubmit);
 
     // [1] Reading excel file(*.xlsx)
     Document xlsxR(addr);
@@ -52,87 +53,93 @@ void MainWindow::import_data(QString addr,bool include_match_result)
 
     // [3] Import Mentors Sheet
     xlsxR.selectSheet("Mentors");
+    model.setTable("mentor");
+    model.select();
+    while (model.canFetchMore()) {
+        model.fetchMore();
+    }
+
+    model.removeRows(0, model.rowCount());
+    model.submitAll();
+
+    model.select();
+    while (model.canFetchMore()) {
+        model.fetchMore();
+    }
+
     int mentors_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
-    int mentors_max_col = MENTORS_COLUMN_NUM;
     qDebug() << "Mentor";
     qDebug() << "row max:" << mentors_max;
-    qDebug() << "row max:" << mentors_max_col;
 
-    myMentorsTableModel mentorsTable;
     for (int row = 2; row <= mentors_max; row = row + 1)
     {
-        QStringList content_list;
-        for (int col = 1; col <= mentors_max_col; col = col + 1) {
-            // get data
-            QString data = QString();
+        QSqlRecord r = model.record();
+        for (int col = 1; col <= MENTORS_COLUMN_NUM; col = col + 1) {
             if ( (int)xlsxR.cellAt(row, col) != 0) {
-                data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
+                r.setValue(
+                    mentorsTable.get_parser(col-1).get_table_header(),
+                    mentorsTable.get_parser(col-1).to_idx(xlsxR.cellAt(row, col)->readValue().toString())
+                );
+            } else {
+                r.setNull(mentorsTable.get_parser(col-1).get_table_header());
             }
-            // parse data
-            content_list.append(mentorsTable.get_parser(col-1).to_idx(data));
         }
-
-        //execute sql
-        QString sql = "INSERT INTO mentor VALUES (" + content_list.join(",") + ")";     // qDebug() << sql;
-        if ( !query.exec(sql) )
-        {
-            qDebug() << "Failed to Import Row " << row;
-            // QMessageBox::warning(this, tr("Mentor Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
-            qDebug() << sql;
-            qDebug() << query.lastError();
-            qDebug() << "\n";
+        if (!model.insertRecord(-1, r)) {
+            qDebug() << r;
+            qDebug() << model.lastError();
         }
-
     }
+    model.submitAll();
 
     // [4] Import Mentees Sheet
     xlsxR.selectSheet("Mentees");
-    int mentees_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
-    int mentees_max_col = MENTEES_COLUMN_NUM;
+    model.setTable("mentee");
+    model.select();
+    while (model.canFetchMore()) {
+        model.fetchMore();
+    }
 
+    model.removeRows(0, model.rowCount());
+    model.submitAll();
+
+    model.select();
+    while (model.canFetchMore()) {
+        model.fetchMore();
+    }
+
+    int mentees_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
     qDebug() << "Mentee";
     qDebug() << "row max:" << mentees_max;
-    qDebug() << "row max:" << mentees_max_col;
 
-    myMenteesTableModel menteesTable;
     for (int row = 2; row <= mentees_max; row = row + 1)
     {
-        QStringList content_list;
-        for (int col = 1; col <= mentees_max_col-1; col = col + 1) {    // the last column is mentor uid
-            // get data
-            QString data = "";
+        QSqlRecord r = model.record();
+        for (int col = 1; col <= MENTEES_COLUMN_NUM; col = col + 1) {    // the last column is mentor uid
+            parser p = menteesTable.get_parser(col-1);
             if ( (int)xlsxR.cellAt(row, col) != 0) {
-                data = xlsxR.cellAt(row, col)->readValue().toString().simplified();
-            }
-            // parse data
-            content_list.append(menteesTable.get_parser(col-1).to_idx(data));
-        }
-
-        // mentor uid column
-        if (include_match_result) {
-            // get data
-            if ( (int)xlsxR.cellAt(row, mentees_max_col) != 0) {
-                content_list.append(menteesTable.get_parser(mentees_max_col-1).to_idx(
-                    xlsxR.cellAt(row, mentees_max_col)->readValue().toString().simplified()
-                ));
+                r.setValue(
+                    p.get_table_header(),
+                    p.to_idx(xlsxR.cellAt(row, col)->readValue().toString())
+                );
             } else {
-                content_list.append("NULL");
+                r.setNull(p.get_table_header());
             }
-        } else {
-            content_list.append("NULL");
         }
-
-        // execute sql
-        QString sql = "INSERT INTO mentee VALUES (" + content_list.join(",") + ")";     // qDebug() << sql;
-        if ( !query.exec(sql) )
-        {
-            qDebug() << "Failed to Import Row " << row;
-            qDebug() << sql;
-            qDebug() << query.lastError();
-            // QMessageBox::warning(this, tr("Mentee Record Import Failure"), tr("Failed to Import Row ") + QVariant(row).toString());
-            qDebug() << sql;
+        if (include_match_result) {
+            parser p = menteesTable.get_parser(MENTEES_MENTOR_COL-1);
+            if ( (int)xlsxR.cellAt(row, MENTEES_MENTOR_COL) != 0) {
+                r.setValue(
+                    p.get_table_header(),
+                    p.to_idx(xlsxR.cellAt(row, MENTEES_MENTOR_COL)->readValue().toString())
+                );
+            }
+        }
+        if (!model.insertRecord(-1, r)) {
+            qDebug() << r;
+            qDebug() << model.lastError();
         }
     }
+    model.submitAll();
 }
 
 // ---------------------------------------
@@ -143,6 +150,11 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     {
        return;
     }
+
+    myMentorsTableModel mentorsTable;
+    myMenteesTableModel menteesTable;
+
+    QSqlTableModel model(this, db);
 
     // [1]  Create excel file object
 
@@ -156,54 +168,59 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
     // mentors
 
-    myMentorsTableModel * exmodel_mentors = new myMentorsTableModel(this,db);
+    model.setTable("mentor");
+    model.select();
+    while(model.canFetchMore()){
+        model.fetchMore();
+    }
 
-    int mentors_max = exmodel_mentors->rowCount();      //qDebug() << "row max:" << row_max;
-    int mentors_max_col = MENTORS_COLUMN_NUM;
+    int mentors_max = model.rowCount();      //qDebug() << "row max:" << row_max;
+    qDebug() << "Mentor";
+    qDebug() << "Row max" << mentors_max;
 
     xlsxW.selectSheet("Mentors");
     // write header
-    for (int col = 0; col < mentors_max_col; col = col + 1) {
-        xlsxW.write(1, col+1, exmodel_mentors->get_parser(col).get_header());
+    for (int col = 0; col < MENTORS_COLUMN_NUM; col = col + 1) {
+        xlsxW.write(1, col+1, mentorsTable.get_parser(col).get_header());
     }
     // write data
     for (int row = 0; row < mentors_max; row = row + 1) {
-        QSqlRecord r = exmodel_mentors->record(row);
-        for (int col = 0; col < mentors_max_col; col = col + 1) {
-            xlsxW.write(row+2, col+1, exmodel_mentors->get_parser(col).to_str(
-                r.value(col).toString()
-            ));
+        QSqlRecord r = model.record(row);
+        for (int col = 0; col < MENTORS_COLUMN_NUM; col = col + 1) {
+            xlsxW.write(row+2, col+1, mentorsTable.get_parser(col).to_str(r.value(col).toString()));
         }
     }
-
-    delete exmodel_mentors;
 
     // mentees
 
-    myMenteesTableModel * exmodel_mentees = new myMenteesTableModel(this,db);
-
-    int mentees_max = exmodel_mentees->rowCount();      //qDebug() << "row max:" << row_max;
-    int mentees_max_col = MENTEES_COLUMN_NUM;
-    if (!include_match_result) { // ignore mentor uid column
-        mentees_max_col--;
+    model.setTable("mentee");
+    model.select();
+    while(model.canFetchMore()){
+        model.fetchMore();
     }
+
+    int mentees_max = model.rowCount();      //qDebug() << "row max:" << row_max;
+    qDebug() << "Mentee";
+    qDebug() << "Row max" << mentees_max;
 
     xlsxW.selectSheet("Mentees");
     // write header
-    for (int col = 0; col < mentees_max_col; col = col + 1) {
-        xlsxW.write(1, col+1, exmodel_mentees->get_parser(col).get_header());
+    for (int col = 0; col < MENTEES_COLUMN_NUM; col = col + 1) {
+        xlsxW.write(1, col+1, menteesTable.get_parser(col).get_header());
+    }
+    if (include_match_result) {
+        xlsxW.write(1, MENTEES_MENTOR_COL, menteesTable.get_parser(MENTEES_MENTOR_COL-1).get_header());
     }
     // write data
     for (int row = 0; row < mentees_max; row = row + 1) {
-        QSqlRecord r = exmodel_mentees->record(row);
-        for (int col = 0; col < mentees_max_col; col = col + 1) {
-            xlsxW.write(row+2, col+1, exmodel_mentees->get_parser(col).to_str(
-                r.value(col).toString()
-            ));
+        QSqlRecord r = model.record(row);
+        for (int col = 0; col < MENTEES_COLUMN_NUM; col = col + 1) {
+            xlsxW.write(row+2, col+1, menteesTable.get_parser(col).to_str(r.value(col).toString()));
+        }
+        if (include_match_result) {
+            xlsxW.write(row+2, MENTEES_MENTOR_COL, menteesTable.get_parser(MENTEES_MENTOR_COL-1).to_str(r.value(MENTEES_MENTOR_COL-1).toString()));
         }
     }
-
-    delete exmodel_mentees;
 
     // [5]
     if ( !xlsxW.saveAs(addr) )
@@ -216,16 +233,8 @@ void MainWindow::export_data(QString addr,bool include_match_result)
 
 void MainWindow::export_wattle_file(QString addr, int type)
 {
-//    myMentorsTableModel * model = new myMentorsTableModel(this, db);
-//    model->setTable("mentor");
-//    QSqlRecord r = model->record();
-//    r.setValue("'uid'", "'u123'");
-//    r.setGenerated("'uid'", false);
-//    model->insertRecord(-1, r);
-//    model->submitAll();
-//    qDebug() << model->lastError();
-//    delete model;
-//    // type: 0 - mentor/mentee label in group     1 - group_id in group
+
+    // type: 0 - mentor/mentee label in group     1 - group_id in group
 
 //    if(addr.isEmpty())
 //    {
