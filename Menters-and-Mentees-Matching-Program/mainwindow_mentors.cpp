@@ -35,13 +35,6 @@ void MainWindow::load_mentors()
             this->model_mentors->fetchMore();
         }
     });
-
-//    auto header = ui->tableView_mentors->horizontalHeader();
-//    connect(header, &QHeaderView::sectionClicked, [this](int logicalIndex){
-//        QString text = table.horizontalHeaderItem(logicalIndex)->text();
-//        qDebug() << logicalIndex;
-//    });
-
 }
 
 // search

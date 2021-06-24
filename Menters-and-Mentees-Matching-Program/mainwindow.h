@@ -40,8 +40,6 @@ private slots:
 
     void on_lineEdit_mentors_search_editingFinished();
 
-    void edit_finished();
-
     // Mentees
 
     void on_lineEdit_mentees_search_editingFinished();
