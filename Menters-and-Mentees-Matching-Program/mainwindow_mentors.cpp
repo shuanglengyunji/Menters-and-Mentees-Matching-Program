@@ -30,7 +30,18 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
 
-    connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
+    connect(model_mentors, &QAbstractItemModel::dataChanged, [this](){
+        while (this->model_mentors->canFetchMore()) {
+            this->model_mentors->fetchMore();
+        }
+    });
+
+//    auto header = ui->tableView_mentors->horizontalHeader();
+//    connect(header, &QHeaderView::sectionClicked, [this](int logicalIndex){
+//        QString text = table.horizontalHeaderItem(logicalIndex)->text();
+//        qDebug() << logicalIndex;
+//    });
+
 }
 
 // search
@@ -55,82 +66,5 @@ void MainWindow::on_lineEdit_mentors_search_editingFinished()
     }
     model_mentors->setFilter(argument);
 }
-
-void MainWindow::edit_finished()
-{
-    /*
-    while(model_mentors->canFetchMore())
-    {
-        model_mentors->fetchMore();
-    }
-
-    for(int i=0; i<model_mentors->rowCount(); i++)
-    {
-        QString train_1 = model_mentors->index(i,18).data().toString();
-        QString train_2 = model_mentors->index(i,19).data().toString();
-        QString train_3 = model_mentors->index(i,20).data().toString();
-
-        if(train_1 != "y")
-        {
-            model_mentors->setData(model_mentors->index(i,21),"n");
-            model_mentors->setData(model_mentors->index(i,18),"n");
-        }
-
-        if(train_2 != "y")
-        {
-            model_mentors->setData(model_mentors->index(i,21),"n");
-            model_mentors->setData(model_mentors->index(i,19),"n");
-        }
-
-        if(train_3 != "y")
-        {
-            model_mentors->setData(model_mentors->index(i,21),"n");
-            model_mentors->setData(model_mentors->index(i,20),"n");
-        }
-
-        if(train_1 == "y" && train_2 == "y" && train_3 == "y")
-        {
-            model_mentors->setData(model_mentors->index(i,21),"y");
-        }
-        else
-        {
-            model_mentors->setData(model_mentors->index(i,21),"n");
-        }
-
-    }
-    */
-
-}
-
-/*
-// delete
-void MainWindow::on_pushButton_mentors_delete_clicked()
-{
-    while (model_mentors->canFetchMore())
-    {
-        model_mentors->fetchMore();
-    }
-
-    QSqlTableModel *tm = model_mentors;
-    if (!tm)
-        return;
-
-    QModelIndexList currentSelection = ui->tableView_mentors->selectionModel()->selectedIndexes();
-    for (int i = 0; i < currentSelection.count(); ++i) {
-        tm->removeRow(currentSelection.at(i).row());
-    }
-
-    if (tm){
-        if(!tm->submitAll()){
-            QSqlError err = tm->lastError();
-            QMessageBox::warning(this, tr("Unable to delete"), tr("An error occurred while "
-                                       "deleting the connection: ") + err.text());
-        }
-    }
-
-    load_mentors();
-}
-*/
-
 
 
