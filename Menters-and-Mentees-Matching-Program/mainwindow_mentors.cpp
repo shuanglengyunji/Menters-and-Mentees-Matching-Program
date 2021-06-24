@@ -5,20 +5,6 @@
 // load
 void MainWindow::load_mentors()
 {
-//    // disconnect
-//    disconnect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    disconnect(ui->checkBox_mentors_phone,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-
     // clear exist data
     if ( model_mentors != nullptr )
     {
@@ -41,26 +27,8 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    // hide group id
-//    ui->tableView_mentors->hideColumn(0);
-
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
-
-//    // connect
-//    connect(ui->checkBox_mentors_gender,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_type,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_language,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_hall,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_interests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_requests,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_wwvp,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_training,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_round,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_confirmation,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(ui->checkBox_mentors_phone,&QCheckBox::stateChanged,this,&MainWindow::display_mentors_column);
-//    connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
 }
 
 // search
@@ -84,142 +52,6 @@ void MainWindow::on_lineEdit_mentors_search_editingFinished()
                 + " OR " + "last_name LIKE '%" + tmp + "%'";        // Last Name
     }
     model_mentors->setFilter(argument);
-}
-
-void MainWindow::display_mentors_column()
-{
-    // // confirmation
-    // if (ui->checkBox_mentors_confirmation->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(1);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(1);
-    // }
-
-    // // phone
-    // if (ui->checkBox_mentors_phone->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(5);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(5);
-    // }
-
-    // // wwvp
-    // if (ui->checkBox_mentors_wwvp->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(6);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(6);
-    // }
-
-    // // round
-    // if (ui->checkBox_mentors_round->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(7);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(7);
-    // }
-
-    // // academic info
-    // if (ui->checkBox_mentors_academic_info->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(8);
-    //     ui->tableView_mentors->showColumn(9);
-    //     ui->tableView_mentors->showColumn(10);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(8);
-    //     ui->tableView_mentors->hideColumn(9);
-    //     ui->tableView_mentors->hideColumn(10);
-    // }
-
-    // // type
-    // if (ui->checkBox_mentors_type->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(11);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(11);
-    // }
-
-    // // gender
-    // if (ui->checkBox_mentors_gender->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(12);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(12);
-    // }
-
-    // // language
-    // if (ui->checkBox_mentors_language->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(13);
-    //     ui->tableView_mentors->showColumn(14);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(13);
-    //     ui->tableView_mentors->hideColumn(14);
-    // }
-
-    // // hall
-    // if (ui->checkBox_mentors_hall->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(15);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(15);
-    // }
-
-    // // interests
-    // if (ui->checkBox_mentors_interests->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(16);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(16);
-    // }
-
-    // // requests
-    // if (ui->checkBox_mentors_requests->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(17);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(17);
-    // }
-
-    // // training
-    // if (ui->checkBox_mentors_training->isChecked())
-    // {
-    //     ui->tableView_mentors->showColumn(18);
-    //     ui->tableView_mentors->showColumn(19);
-    //     ui->tableView_mentors->showColumn(20);
-    //     ui->tableView_mentors->showColumn(21);
-    // }
-    // else
-    // {
-    //     ui->tableView_mentors->hideColumn(18);
-    //     ui->tableView_mentors->hideColumn(19);
-    //     ui->tableView_mentors->hideColumn(20);
-    //     ui->tableView_mentors->hideColumn(21);
-    // }
-
 }
 
 void MainWindow::edit_finished()

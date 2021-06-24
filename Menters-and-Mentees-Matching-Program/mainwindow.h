@@ -40,15 +40,11 @@ private slots:
 
     void on_lineEdit_mentors_search_editingFinished();
 
-    void display_mentors_column();
-
     void edit_finished();
 
     // Mentees
 
     void on_lineEdit_mentees_search_editingFinished();
-
-    void display_mentees_column();
 
     // Matching
 

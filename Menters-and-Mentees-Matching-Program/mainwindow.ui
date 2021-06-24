@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QWidget" name="gridLayoutWidget">
@@ -181,151 +181,14 @@
         </widget>
         <widget class="QWidget" name="page_mentors">
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QLabel" name="label_mentors_display">
-              <property name="text">
-               <string>Mentors:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_confirmation">
-              <property name="text">
-               <string>Confirmation</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_phone">
-              <property name="text">
-               <string>Phone</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_wwvp">
-              <property name="text">
-               <string>WWVP</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_round">
-              <property name="text">
-               <string>Round</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_academic_info">
-              <property name="text">
-               <string>Academic Info</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_type">
-              <property name="text">
-               <string>Dom/Int</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_gender">
-              <property name="text">
-               <string>Gender</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_language">
-              <property name="text">
-               <string>Language</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_hall">
-              <property name="text">
-               <string>Hall</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_interests">
-              <property name="text">
-               <string>Interests</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_requests">
-              <property name="text">
-               <string>Requests</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentors_training">
-              <property name="text">
-               <string>Training</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_mentors_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
           <item row="1" column="0">
+           <widget class="QTableView" name="tableView_mentors">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_mentors_search">
             <item row="0" column="1">
              <widget class="QPushButton" name="pushButton_mentors_search">
@@ -339,149 +202,18 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
-           <widget class="QTableView" name="tableView_mentors">
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_mentees">
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLabel" name="label_mentees_display">
-              <property name="text">
-               <string>Mentees:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_email">
-              <property name="text">
-               <string>Email</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_round">
-              <property name="text">
-               <string>Round</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_academic_info">
-              <property name="text">
-               <string>Academic Info</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_u18">
-              <property name="text">
-               <string>u18</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_type">
-              <property name="text">
-               <string>Dom/Int</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_gender">
-              <property name="text">
-               <string>Gender</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_language">
-              <property name="text">
-               <string>Languages</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_interests">
-              <property name="text">
-               <string>Interests</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentees_requests">
-              <property name="text">
-               <string>Requests</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_mentess_importance">
-              <property name="text">
-               <string>Importance</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_mentees_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item row="3" column="0">
+          <item row="2" column="0">
            <widget class="QTableView" name="tableView_mentees">
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_mentees_search">
             <item row="0" column="1">
              <widget class="QPushButton" name="pushButton_mentees_search">
@@ -499,7 +231,7 @@
         </widget>
         <widget class="QWidget" name="page_matching">
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="1">
+          <item row="0" column="1">
            <layout class="QGridLayout" name="gridLayout_8">
             <item row="0" column="0">
              <layout class="QGridLayout" name="gridLayout_match_mentors">
@@ -956,110 +688,6 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="1">
-           <layout class="QGridLayout" name="gridLayout_11">
-            <item row="0" column="2">
-             <widget class="QCheckBox" name="checkBox_match_academic_info">
-              <property name="text">
-               <string>Academic Info</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_match_mentees">
-              <property name="text">
-               <string>Mentees Matching:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="checkBox_match_round">
-              <property name="text">
-               <string>Round</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QCheckBox" name="checkBox_match_gender">
-              <property name="text">
-               <string>Gender</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="5">
-             <widget class="QCheckBox" name="checkBox_match_language">
-              <property name="text">
-               <string>Language</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QCheckBox" name="checkBox_match_type">
-              <property name="text">
-               <string>Dom/Int</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="9">
-             <spacer name="horizontalSpacer_match">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="7">
-             <widget class="QCheckBox" name="checkBox_match_interests">
-              <property name="text">
-               <string>Interests</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="6">
-             <widget class="QCheckBox" name="checkBox_match_hall">
-              <property name="text">
-               <string>Hall</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="8">
-             <widget class="QCheckBox" name="checkBox_match_requests">
-              <property name="text">
-               <string>Requests</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
          </layout>
         </widget>
        </widget>
@@ -1074,7 +702,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">
