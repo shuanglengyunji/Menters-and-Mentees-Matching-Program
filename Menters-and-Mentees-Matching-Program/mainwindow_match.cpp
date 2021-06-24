@@ -3,16 +3,6 @@
 
 void MainWindow::load_match_mentees()
 {
-    // connect
-//    disconnect(ui->checkBox_match_gender,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_type,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_language,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_hall,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_interests,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_requests,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    disconnect(ui->checkBox_match_round,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-
     // [1] grouped mentors
 
     // clear exist data
@@ -44,14 +34,6 @@ void MainWindow::load_match_mentees()
     // resize row height according to column width
     ui->tableView_match_mentors->resizeColumnsToContents();
     ui->tableView_match_mentors->resizeRowsToContents();
-
-//    ui->tableView_match_mentors->hideColumn(0);
-//    ui->tableView_match_mentors->hideColumn(1);
-//    ui->tableView_match_mentors->hideColumn(5);
-//    ui->tableView_match_mentors->hideColumn(17);
-//    ui->tableView_match_mentors->hideColumn(18);
-//    ui->tableView_match_mentors->hideColumn(19);
-//    ui->tableView_match_mentors->hideColumn(20);
 
     // -----------------------------------------------------------------------------------
     // [2] matched mentees
@@ -123,15 +105,6 @@ void MainWindow::load_match_mentees()
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
-
-//    connect(ui->checkBox_match_gender,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_academic_info,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_type,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_language,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_hall,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_interests,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_requests,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
-//    connect(ui->checkBox_match_round,&QCheckBox::stateChanged,this,&MainWindow::display_match_column);
 }
 
 void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
@@ -260,129 +233,3 @@ void MainWindow::on_pushButton_Auto_clicked()
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
-
-void MainWindow::display_match_column()
-{
-//    // round
-//    if (ui->checkBox_match_round->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(7);
-//        ui->tableView_match_mentees_matched->showColumn(5);
-//        ui->tableView_match_mentees_to_be_match->showColumn(5);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(7);
-//        ui->tableView_match_mentees_matched->hideColumn(5);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(5);
-//    }
-
-//    // academic info
-//    if (ui->checkBox_match_academic_info->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(8);
-//        ui->tableView_match_mentors->showColumn(9);
-//        ui->tableView_match_mentors->showColumn(10);
-//        ui->tableView_match_mentees_matched->showColumn(6);
-//        ui->tableView_match_mentees_matched->showColumn(7);
-//        ui->tableView_match_mentees_to_be_match->showColumn(6);
-//        ui->tableView_match_mentees_to_be_match->showColumn(7);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(8);
-//        ui->tableView_match_mentors->hideColumn(9);
-//        ui->tableView_match_mentors->hideColumn(10);
-//        ui->tableView_match_mentees_matched->hideColumn(6);
-//        ui->tableView_match_mentees_matched->hideColumn(7);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(6);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(7);
-//    }
-
-//    // type
-//    if (ui->checkBox_match_type->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(11);
-//        ui->tableView_match_mentees_matched->showColumn(9);
-//        ui->tableView_match_mentees_to_be_match->showColumn(9);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(11);
-//        ui->tableView_match_mentees_matched->hideColumn(9);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(9);
-//    }
-
-//    // gender
-//    if (ui->checkBox_match_gender->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(12);
-//        ui->tableView_match_mentees_matched->showColumn(10);
-//        ui->tableView_match_mentees_to_be_match->showColumn(10);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(12);
-//        ui->tableView_match_mentees_matched->hideColumn(10);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(10);
-//    }
-
-//    // language
-//    if (ui->checkBox_match_language->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(13);
-//        ui->tableView_match_mentors->showColumn(14);
-//        ui->tableView_match_mentees_matched->showColumn(11);
-//        ui->tableView_match_mentees_matched->showColumn(12);
-//        ui->tableView_match_mentees_to_be_match->showColumn(11);
-//        ui->tableView_match_mentees_to_be_match->showColumn(12);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(13);
-//        ui->tableView_match_mentors->hideColumn(14);
-//        ui->tableView_match_mentees_matched->hideColumn(11);
-//        ui->tableView_match_mentees_matched->hideColumn(12);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(11);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(12);
-//    }
-
-//    // hall
-//    if (ui->checkBox_match_hall->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(15);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(15);
-//    }
-
-//    // interests
-//    if (ui->checkBox_match_interests->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(16);
-//        ui->tableView_match_mentees_matched->showColumn(13);
-//        ui->tableView_match_mentees_to_be_match->showColumn(13);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(16);
-//        ui->tableView_match_mentees_matched->hideColumn(13);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(13);
-//    }
-
-//    // requests
-//    if (ui->checkBox_match_requests->isChecked())
-//    {
-//        ui->tableView_match_mentors->showColumn(17);
-//        ui->tableView_match_mentees_matched->showColumn(14);
-//        ui->tableView_match_mentees_to_be_match->showColumn(14);
-//    }
-//    else
-//    {
-//        ui->tableView_match_mentors->hideColumn(17);
-//        ui->tableView_match_mentees_matched->hideColumn(14);
-//        ui->tableView_match_mentees_to_be_match->hideColumn(14);
-//    }
-}
-

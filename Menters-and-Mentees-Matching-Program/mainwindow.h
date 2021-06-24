@@ -62,8 +62,6 @@ private slots:
 
     void on_lineEdit_match_search_mentees_editingFinished();
 
-    void display_match_column();
-
     // Manage
 
     void on_pushButton_manage_import_clicked();

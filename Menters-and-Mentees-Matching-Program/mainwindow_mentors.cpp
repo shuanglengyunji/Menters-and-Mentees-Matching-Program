@@ -29,6 +29,8 @@ void MainWindow::load_mentors()
 
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
+
+    connect(model_mentors,&QAbstractItemModel::dataChanged,this,&MainWindow::edit_finished);
 }
 
 // search
