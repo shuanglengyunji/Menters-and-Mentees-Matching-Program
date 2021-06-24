@@ -30,10 +30,31 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
 
-    connect(model_mentors, &QAbstractItemModel::dataChanged, [this](){
+    connect(model_mentors, &QAbstractItemModel::dataChanged, this, [this](){
         while (this->model_mentors->canFetchMore()) {
             this->model_mentors->fetchMore();
         }
+    });
+
+    ui->tableView_mentors->horizontalHeader()->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(ui->tableView_mentors->horizontalHeader(), &QHeaderView::customContextMenuRequested, this, [this](QPoint pos) {
+        int idx = ui->tableView_mentors->horizontalHeader()->logicalIndexAt(pos);
+        QMenu contextMenu(this);
+        QAction hide_section(QString("Hide %1").arg(ui->tableView_mentors->model()->headerData(idx, Qt::Orientation::Horizontal, Qt::DisplayRole).toString()), this);
+        connect(&hide_section, &QAction::triggered, this, [&](){
+            ui->tableView_mentors->horizontalHeader()->hideSection(idx);
+        });
+        contextMenu.addAction(&hide_section);
+        QAction show_all("Show all", this);
+        connect(&show_all, &QAction::triggered, this, [&](){
+            for (int i=0; i<ui->tableView_mentors->horizontalHeader()->count(); i++) {
+                ui->tableView_mentors->horizontalHeader()->showSection(i);
+            }
+        });
+        if (ui->tableView_mentors->horizontalHeader()->sectionsHidden()) {
+            contextMenu.addAction(&show_all);
+        }
+        contextMenu.exec(QCursor::pos());
     });
 }
 
