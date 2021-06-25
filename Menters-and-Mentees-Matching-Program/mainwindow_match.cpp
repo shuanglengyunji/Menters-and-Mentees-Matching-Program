@@ -35,6 +35,8 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentors->resizeColumnsToContents();
     ui->tableView_match_mentors->resizeRowsToContents();
 
+    table_header_menu(ui->tableView_match_mentors);
+
     // -----------------------------------------------------------------------------------
     // [2] matched mentees
 
@@ -71,6 +73,8 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
 
+    table_header_menu(ui->tableView_match_mentees_matched);
+
     // -----------------------------------------------------------------------------------
     // [3] mentees to be match
 
@@ -105,6 +109,8 @@ void MainWindow::load_match_mentees()
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
+
+    table_header_menu(ui->tableView_match_mentees_matched);
 }
 
 void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)

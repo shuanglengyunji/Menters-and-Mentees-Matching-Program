@@ -52,6 +52,30 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::table_header_menu(QTableView * view)
+{
+    view->horizontalHeader()->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(view->horizontalHeader(), &QHeaderView::customContextMenuRequested, this, [this, view](QPoint pos) {
+        int idx = view->horizontalHeader()->logicalIndexAt(pos);
+        QMenu contextMenu(this);
+        QAction hide_section(QString("Hide %1").arg(view->model()->headerData(idx, Qt::Orientation::Horizontal, Qt::DisplayRole).toString()), this);
+        connect(&hide_section, &QAction::triggered, this, [&](){
+            view->horizontalHeader()->hideSection(idx);
+        });
+        contextMenu.addAction(&hide_section);
+        QAction show_all("Show all", this);
+        connect(&show_all, &QAction::triggered, this, [&](){
+            for (int i=0; i<view->horizontalHeader()->count(); i++) {
+                view->horizontalHeader()->showSection(i);
+            }
+        });
+        if (view->horizontalHeader()->sectionsHidden()) {
+            contextMenu.addAction(&show_all);
+        }
+        contextMenu.exec(QCursor::pos());
+    });
+}
+
 void MainWindow::on_actionManage_triggered()
 {
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentees Grouping Page";

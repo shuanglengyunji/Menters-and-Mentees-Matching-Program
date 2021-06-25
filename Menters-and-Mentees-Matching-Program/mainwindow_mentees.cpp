@@ -30,6 +30,8 @@ void MainWindow::load_mentees()
 
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();
+
+    table_header_menu(ui->tableView_mentees);
 }
 
 // search

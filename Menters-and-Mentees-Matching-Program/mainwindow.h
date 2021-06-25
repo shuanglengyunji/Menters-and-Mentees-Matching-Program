@@ -91,13 +91,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    // ------------------------------------
-
     // Database
 
     QSqlDatabase db;
-
-    // ------------------------------------
 
     // Manage
 
@@ -111,23 +107,17 @@ private:
 
     void export_mentee(QString addr);
 
-    // ------------------------------------
-
     // Mentors
 
     myMentorsTableModel * model_mentors = nullptr;
 
     void load_mentors();
 
-    // ------------------------------------
-
     // Mentees
 
     myMenteesTableModel * model_mentees = nullptr;
 
     void load_mentees();
-
-    // ------------------------------------
 
     // Match
 
@@ -139,7 +129,7 @@ private:
 
     void algorithm_mentees_match();
 
-    // ------------------------------------
+    void table_header_menu(QTableView * view);
 
 };
 
