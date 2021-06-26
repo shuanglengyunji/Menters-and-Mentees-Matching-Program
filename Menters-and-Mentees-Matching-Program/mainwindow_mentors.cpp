@@ -13,7 +13,7 @@ void MainWindow::load_mentors()
     }
 
     // link db to mentors QSqlTableModel
-    model_mentors = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
+    model_mentors = new myMentorsTableModel(this, db);    // model_mentors is a private pointer defined in header file
     model_mentors->setTable("mentor");
     model_mentors->setEditStrategy(myMentorsTableModel::OnFieldChange);
     model_mentors->select();

@@ -25,7 +25,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentors->setModel(model_match_mentors);
     ui->tableView_match_mentors->reset();
     ui->tableView_match_mentors->horizontalHeader()->setMaximumSectionSize(400);
-    ui->tableView_match_mentors->sortByColumn(0,Qt::AscendingOrder);
 
     ui->tableView_match_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -60,7 +59,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setModel(model_match_mentees_matched);
     ui->tableView_match_mentees_matched->reset();
     ui->tableView_match_mentees_matched->horizontalHeader()->setMaximumSectionSize(400);
-    ui->tableView_match_mentees_matched->sortByColumn(0,Qt::AscendingOrder);
     ui->tableView_match_mentees_matched->setSortingEnabled(true);
 
     ui->tableView_match_mentees_matched->setSelectionBehavior(QAbstractItemView::SelectRows);

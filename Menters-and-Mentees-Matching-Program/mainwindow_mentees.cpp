@@ -14,7 +14,7 @@ void MainWindow::load_mentees()
     }
 
     // link db to mentees myMenteesTableModel
-    model_mentees = new myMenteesTableModel(this,db);    // model_mentees is a private pointer defined in header file
+    model_mentees = new myMenteesTableModel(this, db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("mentee");
     model_mentees->setEditStrategy(myMenteesTableModel::OnFieldChange);
     model_mentees->select();

@@ -95,10 +95,3 @@ void MainWindow::on_pushButton_manage_clear_clicked()
     query.exec("DELETE FROM 'mentor'");
     query.exec("DELETE FROM 'mentee'");
 }
-
-
-
-
-
-
-
