@@ -106,7 +106,7 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 
-    table_header_menu(ui->tableView_match_mentees_matched);
+    table_header_menu(ui->tableView_match_mentees_to_be_match);
 }
 
 void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
