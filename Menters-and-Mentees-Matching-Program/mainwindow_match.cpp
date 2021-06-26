@@ -76,14 +76,17 @@ void MainWindow::init_match()
 
 void MainWindow::load_match()
 {
+    model_match_mentors->select();
     ui->tableView_match_mentors->reset();
     ui->tableView_match_mentors->resizeColumnsToContents();
     ui->tableView_match_mentors->resizeRowsToContents();
 
+    model_match_mentees_matched->select();
     ui->tableView_match_mentees_matched->reset();
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
 
+    model_match_mentees_to_be_match->select();
     ui->tableView_match_mentees_to_be_match->reset();
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();

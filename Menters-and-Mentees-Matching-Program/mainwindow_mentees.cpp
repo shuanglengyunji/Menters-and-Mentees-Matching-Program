@@ -26,6 +26,7 @@ void MainWindow::init_mentees()
 // load
 void MainWindow::load_mentees()
 {
+    model_mentees->select();
     ui->tableView_mentees->reset();
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();

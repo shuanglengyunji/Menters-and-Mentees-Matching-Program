@@ -54,6 +54,7 @@ void MainWindow::init_mentors()
 // load
 void MainWindow::load_mentors()
 {
+    model_mentors->select();
     ui->tableView_mentors->reset();
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
