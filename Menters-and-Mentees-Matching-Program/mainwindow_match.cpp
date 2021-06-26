@@ -175,39 +175,35 @@ void MainWindow::on_pushButton_Clear_clicked()
 void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
 {
     QString str = ui->lineEdit_match_search_mentors->text().simplified();    // Returns a string that has whitespace removed from the start and the end
-    QString argument = "wwvp=1 AND train_complete=1";
     if(str.isEmpty()) {
-        model_match_mentors->setFilter(argument);
+        model_match_mentors->setFilter("wwvp=1 AND train_complete=1");
         return;
     }
 
     QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
-    for (int i=0; i < list.size() ; i++)
+    QStringList out;
+    foreach(QString tmp, list)
     {
-        QString tmp = list.at(i);
-        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp, tmp, tmp);       // Uni ID + First Name + Last Name
-        //qDebug() << argument;
+        out.append(QString("uid LIKE '\%%1\%' OR first_name LIKE '\%%2\%' OR last_name LIKE '\%%3\%'").arg(tmp, tmp, tmp));
     }
-    model_match_mentors->setFilter(argument);
+    model_match_mentors->setFilter(QString("wwvp=1 AND train_complete=1 AND (%1)").arg(out.join(" OR ")));
 }
 
 void MainWindow::on_lineEdit_match_search_mentees_editingFinished()
 {
     QString str = ui->lineEdit_match_search_mentees->text().simplified();    // Returns a string that has whitespace removed from the start and the end
-    QString argument = "mentor_uid IS NOT NULL";
     if(str.isEmpty()) {
-        model_match_mentees_to_be_match->setFilter(argument);
+        model_match_mentees_to_be_match->setFilter("mentor_uid IS NULL");
         return;
     }
 
     QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
-    for (int i=0; i < list.size() ; i++)
+    QStringList out;
+    foreach(QString tmp, list)
     {
-        QString tmp = list.at(i);
-        argument = argument + QString(" AND ( uid LIKE \'%%1%\' OR first_name LIKE '%%2%' OR last_name LIKE '%%3%' )").arg(tmp, tmp, tmp);       // Uni ID + First Name + Last Name
-        //qDebug() << argument;
+        out.append(QString("uid LIKE '\%%1\%' OR first_name LIKE '\%%2\%' OR last_name LIKE '\%%3\%'").arg(tmp, tmp, tmp));
     }
-    model_match_mentees_to_be_match->setFilter(argument);
+    model_match_mentees_to_be_match->setFilter(QString("mentor_uid IS NULL AND (%1)").arg(out.join(" OR ")));
 }
 
 void MainWindow::on_pushButton_Auto_clicked()

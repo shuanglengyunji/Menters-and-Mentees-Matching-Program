@@ -35,24 +35,18 @@ void MainWindow::load_mentees()
 // search
 void MainWindow::on_lineEdit_mentees_search_editingFinished()
 {
-    QString str = ui->lineEdit_mentees_search->text().trimmed();    // Returns a string that has whitespace removed from the start and the end
+    QString str = ui->lineEdit_mentees_search->text().simplified();    // Returns a string that has whitespace removed from the start and the end
     if(str.isEmpty()) {
         model_mentees->setFilter("");
         return;
     }
     QStringList list = str.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);   // get string list
-    int num = list.size();
-    QString tmp = list.at(0);
-    QString argument = "uid LIKE '%" + tmp + "%'";
-    for (int i=0; i < num ; i++)
+    QStringList out;
+    foreach(QString tmp, list)
     {
-        tmp = list.at(i);
-        argument = argument
-                + " OR " + "uid LIKE '%" + tmp + "%'"               // Uni ID
-                + " OR " + "first_name LIKE '%" + tmp + "%'"        // First Name
-                + " OR " + "last_name LIKE '%" + tmp + "%'";        // Last Name
+        out.append(QString("uid LIKE '\%%1\%' OR first_name LIKE '\%%2\%' OR last_name LIKE '\%%3\%'").arg(tmp, tmp, tmp));
     }
-    model_mentees->setFilter(argument);
+    model_mentees->setFilter(out.join(" OR "));
 }
 
 /*
