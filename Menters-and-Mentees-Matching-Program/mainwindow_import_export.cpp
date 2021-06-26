@@ -282,6 +282,11 @@ void MainWindow::export_grouping(QString addr) {
 
 void MainWindow::export_mentor(QString addr) {
 
+    if(addr.isEmpty())
+    {
+       return;
+    }
+
     myMentorsTableModel mentorsTable;
     myMenteesTableModel menteesTable;
 
@@ -307,7 +312,6 @@ void MainWindow::export_mentor(QString addr) {
 
     // add results
     if (count) {
-
         model.setQuery("SELECT * FROM mentor WHERE mentor.uid IN (SELECT DISTINCT mentor_uid from mentee);", db);
         while (model.canFetchMore()) {
             model.fetchMore();
@@ -335,8 +339,6 @@ void MainWindow::export_mentor(QString addr) {
                 xlsx.write(row+2, 3+i*5+5, menteesTable.get_parser("college").to_str(r.value("college").toString()));
             }
         }
-
-
     }
 
     if ( !xlsx.saveAs(addr) )
@@ -347,5 +349,68 @@ void MainWindow::export_mentor(QString addr) {
 }
 
 void MainWindow::export_mentee(QString addr) {
+    if(addr.isEmpty())
+    {
+       return;
+    }
 
+    myMentorsTableModel mentorsTable;
+    myMenteesTableModel menteesTable;
+
+    QSqlQueryModel model;
+
+    QXlsx::Document xlsx;
+    xlsx.addSheet("Output - Mentees");
+    xlsx.write(1, 1, "groupID");
+    xlsx.write(1, 2, "mentee_name");
+    xlsx.write(1, 3, "mentee_email");
+    xlsx.write(1, 4, "mentee_altemail");
+    xlsx.write(1, 5, "mentor_name");
+    xlsx.write(1, 6, "mentor_email");
+    xlsx.write(1, 7, "mentor_phone");
+    xlsx.write(1, 8, "mentor_lvlofstudy");
+    xlsx.write(1, 9, "mentor_college");
+
+    model.setQuery("SELECT * FROM mentor WHERE mentor.uid IN (SELECT DISTINCT mentor_uid from mentee);", db);
+    while (model.canFetchMore()) {
+        model.fetchMore();
+    }
+
+    int group_id = 0;
+    int row_count = 2;
+    for (int row=0; row < model.rowCount(); row++) {
+        QSqlRecord r_mentor = model.record(row);
+
+        QSqlQueryModel mentee;
+        mentee.setQuery(QString("SELECT * FROM mentee WHERE mentee.mentor_uid = '%1';").arg(r_mentor.value("uid").toString()), db);
+        while(mentee.canFetchMore()) {
+            mentee.fetchMore();
+        }
+
+        group_id = group_id + 1;
+        for (int i=0; i<mentee.rowCount(); i++) {
+
+            QSqlRecord r_mentee = mentee.record(i);
+
+            xlsx.write(row_count, 1, QVariant(group_id));
+            xlsx.write(row_count, 2, r_mentee.value("first_name"));
+            xlsx.write(row_count, 3, QString("%1@anu.edu.au").arg(r_mentee.value("uid").toString()));
+            xlsx.write(row_count, 4, r_mentee.value("email"));
+
+            xlsx.write(row_count, 5, r_mentor.value("first_name"));
+            xlsx.write(row_count, 6, QString("%1@anu.edu.au").arg(r_mentor.value("uid").toString()));
+            xlsx.write(row_count, 7, r_mentor.value("phone"));
+            xlsx.write(row_count, 8, r_mentor.value("phone"));
+            xlsx.write(row_count, 9, r_mentor.value("phone"));
+            xlsx.write(row_count, 8, mentorsTable.get_parser("academic_level").to_str(r_mentor.value("academic_level").toString()));
+            xlsx.write(row_count, 9, mentorsTable.get_parser("college").to_str(r_mentor.value("college").toString()));
+
+            row_count++;
+        }
+    }
+
+    if ( !xlsx.saveAs(addr) )
+    {
+        QMessageBox::warning(this, tr("File Saving failed"), tr("Failed to save data file."));
+    }
 }
