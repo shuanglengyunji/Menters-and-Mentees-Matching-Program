@@ -282,6 +282,68 @@ void MainWindow::export_grouping(QString addr) {
 
 void MainWindow::export_mentor(QString addr) {
 
+    myMentorsTableModel mentorsTable;
+    myMenteesTableModel menteesTable;
+
+    QSqlQueryModel model;
+
+    QXlsx::Document xlsx;
+    xlsx.addSheet("Output - Mentors");
+
+    model.setQuery("SELECT max(c) FROM (SELECT count(*) AS c FROM mentee WHERE mentor_uid IS NOT NULL GROUP BY mentor_uid);", db);
+    int count = model.record(0).value(0).toInt();
+
+    // add headers
+    xlsx.write(1, 1, "group");
+    xlsx.write(1, 2, "mentor_email");
+    xlsx.write(1, 3, "mentor_name");
+    for (int i=0; i < count; i++) {
+        xlsx.write(1, 3+i*5+1, QString("mentee%1_name").arg(i+1));
+        xlsx.write(1, 3+i*5+2, QString("mentee%1_email").arg(i+1));
+        xlsx.write(1, 3+i*5+3, QString("mentee%1_altemail").arg(i+1));
+        xlsx.write(1, 3+i*5+4, QString("mentee%1_lvlofstudy").arg(i+1));
+        xlsx.write(1, 3+i*5+5, QString("mentee%1_college").arg(i+1));
+    }
+
+    // add results
+    if (count) {
+
+        model.setQuery("SELECT * FROM mentor WHERE mentor.uid IN (SELECT DISTINCT mentor_uid from mentee);", db);
+        while (model.canFetchMore()) {
+            model.fetchMore();
+        }
+
+        int group_id = 0;
+        for (int row=0; row < model.rowCount(); row++) {
+            QSqlRecord r = model.record(row);
+            group_id = group_id + 1;
+            xlsx.write(row+2, 1, QVariant(group_id));
+            xlsx.write(row+2, 2, QString("%1@anu.edu.au").arg(r.value("uid").toString()));
+            xlsx.write(row+2, 3, r.value("first_name"));
+
+            QSqlQueryModel mentee;
+            mentee.setQuery(QString("SELECT * FROM mentee WHERE mentee.mentor_uid = '%1';").arg(r.value("uid").toString()), db);
+            while(mentee.canFetchMore()) {
+                mentee.fetchMore();
+            }
+            for (int i=0; i<mentee.rowCount(); i++) {
+                QSqlRecord r = mentee.record(i);
+                xlsx.write(row+2, 3+i*5+1, r.value("first_name"));
+                xlsx.write(row+2, 3+i*5+2, QString("%1@anu.edu.au").arg(r.value("uid").toString()));
+                xlsx.write(row+2, 3+i*5+3, r.value("email"));
+                xlsx.write(row+2, 3+i*5+4, menteesTable.get_parser("academic_level").to_str(r.value("academic_level").toString()));
+                xlsx.write(row+2, 3+i*5+5, menteesTable.get_parser("college").to_str(r.value("college").toString()));
+            }
+        }
+
+
+    }
+
+    if ( !xlsx.saveAs(addr) )
+    {
+        QMessageBox::warning(this, tr("File Saving failed"), tr("Failed to save data file."));
+    }
+
 }
 
 void MainWindow::export_mentee(QString addr) {

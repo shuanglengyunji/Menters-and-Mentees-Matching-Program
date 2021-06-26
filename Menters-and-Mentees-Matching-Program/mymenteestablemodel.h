@@ -31,6 +31,16 @@ public:
         qDebug() << "unexpected parser index";
         exit(1);
     }
+    parser get_parser(QString table_header) {
+        for(int i=0; i<this->parser_list.size(); i++) {
+            parser p = parser_list[i];
+            if (p.get_table_header() == table_header) {
+                return p;
+            }
+        }
+        qDebug() << "unexpected parser table_header";
+        exit(1);
+    }
 
 private:
     QString table_init_query = "CREATE TABLE IF NOT EXISTS [mentee] (           \
