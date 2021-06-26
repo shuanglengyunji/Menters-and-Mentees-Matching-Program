@@ -86,12 +86,17 @@ void MainWindow::table_header_menu(QTableView * view)
 
 void MainWindow::table_menu(QTableView *view) {
     view->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
-    connect(view, &QTableView::customContextMenuRequested, this, [this, view](QPoint pos) {
-        QModelIndex index = view->indexAt(pos);
+    connect(view, &QTableView::customContextMenuRequested, this, [this, view]() {
         QMenu contextMenu(this);
         QAction copy("Copy", this);
         connect(&copy, &QAction::triggered, this, [&](){
-            qApp->clipboard()->setText(index.data().toString());
+            QModelIndexList selected = view->selectionModel()->selectedRows(2);
+            QStringList l;
+            foreach(QModelIndex selectedIndex, selected)
+            {
+                l.append(selectedIndex.data().toString());
+            }
+            qApp->clipboard()->setText(l.join("\n"));
         });
         contextMenu.addAction(&copy);
         contextMenu.exec(QCursor::pos());
