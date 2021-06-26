@@ -67,8 +67,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    ui->tableView_match_mentees_matched->hideColumn(0);
-
     // resize row height according to column width
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
@@ -103,8 +101,6 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_to_be_match->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentees_to_be_match->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-    ui->tableView_match_mentees_to_be_match->hideColumn(0);
 
     // resize row height according to column width
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();

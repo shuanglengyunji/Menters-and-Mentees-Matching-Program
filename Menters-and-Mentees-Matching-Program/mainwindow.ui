@@ -131,8 +131,11 @@
            </item>
            <item row="7" column="1">
             <widget class="QPushButton" name="pushButton_manage_export_mentor">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{text-align : left;}</string>
+             </property>
              <property name="text">
-              <string>Output mentor</string>
+              <string> Output mentor</string>
              </property>
             </widget>
            </item>
@@ -165,15 +168,21 @@
            </item>
            <item row="6" column="1">
             <widget class="QPushButton" name="pushButton_manage_export_grouping">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{text-align : left;}</string>
+             </property>
              <property name="text">
-              <string>Output grouping</string>
+              <string> Output grouping</string>
              </property>
             </widget>
            </item>
            <item row="8" column="1">
             <widget class="QPushButton" name="pushButton_manage_export_mentee">
+             <property name="styleSheet">
+              <string notr="true">QPushButton{text-align : left;}</string>
+             </property>
              <property name="text">
-              <string>Output mentee</string>
+              <string> Output mentee</string>
              </property>
             </widget>
            </item>
@@ -632,9 +641,30 @@
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="label_personal_mentees_num">
+                <property name="text">
+                 <string>Personal Max Mentee Num:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_personal_mentees_num">
+                <item>
+                 <property name="text">
+                  <string>Leave out</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Enable</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
                <widget class="QLabel" name="label_mentees_num">
                 <property name="text">
-                 <string>Max Mentees Num:</string>
+                 <string>Global Max Mentees Num:</string>
                 </property>
                </widget>
               </item>
@@ -647,7 +677,7 @@
                  <number>20</number>
                 </property>
                 <property name="value">
-                 <number>5</number>
+                 <number>10</number>
                 </property>
                </widget>
               </item>
