@@ -157,13 +157,13 @@ void MainWindow::on_pushButton_Clear_clicked()
 {
     QSqlQuery query(db);
     query.exec("UPDATE mentee SET mentor_uid = NULL");
+
     model_match_mentees_to_be_match->select();
     model_match_mentees_matched->select();
     model_match_mentors->select();
 
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
-
 
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
