@@ -84,6 +84,20 @@ void MainWindow::table_header_menu(QTableView * view)
     });
 }
 
+void MainWindow::table_menu(QTableView *view) {
+    view->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(view, &QTableView::customContextMenuRequested, this, [this, view](QPoint pos) {
+        QModelIndex index = view->indexAt(pos);
+        QMenu contextMenu(this);
+        QAction copy("Copy", this);
+        connect(&copy, &QAction::triggered, this, [&](){
+            qApp->clipboard()->setText(index.data().toString());
+        });
+        contextMenu.addAction(&copy);
+        contextMenu.exec(QCursor::pos());
+    });
+}
+
 void MainWindow::on_actionManage_triggered()
 {
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentees Grouping Page";

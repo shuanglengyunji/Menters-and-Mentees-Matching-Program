@@ -48,6 +48,7 @@ void MainWindow::init_mentors()
     });
 
     table_header_menu(ui->tableView_mentors);
+    table_menu(ui->tableView_mentors);
 }
 
 // load

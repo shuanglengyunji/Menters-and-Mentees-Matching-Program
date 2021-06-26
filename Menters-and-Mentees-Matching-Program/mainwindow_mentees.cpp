@@ -20,6 +20,7 @@ void MainWindow::init_mentees()
     ui->tableView_mentees->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     table_header_menu(ui->tableView_mentees);
+    table_menu(ui->tableView_mentees);
 }
 
 // load

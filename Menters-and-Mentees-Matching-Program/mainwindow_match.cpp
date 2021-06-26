@@ -23,6 +23,7 @@ void MainWindow::init_match()
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     table_header_menu(ui->tableView_match_mentors);
+    table_menu(ui->tableView_match_mentors);
 
     // -----------------------------------------------------------------------------------
     // [2] matched mentees
@@ -46,6 +47,7 @@ void MainWindow::init_match()
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     table_header_menu(ui->tableView_match_mentees_matched);
+    table_menu(ui->tableView_match_mentees_matched);
 
     // -----------------------------------------------------------------------------------
     // [3] mentees to be match
@@ -69,6 +71,7 @@ void MainWindow::init_match()
     ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     table_header_menu(ui->tableView_match_mentees_to_be_match);
+    table_menu(ui->tableView_match_mentees_to_be_match);
 }
 
 void MainWindow::load_match()

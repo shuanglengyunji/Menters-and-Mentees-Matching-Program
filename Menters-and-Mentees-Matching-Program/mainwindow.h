@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QApplication>
 #include <QMainWindow>
+#include <QClipboard>
 #include <QDebug>
 #include <QMessageBox>
 #include <QList>
@@ -138,6 +140,8 @@ private:
     void algorithm_mentees_match();
 
     void table_header_menu(QTableView * view);
+
+    void table_menu(QTableView * view);
 
     YesNoDelegate delegate;
 
