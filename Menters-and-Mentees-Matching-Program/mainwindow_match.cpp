@@ -127,6 +127,9 @@ void MainWindow::on_pushButton_Up_clicked()
     QString uid = model_match_mentors->record(ui->tableView_match_mentors->currentIndex().row())
             .value("uid")
             .toString();
+    if (uid.isEmpty()) {
+        return;
+    }
     QModelIndexList selected = ui->tableView_match_mentees_to_be_match->selectionModel()->selectedRows();
     foreach(QModelIndex selectedIndex, selected)
     {
