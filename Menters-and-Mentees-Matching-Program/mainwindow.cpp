@@ -28,12 +28,20 @@ MainWindow::MainWindow(QWidget *parent) :
     myMentorsTableModel(this, db).create_table();
     myMenteesTableModel(this, db).create_table();
 
+    // init pages
+
+    init_mentors();
+    init_mentees();
+    init_match();
+
     // switch to mentors' page
+
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
     ui->actionManage->setChecked(true);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -119,7 +127,7 @@ void MainWindow::on_actionMentees_Grouping_triggered()
     ui->actionMentees_Editing->setChecked(false);
     ui->actionMentees_Grouping->setChecked(true);
 
-    load_match_mentees();
+    load_match();
 }
 
 /*

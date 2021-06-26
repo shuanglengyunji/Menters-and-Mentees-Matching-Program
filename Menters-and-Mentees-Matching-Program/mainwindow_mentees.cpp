@@ -3,16 +3,8 @@
 
 // mentees
 
-// load
-void MainWindow::load_mentees()
+void MainWindow::init_mentees()
 {
-    // clear exist data
-    if ( model_mentees != nullptr )
-    {
-        delete model_mentees;
-        model_mentees = nullptr;
-    }
-
     // link db to mentees myMenteesTableModel
     model_mentees = new myMenteesTableModel(this, db);    // model_mentees is a private pointer defined in header file
     model_mentees->setTable("mentee");
@@ -24,14 +16,18 @@ void MainWindow::load_mentees()
 
     // link mentees myMenteesTableModel to QTableView
     ui->tableView_mentees->setModel(model_mentees);
-    ui->tableView_mentees->reset();
     ui->tableView_mentees->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_mentees->setSelectionBehavior(QAbstractItemView::SelectRows);
 
+    table_header_menu(ui->tableView_mentees);
+}
+
+// load
+void MainWindow::load_mentees()
+{
+    ui->tableView_mentees->reset();
     ui->tableView_mentees->resizeColumnsToContents();
     ui->tableView_mentees->resizeRowsToContents();
-
-    table_header_menu(ui->tableView_mentees);
 }
 
 // search

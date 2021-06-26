@@ -113,11 +113,15 @@ private:
 
     myMentorsTableModel * model_mentors = nullptr;
 
+    void init_mentors();
+
     void load_mentors();
 
     // Mentees
 
     myMenteesTableModel * model_mentees = nullptr;
+
+    void init_mentees();
 
     void load_mentees();
 
@@ -127,7 +131,9 @@ private:
     myMenteesTableModel * model_match_mentees_matched = nullptr;
     myMenteesTableModel * model_match_mentees_to_be_match = nullptr;
 
-    void load_match_mentees();
+    void init_match();
+
+    void load_match();
 
     void algorithm_mentees_match();
 

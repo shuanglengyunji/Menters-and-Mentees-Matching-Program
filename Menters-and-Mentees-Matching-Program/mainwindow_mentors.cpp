@@ -1,17 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 // mentors
 
-// load
-void MainWindow::load_mentors()
+void MainWindow::init_mentors()
 {
-    // clear exist data
-    if ( model_mentors != nullptr )
-    {
-        delete model_mentors;
-        model_mentors = nullptr;
-    }
-
     // link db to mentors QSqlTableModel
     model_mentors = new myMentorsTableModel(this, db);    // model_mentors is a private pointer defined in header file
     model_mentors->setTable("mentor");
@@ -27,14 +20,10 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->setItemDelegateForColumn(17, &delegate);
     ui->tableView_mentors->setItemDelegateForColumn(18, &delegate);
     ui->tableView_mentors->setModel(model_mentors);
-    ui->tableView_mentors->reset();
     ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    ui->tableView_mentors->resizeColumnsToContents();
-    ui->tableView_mentors->resizeRowsToContents();
-
-    connect(model_mentors, &QAbstractItemModel::dataChanged, this, [this](QModelIndex index){
+    connect(model_mentors, &QAbstractItemModel::dataChanged, this, [this](){
 
         while(model_mentors->canFetchMore())
         {
@@ -59,6 +48,14 @@ void MainWindow::load_mentors()
     });
 
     table_header_menu(ui->tableView_mentors);
+}
+
+// load
+void MainWindow::load_mentors()
+{
+    ui->tableView_mentors->reset();
+    ui->tableView_mentors->resizeColumnsToContents();
+    ui->tableView_mentors->resizeRowsToContents();
 }
 
 // search

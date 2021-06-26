@@ -1,16 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-void MainWindow::load_match_mentees()
+void MainWindow::init_match()
 {
-    // [1] grouped mentors
-
-    // clear exist data
-    if ( model_match_mentors != nullptr )
-    {
-        delete model_match_mentors;
-        model_match_mentors = nullptr;
-    }
+    // [1] mentors
 
     // link db to mentors myMenteesTableModel
     model_match_mentors = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
@@ -23,28 +16,16 @@ void MainWindow::load_match_mentees()
 
     // link mentors myMenteesTableModel to QTableView
     ui->tableView_match_mentors->setModel(model_match_mentors);
-    ui->tableView_match_mentors->reset();
     ui->tableView_match_mentors->horizontalHeader()->setMaximumSectionSize(400);
 
     ui->tableView_match_mentors->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_match_mentors->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_match_mentors->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // resize row height according to column width
-    ui->tableView_match_mentors->resizeColumnsToContents();
-    ui->tableView_match_mentors->resizeRowsToContents();
-
     table_header_menu(ui->tableView_match_mentors);
 
     // -----------------------------------------------------------------------------------
     // [2] matched mentees
-
-    // clear exist data
-    if ( model_match_mentees_matched != nullptr )
-    {
-        delete model_match_mentees_matched;
-        model_match_mentees_matched = nullptr;
-    }
 
     // link db to myMenteesTableModel
     model_match_mentees_matched = new myMenteesTableModel(this,db);    // model_mentors is a private pointer defined in header file
@@ -57,7 +38,6 @@ void MainWindow::load_match_mentees()
 
     // link myMenteesTableModel to QTableView
     ui->tableView_match_mentees_matched->setModel(model_match_mentees_matched);
-    ui->tableView_match_mentees_matched->reset();
     ui->tableView_match_mentees_matched->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_match_mentees_matched->setSortingEnabled(true);
 
@@ -65,21 +45,10 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_matched->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_matched->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // resize row height according to column width
-    ui->tableView_match_mentees_matched->resizeColumnsToContents();
-    ui->tableView_match_mentees_matched->resizeRowsToContents();
-
     table_header_menu(ui->tableView_match_mentees_matched);
 
     // -----------------------------------------------------------------------------------
     // [3] mentees to be match
-
-    // clear exist data
-    if ( model_match_mentees_to_be_match != nullptr )
-    {
-        delete model_match_mentees_to_be_match;
-        model_match_mentees_to_be_match = nullptr;
-    }
 
     // link db to mentors myMenteesTableModel
     model_match_mentees_to_be_match = new myMenteesTableModel(this,db);    // model_mentors is a private pointer defined in header file
@@ -92,7 +61,6 @@ void MainWindow::load_match_mentees()
 
     // link mentors myMenteesTableModel to QTableView
     ui->tableView_match_mentees_to_be_match->setModel(model_match_mentees_to_be_match);
-    ui->tableView_match_mentees_to_be_match->reset();
     ui->tableView_match_mentees_to_be_match->horizontalHeader()->setMaximumSectionSize(400);
     ui->tableView_match_mentees_to_be_match->setSortingEnabled(true);
 
@@ -100,11 +68,23 @@ void MainWindow::load_match_mentees()
     ui->tableView_match_mentees_to_be_match->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->tableView_match_mentees_to_be_match->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // resize row height according to column width
+    table_header_menu(ui->tableView_match_mentees_to_be_match);
+}
+
+void MainWindow::load_match()
+{
+    ui->tableView_match_mentors->reset();
+    ui->tableView_match_mentors->resizeColumnsToContents();
+    ui->tableView_match_mentors->resizeRowsToContents();
+
+    ui->tableView_match_mentees_matched->reset();
+    ui->tableView_match_mentees_matched->resizeColumnsToContents();
+    ui->tableView_match_mentees_matched->resizeRowsToContents();
+
+    ui->tableView_match_mentees_to_be_match->reset();
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 
-    table_header_menu(ui->tableView_match_mentees_to_be_match);
 }
 
 void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
