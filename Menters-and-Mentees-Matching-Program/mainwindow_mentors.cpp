@@ -22,6 +22,10 @@ void MainWindow::load_mentors()
     }
 
     // link mentors QSqlTableModel to QTableView
+    ui->tableView_mentors->setItemDelegateForColumn(4, &delegate);
+    ui->tableView_mentors->setItemDelegateForColumn(16, &delegate);
+    ui->tableView_mentors->setItemDelegateForColumn(17, &delegate);
+    ui->tableView_mentors->setItemDelegateForColumn(18, &delegate);
     ui->tableView_mentors->setModel(model_mentors);
     ui->tableView_mentors->reset();
     ui->tableView_mentors->horizontalHeader()->setMaximumSectionSize(400);
@@ -30,9 +34,27 @@ void MainWindow::load_mentors()
     ui->tableView_mentors->resizeColumnsToContents();
     ui->tableView_mentors->resizeRowsToContents();
 
-    connect(model_mentors, &QAbstractItemModel::dataChanged, this, [this](){
-        while (this->model_mentors->canFetchMore()) {
-            this->model_mentors->fetchMore();
+    connect(model_mentors, &QAbstractItemModel::dataChanged, this, [this](QModelIndex index){
+
+        while(model_mentors->canFetchMore())
+        {
+            model_mentors->fetchMore();
+        }
+
+        for(int i=0; i<model_mentors->rowCount(); i++)
+        {
+            int train_1 = model_mentors->index(i,16).data(Qt::EditRole).toInt();
+            int train_2 = model_mentors->index(i,17).data(Qt::EditRole).toInt();
+            int train_3 = model_mentors->index(i,18).data(Qt::EditRole).toInt();
+
+            if(train_1 == 1 && train_2 == 1 && train_3 == 1)
+            {
+                model_mentors->setData(model_mentors->index(i,19), 1, Qt::EditRole);
+            }
+            else
+            {
+                model_mentors->setData(model_mentors->index(i,19), 0, Qt::EditRole);
+            }
         }
     });
 

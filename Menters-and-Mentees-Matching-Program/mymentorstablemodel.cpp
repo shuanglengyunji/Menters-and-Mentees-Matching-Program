@@ -2,6 +2,7 @@
 #include <QSqlQuery>
 #include <qsqlrecord.h>
 #include <QDebug>
+#include <QList>
 
 void myMentorsTableModel::create_table() {
     QSqlQuery query(this->database());
@@ -41,7 +42,7 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
 Qt::ItemFlags myMentorsTableModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result = QSqlTableModel::flags(index);
-    if (index.column() >= 1 && index.column() <= 17) {
+    if (!QList<int>({4, 16, 17, 18}).contains(index.column())) {
        result &= ~Qt::ItemIsEditable;
     }
     return result;

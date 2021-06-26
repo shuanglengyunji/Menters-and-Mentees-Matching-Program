@@ -17,8 +17,10 @@
 #include <QSqlRecord>
 #include <QSortFilterProxyModel>
 
-#include <mymentorstablemodel.h>
-#include <mymenteestablemodel.h>
+#include "mymentorstablemodel.h"
+#include "mymenteestablemodel.h"
+
+#include "yesnodelegate.h"
 
 # define MY_DATA_BASE_NAME "database.db"
 
@@ -130,6 +132,8 @@ private:
     void algorithm_mentees_match();
 
     void table_header_menu(QTableView * view);
+
+    YesNoDelegate delegate;
 
 };
 

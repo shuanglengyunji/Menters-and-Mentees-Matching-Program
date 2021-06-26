@@ -37,13 +37,15 @@ SOURCES += \
         mainwindow_mentors.cpp \
         mymenteestablemodel.cpp \
         mymentorstablemodel.cpp \
-        parser.cpp
+        parser.cpp \
+        yesnodelegate.cpp
 
 HEADERS += \
         mainwindow.h \
         mymenteestablemodel.h \
         mymentorstablemodel.h \
-        parser.h
+        parser.h \
+        yesnodelegate.h
 
 FORMS += \
         mainwindow.ui
