@@ -39,150 +39,151 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_manage">
-         <widget class="QWidget" name="gridLayoutWidget">
+         <widget class="QWidget" name="horizontalLayoutWidget">
           <property name="geometry">
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>322</width>
-            <height>295</height>
+            <width>581</width>
+            <height>331</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout_7">
-           <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Mentors and Mentees </string>
-             </property>
-            </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="8" column="1">
+              <widget class="QPushButton" name="pushButton_manage_export_mentee">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Output mentee</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_export">
+               <property name="text">
+                <string>Export:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="pushButton_manage_import_match">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Mentors, Mentees and Grouping </string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QLabel" name="label_space_2">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="pushButton_manage_import">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Mentors and Mentees </string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QPushButton" name="pushButton_manage_export_match">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Mentors, Mentees and Grouping </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_import">
+               <property name="text">
+                <string>Import:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QPushButton" name="pushButton_manage_export">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Mentors and Mentees </string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1">
+              <widget class="QPushButton" name="pushButton_manage_clear">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Clear All </string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QPushButton" name="pushButton_manage_export_mentor">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Output mentor</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QPushButton" name="pushButton_manage_export_grouping">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{text-align : left;}</string>
+               </property>
+               <property name="text">
+                <string> Output grouping</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="label_space_1">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="0">
+              <widget class="QLabel" name="label_clear">
+               <property name="text">
+                <string>Clear:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
-           <item row="5" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_match">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextEdit_msg_output">
+             <property name="undoRedoEnabled">
+              <bool>false</bool>
              </property>
-             <property name="text">
-              <string> Mentors, Mentees and Grouping </string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="1">
-            <widget class="QLabel" name="label_space_2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_manage_import_match">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Mentors, Mentees and Grouping </string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="1">
-            <widget class="QPushButton" name="pushButton_manage_clear">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Clear All </string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_export">
-             <property name="text">
-              <string>Export:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_manage_import">
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Mentors and Mentees </string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="label_space_1">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_mentor">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Output mentor</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_import">
-             <property name="text">
-              <string>Import:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="1">
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="10" column="0">
-            <widget class="QLabel" name="label_clear">
-             <property name="text">
-              <string>Clear:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_grouping">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Output grouping</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <widget class="QPushButton" name="pushButton_manage_export_mentee">
-             <property name="styleSheet">
-              <string notr="true">QPushButton{text-align : left;}</string>
-             </property>
-             <property name="text">
-              <string> Output mentee</string>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

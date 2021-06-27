@@ -111,6 +111,8 @@ private:
 
     void export_mentee(QString addr);
 
+    void clear_data();
+
     // Mentors
 
     myMentorsTableModel * model_mentors = nullptr;

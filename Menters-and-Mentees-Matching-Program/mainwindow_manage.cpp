@@ -90,7 +90,5 @@ void MainWindow::on_pushButton_manage_export_mentee_clicked()
 
 void MainWindow::on_pushButton_manage_clear_clicked()
 {
-    QSqlQuery query(db);
-    query.exec("DELETE FROM mentor");
-    query.exec("DELETE FROM mentee");
+    clear_data();
 }
