@@ -449,6 +449,11 @@ void MainWindow::export_mentee(QString addr) {
 
 void MainWindow::clear_data() {
 
+    if (QMessageBox::question(this, "Clear all", "Are you sure that you want to clear all data?",
+        QMessageBox::No, QMessageBox::Yes) == QMessageBox::No) {
+        return;
+    }
+
     ui->plainTextEdit_msg_output->clear();
     ui->plainTextEdit_msg_output->insertPlainText("Clear data\n");
     ui->plainTextEdit_msg_output->repaint();
