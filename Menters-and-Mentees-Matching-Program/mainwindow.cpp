@@ -7,21 +7,39 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QVersionNumber version(1, 2, 3);
-
     // app apth
     QString tmp_path = qApp->applicationDirPath() + "/tmp";
     QDir().mkdir(tmp_path);  //qDebug() << "tmp Path" << tmp_path;
 
     // init database
-    init_database(tmp_path);
+
+    // get database path and database demo path
+    QString db_path = tmp_path + "/" + MY_DATA_BASE_NAME;
+    // init database
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
+    db.setDatabaseName(db_path);
+    if (!db.open()) {
+        qDebug() << "Cannot open database";
+        QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
+            QObject::tr("Unable to establish a database connection.\n"), QMessageBox::Cancel);
+        return;
+    }
+    myMentorsTableModel(this, db).create_table();
+    myMenteesTableModel(this, db).create_table();
+
+    // init pages
+
+    init_mentors();
+    init_mentees();
+    init_match();
 
     // switch to mentors' page
+
     ui->stack->setCurrentIndex(0);      // qDebug() << "Switch to Mentors Page";
     ui->actionManage->setChecked(true);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
 }
@@ -34,10 +52,6 @@ MainWindow::~MainWindow()
     // mentees
     delete model_mentees;
 
-    // group
-    delete model_group_mentors_grouped;
-    delete model_group_mentors_to_be_grouped;
-
     // match
     delete model_match_mentors;
     delete model_match_mentees_matched;
@@ -46,70 +60,47 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::init_database(QString work_path)
+void MainWindow::table_header_menu(QTableView * view)
 {
-    // get database path and database demo path
-    QString db_path = work_path + "/" + MY_DATA_BASE_NAME;
+    view->horizontalHeader()->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(view->horizontalHeader(), &QHeaderView::customContextMenuRequested, this, [this, view](QPoint pos) {
+        int idx = view->horizontalHeader()->logicalIndexAt(pos);
+        QMenu contextMenu(this);
+        QAction hide_section(QString("Hide %1").arg(view->model()->headerData(idx, Qt::Orientation::Horizontal, Qt::DisplayRole).toString()), this);
+        connect(&hide_section, &QAction::triggered, this, [&](){
+            view->horizontalHeader()->hideSection(idx);
+        });
+        contextMenu.addAction(&hide_section);
+        QAction show_all("Show all", this);
+        connect(&show_all, &QAction::triggered, this, [&](){
+            for (int i=0; i<view->horizontalHeader()->count(); i++) {
+                view->horizontalHeader()->showSection(i);
+            }
+        });
+        if (view->horizontalHeader()->sectionsHidden()) {
+            contextMenu.addAction(&show_all);
+        }
+        contextMenu.exec(QCursor::pos());
+    });
+}
 
-    // init database
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName(":memory:");         //db.setDatabaseName(db_path);
-    db.setDatabaseName(db_path);
-    if (!db.open()) {
-        qDebug() << "Cannot open database";
-        QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
-            QObject::tr("Unable to establish a database connection.\n"), QMessageBox::Cancel);
-        return;
-    }
-
-    QSqlQuery query(db);
-
-    // Create New Tables
-    query.exec("CREATE TABLE IF NOT EXISTS [mentor] (           \
-               group_id         INTEGER NOT NULL DEFAULT 0,         \
-               is_confirmed 	CHAR(1) NOT NULL DEFAULT 'n',                     \
-               first_name		VARCHAR(20) NOT NULL,           \
-               last_name		VARCHAR(20) NOT NULL,           \
-               uid				VARCHAR(10) NOT NULL UNIQUE,    \
-               phone			VARCHAR(50),                    \
-               wwvp             VARCHAR(10),                        \
-               round			INTEGER(1),                     \
-               academic_level	INTEGER(1),                     \
-               college			INTEGER(1),                     \
-               degree			VARCHAR(100),                   \
-               type             INTEGER(1),                         \
-               gender			INTEGER(1),                     \
-               languages		VARCHAR(50),                    \
-               languages_text	TEXT(500),                      \
-               hall             VARCHAR(50),                        \
-               interests		VARCHAR(50),                     \
-               requests		    TEXT(1000),                     \
-               train_1			CHAR(1) NOT NULL DEFAULT 'n',   \
-               train_2			CHAR(1) NOT NULL DEFAULT 'n',   \
-               train_3			CHAR(1) NOT NULL DEFAULT 'n',   \
-               train_complete	CHAR(1) NOT NULL DEFAULT 'n',   \
-               PRIMARY KEY(uid)                                 \
-           )");
-
-    query.exec("CREATE TABLE IF NOT EXISTS [mentee] (           \
-               group_id			INTEGER NOT NULL DEFAULT 0,    \
-               first_name			VARCHAR(20) NOT NULL,      \
-               last_name			VARCHAR(20) NOT NULL,      \
-               uid					VARCHAR(10) NOT NULL UNIQUE,  \
-               email				VARCHAR(70),              \
-               round			INTEGER(1),                     \
-               academic_level		INTEGER(1),               \
-               college				INTEGER(1),                \
-               u18					INTEGER(1),                \
-               type				INTEGER(1),                \
-               gender				INTEGER(1),                \
-               languages			VARCHAR(50),                \
-               languages_text		TEXT(500),                \
-               interests			VARCHAR(50),                \
-               requests			TEXT(1000),                \
-               importance		INTEGER(1),                \
-               PRIMARY KEY(uid)                               \
-           )");
+void MainWindow::table_menu(QTableView *view) {
+    view->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(view, &QTableView::customContextMenuRequested, this, [this, view]() {
+        QMenu contextMenu(this);
+        QAction copy("Copy", this);
+        connect(&copy, &QAction::triggered, this, [&](){
+            QModelIndexList selected = view->selectionModel()->selectedRows(2);
+            QStringList l;
+            foreach(QModelIndex selectedIndex, selected)
+            {
+                l.append(selectedIndex.data().toString());
+            }
+            qApp->clipboard()->setText(l.join("\n"));
+        });
+        contextMenu.addAction(&copy);
+        contextMenu.exec(QCursor::pos());
+    });
 }
 
 void MainWindow::on_actionManage_triggered()
@@ -119,7 +110,6 @@ void MainWindow::on_actionManage_triggered()
     ui->actionManage->setChecked(true);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 }
 
@@ -130,7 +120,6 @@ void MainWindow::on_actionMentors_Editing_triggered()
     ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(true);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
     load_mentors();
@@ -143,36 +132,21 @@ void MainWindow::on_actionMentees_Editing_triggered()
     ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(true);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(false);
 
     load_mentees();
 }
 
-void MainWindow::on_actionMentors_Grouping_triggered()
-{
-    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentors Grouping Page";
-
-    ui->actionManage->setChecked(false);
-    ui->actionMentors_Editing->setChecked(false);
-    ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(true);
-    ui->actionMentees_Grouping->setChecked(false);
-
-    load_group_mentors();
-}
-
 void MainWindow::on_actionMentees_Grouping_triggered()
 {
-    ui->stack->setCurrentIndex(4);      // qDebug() << "Switch to Mentees Grouping Page";
+    ui->stack->setCurrentIndex(3);      // qDebug() << "Switch to Mentees Grouping Page";
 
     ui->actionManage->setChecked(false);
     ui->actionMentors_Editing->setChecked(false);
     ui->actionMentees_Editing->setChecked(false);
-    ui->actionMentors_Grouping->setChecked(false);
     ui->actionMentees_Grouping->setChecked(true);
 
-    load_match_mentees();
+    load_match();
 }
 
 /*

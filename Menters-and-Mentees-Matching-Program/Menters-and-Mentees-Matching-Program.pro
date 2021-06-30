@@ -29,21 +29,23 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        mainwindow_algorithm_group.cpp \
         mainwindow_algorithm_match.cpp \
-        mainwindow_group.cpp \
         mainwindow_import_export.cpp \
         mainwindow_manage.cpp \
         mainwindow_match.cpp \
         mainwindow_mentees.cpp \
         mainwindow_mentors.cpp \
         mymenteestablemodel.cpp \
-        mymentorstablemodel.cpp
+        mymentorstablemodel.cpp \
+        parser.cpp \
+        yesnodelegate.cpp
 
 HEADERS += \
         mainwindow.h \
         mymenteestablemodel.h \
-        mymentorstablemodel.h
+        mymentorstablemodel.h \
+        parser.h \
+        yesnodelegate.h
 
 FORMS += \
         mainwindow.ui
@@ -66,7 +68,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # App Info
 
-VERSION = 4.4
+VERSION = 5.0
 
 RESOURCES += \
     icon.qrc

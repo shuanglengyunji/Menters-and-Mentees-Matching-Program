@@ -51,43 +51,44 @@ void MainWindow::on_pushButton_manage_export_match_clicked()
     export_data(addr,true);
 }
 
-// Wattle File
-
-void MainWindow::on_pushButton_manage_export_wattle_clicked()
+void MainWindow::on_pushButton_manage_export_grouping_clicked()
 {
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle_Label", tr("*.csv"));
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save grouping result"), "grouping", tr("*.xlsx"));
     if(addr.isEmpty())
     {
        return;
     }
 
-    export_wattle_file(addr,0);     // label
+    export_grouping(addr);
 }
 
-void MainWindow::on_pushButton_manage_export_wattle_2_clicked()
+
+void MainWindow::on_pushButton_manage_export_mentor_clicked()
 {
-    QString addr = QFileDialog::getSaveFileName(this, tr("Save Wattle File"), "Wattle_Group_ID", tr("*.csv"));
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save mentor result"), "mentor", tr("*.xlsx"));
     if(addr.isEmpty())
     {
        return;
     }
 
-    export_wattle_file(addr,1);     // group id
+    export_mentor(addr);
+}
+
+
+void MainWindow::on_pushButton_manage_export_mentee_clicked()
+{
+    QString addr = QFileDialog::getSaveFileName(this, tr("Save mentee result"), "mentee", tr("*.xlsx"));
+    if(addr.isEmpty())
+    {
+       return;
+    }
+
+    export_mentee(addr);
 }
 
 // Clear
 
 void MainWindow::on_pushButton_manage_clear_clicked()
 {
-    QSqlQuery query(db);
-    query.exec("DELETE FROM 'group'");
-    query.exec("DELETE FROM 'mentor'");
-    query.exec("DELETE FROM 'mentee'");
+    clear_data();
 }
-
-
-
-
-
-
-
