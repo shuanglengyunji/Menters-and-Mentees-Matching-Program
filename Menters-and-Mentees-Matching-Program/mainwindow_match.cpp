@@ -8,7 +8,7 @@ void MainWindow::init_match()
     // link db to mentors myMenteesTableModel
     model_match_mentors = new myMentorsTableModel(this,db);    // model_mentors is a private pointer defined in header file
     model_match_mentors->setEditStrategy(myMenteesTableModel::OnFieldChange);
-    model_match_mentors->setFilter("wwvp=1 AND train_complete=1");
+    model_match_mentors->setFilter("train_complete=1");
     model_match_mentors->select();
     while(model_match_mentors->canFetchMore()){
         model_match_mentors->fetchMore();
@@ -176,7 +176,7 @@ void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
 {
     QString str = ui->lineEdit_match_search_mentors->text().simplified();    // Returns a string that has whitespace removed from the start and the end
     if(str.isEmpty()) {
-        model_match_mentors->setFilter("wwvp=1 AND train_complete=1");
+        model_match_mentors->setFilter("train_complete=1");
         return;
     }
 
@@ -186,7 +186,7 @@ void MainWindow::on_lineEdit_match_search_mentors_editingFinished()
     {
         out.append(QString("uid LIKE '\%%1\%' OR first_name LIKE '\%%2\%' OR last_name LIKE '\%%3\%'").arg(tmp, tmp, tmp));
     }
-    model_match_mentors->setFilter(QString("wwvp=1 AND train_complete=1 AND (%1)").arg(out.join(" OR ")));
+    model_match_mentors->setFilter(QString("train_complete=1 AND (%1)").arg(out.join(" OR ")));
 }
 
 void MainWindow::on_lineEdit_match_search_mentees_editingFinished()

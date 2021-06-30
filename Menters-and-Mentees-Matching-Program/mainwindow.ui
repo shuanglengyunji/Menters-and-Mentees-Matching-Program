@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1082</width>
-    <height>649</height>
+    <height>805</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -39,7 +39,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page_manage">
          <widget class="QWidget" name="horizontalLayoutWidget">
@@ -358,12 +358,33 @@
                <widget class="QComboBox" name="comboBox_u18">
                 <item>
                  <property name="text">
-                  <string>Leave Out</string>
+                  <string>Auto match</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>Manual Match</string>
+                  <string>Manual match</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_wwvp">
+                <property name="text">
+                 <string>WWVP</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_wwvp">
+                <item>
+                 <property name="text">
+                  <string>Not Required</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Requried</string>
                  </property>
                 </item>
                </widget>
@@ -624,7 +645,7 @@
                <widget class="QComboBox" name="comboBox_importance">
                 <item>
                  <property name="text">
-                  <string>Leave Out</string>
+                  <string>Auto Match</string>
                  </property>
                 </item>
                 <item>
@@ -652,7 +673,7 @@
                <widget class="QComboBox" name="comboBox_personal_mentees_num">
                 <item>
                  <property name="text">
-                  <string>Leave out</string>
+                  <string>Disable</string>
                  </property>
                 </item>
                 <item>
@@ -734,7 +755,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">
