@@ -42,8 +42,8 @@ QVariant myMentorsTableModel::data(const QModelIndex &index, int role = Qt::Disp
 Qt::ItemFlags myMentorsTableModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result = QSqlTableModel::flags(index);
-    if (!QList<int>({4, 15, 16, 17, 18, 19}).contains(index.column())) {
-       result &= ~Qt::ItemIsEditable;
-    }
+//    if (!QList<int>({4, 15, 16, 17, 18, 19}).contains(index.column())) {
+//       result &= ~Qt::ItemIsEditable;
+//    }
     return result;
 }
