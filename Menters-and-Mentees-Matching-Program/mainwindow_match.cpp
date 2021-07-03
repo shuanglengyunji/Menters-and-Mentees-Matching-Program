@@ -107,48 +107,41 @@ void MainWindow::on_tableView_match_mentors_clicked(const QModelIndex &index)
 
 void MainWindow::on_pushButton_Up_clicked()
 {
-    QSqlQuery query(db);
     QString uid = model_match_mentors->record(ui->tableView_match_mentors->currentIndex().row())
             .value("uid")
             .toString();
-    if (uid.isEmpty()) {
-        return;
-    }
+
     QModelIndexList selected = ui->tableView_match_mentees_to_be_match->selectionModel()->selectedRows();
     foreach(QModelIndex selectedIndex, selected)
     {
-        QString mentee_uid = model_match_mentees_to_be_match->record(selectedIndex.row())
-                .value("uid")
-                .toString();
-        query.exec(QString("UPDATE mentee SET mentor_uid = '%1' WHERE uid = '%2'").arg(uid, mentee_uid));
+        QSqlRecord r = model_match_mentees_to_be_match->record(selectedIndex.row());
+        r.setValue("mentor_uid", uid);
+        model_match_mentees_to_be_match->setRecord(selectedIndex.row(), r);
     }
-    model_match_mentees_matched->select();
-    model_match_mentees_to_be_match->select();
 
+    model_match_mentees_matched->select();
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
 
+    model_match_mentees_to_be_match->select();
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
 
 void MainWindow::on_pushButton_Down_clicked()
 {
-    QSqlQuery query(db);
     QModelIndexList selected = ui->tableView_match_mentees_matched->selectionModel()->selectedRows();
     foreach(QModelIndex selectedIndex, selected)
     {
-        QString uid = model_match_mentees_matched->record(selectedIndex.row())
-                .value("uid")
-                .toString();
-        query.exec(QString("UPDATE mentee SET mentor_uid = NULL WHERE uid = '%1'").arg(uid));
+        QSqlRecord r = model_match_mentees_matched->record(selectedIndex.row());
+        r.setNull("mentor_uid");
+        model_match_mentees_matched->setRecord(selectedIndex.row(), r);
     }
     model_match_mentees_matched->select();
-    model_match_mentees_to_be_match->select();
-
     ui->tableView_match_mentees_matched->resizeColumnsToContents();
     ui->tableView_match_mentees_matched->resizeRowsToContents();
 
+    model_match_mentees_to_be_match->select();
     ui->tableView_match_mentees_to_be_match->resizeColumnsToContents();
     ui->tableView_match_mentees_to_be_match->resizeRowsToContents();
 }
