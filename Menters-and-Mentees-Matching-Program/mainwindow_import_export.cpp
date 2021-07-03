@@ -18,6 +18,15 @@ using namespace QXlsx;
 #define MENTEES_COLUMN_NUM 15
 #define MENTEES_MENTOR_COL 16
 
+void MainWindow::print_log(QString str) {
+    ui->plainTextEdit_msg_output->insertPlainText(str);
+    ui->plainTextEdit_msg_output->repaint();
+}
+
+void MainWindow::clear_log() {
+    ui->plainTextEdit_msg_output->clear();
+}
+
 void MainWindow::import_data(QString addr, bool include_match_result)
 {
     if(addr.isEmpty())
@@ -29,19 +38,12 @@ void MainWindow::import_data(QString addr, bool include_match_result)
     query.exec("DELETE FROM mentor");
     query.exec("DELETE FROM mentee");
 
-    ui->plainTextEdit_msg_output->clear();
+    clear_log();
     if (include_match_result) {
-        ui->plainTextEdit_msg_output->insertPlainText("Import data & matching result\n");
+        print_log("Import data & matching result\n");
     } else {
-        ui->plainTextEdit_msg_output->insertPlainText("Import data\n");
+        print_log("Import data\n");
     }
-    ui->plainTextEdit_msg_output->repaint();
-
-    myMentorsTableModel mentorsTable;
-    myMenteesTableModel menteesTable;
-
-    QSqlTableModel model(this, db);
-    model.setEditStrategy(QSqlTableModel::OnManualSubmit);
 
     // [1] Reading excel file(*.xlsx)
     Document xlsxR(addr);
@@ -65,23 +67,18 @@ void MainWindow::import_data(QString addr, bool include_match_result)
 
     // [3] Import Mentors Sheet
     xlsxR.selectSheet("Mentors");
-    model.setTable("mentor");
-    model.select();
-    while (model.canFetchMore()) {
-        model.fetchMore();
-    }
+    myMentorsTableModel mentorsTable(this, db);
 
     int mentors_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
     qDebug() << "Mentor";
     qDebug() << "row max:" << mentors_max;
 
-    ui->plainTextEdit_msg_output->insertPlainText("\nImporting mentors data\n");
-    ui->plainTextEdit_msg_output->insertPlainText(QString("Mentors row count: %1\n\n").arg(mentors_max));
-    ui->plainTextEdit_msg_output->repaint();
+    print_log("\nImporting mentors data\n");
+    print_log(QString("Mentors row count: %1\n\n").arg(mentors_max));
 
     for (int row = 2; row <= mentors_max; row = row + 1)
     {
-        QSqlRecord r = model.record();
+        QSqlRecord r = mentorsTable.record();
         for (int col = 1; col <= MENTORS_COLUMN_NUM; col = col + 1) {
             if ( (int)xlsxR.cellAt(row, col) != 0) {
                 r.setValue(
@@ -92,36 +89,28 @@ void MainWindow::import_data(QString addr, bool include_match_result)
                 r.setNull(mentorsTable.get_parser(col-1).get_table_header());
             }
         }
-
-        model.insertRecord(-1, r);
-        if (!model.submitAll()) {
+        if (!mentorsTable.insertRecord(-1, r)) {
             qDebug() << r;
-            qDebug() << model.lastError();
-            model.revertAll();
-            ui->plainTextEdit_msg_output->insertPlainText(QString("Failed to import row %1\n").arg(row));
-            ui->plainTextEdit_msg_output->repaint();
+            qDebug() << mentorsTable.lastError();
+            mentorsTable.revertAll();
+            print_log(QString("Failed to import row %1\n").arg(row));
         }
     }
 
     // [4] Import Mentees Sheet
     xlsxR.selectSheet("Mentees");
-    model.setTable("mentee");
-    model.select();
-    while (model.canFetchMore()) {
-        model.fetchMore();
-    }
+    myMenteesTableModel menteesTable(this, db);
 
     int mentees_max = xlsxR.dimension().lastRow();      //qDebug() << "row max:" << row_max;
     qDebug() << "Mentee";
     qDebug() << "row max:" << mentees_max;
 
-    ui->plainTextEdit_msg_output->insertPlainText("\nImporting mentees data\n");
-    ui->plainTextEdit_msg_output->insertPlainText(QString("Mentees row count: %1\n\n").arg(mentees_max));
-    ui->plainTextEdit_msg_output->repaint();
+    print_log("\nImporting mentees data\n");
+    print_log(QString("Mentees row count: %1\n\n").arg(mentees_max));
 
     for (int row = 2; row <= mentees_max; row = row + 1)
     {
-        QSqlRecord r = model.record();
+        QSqlRecord r = menteesTable.record();
         for (int col = 1; col <= MENTEES_COLUMN_NUM; col = col + 1) {    // the last column is mentor uid
             parser p = menteesTable.get_parser(col-1);
             if ( (int)xlsxR.cellAt(row, col) != 0) {
@@ -142,16 +131,13 @@ void MainWindow::import_data(QString addr, bool include_match_result)
                 );
             }
         }
-        model.insertRecord(-1, r);
-        if (!model.submitAll()) {
+        if (!menteesTable.insertRecord(-1, r)) {
             qDebug() << r;
-            qDebug() << model.lastError();
-            model.revertAll();
-            ui->plainTextEdit_msg_output->insertPlainText(QString("Failed to import row %1\n").arg(row));
-            ui->plainTextEdit_msg_output->repaint();
+            qDebug() << menteesTable.lastError();
+            menteesTable.revertAll();
+            print_log(QString("Failed to import row %1\n").arg(row));
         }
     }
-    model.submitAll();
 }
 
 // ---------------------------------------
@@ -163,18 +149,12 @@ void MainWindow::export_data(QString addr,bool include_match_result)
        return;
     }
 
-    ui->plainTextEdit_msg_output->clear();
+    clear_log();
     if (include_match_result) {
-        ui->plainTextEdit_msg_output->insertPlainText("Export data & matching result\n");
+        print_log("Export data & matching result\n");
     } else {
-        ui->plainTextEdit_msg_output->insertPlainText("Export data\n");
+        print_log("Export data\n");
     }
-    ui->plainTextEdit_msg_output->repaint();
-
-    myMentorsTableModel mentorsTable;
-    myMenteesTableModel menteesTable;
-
-    QSqlTableModel model(this, db);
 
     // [1]  Create excel file object
 
@@ -187,14 +167,9 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     // [3] Fill data into xlsx file
 
     // mentors
+    myMentorsTableModel mentorsTable(this, db);
 
-    model.setTable("mentor");
-    model.select();
-    while(model.canFetchMore()){
-        model.fetchMore();
-    }
-
-    int mentors_max = model.rowCount();      //qDebug() << "row max:" << row_max;
+    int mentors_max = mentorsTable.rowCount();      //qDebug() << "row max:" << row_max;
     qDebug() << "Mentor";
     qDebug() << "Row max" << mentors_max;
 
@@ -205,21 +180,16 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     }
     // write data
     for (int row = 0; row < mentors_max; row = row + 1) {
-        QSqlRecord r = model.record(row);
+        QSqlRecord r = mentorsTable.record(row);
         for (int col = 0; col < MENTORS_COLUMN_NUM; col = col + 1) {
             xlsxW.write(row+2, col+1, mentorsTable.get_parser(col).to_str(r.value(col).toString()));
         }
     }
 
     // mentees
+    myMenteesTableModel menteesTable(this, db);
 
-    model.setTable("mentee");
-    model.select();
-    while(model.canFetchMore()){
-        model.fetchMore();
-    }
-
-    int mentees_max = model.rowCount();      //qDebug() << "row max:" << row_max;
+    int mentees_max = menteesTable.rowCount();      //qDebug() << "row max:" << row_max;
     qDebug() << "Mentee";
     qDebug() << "Row max" << mentees_max;
 
@@ -233,7 +203,7 @@ void MainWindow::export_data(QString addr,bool include_match_result)
     }
     // write data
     for (int row = 0; row < mentees_max; row = row + 1) {
-        QSqlRecord r = model.record(row);
+        QSqlRecord r = menteesTable.record(row);
         for (int col = 0; col < MENTEES_COLUMN_NUM; col = col + 1) {
             xlsxW.write(row+2, col+1, menteesTable.get_parser(col).to_str(r.value(col).toString()));
         }
@@ -255,9 +225,8 @@ void MainWindow::export_grouping(QString addr) {
        return;
     }
 
-    ui->plainTextEdit_msg_output->clear();
-    ui->plainTextEdit_msg_output->insertPlainText("Export grouping\n");
-    ui->plainTextEdit_msg_output->repaint();
+    clear_log();
+    print_log("Export grouping\n");
 
     QSqlQueryModel model;
 
@@ -311,9 +280,8 @@ void MainWindow::export_mentor(QString addr) {
        return;
     }
 
-    ui->plainTextEdit_msg_output->clear();
-    ui->plainTextEdit_msg_output->insertPlainText("Export mentors info\n");
-    ui->plainTextEdit_msg_output->repaint();
+    clear_log();
+    print_log("Export mentors info\n");
 
     myMentorsTableModel mentorsTable;
     myMenteesTableModel menteesTable;
@@ -382,9 +350,8 @@ void MainWindow::export_mentee(QString addr) {
        return;
     }
 
-    ui->plainTextEdit_msg_output->clear();
-    ui->plainTextEdit_msg_output->insertPlainText("Export mentees info\n");
-    ui->plainTextEdit_msg_output->repaint();
+    clear_log();
+    print_log("Export mentees info\n");
 
     myMentorsTableModel mentorsTable;
     myMenteesTableModel menteesTable;
@@ -454,9 +421,8 @@ void MainWindow::clear_data() {
         return;
     }
 
-    ui->plainTextEdit_msg_output->clear();
-    ui->plainTextEdit_msg_output->insertPlainText("Clear data\n");
-    ui->plainTextEdit_msg_output->repaint();
+    clear_log();
+    print_log("Clear data\n");
 
     QSqlQuery query(db);
     query.exec("DELETE FROM mentor");
