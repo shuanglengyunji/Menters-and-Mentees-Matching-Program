@@ -113,6 +113,10 @@ private:
 
     void clear_data();
 
+    void print_log(QString str);
+
+    void clear_log();
+
     // Mentors
 
     myMentorsTableModel * model_mentors = nullptr;

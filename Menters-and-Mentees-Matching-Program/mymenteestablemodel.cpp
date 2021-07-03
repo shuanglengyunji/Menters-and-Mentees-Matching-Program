@@ -41,6 +41,6 @@ QVariant myMenteesTableModel::data(const QModelIndex &index, int role = Qt::Disp
 Qt::ItemFlags myMenteesTableModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result = QSqlTableModel::flags(index);
-    result &= ~Qt::ItemIsEditable;
+//    result &= ~Qt::ItemIsEditable;
     return result;
 }
