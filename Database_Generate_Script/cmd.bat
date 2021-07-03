@@ -1,1 +1,0 @@
-sqlite3.exe < cmd.txt
